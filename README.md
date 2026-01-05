@@ -1,5 +1,10 @@
 # contracts-ts
 
+> ⚠️ **PROJECT SETUP IN PROGRESS**
+>
+> This project is currently being set up. There is no production code or stable documentation available at this time.
+> Please check back later for updates.
+
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
 [![npm version](https://badge.fury.io/js/contracts-ts.svg)](https://www.npmjs.com/package/contracts-ts)
 
@@ -107,7 +112,7 @@ contracts-ts/
 
 ### CI Workflow
 
-The CI workflow runs on every push and pull request to `main` and `develop` branches. It:
+The CI workflow runs on every push and pull request to `main` branch. It:
 - Tests against Node.js versions 18.x, 20.x, and 22.x
 - Runs linting
 - Builds the project
@@ -128,4 +133,3 @@ To set up publishing:
 ## License
 
 MIT
-
