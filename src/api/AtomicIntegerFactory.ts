@@ -23,7 +23,7 @@ export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<
     /** 
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends AtomicIntegerFactory>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends AtomicIntegerFactory>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, 'create');
     }
 

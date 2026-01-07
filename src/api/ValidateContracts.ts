@@ -36,7 +36,7 @@ export function validateContracts(contracts: Contracts): void {
         if (validContracts.isBound(contract)) {
             throw new ContractException("Contract unbinding not working.");
         }
-    } catch (thrown: any) {
+    } catch (thrown: unknown) {
         ContractException.rethrow(thrown, "Contracts validation failed.");
     }
 }

@@ -17,5 +17,5 @@ export interface Lawyer<T> {
      * 
      * @param instance 
      */
-    isDeliverable<X extends T>(instance: any): instance is OptionalType<X>;
+    isDeliverable<X extends T>(instance: unknown): instance is OptionalType<X>;
 }

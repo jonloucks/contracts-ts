@@ -18,19 +18,19 @@ export interface AtomicReference<T> {
 /**
  * For creating a Contract for AtomicReference with duck-typing checks.
  */
-export const LAWYER: Lawyer<AtomicReference<any>> = new class implements Lawyer<AtomicReference<any>> {
+export const LAWYER: Lawyer<AtomicReference<unknown>> = new class implements Lawyer<AtomicReference<unknown>> {
 
     /** 
      * Lawyer.isDeliverable override 
      */
-    isDeliverable<X extends AtomicReference<any>>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends AtomicReference<unknown>>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, "compareAndSet", "get", "set");
     }
 
     /** 
      * Lawyer.createContract override 
      */
-    createContract<X extends AtomicReference<any>>(config?: ContractConfig<X>): Contract<X> {
+    createContract<X extends AtomicReference<unknown>>(config?: ContractConfig<X>): Contract<X> {
         const copy: ContractConfig<X> = { ...config ?? {} };
 
         copy.test ??= this.isDeliverable;

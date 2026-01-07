@@ -31,7 +31,7 @@ export function resolveBindStrategy(bindStrategy: OptionalType<BindStrategy>): R
     return bindStrategy ?? DEFAULT_BIND_STRATEGY;
 }
 
-export function isBindStrategy(instance: any): instance is OptionalType<BindStrategy> {
+export function isBindStrategy(instance: unknown): instance is OptionalType<BindStrategy> {
     switch (instance) {
         case undefined:
         case null:

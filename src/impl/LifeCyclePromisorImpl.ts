@@ -114,8 +114,8 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
     private readonly usageCounter: AtomicInteger = createAtomicInteger();
     private readonly referent: Promisor<T>;
     private readonly isDeliverableAcquired: AtomicBoolean = createAtomicBoolean();
-    private readonly atomicDeliverable: AtomicReference<OptionalType<T>> = createAtomicReference<OptionalType<T>>();
-    private readonly openException: AtomicReference<any> = createAtomicReference<any>();
+    private readonly atomicDeliverable: AtomicReference<T> = createAtomicReference<T>();
+    private readonly openException: AtomicReference<unknown> = createAtomicReference<unknown>();
     private readonly closer: CloserImpl = new CloserImpl();
 }
 

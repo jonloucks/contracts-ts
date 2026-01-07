@@ -23,7 +23,7 @@ export const LAWYER: Lawyer<AtomicReferenceFactory> = new class implements Lawye
     /**
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends AtomicReferenceFactory>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends AtomicReferenceFactory>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, "create");
     }
 

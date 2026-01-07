@@ -39,19 +39,19 @@ export interface Promisor<T> {
 /**
  * For creating a Contract for Promisor with duck-typing checks.
  */
-export const LAWYER: Lawyer<Promisor<any>> = new class implements Lawyer<Promisor<any>> {
+export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Promisor<unknown>> {
 
     /**
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends Promisor<any>>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends Promisor<unknown>>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
     }
 
     /** 
      * Lawyer.createContract override
      */
-    createContract<X extends Promisor<any>>(config?: ContractConfig<X>): Contract<X> {
+    createContract<X extends Promisor<unknown>>(config?: ContractConfig<X>): Contract<X> {
         const copy: ContractConfig<X> = { ...config ?? {} };
 
         copy.test ??= this.isDeliverable;

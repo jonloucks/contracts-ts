@@ -39,16 +39,6 @@ generateValueSuite<number>({
     ],
 });
 
-generateValueSuite<Number>({
-    name: 'Value Promisor with Number values',
-    validCases: [
-        { value: undefined, help: "an undefined Number" },
-        { value: null, help: "a null Number" },
-        { value: 0, help: "a zero Number" },
-        { value: 42, help: "a positive Number" }
-    ],
-});
-
 generateValueSuite<Date>({
     name: 'Value Promisor with Date values',
     validCases: [

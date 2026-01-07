@@ -2,7 +2,7 @@ export type OptionalType<T> = T | null | undefined;
 export type RequiredType<T> = NonNullable<T>;
 export type OptionalSupplierType<T> = () => OptionalType<T>;
 export type RequiredSupplierType<T> = () => RequiredType<T>;
-export type AnyFunction = (...args: any[]) => any;
+export type AnyFunction = (...args: unknown[]) => unknown;
 
 export interface Transform<I, O> {
    transform(I: OptionalType<I>): OptionalType<O>;
@@ -14,7 +14,7 @@ export interface Transform<I, O> {
  * @param value the value to check
  * @returns true iif value is not null or undefined, false for actual values
  */
-export function isNotNullOrUndefined<T>(value: any): value is RequiredType<T> {
+export function isNotNullOrUndefined<T>(value: unknown): value is RequiredType<T> {
     return value !== null && value !== undefined;
 }
 
@@ -24,71 +24,71 @@ export function isNotNullOrUndefined<T>(value: any): value is RequiredType<T> {
  * @param value the value to check
  * @returns true iif value is null or undefined, false for actual values
  */
-export function isNullOrUndefined<T>(value: any): value is OptionalType<T> {
+export function isNullOrUndefined<T>(value: unknown): value is OptionalType<T> {
     return value === null || value === undefined;
 }
 
-export function isRequiredFunction<T extends AnyFunction>(value: any): value is RequiredType<T>{
+export function isRequiredFunction<T extends AnyFunction>(value: unknown): value is RequiredType<T>{
     return isRequiredTypeOf(value, "function");
 }
 
-export function isFunction(value: any): value is OptionalType<AnyFunction>{
+export function isFunction(value: unknown): value is OptionalType<AnyFunction>{
     return isTypeOf(value, "function");
 }
 
-export function isRequiredObject(value: any): value is RequiredType<object> {
+export function isRequiredObject(value: unknown): value is RequiredType<object> {
     return isRequiredTypeOf(value, "object");
 }
 
-export function isObject(value: any): value is OptionalType<object> {
+export function isObject(value: unknown): value is OptionalType<object> {
     return isTypeOf(value, "object");
 }
 
-export function isRequiredString(value: any): value is RequiredType<string> {
+export function isRequiredString(value: unknown): value is RequiredType<string> {
     return isRequiredTypeOf(value, "string");
 }
 
-export function isString(value: any): value is OptionalType<string> {
+export function isString(value: unknown): value is OptionalType<string> {
     return isTypeOf(value, "string");
 }
 
-export function isRequiredNumber(value: any): value is RequiredType<number> {
+export function isRequiredNumber(value: unknown): value is RequiredType<number> {
     return isRequiredTypeOf(value, "number");
 }
 
-export function isNumber(value: any): value is OptionalType<number> {
+export function isNumber(value: unknown): value is OptionalType<number> {
     return isTypeOf(value, "number");
 }
 
-export function isRequiredSymbol(value: any): value is RequiredType<symbol> {
+export function isRequiredSymbol(value: unknown): value is RequiredType<symbol> {
     return isRequiredTypeOf(value, "symbol");
 }
 
-export function isSymbol(value: any): value is OptionalType<symbol> {
+export function isSymbol(value: unknown): value is OptionalType<symbol> {
     return isTypeOf(value, "symbol");
 }
 
-export function isRequiredBoolean(value: any): value is RequiredType<boolean> {
+export function isRequiredBoolean(value: unknown): value is RequiredType<boolean> {
     return isRequiredTypeOf(value, "boolean");
 }
 
-export function isBoolean(value: any): value is OptionalType<boolean> {
+export function isBoolean(value: unknown): value is OptionalType<boolean> {
     return isTypeOf(value, "boolean");
 }
 
-export function isRequiredBigInt(value: any): value is RequiredType<bigint> {
+export function isRequiredBigInt(value: unknown): value is RequiredType<bigint> {
     return isRequiredTypeOf(value, "bigint");
 }
 
-export function isBigInt(value: any): value is OptionalType<bigint> {
+export function isBigInt(value: unknown): value is OptionalType<bigint> {
     return isTypeOf(value, "bigint");
 }
 
-export function isRequiredConstructor<T>(value: any): value is RequiredType<(new () => T)> {
+export function isRequiredConstructor<T>(value: unknown): value is RequiredType<(new () => T)> {
     return isRequiredFunction(value) && !!(value as any).prototype && !!(value as any).prototype.constructor;
 }
 
-export function isConstructor<T>(value: any): value is RequiredType<(new () => T)> {
+export function isConstructor<T>(value: unknown): value is RequiredType<(new () => T)> {
    return isNullOrUndefined(value) || isRequiredConstructor<T>(value);
 }
 
@@ -100,7 +100,7 @@ export function isConstructor<T>(value: any): value is RequiredType<(new () => T
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctions(value: any, ...propertyNames: string[]): value is RequiredType<AnyFunction> {
+export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType<AnyFunction> {
     return hasFunctionsHelper(value, propertyNames, false);
 }
 
@@ -111,19 +111,19 @@ export function hasFunctions(value: any, ...propertyNames: string[]): value is R
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasRequiredFunctions(value: any, ...propertyNames: string[]):  value is RequiredType<AnyFunction>{
+export function hasRequiredFunctions(value: unknown, ...propertyNames: string[]):  value is RequiredType<AnyFunction>{
     return hasFunctionsHelper(value, propertyNames, true);
 }
 
-function isTypeOf(value: any, type: string): value is OptionalType<any> {
+function isTypeOf<T>(value: unknown, type: string): value is OptionalType<T> {
       return isNullOrUndefined(value) || isRequiredTypeOf(value, type);
 }
 
-function isRequiredTypeOf(value: any, type: string): value is RequiredType<any> {
+function isRequiredTypeOf<T>(value: unknown, type: string): value is RequiredType<T> {
     return typeof value === type;
 }
 
-function hasFunctionsHelper(value: any, propertyNames: string[], required: boolean): boolean {
+function hasFunctionsHelper(value: unknown, propertyNames: string[], required: boolean): boolean {
     if (isNullOrUndefined(value)) {
         return !required;
     }

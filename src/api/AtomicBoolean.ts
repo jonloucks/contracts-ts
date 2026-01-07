@@ -42,7 +42,7 @@ export const LAWYER: Lawyer<AtomicBoolean> = new class implements Lawyer<AtomicB
     /** 
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends AtomicBoolean>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends AtomicBoolean>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, "compareAndSet", "get", "set");
     }
 

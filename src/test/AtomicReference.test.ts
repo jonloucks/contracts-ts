@@ -49,7 +49,7 @@ describe('AtomicReference', () => {
 
     it('AtomicReference methods work', () => {
         Tools.withContracts((contracts: Contracts) => {
-            const atomic: AtomicReference<Number> = contracts.enforce(FACTORY).create();
+            const atomic: AtomicReference<number> = contracts.enforce(FACTORY).create();
 
             assert.strictEqual(atomic.get(), undefined, "initial value should be undefined");
 

@@ -27,7 +27,7 @@ export const LAWYER: Lawyer<AtomicInteger> = new class implements Lawyer<AtomicI
     /** 
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends AtomicInteger>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends AtomicInteger>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
     }
 

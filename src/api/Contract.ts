@@ -16,14 +16,14 @@ export interface Config<T> {
      * @return the value, null is allowed
      * @throws ClassCastException when type of instance is not correct
      */
-    cast?: (instance: any) => OptionalType<T>;
+    cast?: (instance: unknown) => OptionalType<T>;
 
     /**
      * the predefine test to check if instance is of type T
      * @param instance the instance to check
      * @returns 
      */
-    test?: (instance: any) => instance is OptionalType<T>;
+    test?: (instance: unknown) => instance is OptionalType<T>;
 
     /**
      * User defined name for this contract.
@@ -76,7 +76,7 @@ export class Contract<T> {
     * @return the checked value. Note: null is possible. The Promisor is allowed to return null
     * @throws ClassCastException iif the value can't be cast to the return type.
     */
-    public cast(value: any | null | undefined): OptionalType<T> {
+    public cast(value: unknown | null | undefined): OptionalType<T> {
         if (this.tester(value)) {
             return this.caster(value);
         } else {
@@ -126,7 +126,7 @@ export class Contract<T> {
      * @param instance the instance to check
      * @returns true if the instance is a Contract, false otherwise
      */
-    static isContract<T>(instance: any): instance is Contract<T> {
+    static isContract<T>(instance: any | unknown): instance is Contract<T> {
         if (isNullOrUndefined(instance)) {
             return true;
         }
@@ -146,7 +146,7 @@ export class Contract<T> {
     private integrityCheck(): void {
         try {
             // Accessing private field to ensure it's really a Contract
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             if (this.#secret !== Contract.#SECRET) {
                 throw new Error("Identifier  mismatch.");
             }

@@ -23,7 +23,7 @@ export interface AutoOpen {
  * @param instance the instance to check
  * @returns true if the instance implements AutoOpen, false otherwise
  */
-export function isAutoOpen(instance: any): instance is AutoOpen {
+export function isAutoOpen(instance: unknown): instance is AutoOpen {
     return hasFunctions(instance, 'open');
 }
 

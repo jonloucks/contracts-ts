@@ -25,7 +25,7 @@ export class ContractException extends Error {
      * @param caught the caught value
      * @param message the optional message to use if caught is not an ContractException
      */
-    static rethrow(caught: any, message?: string): never {
+    static rethrow(caught: unknown, message?: string): never {
         if (caught instanceof ContractException) {
             throw caught;
         } else if (caught instanceof Error) {
