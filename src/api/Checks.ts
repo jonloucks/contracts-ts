@@ -1,0 +1,155 @@
+import { RequiredType, OptionalType } from "./Types";
+import { IllegalArgumentException } from "./IllegalArgumentException";
+
+/**
+ * Check if given Contract is not null or invalid
+ *
+ * @param contract the Contract to check
+ * @param <T>      the deliverable type
+ * @return a valid contract
+ * @throws IllegalArgumentException when invalid
+ */
+export const contractCheck: <T>(contract: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(contract: OptionalType<T>) => {
+        return nullCheck(contract, "Contract must be present.");
+    }
+
+/**
+ * Check if given Contracts is not null or invalid
+ * @param contracts the Contracts to check
+ * @return a valid Contracts
+ */
+export const contractsCheck: <T>(contracts: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(contracts: OptionalType<T>) => {
+        return nullCheck(contracts, "Contracts must be present.");
+    }
+
+/**
+ * Check if given Promisor is not null or invalid
+ *
+ * @param promisor the Promisor to check
+ * @param <T>      the deliverable type
+ * @return a valid promisor
+ * @throws IllegalArgumentException when invalid
+ */
+export const promisorCheck: <T>(promisor: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(promisor: OptionalType<T>) => {
+        return nullCheck(promisor, "Promisor must be present.");
+    }
+
+/**
+ * Check if given config is not null or invalid
+ *
+ * @param config the config to check
+ * @param <T>      the type of config
+ * @return a valid config
+ * @throws IllegalArgumentException when invalid
+ */
+export const configCheck: <T>(config: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(config: OptionalType<T>) => {
+        return nullCheck(config, "Config must be present.");
+    }
+
+/**
+ * Check if given builder is not null or invalid
+ *
+ * @param builder the builder to check
+ * @param <T>      the type of builder
+ * @return a valid builder
+ * @throws IllegalArgumentException when invalid
+ */
+export const builderCheck: <T>(builder: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(builder: OptionalType<T>) => {
+        return nullCheck(builder, "Builder must be present.");
+    }
+
+/**
+ * Check if given builder consumer is not null or invalid
+ *
+ * @param builderConsumer the builder consumer to check
+ * @param <T>      the type of builder consumer
+ * @return a valid builder consumer
+ * @throws IllegalArgumentException when invalid
+ */
+export const builderConsumerCheck: <T>(builderConsumer: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(builderConsumer: OptionalType<T>) => {
+        return nullCheck(builderConsumer, "Builder consumer must be present.");
+    }
+
+/**
+ * Check if given type is not null or invalid
+ *
+ * @param {*} type the type to check
+ * @returns a valid type
+ */
+export const typeCheck: <T>(name: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(name: OptionalType<T>) => {
+        return nullCheck(name, "Type must be present.");
+    }
+
+/**
+ * Check if given name is not null or invalid
+ *
+ * @param {*} name the name to check
+ * @returns a valid name
+ */
+export const nameCheck: <T>(name: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(name: T) => {
+        return nullCheck(name, "Name must be present.");
+    }
+
+/**
+ * Check if given message is not null or invalid
+ * 
+ * @param {*} value the message to check
+ * @returns a valid message
+ */
+export const messageCheck: <T>(value: OptionalType<T>)
+    => RequiredType<T>
+    = <T>(value: OptionalType<T>) => {
+        return nullCheck(value, "Message must be present.");
+    }
+
+/**
+ * Check if given instance is not null
+ * 
+ * @param {*} value the instance to check
+ * @param {*} message the message used if an exception is thrown
+ * @returns the value passed
+ */
+export const nullCheck: <T>(value: OptionalType<T>, message: string) 
+    => RequiredType<T>
+    = <T>(value: OptionalType<T>, message: string) => {
+        return illegalCheck(value, value === null || value === undefined, message) as RequiredType<T>;
+    };
+
+/**
+* Check if given instance is not null
+* 
+* @param {*} value the instance to check
+* @param {*} failed if true an IllegalArgumentException is thrown
+* @param {*} message the message used if an exception is thrown
+* @returns the value passed in
+*/
+export const illegalCheck: <T>(value: T, failed: boolean, message: string)
+    => T
+    = <T>(value: T, failed: boolean, message: string) => {
+        if (message === null || message === undefined) {
+            throw new IllegalArgumentException("Message for illegal check must be present.");
+        }
+        if (failed) {
+            throw new IllegalArgumentException(message);
+        }
+        return value;
+    };
+
+
+
