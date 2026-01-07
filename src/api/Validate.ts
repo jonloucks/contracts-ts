@@ -40,6 +40,6 @@ export function validateContracts(contracts: Contracts): void {
             throw new ContractException("Contract unbinding not working.");
         }
     } catch (thrown: unknown) {
-        ContractException.rethrow(thrown, "Contracts validation failed.");
+        ContractException.rethrow(thrown, "Contracts unexpected validation error.");
     }
 }
