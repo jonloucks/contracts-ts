@@ -3,6 +3,7 @@ import { AutoClose } from "./AutoClose";
 import { Contract } from "./Contract";
 import { ContractException } from "./ContractException";
 import { Contracts } from "./Contracts";
+import { create as createContract } from "./RatifiedContract";
 
 /**
 * A simple runtime validation of deployed implementation
@@ -12,7 +13,7 @@ import { Contracts } from "./Contracts";
 export function validateContracts(contracts: Contracts): void {
     const validContracts: Contracts = contractsCheck(contracts);
     try {
-        const contract: Contract<Date> = Contract.create<Date>({ });
+        const contract: Contract<Date> = createContract<Date>({ });
         const deliverableValue: Date = new Date();
 
         if (validContracts.isBound(contract)) {

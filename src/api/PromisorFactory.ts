@@ -2,6 +2,7 @@ import { OptionalType, RequiredType, Transform, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Promisor, PromisorType } from "./Promisor";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
@@ -72,7 +73,7 @@ export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<Promi
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "PromisorFactory";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 

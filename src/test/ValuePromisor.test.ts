@@ -6,6 +6,7 @@ import { Contracts } from "../api/Contracts";
 import { Contract } from "../api/Contract";
 import { Promisor } from "../api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISOR_FACTORY_CONTRACT } from "../api/PromisorFactory";
+import { createContract } from "../index";
 
 generateValueSuite<string>({
     name: 'Value Promisor with primitive string values',
@@ -82,7 +83,7 @@ function generateValueSuite<T>(options: TestSuiteOptions<T>) {
             it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
                 Tools.withContracts((contracts: Contracts) => {
                     const promisorFactory: PromisorFactory = contracts.enforce(PROMISOR_FACTORY_CONTRACT);
-                    const contract: Contract<T> = Contract.create<T>();
+                    const contract: Contract<T> = createContract<T>();
                     const promisor: Promisor<T> = promisorFactory.createValue<T>(testCase.value)
 
                     using usingPromisor = contracts.bind(contract, promisor);

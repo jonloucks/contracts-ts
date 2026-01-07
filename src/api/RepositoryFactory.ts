@@ -1,6 +1,7 @@
 import { OptionalType, RequiredType, hasFunctions } from "./Types";
 import { Repository } from "./Repository";
 import { Contract, Config as ContractConfig } from "./Contract";
+import { create as createContract } from "./RatifiedContract";
 import { Lawyer } from "./Lawyer";
 
 /**
@@ -35,7 +36,7 @@ export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<Rep
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "RepositoryFactory";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 

@@ -2,6 +2,7 @@ import { OptionalType, RequiredType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { AtomicReference } from "./AtomicReference";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Factory interface for creating AtomicReference instances.
@@ -36,7 +37,7 @@ export const LAWYER: Lawyer<AtomicReferenceFactory> = new class implements Lawye
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicReferenceFactory";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 }
 

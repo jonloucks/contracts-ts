@@ -1,5 +1,6 @@
 import { OptionalType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
+import { create as createContract } from "./RatifiedContract";
 import { Lawyer } from "./Lawyer";
 
 /**
@@ -55,7 +56,7 @@ export const LAWYER: Lawyer<AtomicBoolean> = new class implements Lawyer<AtomicB
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicBoolean";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 

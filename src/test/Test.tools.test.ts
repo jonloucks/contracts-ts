@@ -8,7 +8,7 @@ import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { Contract, Config as ContractConfig } from "../api/Contract";
 import { AutoClose } from "../api/AutoClose";
 import { ClassCastException } from "../api/ClassCastException";
-import { createContracts } from "../index"
+import { createContract, createContracts } from "../index"
 
 describe('test utilities', () => {
     it('Dummy test', () => {
@@ -448,7 +448,7 @@ export class Tools {
     }
 
     public static createStringContract(): Contract<string> {
-        return Contract.create<string>({
+        return createContract<string>({
             cast(instance: unknown): string {
                 return instance as string;
             },

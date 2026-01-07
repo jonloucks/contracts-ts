@@ -5,6 +5,7 @@ import { PromisorType } from "./Promisor";
 import { BindStrategy } from "./BindStrategy";
 import { AutoClose } from "./AutoClose";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * A repository for multiple contract promisors
@@ -76,6 +77,6 @@ export const LAWYER: Lawyer<Repository> = new class implements Lawyer<Repository
         copy.typeName ??= "Repository";
         copy.test ??= this.isDeliverable;
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };

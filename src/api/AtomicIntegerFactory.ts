@@ -2,6 +2,7 @@ import { OptionalType, RequiredType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { AtomicInteger } from "./AtomicInteger";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Factory interface for creating AtomicInteger instances.
@@ -36,7 +37,7 @@ export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicIntegerFactory";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 

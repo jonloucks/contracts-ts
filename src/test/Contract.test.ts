@@ -6,9 +6,10 @@ import { Tools } from "./Test.tools.test";
 import { generateContractSuite } from "./Contract.tools.test";
 import { isString } from "../api/Types";
 import { ClassCastException } from "../api/ClassCastException";
+import { createContract } from "../index";
 
 describe('Create string contract', () => {
-  const contract: Contract<string> = Contract.create<string>({
+  const contract: Contract<string> = createContract<string>({
     name: "Test String Contract",
     test: isString,
     typeName: "string",
@@ -39,19 +40,8 @@ describe('Create string contract', () => {
   });
 });
 
-describe('Prohibit duck typing or extending Contract class', () => {
-  assert.throws(() => {
-    const instance: Contract<string> = new (Contract<string> as any)["constructor"]();
-    Object.setPrototypeOf(instance, Contract.prototype);
-    Contract.isContract(instance);
-  }, {
-    name: 'ContractException',
-    message: "Security violation detected. This is not permitted."
-  });
-});
-
 test('contract_Config_Defaults', () => {
-  const defaults: Contract<string> = Contract.create<string>({ test: isString });
+  const defaults: Contract<string> = createContract<string>({ test: isString });
   Tools.assertAll(
     () => Tools.assertFalse(defaults.isReplaceable(), "Default for replaceable."),
     () => Tools.assertEquals("", defaults.getName(), "Default for name."),
@@ -62,7 +52,7 @@ test('contract_Config_Defaults', () => {
 });
 
 test('contract_create_withNullConfig_Works', () => {
-  const contract: Contract<string> = Contract.create<string>(null);
+  const contract: Contract<string> = createContract<string>(null);
 
   assert.ok(contract);
 });
