@@ -83,7 +83,7 @@ class ContractsImpl implements Contracts {
 
     private constructor(config: Config) {
         const validConfig = configCheck(config);
-        const validPartners = nullCheck(validConfig.getPartners?.() ?? [], "Partners must be present.")
+        const validPartners = nullCheck(validConfig?.partners ?? [], "Partners must be present.")
 
         // keeping the promises open permanently
         this.repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactory);
@@ -95,7 +95,7 @@ class ContractsImpl implements Contracts {
             this.partners.push(...validPartners);
         }
 
-        if (validConfig.useShutdownHooks?.() ?? true) {
+        if (validConfig?.autoShutdown ?? true) {
             // Runtime.getRuntime().addShutdownHook(new Thread(this::close));
         }
     }
@@ -140,7 +140,7 @@ class ContractsImpl implements Contracts {
 
         switch (bindStrategy) {
             case "ALWAYS":
-                if (contract.isReplaceable()) {
+                if (contract.replaceable) {
                     return true;
                 }
                 throw this.newContractNotReplaceableException(contract);
@@ -148,7 +148,7 @@ class ContractsImpl implements Contracts {
                 return false;
             case "IF_ALLOWED":
             default:
-                return contract.isReplaceable();
+                return contract.replaceable;
         }
     }
 

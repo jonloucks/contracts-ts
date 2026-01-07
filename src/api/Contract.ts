@@ -45,7 +45,13 @@ export interface Config<T> {
      *
      * @return true if replaceable
      */
-    isReplaceable?: boolean;
+    replaceable?: boolean;
+
+    /**
+     * When ratified is true the Contract is a RatifiedContract
+     * and must comply with RatifiedContract rules.
+     */
+    ratified?: boolean;
 }
 
 /**
@@ -68,7 +74,7 @@ export interface Contract<T> {
     /**
      * @return the contract name
      */
-    getName(): string;
+    get name(): string;
 
     /**
      * Note: Do not rely on this being a java class name
@@ -76,7 +82,7 @@ export interface Contract<T> {
      *
      * @return the type of deliverable for this contract.
      */
-    getTypeName(): string;
+    get typeName(): string;
 
     /**
      * When replaceable a new binding can replace in an existing one
@@ -84,7 +90,7 @@ export interface Contract<T> {
      *
      * @return true if replaceable
      */
-    isReplaceable(): boolean;
+    get replaceable(): boolean;
 }
 
 

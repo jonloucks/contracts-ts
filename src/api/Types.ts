@@ -24,7 +24,7 @@ export function isNotNullOrUndefined<T>(value: unknown): value is RequiredType<T
  * @param value the value to check
  * @returns true iif value is null or undefined, false for actual values
  */
-export function isNullOrUndefined<T>(value: unknown): value is OptionalType<T> {
+export function isNullOrUndefined<T>(value: unknown): value is null | undefined {
     return value === null || value === undefined;
 }
 
@@ -127,8 +127,9 @@ function hasFunctionsHelper(value: unknown, propertyNames: string[], required: b
     if (isNullOrUndefined(value)) {
         return !required;
     }
+    const record = value as Record<string, unknown>;
     for (const propertyName of propertyNames) {
-        if (!isRequiredFunction(value[propertyName])) {
+        if (!isRequiredFunction(record[propertyName])) {
             return false;
         }
     }

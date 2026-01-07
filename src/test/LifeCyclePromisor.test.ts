@@ -23,7 +23,7 @@ describe('LifeCyclePromisor tests', () => {
                     }
                     throw new ClassCastException("Cannot cast to AutoOpen.");
                 },
-                isReplaceable: false
+                replaceable: false
             });
             class ReentrancyPromisor implements AutoOpen {
                 open(): AutoClose {

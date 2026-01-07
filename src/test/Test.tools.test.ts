@@ -324,9 +324,9 @@ export class Tools {
             () => Tools.assertNull(contract.cast(null), "Casting null should return null."),
             () => Tools.assertNull(contract.cast(undefined), "Casting null should return null."),
             () => Tools.assertThrows(ClassCastException, () => contract.cast(undefined), "Invalid cast should thrown."),
-            () => Tools.assertSame(config.typeName, contract.getTypeName(), "Contract type mismatch."),
-            () => Tools.assertSame(config.name, contract.getName(), "Contract name mismatch."),
-            () => Tools.assertSame(config.isReplaceable, contract.isReplaceable(), "Contract replacement mismatch.")
+            () => Tools.assertSame(config.typeName, contract.typeName, "Contract type mismatch."),
+            () => Tools.assertSame(config.name, contract.name, "Contract name mismatch."),
+            () => Tools.assertSame(config.replaceable, contract.replaceable, "Contract replacement mismatch.")
         );
     }
 
@@ -377,7 +377,7 @@ export class Tools {
      * @param consumerBlock the consumer of the new Contracts
      */
     public static withContracts(consumerBlock: ContractsConsumer, config?: ContractsConfig): void {
-        const validConfig: ContractsConfig = config ?? Tools.defaultContractsConfig();
+        const validConfig: ContractsConfig = config ?? {};
         const validConsumerBlock: (c: Contracts) => void = nullCheck(consumerBlock, "Block must be present.");
         const contracts: RequiredType<Contracts> = createContracts(validConfig);
         using usingContracts: AutoClose = contracts.open();
@@ -389,30 +389,14 @@ export class Tools {
     public static withPartnerContracts(consumerBlock: PartnerConsumer): void {
         Tools.withContracts((partner: Contracts) => {
             const primaryConfig: ContractsConfig = {
-                getPartners(): Contracts[] {
-                    return [partner];
-                },
-                useShutdownHooks() {
-                    return false
-                },
+                partners: [partner],
+                autoShutdown: false
             }
             Tools.withContracts((primary: Contracts) => {
                 consumerBlock(primary, partner);
             }, primaryConfig);
         });
     }
-
-    public static defaultContractsConfig(): ContractsConfig {
-        return {
-            getPartners: function (): Contracts[] {
-                return [];
-            },
-            useShutdownHooks: function (): boolean {
-                return true;
-            }
-        };
-    }
-
     /**
     * Closes the AutoClose, used to avoid getting explicit close warnings in tests.
     *
@@ -454,7 +438,7 @@ export class Tools {
             },
             typeName: "string",
             name: "String Contract",
-            isReplaceable: false
+            replaceable: false
         });
     }
 }
