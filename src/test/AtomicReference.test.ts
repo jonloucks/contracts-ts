@@ -1,0 +1,134 @@
+import assert from 'node:assert';
+
+import { OptionalType } from "../api/Types";
+import { Tools } from "./Test.tools.test";
+import { Contracts } from "../api/Contracts";
+import { AtomicReference, LAWYER } from "../api/AtomicReference";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "../api/AtomicReferenceFactory";
+import { generateTestsForLawyer } from './Lawyer.tools.test';
+
+describe('AtomicReference', () => {
+    it('LAWYER.isDeliverable', () => {
+        assert.strictEqual(LAWYER.isDeliverable(null), true);
+        assert.strictEqual(LAWYER.isDeliverable(undefined), true);
+        assert.strictEqual(LAWYER.isDeliverable({}), false);
+        assert.strictEqual(LAWYER.isDeliverable({
+            get: () => 0,
+            set: (value: Date) => { },
+            compareAndSet: (expectedValue: Date, newValue: Date) => true,
+        }), true);
+        assert.strictEqual(LAWYER.isDeliverable({
+            get: () => 0,
+            // set: (value: boolean) => { },
+        }), false);
+    });
+
+    it('AtomicReference FACTORY works', () => {
+        Tools.withContracts((contracts: Contracts) => {
+            assert.strictEqual(contracts.isBound(FACTORY), true);
+            const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
+            assert.notStrictEqual(atomic, null);
+        });
+    });
+
+    it('AtomicReference with defaults', () => {
+        Tools.withContracts((contracts: Contracts) => {
+            const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
+            assert.strictEqual(atomic.get(), undefined);
+        });
+    });
+
+    it('AtomicReference with true initial value', () => {
+        Tools.withContracts((contracts: Contracts) => {
+            const now: Date = new Date();
+            const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create(now);
+
+            assert.strictEqual(atomic.get(), now);
+        });
+    });
+
+    it('AtomicReference methods work', () => {
+        Tools.withContracts((contracts: Contracts) => {
+            const atomic: AtomicReference<number> = contracts.enforce(FACTORY).create();
+
+            assert.strictEqual(atomic.get(), undefined, "initial value should be undefined");
+
+            assert.notStrictEqual(atomic.toString(), null, "toString with undefined should not be null");
+            assert.notStrictEqual(atomic.toString(), undefined, "toString with undefined should not be undefined");
+
+            atomic.set(12);
+            assert.strictEqual(atomic.get(), 12, "after set to 12, get should be 12");
+
+            const updated = atomic.compareAndSet(12, 24);
+            assert.strictEqual(updated, true);
+            assert.strictEqual(atomic.get(), 24, "after compareAndSet to 24, get should be 24");
+
+            atomic.set(null);
+            assert.strictEqual(atomic.get(), null, "set to null should be get as null");
+
+            atomic.set(undefined);
+            assert.strictEqual(atomic.get(), undefined, "set to undefined should be get as undefined");
+        });
+    });
+
+    it('FACTORY_LAWYER.isDeliverable', () => {
+        Tools.withContracts((contracts: Contracts) => {
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable(() => { return {}; }), false, "with function is false");
+            let duck = { create: () => { return {}; } };
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable(duck), true, "with duck-type is true");
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable("abc"), false, 'with string is false');
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable(123), false, 'with number is false');
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable({}), false, 'with empty object is false');
+            const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
+            assert.strictEqual(FACTORY_LAWYER.isDeliverable(atomic), false, 'with AtomicReference is false');
+        });
+    });
+});
+
+generateCompareAndSet<string>({
+    validCases: [
+        { current: undefined, required: undefined, requested: "red", updated: true, final: "red" },
+        { current: undefined, required: "blue", requested: "red", updated: false, final: undefined },
+        { current: undefined, required: null, requested: "red", updated: false, final: undefined },
+        { current: null, required: null, requested: "red", updated: true, final: "red" },
+        { current: null, required: "blue", requested: "red", updated: false, final: null },
+        { current: null, required: undefined, requested: "red", updated: false, final: null },
+        { current: "green", required: "green", requested: "red", updated: true, final: "red" },
+        { current: "green", required: "blue", requested: "red", updated: false, final: "green" },
+        { current: "green", required: undefined, requested: "blue", updated: false, final: "green" },
+        { current: "green", required: null, requested: "blue", updated: false, final: "green" },
+    ]
+});
+
+generateTestsForLawyer(LAWYER);
+
+interface CompareAndSetCase<T> {
+    current: OptionalType<T>;
+    required: OptionalType<T>;
+    requested: OptionalType<T>;
+    final: OptionalType<T>;
+    updated: boolean;
+    help?: string;
+}
+
+interface CompareAndSetSuiteOptions<T> {
+    validCases?: CompareAndSetCase<T>[];
+}
+
+export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) {
+    const { validCases } = options;
+
+    describe(`CompareAndSet Suite for AtomicReference`, () => {
+        validCases?.forEach((testCase, index) => {
+            it(`case ${index}: when ${testCase.current}, compareAndSet( ${testCase.required} , ${testCase.requested} ) => ${testCase.updated}, is ${testCase.final}`, () => {
+                Tools.withContracts((contracts: Contracts) => {
+                    const atomic: AtomicReference<T> = contracts.enforce(FACTORY).create(testCase.current);
+
+                    const wasUpdated = atomic.compareAndSet(testCase.required, testCase.requested);
+                    assert.strictEqual(wasUpdated, testCase.updated, testCase.updated ? `Expected update` : `Expected no update`);
+                    assert.strictEqual(atomic.get(), testCase.final);
+                });
+            });
+        });
+    });
+}

@@ -1,0 +1,46 @@
+import { OptionalType, RequiredType, hasFunctions } from "./Types";
+import { Contract, Config as ContractConfig } from "./Contract";
+import { Lawyer } from "./Lawyer";
+import { AtomicInteger } from "./AtomicInteger";
+
+/**
+ * Factory interface for creating AtomicInteger instances.
+ */
+export interface AtomicIntegerFactory {
+
+    /**
+     * Create a new AtomicInteger instance.    
+     * @param initialValue the initial value of the AtomicInteger
+     */
+    create(initialValue?: number): RequiredType<AtomicInteger>;
+}
+
+/**
+ * For creating a Contract for AtomicInteger with duck-typing checks.
+ */
+export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<AtomicIntegerFactory> {
+
+    /** 
+     * Lawyer.isDeliverable override
+     */
+    isDeliverable<X extends AtomicIntegerFactory>(instance: unknown): instance is OptionalType<X> {
+        return hasFunctions(instance, 'create');
+    }
+
+    /** 
+     * Lawyer.createContract override
+     */
+    createContract<X extends AtomicIntegerFactory>(config?: ContractConfig<X>): Contract<X> {
+        const copy: ContractConfig<X> = { ...config ?? {} };
+
+        copy.test ??= this.isDeliverable;
+        copy.typeName ??= "AtomicIntegerFactory";
+
+        return Contract.create<X>(copy);
+    }
+};
+
+/**
+ * The factory Contract for creating new AtomicInteger instances.
+ */
+export const CONTRACT: Contract<AtomicIntegerFactory> = LAWYER.createContract();
