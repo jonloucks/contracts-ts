@@ -1,11 +1,22 @@
-import { OptionalType } from "./Types";
+import { OptionalType, RequiredType } from "./Types";
 import { ClassCastException } from "./ClassCastException";
 import { Contract, Config } from "./Contract";
 
-export function create<T>(config?: Config<T> | null) : Contract<T> {
+/**
+ * Create a basic Contract
+ * @param config the configuration for the Contract
+ * @returns 
+ */
+export function create<T>(config?: Config<T> | null) : RequiredType<Contract<T>> {
     return BasicContract.create<T>(config);
 }
-``
+
+/**
+ * Check if the given instance is a BasicContract
+ * It does not enforce duck-typing checks, it is the
+ * responsibility of the caller to ensure the instance is really the
+ * correct deliverable type.
+ */
 export class BasicContract<T> implements Contract<T> {
 
     /**
