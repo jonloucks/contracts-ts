@@ -226,7 +226,7 @@ test('repository_keep_ReplaceBeforeOpen_Works', () => {
 test('repository_keep_Replace_Works', () => {
     runWithScenario({
         accept: function (contracts: Contracts, repository: Repository): void {
-            const contract: Contract<string> = createContract<string>({ isReplaceable: true });
+            const contract: Contract<string> = createContract<string>({ replaceable: true });
             using closeFirstBinding = contracts.bind(contract, () => "x");
             repository.keep(contract, () => "y");
             const text: string = contracts.enforce(contract);
@@ -251,7 +251,7 @@ test('repository_keep_WhenNotReplaceableAndBoundAnd_BIND_ALWAYS_Throws', () => {
     runWithScenario({
         accept: function (contracts: Contracts, repository: Repository): void {
             const contract: Contract<string> = createContract<string>({
-                isReplaceable: false
+                replaceable: false
             });
 
             using usingBinding = contracts.bind(contract, () => "x");

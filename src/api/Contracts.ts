@@ -13,12 +13,12 @@ export interface Config {
     /**
      * @return optional partners. Aggregated Contracts
      */
-    getPartners(): Contracts[]
+    partners?: Contracts[]
 
     /**
      * @return if true, shutdown hooks will be added to ensure cleanup of Contracts
      */
-    useShutdownHooks(): boolean;
+    autoShutdown?: boolean;
 }
 
 /**

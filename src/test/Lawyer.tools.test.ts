@@ -25,21 +25,21 @@ export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) {
     describe(`Testing Lawyer: ${lawyer}`, () => {
 
         it('Lawyer created contract name', () => {
-            assert.notStrictEqual(lawyer.createContract().getName(), null);
-            assert.strictEqual(lawyer.createContract({ name: "abc" }).getName(), "abc");
-            assert.notStrictEqual(lawyer.createContract({ typeName: "xyz" }).getName(), "xyz");
-            assert.strictEqual(lawyer.createContract({ name: "abc", typeName: "xyz" }).getName(), "abc");
+            assert.notStrictEqual(lawyer.createContract().name, null);
+            assert.strictEqual(lawyer.createContract({ name: "abc" }).name, "abc");
+            assert.notStrictEqual(lawyer.createContract({ typeName: "xyz" }).name, "xyz");
+            assert.strictEqual(lawyer.createContract({ name: "abc", typeName: "xyz" }).name, "abc");
         });
 
         it('Lawyer created contract type name', () => {
-            assert.notStrictEqual(lawyer.createContract().getTypeName(), null);
-            assert.notStrictEqual(lawyer.createContract({ name: "abc" }).getTypeName(), "abc");
-            assert.strictEqual(lawyer.createContract({ typeName: "xyz" }).getTypeName(), "xyz");
+            assert.notStrictEqual(lawyer.createContract().typeName, null);
+            assert.notStrictEqual(lawyer.createContract({ name: "abc" }).typeName, "abc");
+            assert.strictEqual(lawyer.createContract({ typeName: "xyz" }).typeName, "xyz");
         });
 
         it('Lawyer created contract is replaceable', () => {
-            assert.strictEqual(lawyer.createContract({ isReplaceable: false }).isReplaceable(), false);
-            assert.strictEqual(lawyer.createContract({ isReplaceable: true }).isReplaceable(), true);
+            assert.strictEqual(lawyer.createContract({ replaceable: false }).replaceable, false);
+            assert.strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true);
         });
     });
 }

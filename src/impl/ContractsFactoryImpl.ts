@@ -1,3 +1,9 @@
+import { RequiredType } from "../api/Types";
+import { ContractsFactory } from "../api/ContractsFactory";
+import { Contracts, Config } from "../api/Contracts";
+import { create as createContractsImpl } from "./ContractsImpl"; 
+
+
 /**
  * Factory method to create a ContractsFactory
  * 
@@ -6,6 +12,10 @@
 export function create(): RequiredType<ContractsFactory> {
     return ContractsFactoryImpl.internalCreate();
 }   
+
+export function createContracts(config?: Config): RequiredType<Contracts> {
+    return create().create(config);
+}
 
 /**
  * Implementation for {@link io.github.jonloucks.contracts.api.ContractsFactory}
@@ -18,7 +28,7 @@ class ContractsFactoryImpl implements ContractsFactory {
      */
     create(config?: Config) : RequiredType<Contracts> {
         const actualConfig : Config = config ? config : this.defaultConfig;
-        return createContracts(actualConfig);
+        return createContractsImpl(actualConfig);
     }
 
     static internalCreate() : RequiredType<ContractsFactory> {
@@ -29,17 +39,5 @@ class ContractsFactoryImpl implements ContractsFactory {
         //  empty
     }
 
-    private defaultConfig : Config = {    
-        getPartners: function (): Contracts[] {
-            return [];
-        },
-        useShutdownHooks: function (): boolean {
-            return true;
-        }
-    };
+    private defaultConfig : Config = {};
 }
-
-import { RequiredType } from "../api/Types";
-import { ContractsFactory } from "../api/ContractsFactory";
-import { Contracts, Config } from "../api/Contracts";
-import { create as createContracts } from "./ContractsImpl"; 

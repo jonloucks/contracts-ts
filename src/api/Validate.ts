@@ -13,7 +13,9 @@ import { create as createContract } from "./RatifiedContract";
 export function validateContracts(contracts: Contracts): void {
     const validContracts: Contracts = contractsCheck(contracts);
     try {
-        const contract: Contract<Date> = createContract<Date>({ });
+        const contract: Contract<Date> = createContract<Date>({ 
+            test: (instance: unknown): instance is Date => { return instance instanceof Date; }    
+        });
         const deliverableValue: Date = new Date();
 
         if (validContracts.isBound(contract)) {

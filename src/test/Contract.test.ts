@@ -13,13 +13,13 @@ describe('Create string contract', () => {
     name: "Test String Contract",
     test: isString,
     typeName: "string",
-    isReplaceable: false
+    replaceable: false
   });
 
   it('should have correct properties', () => {
-    assert.strictEqual(contract.getName(), "Test String Contract");
-    assert.strictEqual(contract.getTypeName(), "string");
-    assert.strictEqual(contract.isReplaceable(), false);
+    assert.strictEqual(contract.name, "Test String Contract");
+    assert.strictEqual(contract.typeName, "string");
+    assert.strictEqual(contract.replaceable, false);
   });
 
   generateContractSuite({
@@ -43,9 +43,9 @@ describe('Create string contract', () => {
 test('contract_Config_Defaults', () => {
   const defaults: Contract<string> = createContract<string>({ test: isString });
   Tools.assertAll(
-    () => Tools.assertFalse(defaults.isReplaceable(), "Default for replaceable."),
-    () => Tools.assertEquals("", defaults.getName(), "Default for name."),
-    () => Tools.assertEquals("", defaults.getTypeName(), "Default for typeName."),
+    () => Tools.assertFalse(defaults.replaceable, "Default for replaceable."),
+    () => Tools.assertEquals("", defaults.name, "Default for name."),
+    () => Tools.assertEquals("", defaults.typeName, "Default for typeName."),
     () => Tools.assertSame("abc", defaults.cast("abc"), "Cast should work."),
     () => Tools.assertThrows(ClassCastException, () => defaults.cast(12), "Cast should fail on wrong type")
   );
