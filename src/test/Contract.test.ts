@@ -62,7 +62,7 @@ test('contract_Config_Defaults', () => {
 });
 
 test('contract_create_withNullConfig_Works', () => {
-  const contract: Contract<string> = Contract.create<string>(null as any);
+  const contract: Contract<string> = Contract.create<string>(null);
 
   assert.ok(contract);
 });

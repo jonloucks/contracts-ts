@@ -1,20 +1,20 @@
 import assert from 'node:assert';
 
-import { OptionalType, RequiredType, isNumber } from "../api/Types";
+import { OptionalType, RequiredType } from "../api/Types";
 
 export const OPTIONAL_CASES: PredicateCase[] = [
     { value: null, help: "a null value" },
     { value: undefined, help: "an undefined value" }
 ];
 
-function isUltimateAnswer(value: OptionalType<any>): value is OptionalType<number> {
+function isUltimateAnswer(value: OptionalType<unknown>): value is OptionalType<number> {
     if (value === null || value === undefined) {
         return true;
     }
     return typeof value === "number" ? value === 42 : false
 };
 
-function isRequiredUltimateAnswer(value: OptionalType<any>): value is RequiredType<number> {
+function isRequiredUltimateAnswer(value: OptionalType<unknown>): value is RequiredType<number> {
     if (value === null || value === undefined) {
         return false;
     }
@@ -50,13 +50,13 @@ generatePredicateSuite({
 });
 
 export interface PredicateCase {
-    value: OptionalType<any>
+    value: OptionalType<unknown>
     help?: string;
 }
 
 export interface PredicateSuiteOptions {
     name: string;
-    function: (value: OptionalType<any>) => boolean;
+    function: (value: OptionalType<unknown>) => boolean;
     validCases?: PredicateCase[];
     invalidCases?: PredicateCase[];
 }

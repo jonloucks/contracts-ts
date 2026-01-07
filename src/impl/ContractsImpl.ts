@@ -114,7 +114,7 @@ class ContractsImpl implements Contracts {
         }
     }
 
-    private maybeBind(contract: Contract<any>, newPromisor: Promisor<any>, bindStrategy: BindStrategy): AutoClose {
+    private maybeBind<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy): AutoClose {
         if (this.checkBind(contract, newPromisor, bindStrategy)) {
             return this.doBind(contract, newPromisor);
         } else {
@@ -122,8 +122,8 @@ class ContractsImpl implements Contracts {
         }
     }
 
-    private checkBind(contract: Contract<any>, newPromisor: Promisor<any>, bindStrategy: BindStrategy): boolean {
-        const optionalCurrent: Promisor<any> | null = this.getFromPromisorMap(contract);
+    private checkBind<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy): boolean {
+        const optionalCurrent: Promisor<T> | null = this.getFromPromisorMap(contract);
 
         if (optionalCurrent !== null) {
             return this.checkReplacement(contract, newPromisor, bindStrategy, optionalCurrent);
@@ -132,7 +132,7 @@ class ContractsImpl implements Contracts {
         }
     }
 
-    private checkReplacement(contract: Contract<any>, newPromisor: Promisor<any>, bindStrategy: BindStrategy, currentPromisor: Promisor<any>): boolean {
+    private checkReplacement<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy, currentPromisor: Promisor<T>): boolean {
         // Double bind of same promisor, do not rebind
         if (currentPromisor === newPromisor) {
             return false;
@@ -158,7 +158,7 @@ class ContractsImpl implements Contracts {
         // This is mitigated by always incrementing the new value and decrementing the old value.
         promisor.incrementUsage();
 
-        const previousPromisor: Promisor<any> | undefined = this.promisorMap.get(contract);
+        const previousPromisor: Promisor<T> | undefined = this.promisorMap.get(contract) as Promisor<T> | undefined
         this.promisorMap.set(contract, promisor);
         if (previousPromisor !== undefined) {
             previousPromisor.decrementUsage();
@@ -172,7 +172,7 @@ class ContractsImpl implements Contracts {
         });
     }
 
-    private breakBinding(contract: Contract<any>, promisor: Promisor<any>): void {
+    private breakBinding<T>(contract: Contract<T>, promisor: Promisor<T>): void {
         // it is possible the Contract has already been removed or updated with a new Promisor
         // Checking the removed promisor is required to avoid:
         //   1. Calling decrementUsage twice on Promisors already removed
@@ -185,19 +185,19 @@ class ContractsImpl implements Contracts {
         }
     }
 
-    private removeFromPromisorMap(contract: Contract<any>, promisor: Promisor<any>): void {
+    private removeFromPromisorMap<T>(contract: Contract<T>, promisor: Promisor<T>): void {
         if (this.promisorMap.get(contract) === promisor) {
             this.promisorMap.delete(contract);
         }
     }
 
     private getFromPromisorMap<T>(contract: Contract<T>): Promisor<T> | null {
-        return this.promisorMap.get(contract) || null;
+        return (this.promisorMap.get(contract) as Promisor<T>) || null;
     }
 
     private breakAllBindings(): number {
-        const reversedContracts: Contract<any>[] = [];
-        const reversedPromisors: Promisor<any>[] = [];
+        const reversedContracts: Contract<unknown>[] = [];
+        const reversedPromisors: Promisor<unknown>[] = [];
         const contractCount: number = this.copyBindings(reversedContracts, reversedPromisors);
 
         while (reversedContracts.length > 0) {
@@ -206,7 +206,7 @@ class ContractsImpl implements Contracts {
         return contractCount;
     }
 
-    private copyBindings(contracts: Contract<any>[], promisors: Promisor<any>[]): number {
+    private copyBindings(contracts: Contract<unknown>[], promisors: Promisor<unknown>[]): number {
         // During shutdown other threads should be able to acquire read and write locks
         // The following attains the write lock to attain all the current keys and values
         // in the reverse order from insertion.
@@ -248,16 +248,16 @@ class ContractsImpl implements Contracts {
         return new ContractException("Contracts failed to close after trying multiple times.");
     }
 
-    private newContractNotPromisedException(contract: Contract<any>): ContractException {
+    private newContractNotPromisedException<T>(contract: Contract<T>): ContractException {
         return new ContractException("Contract " + contract + " was not promised.");
     }
 
-    private newContractNotReplaceableException(contract: Contract<any>): ContractException {
+    private newContractNotReplaceableException<T>(contract: Contract<T>): ContractException {
         return new ContractException("Contract " + contract + " is not replaceable.");
     }
 
     private readonly openState: IdempotentImpl = new IdempotentImpl();
-    private readonly promisorMap = new Map<Contract<any>, Promisor<any>>();
+    private readonly promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly repository: Repository = createRepository(this);
     private readonly partners: Contracts[] = [];
     private readonly closeRepository: CloserImpl = new CloserImpl();

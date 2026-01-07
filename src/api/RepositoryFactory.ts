@@ -22,7 +22,7 @@ export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<Rep
     /** 
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends RepositoryFactory>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends RepositoryFactory>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, "create");
     }
 

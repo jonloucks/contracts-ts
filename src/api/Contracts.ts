@@ -1,10 +1,9 @@
-import { OptionalType, RequiredType, hasFunctions } from "./Types";
-import { Contract, Config as ContractConfig } from "./Contract";
+import { OptionalType, RequiredType } from "./Types";
+import { Contract } from "./Contract";
 import { AutoOpen } from "./AutoOpen";
 import { AutoClose } from "./AutoClose";
 import { PromisorType } from "./Promisor";
 import { BindStrategyParameter as BindType } from "./BindStrategy";
-import { Lawyer } from "./Lawyer";
 
 /**
  * The Contracts configuration
@@ -78,28 +77,3 @@ export interface Contracts extends AutoOpen {
      */
     bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindType): AutoClose;
 }
-
-/**
- * For creating a Contract for Contracts with duck-typing checks.
- */
-export const LAWYER: Lawyer<Contracts> = new class implements Lawyer<Contracts> {
-
-    /**
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable<X extends Contracts>(instance: any): instance is OptionalType<X> {
-        return hasFunctions(instance, 'open', 'claim', 'bind', 'isBound');
-    }
-
-    /**
-     * Lawyer.createContract override
-     */
-    createContract<X extends Contracts>(config?: ContractConfig<X> | undefined): Contract<X> {
-        const copy: ContractConfig<X> = { ...config }
-
-        copy.typeName ??= "Contracts";
-        copy.test ??= this.isDeliverable;
-
-        return Contract.create<X>(copy);
-    }
-};

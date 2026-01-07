@@ -101,7 +101,7 @@ class RepositoryImpl implements Repository {
     }
     
     private reverseCloseStorage() : void {
-        const storageStack: StorageImpl<any>[] = [];
+        const storageStack: StorageImpl<unknown>[] = [];
         for (const storage of this.storedContracts.values()) {
             storageStack.push(storage);
         }
@@ -120,10 +120,10 @@ class RepositoryImpl implements Repository {
     
     private static ID_GENERATOR: number = 1000;
     private readonly id: number = RepositoryImpl.ID_GENERATOR++;
-    private readonly storedContracts = new Map<Contract<any>, StorageImpl<any>>();    
+    private readonly storedContracts = new Map<Contract<unknown>, StorageImpl<unknown>>();    
     private readonly contracts: Contracts;
     private readonly openState: IdempotentImpl = new IdempotentImpl();
-    private readonly requiredContracts: Set<Contract<any>> = new Set<Contract<any>>();
+    private readonly requiredContracts: Set<Contract<unknown>> = new Set<Contract<unknown>>();
 }
 
 import { RequiredType } from "../api/Types";

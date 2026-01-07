@@ -63,7 +63,7 @@ export const LAWYER: Lawyer<Repository> = new class implements Lawyer<Repository
     /**
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends Repository>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends Repository>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, 'store', 'keep', 'check', 'require', 'open');
     }
 

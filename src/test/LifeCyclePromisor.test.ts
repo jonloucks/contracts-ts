@@ -16,7 +16,7 @@ describe('LifeCyclePromisor tests', () => {
             const contract: Contract<AutoOpen> = Contract.create<AutoOpen>({
                 name: "ReentrancyPromisor",
                 typeName: "AutoOpen",
-                cast: (obj: any): AutoOpen => {
+                cast: (obj: unknown): AutoOpen => {
                     if (isAutoOpen(obj)) {
                         return obj as AutoOpen;
                     }
