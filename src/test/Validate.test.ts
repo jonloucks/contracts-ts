@@ -36,7 +36,7 @@ describe('Validate contracts', () => {
     });
     it('validate_WithFirstIsBoundIsTrue_Throws', () => {
         Tools.withContracts((contracts: Contracts) => {
-            jest.spyOn(contracts, 'isBound').mockReturnValue(true);        
+            jest.spyOn(contracts, 'isBound').mockReturnValue(true);
             assert.throws(() => {
                 validateContracts(contracts);
             }, {
@@ -47,10 +47,10 @@ describe('Validate contracts', () => {
     });
     it('validate_bind_ReturnsNull_Throws', () => {
         Tools.withContracts((contracts: Contracts) => {
-            jest.spyOn(contracts, 'isBound').mockReturnValue(false); 
+            jest.spyOn(contracts, 'isBound').mockReturnValue(false);
             jest.spyOn(contracts, 'bind').mockImplementation(() => {
                 return null as unknown as AutoClose;
-            });       
+            });
             assert.throws(() => {
                 validateContracts(contracts);
             }, {
@@ -66,10 +66,10 @@ describe('Validate contracts', () => {
                 [Symbol.dispose]: function (): void {
                 }
             });
-            jest.spyOn(contracts, 'isBound').mockReturnValue(false); 
+            jest.spyOn(contracts, 'isBound').mockReturnValue(false);
             jest.spyOn(contracts, 'bind').mockImplementation(() => {
                 return closeMock;
-            });       
+            });
             assert.throws(() => {
                 validateContracts(contracts);
             }, {
@@ -89,7 +89,7 @@ describe('Validate contracts', () => {
             jest.spyOn(contracts, 'bind').mockImplementation(() => {
                 return closeMock;
             });       
-            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true); 
+            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true);
             jest.spyOn(contracts, 'claim').mockImplementation(() => {
                 return null;
             });
@@ -113,8 +113,8 @@ describe('Validate contracts', () => {
             jest.spyOn(contracts, 'isBound').mockReturnValueOnce(false);
             jest.spyOn(contracts, 'bind').mockImplementation(() => {
                 return closeMock;
-            });       
-            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true); 
+            });
+            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true);
 
             jest.spyOn(contracts, 'claim').mockImplementation(() => {
                 throw new Error("Math overflow.");
@@ -141,10 +141,8 @@ describe('Validate contracts', () => {
             jest.spyOn(contracts, 'bind').mockImplementation((c,type,strategy) => {
                 capturePromisor = typeToPromisor(type);
                 return closeMock;
-            });       
-            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true); 
-            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true); 
-            jest.spyOn(contracts, 'isBound').mockReturnValueOnce(true); 
+            });
+            jest.spyOn(contracts, 'isBound').mockReturnValue(true);
 
             jest.spyOn(contracts, 'claim').mockImplementation(() => {
                 if (null === capturePromisor) {
