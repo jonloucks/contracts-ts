@@ -59,7 +59,7 @@ export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<Promi
     /**
      * Lawyer.isDeliverable override
      */
-    isDeliverable<X extends PromisorFactory>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends PromisorFactory>(instance: unknown): instance is OptionalType<X> {
         return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
     }
 

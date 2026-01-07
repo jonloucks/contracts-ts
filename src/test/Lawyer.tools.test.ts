@@ -8,12 +8,12 @@ const LAWYER : Lawyer<Date> = new class implements Lawyer<Date> {
     createContract<X extends Date>(config?: ContractConfig<X> | undefined): RequiredType<Contract<X>>{
         const copy: ContractConfig<X> = { ...config ?? {} };
 
-        copy.test ??= (instance: any): instance is X => instance === null || instance === undefined || instance instanceof Date;
+        copy.test ??= (instance: unknown): instance is X => instance === null || instance === undefined || instance instanceof Date;
 
         return Contract.create<X>(copy);
     }
 
-    isDeliverable<X extends Date>(instance: any): instance is OptionalType<X> {
+    isDeliverable<X extends Date>(instance: unknown): instance is OptionalType<X> {
         return instance === null || instance === undefined || instance instanceof Date;
     }
 }();

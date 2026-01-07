@@ -55,7 +55,7 @@ export function inlineAutoClose(action: () => void): RequiredType<AutoClose> {
  * @param instance the instance to check
  * @returns true if the instance implements AutoClose, false otherwise
  */
-export function isAutoClose(instance: any): instance is OptionalType<AutoClose> {
+export function isAutoClose(instance: unknown): instance is OptionalType<AutoClose> {
     return hasFunctions(instance, 'close', '[Symbol.dispose]');
 }
 

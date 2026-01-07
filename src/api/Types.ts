@@ -85,7 +85,7 @@ export function isBigInt(value: unknown): value is OptionalType<bigint> {
 }
 
 export function isRequiredConstructor<T>(value: unknown): value is RequiredType<(new () => T)> {
-    return isRequiredFunction(value) && !!(value as any).prototype && !!(value as any).prototype.constructor;
+    return isRequiredFunction(value) &&'prototype' in value && 'constructor' in value
 }
 
 export function isConstructor<T>(value: unknown): value is RequiredType<(new () => T)> {

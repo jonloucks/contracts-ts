@@ -12,7 +12,7 @@ import { createContracts } from "../index"
 
 describe('test utilities', () => {
     it('Dummy test', () => {
-          assert.strictEqual(true, !false);
+        assert.strictEqual(true, !false);
     });
 });
 
@@ -72,7 +72,7 @@ export class Tools {
     public static assertThrows<T extends Error | string>(predicate: AssertPredicate, executable: () => unknown, message?: string): RequiredType<T> {
         let validExecutable: (() => unknown) = nullCheck(executable, "Executable must be present.");
 
-        let actual: any = null;
+        let actual: unknown = null;
 
         assert.throws(
             validExecutable,
@@ -81,16 +81,16 @@ export class Tools {
                 return true
             });
 
-        if (!actual) {
+        if (actual === null || actual === undefined) {
             throw new AssertionError({ message: message ?? "Expected exception to be thrown." });
         }
-
-        Tools.applyAssertPredicate<T>(predicate, actual);
-
-        return actual;
+        if (actual instanceof Error) {
+            Tools.applyAssertPredicate<T>(predicate, actual as Error);
+        }
+        return actual as T;
     }
 
-    private static applyAssertPredicate<T extends Error | string>(predicate: AssertPredicate, actual: any) {
+    private static applyAssertPredicate<T extends Error | string>(predicate: AssertPredicate, actual: Error) {
         if (!predicate) {
             return;
         } else if (isRequiredConstructor(predicate)) {
@@ -138,17 +138,18 @@ export class Tools {
     /**
      * Assert that an object complies with basic expectations
      *
-     * @param object the object to check
+     * @param instance the object to check
      */
-    public static assertObject(object: any, message?: string) {
+    public static assertObject(instance: unknown, message?: string) {
         class Unknown { }
         const unknown = new Unknown();
 
-        Tools.assertNotNull(object, message ?? "Object must be present.");
+        Tools.assertNotNull(instance, message ?? "Object must be present.");
 
-        Tools.assertAll(
-            () => Tools.assertNotNull(object.toString(), "Object toString() was null."),
-        );
+        if (typeof instance === 'object') {
+            let object: object = instance as object;
+            Tools.assertNotNull(object.toString(), "Object toString() was null.");
+        }
     }
 
     /**
@@ -197,7 +198,7 @@ export class Tools {
      *
      * @param thrown the thrown exception
      */
-    public static assertThrown(thrown: Error | string): void {
+    public static assertThrown(thrown: unknown): void {
         Tools.assertNotNull(thrown, "Thrown must be present.");
 
         if (typeof thrown === 'string') {
@@ -235,18 +236,18 @@ export class Tools {
     //         assertThrown(thrown, thrown.getCause(), reason);
     //     }
 
-        /**
-         *  Run an execution block and validated it throws the expected type of exception
-         *
-         * @param possibleType the possible type of exception
-         * @param executable the executable block which may throw the possible exception type
-         * @param <E> the type of exception
-         */
-        public static assertThrowsCompliantError(possibleType: AssertPredicate, executable: () => unknown) : Error | string {
-            const error = Tools.assertThrows(possibleType, executable);
-            Tools.assertThrown(error);
-            return error;
-        }
+    /**
+     *  Run an execution block and validated it throws the expected type of exception
+     *
+     * @param possibleType the possible type of exception
+     * @param executable the executable block which may throw the possible exception type
+     * @param <E> the type of exception
+     */
+    public static assertThrowsCompliantError(possibleType: AssertPredicate, executable: () => unknown): Error | string {
+        const error = Tools.assertThrows(possibleType, executable);
+        Tools.assertThrown(error);
+        return error;
+    }
 
     //     /**
     //      * Run an execution block and validated it throws the expected type of exception, and it has
@@ -341,7 +342,7 @@ export class Tools {
                 if (sanitizer) {
                     try {
                         sanitizer();
-                    } catch (ignored: any) {
+                    } catch (ignored) {
                     }
                 }
             }
@@ -443,12 +444,12 @@ export class Tools {
      * @param ignored not used
      */
     // @SuppressWarnings({"unused", "EmptyMethod"})
-    public static ignore(ignored: any): void {
+    public static ignore(ignored: unknown): void {
     }
 
     public static createStringContract(): Contract<string> {
         return Contract.create<string>({
-            cast(instance: any): string {
+            cast(instance: unknown): string {
                 return instance as string;
             },
             typeName: "string",

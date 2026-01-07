@@ -25,7 +25,7 @@ generateBindStrategySuite({
 
 
 interface TestCase {
-    value: any;
+    value: unknown;
     help?: string;
 }
 

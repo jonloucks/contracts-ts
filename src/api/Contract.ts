@@ -64,7 +64,7 @@ export class Contract<T> {
       * @param <T>    the type of deliverable for this Contract
       * @return the new Contract
       */
-    public static create<T>(config?: Config<T>): Contract<T> {
+    public static create<T>(config?: Config<T> | null): Contract<T> {
         return new Contract<T>(config);
     }
 
@@ -78,7 +78,7 @@ export class Contract<T> {
     */
     public cast(value: unknown | null | undefined): OptionalType<T> {
         if (this.tester(value)) {
-            return this.caster(value);
+            return this.caster(value) as OptionalType<T>;
         } else {
             throw new ClassCastException(`${this.toString()} cast failed.`);
         }
@@ -126,7 +126,7 @@ export class Contract<T> {
      * @param instance the instance to check
      * @returns true if the instance is a Contract, false otherwise
      */
-    static isContract<T>(instance: any | unknown): instance is Contract<T> {
+    static isContract<T>(instance: any): instance is Contract<T> {
         if (isNullOrUndefined(instance)) {
             return true;
         }
@@ -155,14 +155,14 @@ export class Contract<T> {
         }
     }
 
-    private constructor(config?: Config<T>) {
+    private constructor(config?: Config<T> | null) {
         this.integrityCheck()
         const candidateConfig: Config<T> = config ?? {};
         this.replaceable = candidateConfig?.isReplaceable ?? false;
         this.name = candidateConfig?.name ?? "";
         this.typeName = candidateConfig?.typeName ?? "";
-        this.tester = candidateConfig?.test ?? ((instance: any): instance is OptionalType<T> => true);
-        this.caster = candidateConfig?.cast ?? ((instance: any): OptionalType<T> => instance);
+        this.tester = candidateConfig?.test ?? ((instance: unknown): instance is OptionalType<T> => true);
+        this.caster = candidateConfig?.cast ?? ((instance: unknown) => instance);
         Object.freeze(this);
     }
 
@@ -173,8 +173,8 @@ export class Contract<T> {
     private readonly id: number = Contract.ID_GENERATOR++;
     private readonly name: string;
     private readonly typeName: string;
-    private readonly tester: (instance: any) => instance is OptionalType<T>;
-    private readonly caster: (instance: any) => OptionalType<T>;
+    private readonly tester: (instance: unknown) => instance is OptionalType<T>;
+    private readonly caster: (instance: unknown) => unknown;
     private readonly replaceable: boolean;
 }
 
