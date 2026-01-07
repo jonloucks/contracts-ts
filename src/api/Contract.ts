@@ -1,6 +1,4 @@
-import { isNullOrUndefined, OptionalType } from "./Types";
-import { ClassCastException } from "./ClassCastException";
-import { ContractException } from "./ContractException";
+import { OptionalType } from "./Types";
 
 /**
  * Configuration for a Contract
@@ -55,18 +53,7 @@ export interface Config<T> {
  * Note: This is a final class and should not be extended!
  * @param <T> the type of deliverable for this Contract
  */
-export class Contract<T> {
-
-    /**
-      * Create a contract derived from the given configuration
-      *
-      * @param config the name for the contract, null is not allowed
-      * @param <T>    the type of deliverable for this Contract
-      * @return the new Contract
-      */
-    public static create<T>(config?: Config<T> | null): Contract<T> {
-        return new Contract<T>(config);
-    }
+export interface Contract<T> {
 
     /**
     * Casts the given object to the return type for this Contract
@@ -76,20 +63,12 @@ export class Contract<T> {
     * @return the checked value. Note: null is possible. The Promisor is allowed to return null
     * @throws ClassCastException iif the value can't be cast to the return type.
     */
-    public cast(value: unknown | null | undefined): OptionalType<T> {
-        if (this.tester(value)) {
-            return this.caster(value) as OptionalType<T>;
-        } else {
-            throw new ClassCastException(`${this.toString()} cast failed.`);
-        }
-    }
+    cast(value: OptionalType<unknown>): OptionalType<T>;
 
     /**
      * @return the contract name
      */
-    public getName(): string {
-        return this.name;
-    }
+    getName(): string;
 
     /**
      * Note: Do not rely on this being a java class name
@@ -97,9 +76,7 @@ export class Contract<T> {
      *
      * @return the type of deliverable for this contract.
      */
-    public getTypeName(): string {
-        return this.typeName;
-    }
+    getTypeName(): string;
 
     /**
      * When replaceable a new binding can replace in an existing one
@@ -107,75 +84,7 @@ export class Contract<T> {
      *
      * @return true if replaceable
      */
-    public isReplaceable(): boolean {
-        return this.replaceable;
-    }
-
-    /**
-     * String representation of this Contract
-     * Note: not intended to be parsed or relied on.
-     * @returns a string representation of the contract
-     */
-    public toString(): string {
-        return `Contract(id=${this.id}, name=${this.name}, type=${this.typeName})`;
-    }
-
-    /**
-     * Duck-typing check for Contract interface.
-     * 
-     * @param instance the instance to check
-     * @returns true if the instance is a Contract, false otherwise
-     */
-    static isContract<T>(instance: any): instance is Contract<T> {
-        if (isNullOrUndefined(instance)) {
-            return true;
-        }
-        if (instance instanceof Contract) {
-            instance.integrityCheck();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * This is a security check to prevent duck-typing or extending Contract class.
-     * 
-     * Note: When invoked by the constructor it is early in the initialization phase so
-     * most fields are not yet initialized.
-     */
-    private integrityCheck(): void {
-        try {
-            // Accessing private field to ensure it's really a Contract
-             
-            if (this.#secret !== Contract.#SECRET) {
-                throw new Error("Identifier  mismatch.");
-            }
-        } catch (thrown) {
-            throw new ContractException('Security violation detected. This is not permitted.');
-        }
-    }
-
-    private constructor(config?: Config<T> | null) {
-        this.integrityCheck()
-        const candidateConfig: Config<T> = config ?? {};
-        this.replaceable = candidateConfig?.isReplaceable ?? false;
-        this.name = candidateConfig?.name ?? "";
-        this.typeName = candidateConfig?.typeName ?? "";
-        this.tester = candidateConfig?.test ?? ((instance: unknown): instance is OptionalType<T> => true);
-        this.caster = candidateConfig?.cast ?? ((instance: unknown) => instance);
-        Object.freeze(this);
-    }
-
-    private static ID_GENERATOR: number = 1;
-    static readonly #SECRET : symbol = Symbol("Contract");
-
-    readonly #secret : symbol = Contract.#SECRET;
-    private readonly id: number = Contract.ID_GENERATOR++;
-    private readonly name: string;
-    private readonly typeName: string;
-    private readonly tester: (instance: unknown) => instance is OptionalType<T>;
-    private readonly caster: (instance: unknown) => unknown;
-    private readonly replaceable: boolean;
+    isReplaceable(): boolean;
 }
 
 

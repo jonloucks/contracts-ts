@@ -1,6 +1,7 @@
 import { OptionalType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Responsibility: An atomic integer interface for thread-safe integer operations.
@@ -40,7 +41,7 @@ export const LAWYER: Lawyer<AtomicInteger> = new class implements Lawyer<AtomicI
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicInteger";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 

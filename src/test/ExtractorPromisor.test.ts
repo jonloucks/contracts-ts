@@ -6,6 +6,7 @@ import { Contracts } from "../api/Contracts";
 import { Contract } from "../api/Contract";
 import { Promisor, typeToPromisor  } from "../api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "../api/PromisorFactory";
+import { createContract } from "../index";
 
 describe('Extract Promisor tests', () => {
 
@@ -26,7 +27,7 @@ describe('Extract Promisor tests', () => {
 
         Tools.withContracts((contracts: Contracts) => {
             const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
-            const contract: Contract<string> = Contract.create<string>();
+            const contract: Contract<string> = createContract<string>();
             const promisor: Promisor<string> = promisorFactory.createExtractor<Date, string>(referent, transform);
 
             using usingPromisor = contracts.bind(contract, promisor);

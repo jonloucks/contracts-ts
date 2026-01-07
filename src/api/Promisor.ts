@@ -2,6 +2,7 @@ import { OptionalType, RequiredType, isRequiredConstructor, hasFunctions } from 
 import { nullCheck } from "./Checks";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Interface for providing a deliverable for a Contract
@@ -57,7 +58,7 @@ export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Pro
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "Promisor";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 }
 

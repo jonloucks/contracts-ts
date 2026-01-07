@@ -1,6 +1,7 @@
 import { OptionalType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
 
 /**
  * Responsibility: An atomic reference interface for thread-safe reference operations.
@@ -36,6 +37,6 @@ export const LAWYER: Lawyer<AtomicReference<unknown>> = new class implements Law
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicReference";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 }

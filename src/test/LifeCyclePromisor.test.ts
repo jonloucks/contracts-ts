@@ -7,13 +7,14 @@ import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "../api/Promisor
 import { AtomicInteger } from "../api/AtomicInteger";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
 import { ClassCastException } from "../api/ClassCastException";
+import { createContract } from "../index";
 
 describe('LifeCyclePromisor tests', () => {
     it('Reentrancy failure: Issue #69', () => {
         Tools.withContracts((contracts: Contracts) => {
             const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
             const openCounter: AtomicInteger = contracts.enforce(ATOMIC_INTEGER_FACTORY).create();
-            const contract: Contract<AutoOpen> = Contract.create<AutoOpen>({
+            const contract: Contract<AutoOpen> = createContract<AutoOpen>({
                 name: "ReentrancyPromisor",
                 typeName: "AutoOpen",
                 cast: (obj: unknown): AutoOpen => {

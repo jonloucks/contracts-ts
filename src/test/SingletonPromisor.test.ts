@@ -6,7 +6,7 @@ import { Contracts } from "../api/Contracts";
 import { Contract } from "../api/Contract";
 import { inlinePromisor, Promisor } from "../api/Promisor";
 import { PromisorFactory as PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "../api/PromisorFactory";
-
+import { createContract } from "../index";
 
 generateSingletonSuite<Date>({
     name: 'Singleton Promisor with current Date',
@@ -61,7 +61,7 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
             it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
                 Tools.withContracts((contracts: Contracts) => {
                     const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
-                    const contract: Contract<T> = Contract.create<T>();
+                    const contract: Contract<T> = createContract<T>();
                     const valuePromisor: Promisor<T> = inlinePromisor<T>(testCase.value);
                     const promisor: Promisor<T> = promisorFactory.createSingleton<T>(valuePromisor)
 

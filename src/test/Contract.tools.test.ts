@@ -1,9 +1,10 @@
 import assert from 'node:assert';
 
 import { Contract } from "../api/Contract";
+import { createContract } from "../index"
 
 export interface CastCase<T> {
-    instance: any;
+    instance: unknown;
     expected?: T;
     help?: string;
 }
@@ -15,7 +16,7 @@ export interface ContractSuiteOptions<T> {
     invalidCases?: CastCase<T>[];
 }
 
-const someContract: Contract<string> = Contract.create<string>();
+const someContract: Contract<string> = createContract<string>();
 
 generateContractSuite({
     name: 'SomeContract',
@@ -31,7 +32,7 @@ export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
     describe(`Contract Suite for ${options.name}`, () => {
         validCases?.forEach((testCase, index) => {
             const help = testCase?.help ?? String(testCase.instance);
-            const expected: T = testCase.expected ?? testCase.instance;
+            const expected = testCase?.expected ?? testCase.instance;
             const scenario: string = `case ${index} => (${help}) : return ${expected}`;
 
             it(scenario, () => {

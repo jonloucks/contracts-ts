@@ -2,6 +2,8 @@ import { AtomicBoolean } from "./AtomicBoolean";
 import { RequiredType, OptionalType, hasFunctions } from "./Types";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
+
 
 /**
  * Factory interface for creating AtomicBoolean instances.
@@ -36,7 +38,7 @@ export const LAWYER: Lawyer<AtomicBooleanFactory> = new class implements Lawyer<
         copy.test ??= this.isDeliverable;
         copy.typeName ??= "AtomicBooleanFactory";
 
-        return Contract.create<X>(copy);
+        return createContract<X>(copy);
     }
 };
 
