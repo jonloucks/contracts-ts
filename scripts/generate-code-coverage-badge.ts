@@ -16,37 +16,43 @@
  */
 import fs from 'fs';
 
-try {
-    generateCoverageSummaryBadge();
-} catch (error) {
-    console.warn("Error generating coverage summary badge:", error);
-}
-
+bestEffort("generate coverage summary badge", () => generateCoverageSummaryBadge());
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
 function generateCoverageSummaryBadge(): void {
-    const inputPath : string = getCoverageSummaryFilePath();
+    const inputPath: string = getCoverageSummaryFilePath();
 
     fs.readFile(inputPath, (err, data) => {
-    if (handleError(inputPath, err)) {
-        return;
-    }
+        if (handleError(inputPath, err)) {
+            return;
+        }
 
-    const percent: number = readPercentageFromCoverageSummary(data);
-    const color: string = determineBackgroundColor(percent);
+        bestEffort("read coverage summary", () => {
+            const percent: number = readPercentageFromCoverageSummary(data);
+            const color: string = determineBackgroundColor(percent);
 
-    generateBadge({
-        name: "coverage-summary",
-        outputPath: getCoverageSummaryBadgePath(),
-        label: "coverage",
-        percent: percent,
-        color: color
+            generateBadge({
+                name: "coverage-summary",
+                outputPath: getCoverageSummaryBadgePath(),
+                label: "coverage",
+                percent: percent,
+                color: color
+            });
+        });
     });
-});
 };
+
+function bestEffort<T>(name: string, block: () => T): T {
+    try {
+        return block();
+    } catch (error) {
+        console.warn(`Best effort ${name} operation failed:`, error);
+        return undefined as unknown as T;
+    }
+}
 
 interface GenerateOptions {
     name: string;
@@ -58,35 +64,39 @@ interface GenerateOptions {
 }
 
 function generateBadge(options: GenerateOptions): void {
-    const templatePath : string = options.templatePath ? options.templatePath : getTemplateBadgePath();
+    const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
     console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
     fs.readFile(templatePath, (err, templateData) => {
         if (handleError(templatePath, err)) {
             return
         }
 
-        const replacements = {
-            LABEL: options.label,
-            PERCENT: options.percent,
-            COLOR: options.color
-        };
-
-        const svgContent : string = templateData.toString('utf8');
-
-        // Use a regex with a replacement function to dynamically insert values
-        const generatedContent: string = svgContent.replace(/{{(.*?)}}/g, (match, key: string) => {
-            const trimmedKey = key.trim() as keyof typeof replacements;
-            // trim whitespace and look up the key in the data object
-            return replacements[trimmedKey] !== undefined ? String(replacements[trimmedKey]) : match;
-        })
-
-        fs.writeFileSync(options.outputPath, generatedContent);
-        console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
+        bestEffort(`generate badge ${options.name}`, () => {
+            const template: string = templateData.toString('utf8');
+            const generated: string = replaceKeywords(options, template);
+            fs.writeFileSync(options.outputPath, generated);
+            console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
+        });
     });
 }
 
+function replaceKeywords(options: GenerateOptions, template: string): string {
+    const replacements = {
+        LABEL: options.label,
+        PERCENT: options.percent,
+        COLOR: options.color
+    };
+    // Use a regex with a replacement function to dynamically insert values
+    const generatedContent: string = template.replace(/{{(.*?)}}/g, (match, key: string) => {
+        const trimmedKey = key.trim() as keyof typeof replacements;
+        // trim whitespace and look up the key in the data object
+        return replacements[trimmedKey] !== undefined ? String(replacements[trimmedKey]) : match;
+    })
+    return generatedContent;
+}
+
 function readPercentageFromCoverageSummary(data: Buffer): number {
-    const text : string = data.toString('utf8');
+    const text: string = data.toString('utf8');
     const jsonData = JSON.parse(text);
     return jsonData.total.lines.pct;
 }
@@ -101,10 +111,10 @@ function getTemplateBadgePath(): string {
 
 function getCoverageSummaryBadgePath(): string {
     return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
-}   
+}
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
-    const myVarValue : string | undefined = process.env[envVarName];
+    const myVarValue: string | undefined = process.env[envVarName];
     if (myVarValue && myVarValue.trim() !== '') {
         return myVarValue.trim();
     }
@@ -123,7 +133,7 @@ function handleError(path: string, caught: any): caught is null {
 
 function determineBackgroundColor(percent: number): string {
     if (percent >= 90) {
-        return '#66FF00'; 
+        return '#66FF00';
     } else if (percent >= 75) {
         return 'yellowgreen';
     } else if (percent >= 60) {
