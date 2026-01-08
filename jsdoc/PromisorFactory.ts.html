@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PromisorFactory.ts</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PromisorFactory.ts</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { OptionalType, RequiredType, Transform, hasFunctions } from "./Types";
+import { Contract, Config as ContractConfig } from "./Contract";
+import { Promisor, PromisorType } from "./Promisor";
+import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
+
+/**
+ * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
+ */
+export interface PromisorFactory {
+ 
+    /**
+     * Creates a Promisor that returns the given value every time it is claimed.
+     *
+     * @param deliverable the value to
+     * @return The new Promisor
+     * @param &lt;T> the type of deliverable
+     */
+    createValue&lt;T>(deliverable: OptionalType&lt;T>) : RequiredType&lt;Promisor&lt;T>>;
+    
+    /**
+     * Creates a Promisor that only calls the source Promisor once and then always
+     * returns that value.
+     * Note: increment and decrementUsage are relayed to the source promisor.
+     *
+     * @param promisor the source Promisor
+     * @return The new Promisor
+     * @param &lt;T> the type of deliverable
+     */
+    createSingleton&lt;T>(promisor : PromisorType&lt;T>) : RequiredType&lt;Promisor&lt;T>>;
+    
+    /**
+     * Reference counted, lazy loaded, with opt-in 'open' and 'close' invoked on deliverable.
+     * Note: increment and decrementUsage are relayed to the source promisor.
+     *
+     * @param promisor the source promisor
+     * @return the new Promisor
+     * @param &lt;T> the type of deliverable
+     */
+    createLifeCycle&lt;T>(promisor : PromisorType&lt;T>) : RequiredType&lt;Promisor&lt;T>>;
+    
+    /**
+     * Extract
+     * Note: increment and decrementUsage are relayed to the source promisor.
+     *
+     * @param promisor the source promisor
+     * @param extractor the function that gets an object from the deliverable. For example Person  => Age
+     * @return the new Promisor
+     * @param &lt;T> the type of deliverable
+     * @param &lt;R> the new Promisor deliverable type
+     */
+    createExtractor&lt;T,R>(promisor: PromisorType&lt;T>, extractor: Transform&lt;T, R>) : RequiredType&lt;Promisor&lt;R>>;
+}
+
+/**
+ * For creating a Contract for PromisorFactory with duck-typing checks.
+ */
+export const LAWYER: Lawyer&lt;PromisorFactory> = new class implements Lawyer&lt;PromisorFactory> {
+
+    /**
+     * Lawyer.isDeliverable override
+     */
+    isDeliverable&lt;X extends PromisorFactory>(instance: unknown): instance is OptionalType&lt;X> {
+        return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
+    }
+
+    /** 
+     * Lawyer.createContract override
+     */
+    createContract&lt;X extends PromisorFactory>(config?: ContractConfig&lt;X>): Contract&lt;X> {
+        const copy: ContractConfig&lt;X> = { ...config ?? {} };
+
+        copy.test ??= this.isDeliverable;
+        copy.typeName ??= "PromisorFactory";
+
+        return createContract&lt;X>(copy);
+    }
+};
+
+/**
+ * The Contract for PromisorFactory implementation.
+ */
+export const CONTRACT: Contract&lt;PromisorFactory> = LAWYER.createContract();
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicContract.html">BasicContract</a></li><li><a href="ClassCastException.html">ClassCastException</a></li><li><a href="ContractException.html">ContractException</a></li><li><a href="IllegalArgumentException.html">IllegalArgumentException</a></li><li><a href="IllegalStateException.html">IllegalStateException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AUTO_CLOSE_NONE">AUTO_CLOSE_NONE</a></li><li><a href="global.html#CONTRACT">CONTRACT</a></li><li><a href="global.html#DEFAULT_BIND_STRATEGY">DEFAULT_BIND_STRATEGY</a></li><li><a href="global.html#LAWYER">LAWYER</a></li><li><a href="global.html#builderCheck">builderCheck</a></li><li><a href="global.html#builderConsumerCheck">builderConsumerCheck</a></li><li><a href="global.html#configCheck">configCheck</a></li><li><a href="global.html#contractCheck">contractCheck</a></li><li><a href="global.html#contractsCheck">contractsCheck</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#createContract">createContract</a></li><li><a href="global.html#hasFunctions">hasFunctions</a></li><li><a href="global.html#hasRequiredFunctions">hasRequiredFunctions</a></li><li><a href="global.html#inlineAutoClose">inlineAutoClose</a></li><li><a href="global.html#isAutoClose">isAutoClose</a></li><li><a href="global.html#isAutoOpen">isAutoOpen</a></li><li><a href="global.html#isDeliverable">isDeliverable</a></li><li><a href="global.html#isNotNullOrUndefined">isNotNullOrUndefined</a></li><li><a href="global.html#isNullOrUndefined">isNullOrUndefined</a></li><li><a href="global.html#messageCheck">messageCheck</a></li><li><a href="global.html#nameCheck">nameCheck</a></li><li><a href="global.html#nullCheck">nullCheck</a></li><li><a href="global.html#promisorCheck">promisorCheck</a></li><li><a href="global.html#typeCheck">typeCheck</a></li><li><a href="global.html#validateContracts">validateContracts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 08 2026 22:31:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

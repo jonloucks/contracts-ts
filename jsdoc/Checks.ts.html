@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Checks.ts</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Checks.ts</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { RequiredType, OptionalType } from "./Types";
+import { IllegalArgumentException } from "./IllegalArgumentException";
+
+/**
+ * Check if given Contract is not null or invalid
+ *
+ * @param contract the Contract to check
+ * @param &lt;T>      the deliverable type
+ * @return a valid contract
+ * @throws IllegalArgumentException when invalid
+ */
+export const contractCheck: &lt;T>(contract: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(contract: OptionalType&lt;T>) => {
+        return nullCheck(contract, "Contract must be present.");
+    }
+
+/**
+ * Check if given Contracts is not null or invalid
+ * @param contracts the Contracts to check
+ * @return a valid Contracts
+ */
+export const contractsCheck: &lt;T>(contracts: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(contracts: OptionalType&lt;T>) => {
+        return nullCheck(contracts, "Contracts must be present.");
+    }
+
+/**
+ * Check if given Promisor is not null or invalid
+ *
+ * @param promisor the Promisor to check
+ * @param &lt;T>      the deliverable type
+ * @return a valid promisor
+ * @throws IllegalArgumentException when invalid
+ */
+export const promisorCheck: &lt;T>(promisor: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(promisor: OptionalType&lt;T>) => {
+        return nullCheck(promisor, "Promisor must be present.");
+    }
+
+/**
+ * Check if given config is not null or invalid
+ *
+ * @param config the config to check
+ * @param &lt;T>      the type of config
+ * @return a valid config
+ * @throws IllegalArgumentException when invalid
+ */
+export const configCheck: &lt;T>(config: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(config: OptionalType&lt;T>) => {
+        return nullCheck(config, "Config must be present.");
+    }
+
+/**
+ * Check if given builder is not null or invalid
+ *
+ * @param builder the builder to check
+ * @param &lt;T>      the type of builder
+ * @return a valid builder
+ * @throws IllegalArgumentException when invalid
+ */
+export const builderCheck: &lt;T>(builder: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(builder: OptionalType&lt;T>) => {
+        return nullCheck(builder, "Builder must be present.");
+    }
+
+/**
+ * Check if given builder consumer is not null or invalid
+ *
+ * @param builderConsumer the builder consumer to check
+ * @param &lt;T>      the type of builder consumer
+ * @return a valid builder consumer
+ * @throws IllegalArgumentException when invalid
+ */
+export const builderConsumerCheck: &lt;T>(builderConsumer: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(builderConsumer: OptionalType&lt;T>) => {
+        return nullCheck(builderConsumer, "Builder consumer must be present.");
+    }
+
+/**
+ * Check if given type is not null or invalid
+ *
+ * @param {*} type the type to check
+ * @returns a valid type
+ */
+export const typeCheck: &lt;T>(name: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(name: OptionalType&lt;T>) => {
+        return nullCheck(name, "Type must be present.");
+    }
+
+/**
+ * Check if given name is not null or invalid
+ *
+ * @param {*} name the name to check
+ * @returns a valid name
+ */
+export const nameCheck: &lt;T>(name: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(name: T) => {
+        return nullCheck(name, "Name must be present.");
+    }
+
+/**
+ * Check if given message is not null or invalid
+ * 
+ * @param {*} value the message to check
+ * @returns a valid message
+ */
+export const messageCheck: &lt;T>(value: OptionalType&lt;T>)
+    => RequiredType&lt;T>
+    = &lt;T>(value: OptionalType&lt;T>) => {
+        return nullCheck(value, "Message must be present.");
+    }
+
+/**
+ * Check if given instance is not null
+ * 
+ * @param {*} value the instance to check
+ * @param {*} message the message used if an exception is thrown
+ * @returns the value passed
+ */
+export const nullCheck: &lt;T>(value: OptionalType&lt;T>, message: string) 
+    => RequiredType&lt;T>
+    = &lt;T>(value: OptionalType&lt;T>, message: string) => {
+        return illegalCheck(value, value === null || value === undefined, message) as RequiredType&lt;T>;
+    };
+
+/**
+* Check if given instance is not null
+* 
+* @param {*} value the instance to check
+* @param {*} failed if true an IllegalArgumentException is thrown
+* @param {*} message the message used if an exception is thrown
+* @returns the value passed in
+*/
+export const illegalCheck: &lt;T>(value: T, failed: boolean, message: string)
+    => T
+    = &lt;T>(value: T, failed: boolean, message: string) => {
+        if (message === null || message === undefined) {
+            throw new IllegalArgumentException("Message for illegal check must be present.");
+        }
+        if (failed) {
+            throw new IllegalArgumentException(message);
+        }
+        return value;
+    };
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicContract.html">BasicContract</a></li><li><a href="ClassCastException.html">ClassCastException</a></li><li><a href="ContractException.html">ContractException</a></li><li><a href="IllegalArgumentException.html">IllegalArgumentException</a></li><li><a href="IllegalStateException.html">IllegalStateException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AUTO_CLOSE_NONE">AUTO_CLOSE_NONE</a></li><li><a href="global.html#CONTRACT">CONTRACT</a></li><li><a href="global.html#DEFAULT_BIND_STRATEGY">DEFAULT_BIND_STRATEGY</a></li><li><a href="global.html#LAWYER">LAWYER</a></li><li><a href="global.html#builderCheck">builderCheck</a></li><li><a href="global.html#builderConsumerCheck">builderConsumerCheck</a></li><li><a href="global.html#configCheck">configCheck</a></li><li><a href="global.html#contractCheck">contractCheck</a></li><li><a href="global.html#contractsCheck">contractsCheck</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#createContract">createContract</a></li><li><a href="global.html#hasFunctions">hasFunctions</a></li><li><a href="global.html#hasRequiredFunctions">hasRequiredFunctions</a></li><li><a href="global.html#inlineAutoClose">inlineAutoClose</a></li><li><a href="global.html#isAutoClose">isAutoClose</a></li><li><a href="global.html#isAutoOpen">isAutoOpen</a></li><li><a href="global.html#isDeliverable">isDeliverable</a></li><li><a href="global.html#isNotNullOrUndefined">isNotNullOrUndefined</a></li><li><a href="global.html#isNullOrUndefined">isNullOrUndefined</a></li><li><a href="global.html#messageCheck">messageCheck</a></li><li><a href="global.html#nameCheck">nameCheck</a></li><li><a href="global.html#nullCheck">nullCheck</a></li><li><a href="global.html#promisorCheck">promisorCheck</a></li><li><a href="global.html#typeCheck">typeCheck</a></li><li><a href="global.html#validateContracts">validateContracts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 08 2026 22:31:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

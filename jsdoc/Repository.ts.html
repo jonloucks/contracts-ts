@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Repository.ts</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Repository.ts</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { OptionalType, hasFunctions } from "./Types";
+import { AutoOpen } from "./AutoOpen";
+import { Contract, Config as ContractConfig } from "./Contract";
+import { PromisorType } from "./Promisor";
+import { BindStrategy } from "./BindStrategy";
+import { AutoClose } from "./AutoClose";
+import { Lawyer } from "./Lawyer";
+import { create as createContract } from "./RatifiedContract";
+
+/**
+ * A repository for multiple contract promisors
+ * This is an opt-in feature to simplify the managing of many contract bindings.
+ * 1. Optional feature to register required contracts.
+ * 2. Optional feature to manage multiple contract bindings.
+ */
+export interface Repository extends AutoOpen {
+
+    /**
+     * Store the binding.
+     * Note: Replacing a Contract already promised in this Repository is forbidden after the Repository is opened.
+     * If the Repository is not open an existing Promisor can be replaced, otherwise it is forbidden.
+     * If the Repository is not open, the binding will be applied when repository is opened.
+     * If the Repository has already been opened the binding is applied immediately
+     * Note: If never explicitly closed, the order of closing promisors is the reverse order they are stored
+     * @param contract the contract to be bound
+     * @param promisor the promisor to be bounded
+     * @param bindStrategy the config for storing the binding
+     * @return AutoClose responsible for removing the binding from this Repository
+     * @param &lt;T> the type of contract deliverable
+     */
+    store&lt;T>(contract: Contract&lt;T>, promisor: PromisorType&lt;T>, bindStrategy?: BindStrategy): AutoClose
+
+    /**
+     * Keep the binding for the life of the repository
+     * If the Repository is not open, the binding will be created when repository is opened.
+     * If the Repository has already been opened the binding is created immediately
+     * Note: The order of closing promisors is the reverse order they are stored
+     * @param contract the contract to be bound
+     * @param promisor the promisor to be bounded
+     * @param bindStrategy the config for storing the binding
+
+     * @param &lt;T> the type of contract deliverable
+     */
+    keep&lt;T>(contract: Contract&lt;T>, promisor: PromisorType&lt;T>, bindStrategy?: BindStrategy): void;
+
+    /**
+     * Check that all requirements have fulfilled
+     */
+    check(): void;
+
+    /**
+     * Added a required contract
+     * @param contract the contract to be required
+     * @param &lt;T> the type of contract deliverable
+     */
+    require&lt;T>(contract: Contract&lt;T>): void;
+}
+
+/**
+ * For creating a Contract for Repository with duck-typing checks.
+ */
+export const LAWYER: Lawyer&lt;Repository> = new class implements Lawyer&lt;Repository> {
+
+    /**
+     * Lawyer.isDeliverable override
+     */
+    isDeliverable&lt;X extends Repository>(instance: unknown): instance is OptionalType&lt;X> {
+        return hasFunctions(instance, 'store', 'keep', 'check', 'require', 'open');
+    }
+
+    /** 
+     * Lawyer.createContract override
+     */
+    createContract&lt;X extends Repository>(config?: ContractConfig&lt;X> | undefined): Contract&lt;X> {
+        const copy: ContractConfig&lt;X> = { ...config }
+
+        copy.typeName ??= "Repository";
+        copy.test ??= this.isDeliverable;
+
+        return createContract&lt;X>(copy);
+    }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicContract.html">BasicContract</a></li><li><a href="ClassCastException.html">ClassCastException</a></li><li><a href="ContractException.html">ContractException</a></li><li><a href="IllegalArgumentException.html">IllegalArgumentException</a></li><li><a href="IllegalStateException.html">IllegalStateException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AUTO_CLOSE_NONE">AUTO_CLOSE_NONE</a></li><li><a href="global.html#CONTRACT">CONTRACT</a></li><li><a href="global.html#DEFAULT_BIND_STRATEGY">DEFAULT_BIND_STRATEGY</a></li><li><a href="global.html#LAWYER">LAWYER</a></li><li><a href="global.html#builderCheck">builderCheck</a></li><li><a href="global.html#builderConsumerCheck">builderConsumerCheck</a></li><li><a href="global.html#configCheck">configCheck</a></li><li><a href="global.html#contractCheck">contractCheck</a></li><li><a href="global.html#contractsCheck">contractsCheck</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#createContract">createContract</a></li><li><a href="global.html#hasFunctions">hasFunctions</a></li><li><a href="global.html#hasRequiredFunctions">hasRequiredFunctions</a></li><li><a href="global.html#inlineAutoClose">inlineAutoClose</a></li><li><a href="global.html#isAutoClose">isAutoClose</a></li><li><a href="global.html#isAutoOpen">isAutoOpen</a></li><li><a href="global.html#isDeliverable">isDeliverable</a></li><li><a href="global.html#isNotNullOrUndefined">isNotNullOrUndefined</a></li><li><a href="global.html#isNullOrUndefined">isNullOrUndefined</a></li><li><a href="global.html#messageCheck">messageCheck</a></li><li><a href="global.html#nameCheck">nameCheck</a></li><li><a href="global.html#nullCheck">nullCheck</a></li><li><a href="global.html#promisorCheck">promisorCheck</a></li><li><a href="global.html#typeCheck">typeCheck</a></li><li><a href="global.html#validateContracts">validateContracts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 08 2026 22:31:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RatifiedContract.ts</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RatifiedContract.ts</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { OptionalType, RequiredType, isNullOrUndefined} from "./Types";
+import { ClassCastException } from "./ClassCastException";
+import { ContractException } from "./ContractException";
+import { Contract, Config } from "./Contract";
+import { BasicContract } from "./BasicContract";
+
+export function create&lt;T>(config?: Config&lt;T> | null) : Contract&lt;T> {
+    return RatifiedContract.create&lt;T>(config);
+}
+
+export function isRatifiedContract(instance: unknown): instance is RatifiedContract&lt;unknown> {
+    return RatifiedContract.isRatifiedContract(instance);
+}
+
+class RatifiedContract&lt;T> extends BasicContract&lt;T> {
+
+    /**
+      * Create a contract derived from the given configuration
+      *
+      * @param config the name for the contract, null is not allowed
+      * @param &lt;T>    the type of deliverable for this Contract
+      * @return the new Contract
+      */
+    static create&lt;T>(config?: Config&lt;T> | null): Contract&lt;T> {
+        return new RatifiedContract&lt;T>(config);
+    }
+
+    static isRatifiedContract(instance: unknown): instance is RatifiedContract&lt;unknown> {
+        if (isNullOrUndefined(instance)) {
+            return false;
+        }
+
+        try {
+            const candidate = instance as RatifiedContract&lt;unknown>;
+            return candidate.#secret === RatifiedContract.#SECRET;
+        } catch {
+            return false;
+        }
+    }
+
+    /**
+     * This is a security check to prevent duck-typing or extending Contract class.
+     * 
+     * Note: When invoked by the constructor it is early in the initialization phase so
+     * most fields are not yet initialized.
+     */
+    private integrityCheck(): void {
+        try {
+            // Accessing private field to ensure it's really a Contract
+             
+            if (this.#secret !== RatifiedContract.#SECRET) {
+                throw new Error("Identifier  mismatch.");
+            }
+        } catch (thrown) {
+            throw new ContractException('Security violation detected. This is not permitted.');
+        }
+    }
+
+    private constructor(config?: Config&lt;T> | null) {
+        super(RatifiedContract.validateConfig(config));
+        this.integrityCheck();
+        Object.freeze(this);
+    }
+
+    private static validateConfig&lt;T>(config?: Config&lt;T> | null): RequiredType&lt;Config&lt;T>> {
+        if (isNullOrUndefined(config)) {
+            RatifiedContract.throwRequirementsViolation();
+        }
+
+        if (isNullOrUndefined(config.test) &amp;&amp; isNullOrUndefined(config.cast)) {
+            RatifiedContract.throwRequirementsViolation();
+        }
+
+        return config;
+    }
+
+    private static throwRequirementsViolation(): never {
+        throw new ContractException("RatifiedContract requirements violation: either a test or cast function must be present.");
+    }
+
+    static readonly #SECRET : symbol = Symbol("Contract");
+    readonly #secret : symbol = RatifiedContract.#SECRET;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicContract.html">BasicContract</a></li><li><a href="ClassCastException.html">ClassCastException</a></li><li><a href="ContractException.html">ContractException</a></li><li><a href="IllegalArgumentException.html">IllegalArgumentException</a></li><li><a href="IllegalStateException.html">IllegalStateException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AUTO_CLOSE_NONE">AUTO_CLOSE_NONE</a></li><li><a href="global.html#CONTRACT">CONTRACT</a></li><li><a href="global.html#DEFAULT_BIND_STRATEGY">DEFAULT_BIND_STRATEGY</a></li><li><a href="global.html#LAWYER">LAWYER</a></li><li><a href="global.html#builderCheck">builderCheck</a></li><li><a href="global.html#builderConsumerCheck">builderConsumerCheck</a></li><li><a href="global.html#configCheck">configCheck</a></li><li><a href="global.html#contractCheck">contractCheck</a></li><li><a href="global.html#contractsCheck">contractsCheck</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#createContract">createContract</a></li><li><a href="global.html#hasFunctions">hasFunctions</a></li><li><a href="global.html#hasRequiredFunctions">hasRequiredFunctions</a></li><li><a href="global.html#inlineAutoClose">inlineAutoClose</a></li><li><a href="global.html#isAutoClose">isAutoClose</a></li><li><a href="global.html#isAutoOpen">isAutoOpen</a></li><li><a href="global.html#isDeliverable">isDeliverable</a></li><li><a href="global.html#isNotNullOrUndefined">isNotNullOrUndefined</a></li><li><a href="global.html#isNullOrUndefined">isNullOrUndefined</a></li><li><a href="global.html#messageCheck">messageCheck</a></li><li><a href="global.html#nameCheck">nameCheck</a></li><li><a href="global.html#nullCheck">nullCheck</a></li><li><a href="global.html#promisorCheck">promisorCheck</a></li><li><a href="global.html#typeCheck">typeCheck</a></li><li><a href="global.html#validateContracts">validateContracts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 08 2026 22:31:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

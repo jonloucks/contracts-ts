@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Types.ts</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Types.ts</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export type OptionalType&lt;T> = T | null | undefined;
+export type RequiredType&lt;T> = NonNullable&lt;T>;
+export type OptionalSupplierType&lt;T> = () => OptionalType&lt;T>;
+export type RequiredSupplierType&lt;T> = () => RequiredType&lt;T>;
+export type AnyFunction = (...args: unknown[]) => unknown;
+
+export interface Transform&lt;I, O> {
+   transform(I: OptionalType&lt;I>): OptionalType&lt;O>;
+}
+
+/**
+ * Check iif given value is not null or undefined
+ * 
+ * @param value the value to check
+ * @returns true iif value is not null or undefined, false for actual values
+ */
+export function isNotNullOrUndefined&lt;T>(value: unknown): value is RequiredType&lt;T> {
+    return value !== null &amp;&amp; value !== undefined;
+}
+
+/**
+ * Check iif given value is null or undefined
+ * 
+ * @param value the value to check
+ * @returns true iif value is null or undefined, false for actual values
+ */
+export function isNullOrUndefined&lt;T>(value: unknown): value is null | undefined {
+    return value === null || value === undefined;
+}
+
+export function isRequiredFunction&lt;T extends AnyFunction>(value: unknown): value is RequiredType&lt;T>{
+    return isRequiredTypeOf(value, "function");
+}
+
+export function isFunction(value: unknown): value is OptionalType&lt;AnyFunction>{
+    return isTypeOf(value, "function");
+}
+
+export function isRequiredObject(value: unknown): value is RequiredType&lt;object> {
+    return isRequiredTypeOf(value, "object");
+}
+
+export function isObject(value: unknown): value is OptionalType&lt;object> {
+    return isTypeOf(value, "object");
+}
+
+export function isRequiredString(value: unknown): value is RequiredType&lt;string> {
+    return isRequiredTypeOf(value, "string");
+}
+
+export function isString(value: unknown): value is OptionalType&lt;string> {
+    return isTypeOf(value, "string");
+}
+
+export function isRequiredNumber(value: unknown): value is RequiredType&lt;number> {
+    return isRequiredTypeOf(value, "number");
+}
+
+export function isNumber(value: unknown): value is OptionalType&lt;number> {
+    return isTypeOf(value, "number");
+}
+
+export function isRequiredSymbol(value: unknown): value is RequiredType&lt;symbol> {
+    return isRequiredTypeOf(value, "symbol");
+}
+
+export function isSymbol(value: unknown): value is OptionalType&lt;symbol> {
+    return isTypeOf(value, "symbol");
+}
+
+export function isRequiredBoolean(value: unknown): value is RequiredType&lt;boolean> {
+    return isRequiredTypeOf(value, "boolean");
+}
+
+export function isBoolean(value: unknown): value is OptionalType&lt;boolean> {
+    return isTypeOf(value, "boolean");
+}
+
+export function isRequiredBigInt(value: unknown): value is RequiredType&lt;bigint> {
+    return isRequiredTypeOf(value, "bigint");
+}
+
+export function isBigInt(value: unknown): value is OptionalType&lt;bigint> {
+    return isTypeOf(value, "bigint");
+}
+
+export function isRequiredConstructor&lt;T>(value: unknown): value is RequiredType&lt;(new () => T)> {
+    return isRequiredFunction(value) &amp;&amp;'prototype' in value &amp;&amp; 'constructor' in value
+}
+
+export function isConstructor&lt;T>(value: unknown): value is RequiredType&lt;(new () => T)> {
+   return isNullOrUndefined(value) || isRequiredConstructor&lt;T>(value);
+}
+
+/**
+ * Check if given value has defined properties
+ * Note: if the value is present is required to have all the functions defined
+ * 
+ * @param value the value to check
+ * @param propertyNames the property names to check
+ * @returns true if property is defined
+ */
+export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType&lt;AnyFunction> {
+    return hasFunctionsHelper(value, propertyNames, false);
+}
+
+/**
+ * Check if given value has defined properties
+ * 
+ * @param value the value to check
+ * @param propertyNames the property names to check
+ * @returns true if property is defined
+ */
+export function hasRequiredFunctions(value: unknown, ...propertyNames: string[]):  value is RequiredType&lt;AnyFunction>{
+    return hasFunctionsHelper(value, propertyNames, true);
+}
+
+function isTypeOf&lt;T>(value: unknown, type: string): value is OptionalType&lt;T> {
+      return isNullOrUndefined(value) || isRequiredTypeOf(value, type);
+}
+
+function isRequiredTypeOf&lt;T>(value: unknown, type: string): value is RequiredType&lt;T> {
+    return typeof value === type;
+}
+
+function hasFunctionsHelper(value: unknown, propertyNames: string[], required: boolean): boolean {
+    if (isNullOrUndefined(value)) {
+        return !required;
+    }
+    const record = value as Record&lt;string, unknown>;
+    for (const propertyName of propertyNames) {
+        if (!isRequiredFunction(record[propertyName])) {
+            return false;
+        }
+    }
+    return true;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BasicContract.html">BasicContract</a></li><li><a href="ClassCastException.html">ClassCastException</a></li><li><a href="ContractException.html">ContractException</a></li><li><a href="IllegalArgumentException.html">IllegalArgumentException</a></li><li><a href="IllegalStateException.html">IllegalStateException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AUTO_CLOSE_NONE">AUTO_CLOSE_NONE</a></li><li><a href="global.html#CONTRACT">CONTRACT</a></li><li><a href="global.html#DEFAULT_BIND_STRATEGY">DEFAULT_BIND_STRATEGY</a></li><li><a href="global.html#LAWYER">LAWYER</a></li><li><a href="global.html#builderCheck">builderCheck</a></li><li><a href="global.html#builderConsumerCheck">builderConsumerCheck</a></li><li><a href="global.html#configCheck">configCheck</a></li><li><a href="global.html#contractCheck">contractCheck</a></li><li><a href="global.html#contractsCheck">contractsCheck</a></li><li><a href="global.html#create">create</a></li><li><a href="global.html#createContract">createContract</a></li><li><a href="global.html#hasFunctions">hasFunctions</a></li><li><a href="global.html#hasRequiredFunctions">hasRequiredFunctions</a></li><li><a href="global.html#inlineAutoClose">inlineAutoClose</a></li><li><a href="global.html#isAutoClose">isAutoClose</a></li><li><a href="global.html#isAutoOpen">isAutoOpen</a></li><li><a href="global.html#isDeliverable">isDeliverable</a></li><li><a href="global.html#isNotNullOrUndefined">isNotNullOrUndefined</a></li><li><a href="global.html#isNullOrUndefined">isNullOrUndefined</a></li><li><a href="global.html#messageCheck">messageCheck</a></li><li><a href="global.html#nameCheck">nameCheck</a></li><li><a href="global.html#nullCheck">nullCheck</a></li><li><a href="global.html#promisorCheck">promisorCheck</a></li><li><a href="global.html#typeCheck">typeCheck</a></li><li><a href="global.html#validateContracts">validateContracts</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Jan 08 2026 22:31:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
