@@ -46,18 +46,23 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
+      working-directory: main-project
 
     - name: Lint
       run: npm run lint
+      working-directory: main-project
 
     - name: Build
       run: npm run build
+      working-directory: main-project
 
     - name: Test with coverage
       run: npm run test:coverage
-      
+      working-directory: main-project
+
     - name: Generate coverage badges
       run: npx tsx ./scripts/generate-code-coverage-badge.ts
+      working-directory: main-project
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
 
@@ -65,7 +70,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: jest-coverage-report
-        path: coverage/lcov-report/
+        path: main-project/coverage/lcov-report/
 
     - name: Commit and Push the Badges to the badges branch
       uses: EndBug/add-and-commit@v9
