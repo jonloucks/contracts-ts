@@ -17,12 +17,14 @@ jobs:
         node-version: [18.x]
 
     steps:
+    - uses: actions/checkout@v4
+
     - name: Assigning SIMPLE_REPOSITORY_NAME
       run: echo "SIMPLE_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
     - name: Assigning SIMPLE_BRANCH_NAME
       run: |
-        BRANCH_NAME="${{ github.head_ref || github.ref_name}}"
+        BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
         SIMPLE_BRANCH_NAME="${BRANCH_NAME//\//-}"
         echo "SIMPLE_BRANCH_NAME=${SIMPLE_BRANCH_NAME}" >> $GITHUB_ENV
 
@@ -62,7 +64,7 @@ jobs:
         name: jest-coverage-report
         path: coverage/lcov-report/
 
-    - name: Commit and Push the Badges
+    - name: Commit and Push the Badges to the badges branch
       uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
