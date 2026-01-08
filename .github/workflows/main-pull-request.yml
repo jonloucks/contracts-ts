@@ -55,8 +55,8 @@ jobs:
 
     - name: Generate coverage badges
       run: npx tsx ./scripts/generate-code-coverage-badge.ts
-      env:
-        KIT_COVERAGE_SUMMARY_BADGE_PATH: badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
+      # env:
+      #   KIT_COVERAGE_SUMMARY_BADGE_PATH: badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
 
     - name: Upload Jest Code Coverage report
       uses: actions/upload-artifact@v4
