@@ -24,6 +24,8 @@ generateCoverageSummaryBadge();
  */
 function generateCoverageSummaryBadge(): void {    
     const inputPath : string = getCoverageSummaryFilePath()
+
+    console
     fs.readFile(inputPath, (err, data) => {
     if (handleError(inputPath, err)) {
         return
@@ -53,6 +55,7 @@ interface GenerateOptions {
 
 function generateBadge(options: GenerateOptions): void {
     const templatePath : string = options.templatePath ? options.templatePath : getTemplateBadgePath();
+    console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
     fs.readFile(templatePath, (err, templateData) => {
         if (handleError(templatePath, err)) {
             return
