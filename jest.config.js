@@ -6,9 +6,10 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
   collectCoverageFrom: [
     'src/**/*.ts',
+    '!src/test/**',
     '!src/**/*.test.ts',
     '!src/**/__tests__/**'
   ],
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'lcov', 'html']
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary']
 };
