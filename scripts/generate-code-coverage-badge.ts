@@ -16,11 +16,12 @@
  */
 import fs from 'fs';
 
-generateCoverageSummaryBadge();
-
-function foo() : void {
-    return;
+try {
+    generateCoverageSummaryBadge();
+} catch (error) {
+    console.warn("Error generating coverage summary badge:", error);
 }
+
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
@@ -86,7 +87,6 @@ function generateBadge(options: GenerateOptions): void {
 
 function readPercentageFromCoverageSummary(data: Buffer): number {
     const text : string = data.toString('utf8');
-    console.log(`Read coverage summary JSON: ${text}`);
     const jsonData = JSON.parse(text);
     return jsonData.total.lines.pct;
 }
@@ -115,9 +115,6 @@ function handleError(path: string, caught: any): caught is null {
     if (caught) {
         if (caught.code === 'ENOENT') {
             console.warn(`File not found at path: ${path}`);
-        } else {
-            console.error(`Error reading file at path: ${path}`, caught);
-            throw caught;
         }
         return true;
     }
