@@ -53,6 +53,18 @@ jobs:
     - name: Test with coverage
       run: npm run test:coverage
 
+    - name: What is in the badges directory before generating new badges
+      run: ls -la badges
+
+    - name: What is in the badges directory before generating new badges
+      run: ls -la ${{ github.workspace }}/badges
+
+    - name: Write to badges directory
+      run: echo "Hello" >>  ${{ github.workspace }}/badges/hello.txt
+
+    - name: What is in the badges directory before generating new badges
+      run: ls -la ${{ github.workspace }}/badges
+      
     - name: Generate coverage badges
       run: npx tsx ./scripts/generate-code-coverage-badge.ts
       env:

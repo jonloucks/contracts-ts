@@ -74,10 +74,14 @@ function generateBadge(options: GenerateOptions): void {
         bestEffort(`generate badge ${options.name}`, () => {
             const template: string = templateData.toString('utf8');
             const generated: string = replaceKeywords(options, template);
-            fs.writeFileSync(options.outputPath, generated);
+            writeBadgeToFile(options, generated);
             console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
         });
     });
+}
+
+function writeBadgeToFile(options: GenerateOptions, content: string): void {
+    fs.writeFileSync(options.outputPath, content);
 }
 
 function replaceKeywords(options: GenerateOptions, template: string): string {
