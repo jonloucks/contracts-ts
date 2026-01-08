@@ -18,17 +18,20 @@ import fs from 'fs';
 
 generateCoverageSummaryBadge();
 
+function foo() : void {
+    return;
+}
+
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
-function generateCoverageSummaryBadge(): void {    
-    const inputPath : string = getCoverageSummaryFilePath()
+function generateCoverageSummaryBadge(): void {
+    const inputPath : string = getCoverageSummaryFilePath();
 
-    console
     fs.readFile(inputPath, (err, data) => {
     if (handleError(inputPath, err)) {
-        return
+        return;
     }
 
     const percent: number = readPercentageFromCoverageSummary(data);
@@ -82,7 +85,9 @@ function generateBadge(options: GenerateOptions): void {
 }
 
 function readPercentageFromCoverageSummary(data: Buffer): number {
-    const jsonData = JSON.parse(data.toString('utf8'));
+    const text : string = data.toString('utf8');
+    console.log(`Read coverage summary JSON: ${text}`);
+    const jsonData = JSON.parse(text);
     return jsonData.total.lines.pct;
 }
 

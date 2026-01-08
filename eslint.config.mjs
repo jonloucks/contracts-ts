@@ -28,6 +28,6 @@ export default [
     }
   },
   {
-    ignores: ['dist/', 'node_modules/', 'coverage/', 'jest.config.js', 'eslint.config.mjs']
+    ignores: ['dist/', 'node_modules/', 'scripts/', 'coverage/', 'jest.config.js', 'eslint.config.mjs']
   }
 ];
