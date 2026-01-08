@@ -52,9 +52,9 @@ jobs:
       run: npm run test:coverage
 
     - name: Generate coverage badges
-      uses: jpb06/coverage-badges-generation-action@v1.2.0
-      with:
-        output-folder: badges
+      run: npx tsx ./scripts/generate-code-coverage-badge.ts
+      env:
+        KIT_COVERAGE_SUMMARY_BADGE_PATH: badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
 
     - name: Upload Jest Code Coverage report
       uses: actions/upload-artifact@v4
