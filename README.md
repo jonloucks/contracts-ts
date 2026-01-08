@@ -7,8 +7,25 @@
 
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
 [![npm version](https://badge.fury.io/js/contracts-ts.svg)](https://www.npmjs.com/package/contracts-ts)
+[![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report)
+
 
 Typescript Dependency Contracts for dependency inversion
+
+## Documentation
+* [License](LICENSE.md)
+* [Contributing](CONTRIBUTING.md)
+* [Code of conduct](CODE_OF_CONDUCT.md)
+* [Coding standards](CODING_STANDARDS.md)
+* [Security policy](SECURITY.md)
+* [Pull request template](PULL_REQUEST_TEMPLATE.md)
+* [How to use API](https://jonloucks.github.io/contracts-ts/jsdoc/)
+* [Test coverage report](https://jonloucks.github.io/contracts-ts/lcov-report)
+
+## Badges
+[![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report/)
+[![Javadoc Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-jsdoc.svg)](https://jonloucks.github.io/contracts-ts/jsdoc/)
+
 
 ## Installation
 

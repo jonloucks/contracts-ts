@@ -4,8 +4,9 @@ import { Contract, Config } from "./Contract";
 
 /**
  * Create a basic Contract
+ * 
  * @param config the configuration for the Contract
- * @returns 
+ * @returns the created Contract
  */
 export function create<T>(config?: Config<T> | null) : RequiredType<Contract<T>> {
     return BasicContract.create<T>(config);

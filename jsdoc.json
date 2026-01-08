@@ -1,0 +1,25 @@
+{
+  "source": {
+    "include": ["src/index.ts", "src/api"],
+    "includePattern": ".+\\.ts(doc|x)?$",
+    "excludePattern": ".+\\.(test|spec).ts"
+  },
+  "plugins": [
+    "node_modules/jsdoc-babel"
+  ],
+  "babel": {
+    "extensions": ["ts", "tsx"],
+    "presets": [
+      ["@babel/preset-env", {
+        "targets": {
+          "node": true
+        }
+      }],
+      "@babel/preset-typescript"
+    ]
+  },
+  "opts": {
+    "destination": "./docs/jsdoc"
+  }
+}
+
