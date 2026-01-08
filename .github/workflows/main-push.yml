@@ -1,4 +1,4 @@
-name: Main Push CI
+name: main-push
 
 on:
   push:
@@ -68,11 +68,17 @@ jobs:
       run: npm run test:coverage
       working-directory: main-project
 
+    - name: Generate documentation
+      run: npm run docs
+      working-directory: main-project
+
     - name: Generate coverage badges
-      run: npx tsx ./scripts/generate-code-coverage-badge.ts
+      run: npx tsx ./scripts/generate-badges.ts
       working-directory: main-project
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
+        KIT_JSDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-jsdoc.svg
+
 
     - name: Upload Jest Code Coverage report
       uses: actions/upload-artifact@v4
@@ -83,8 +89,8 @@ jobs:
     - name: Copy Code Coverage and Source Documentation
       working-directory: gh-pages
       run: |
-        rm -rf javadoc/ lcov-report/ ; mkdir -p javadoc ; mkdir -p lcov-report
-        # cp -r "${{ github.workspace }}/main-project/${{ github.event.repository.name }}-api/build/docs/javadoc/"* javadoc/
+        rm -rf jsdoc/ lcov-report/ ; mkdir -p jsdoc ; mkdir -p lcov-report
+        cp -r "${{ github.workspace }}/main-project/docs/jsdoc/"* jsdoc/
         cp -r "${{ github.workspace }}/main-project/coverage/lcov-report/"* lcov-report/
         cp -r "${{ github.workspace }}/main-project/"*.md .
 

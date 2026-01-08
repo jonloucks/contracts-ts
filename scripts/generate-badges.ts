@@ -17,6 +17,7 @@
 import fs from 'fs';
 
 generateCoverageSummaryBadge()
+generateJsdocBadge()
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
@@ -37,16 +38,23 @@ function generateCoverageSummaryBadge(): void {
     });
 }
 
-function processCoverageSummaryReport(data: Buffer): void {
-    const percent: number = readPercentageFromCoverageSummary(data);
-    const color: string = determineBackgroundColor(percent);
+function generateJsdocBadge(): void {
+    bestEffort("generate jsdoc badge", () => {
+        generateBadge({
+            name: "jsdoc",
+            outputPath: getJsdocBadgePath(),
+            label: " jsdoc ",
+            percent: 100
+        });
+    });
+}
 
+function processCoverageSummaryReport(data: Buffer): void {
     generateBadge({
         name: "coverage-summary",
         outputPath: getCoverageSummaryBadgePath(),
         label: "coverage",
-        percent: percent,
-        color: color
+        percent: readPercentageFromCoverageSummary(data)
     });
 }
 
@@ -65,7 +73,6 @@ interface GenerateOptions {
     outputPath: string;
     label: string;
     percent: number;
-    color: string;
 }
 
 /**
@@ -92,10 +99,11 @@ function writeBadgeToFile(options: GenerateOptions, content: string): void {
 }
 
 function replaceKeywords(options: GenerateOptions, template: string): string {
+    const color: string = determineBackgroundColor(options.percent);
     const replacements = {
         LABEL: options.label,
         PERCENT: options.percent,
-        COLOR: options.color
+        COLOR: color
     };
     // Use a regex with a replacement function to dynamically insert values
     const generatedContent: string = template.replace(/{{(.*?)}}/g, (match, key: string) => {
@@ -117,11 +125,15 @@ function getCoverageSummaryFilePath(): string {
 }
 
 function getTemplateBadgePath(): string {
-    return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './scripts/code-coverage.svg.dat');
+    return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './scripts/badge-template.svg.dat');
 }
 
 function getCoverageSummaryBadgePath(): string {
     return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
+}
+
+function getJsdocBadgePath(): string {
+    return getEnvPathOrDefault('KIT_JSDOC_BADGE_PATH', './coverage/jsdoc-badge.svg');
 }
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
