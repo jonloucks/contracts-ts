@@ -5,7 +5,9 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  pages: write
   id-token: write
 
 jobs:
@@ -14,10 +16,34 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Assigning SIMPLE_REPOSITORY_NAME
+      run: echo "SIMPLE_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+    - name: Assigning SIMPLE_BRANCH_NAME
+      run: |
+        BRANCH_NAME="${{ github.head_ref || github.ref_name }}"
+        SIMPLE_BRANCH_NAME="${BRANCH_NAME//\//-}"
+        echo "SIMPLE_BRANCH_NAME=${SIMPLE_BRANCH_NAME}" >> $GITHUB_ENV
+
+    - name: Checkout ${{ env.SIMPLE_BRANCH_NAME }} branch
+      uses: actions/checkout@v4
+      with:
+        path: main-project
+
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        path: gh-pages  
+
+    - name: Checkout badges branch
+      uses: actions/checkout@v4
+      with:
+        ref: badges
+        path: badges   
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -37,9 +63,38 @@ jobs:
     - name: Test with coverage
       run: npm run test:coverage
 
-    - name: Upload coverage to Codecov
-      if: matrix.node-version == '20.x'
-      uses: codecov/codecov-action@v4
+    - name: Generate coverage badges
+      run: npx tsx ./scripts/generate-code-coverage-badge.ts
+      env:
+        KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
+
+    - name: Upload Jest Code Coverage report
+      uses: actions/upload-artifact@v4
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        fail_ci_if_error: false
+        name: jest-coverage-report
+        path: coverage/lcov-report/
+
+    - name: Copy Code Coverage and Source Documentation
+      working-directory: gh-pages
+      run: |
+        rm -rf javadoc/ lcov-report/ ; mkdir -p javadoc ; mkdir -p lcov-report
+        # cp -r "${{ github.workspace }}/main-project/${{ github.event.repository.name }}-api/build/docs/javadoc/"* javadoc/
+        cp -r "${{ github.workspace }}/main-project/coverage/lcov-report/"* lcov-report/
+        cp -r "${{ github.workspace }}/main-project/"*.md .
+
+    - name: Commit and Push gh-pages
+      uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
+        message: 'Update Source Documentation'
+        pull: '--rebase --autostash'
+        cwd: gh-pages
+
+    - name: Commit and Push the Badges to the badges branch
+      uses: EndBug/add-and-commit@v9
+      with:
+        default_author: github_actions
+        message: 'Push updated badges branch'
+        add: '*.svg'
+        pull: '--rebase --autostash'
+        cwd: badges

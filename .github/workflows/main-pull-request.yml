@@ -17,7 +17,6 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4
 
     - name: Assigning SIMPLE_REPOSITORY_NAME
       run: echo "SIMPLE_REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
@@ -28,11 +27,16 @@ jobs:
         SIMPLE_BRANCH_NAME="${BRANCH_NAME//\//-}"
         echo "SIMPLE_BRANCH_NAME=${SIMPLE_BRANCH_NAME}" >> $GITHUB_ENV
 
-    - name: Checkout badges branch dedicated to storing badges only
+    - name: Checkout ${{ env.SIMPLE_BRANCH_NAME }} branch
+      uses: actions/checkout@v4
+      with:
+        path: main-project
+
+    - name: Checkout badges branch
       uses: actions/checkout@v4
       with:
         ref: badges
-        path: badges
+        path: badges   
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4

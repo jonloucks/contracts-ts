@@ -16,34 +16,39 @@
  */
 import fs from 'fs';
 
-bestEffort("generate coverage summary badge", () => generateCoverageSummaryBadge());
+generateCoverageSummaryBadge()
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
 function generateCoverageSummaryBadge(): void {
-    const inputPath: string = getCoverageSummaryFilePath();
+    bestEffort("generate coverage summary badge", () => {
+        const inputPath: string = getCoverageSummaryFilePath();
 
-    fs.readFile(inputPath, (err, data) => {
-        if (handleError(inputPath, err)) {
-            return;
-        }
-
-        bestEffort("read coverage summary", () => {
-            const percent: number = readPercentageFromCoverageSummary(data);
-            const color: string = determineBackgroundColor(percent);
-
-            generateBadge({
-                name: "coverage-summary",
-                outputPath: getCoverageSummaryBadgePath(),
-                label: "coverage",
-                percent: percent,
-                color: color
+        fs.readFile(inputPath, (err, data) => {
+            bestEffort(`Read coverage summary report '${inputPath}'`, () => {
+                if (isError(inputPath, err)) {
+                    return;
+                }
+                processCoverageSummaryReport(data);
             });
         });
     });
-};
+}
+
+function processCoverageSummaryReport(data: Buffer): void {
+    const percent: number = readPercentageFromCoverageSummary(data);
+    const color: string = determineBackgroundColor(percent);
+
+    generateBadge({
+        name: "coverage-summary",
+        outputPath: getCoverageSummaryBadgePath(),
+        label: "coverage",
+        percent: percent,
+        color: color
+    });
+}
 
 function bestEffort<T>(name: string, block: () => T): T {
     try {
@@ -63,22 +68,24 @@ interface GenerateOptions {
     color: string;
 }
 
+/**
+ * Asynchronously generates a badge file based on the provided options and template.
+ * @param options 
+ */
 function generateBadge(options: GenerateOptions): void {
     const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
     console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
-    fs.readFile(templatePath, (err, templateData) => {
-        if (handleError(templatePath, err)) {
-            return
-        }
-
-        bestEffort(`generate badge ${options.name}`, () => {
-            const template: string = templateData.toString('utf8');
-            const generated: string = replaceKeywords(options, template);
+    fs.readFile(templatePath, (err, data) => {
+        bestEffort(`Read template content '${templatePath}'`, () => {
+            if (isError(templatePath, err)) {
+                return
+            }
+            const generated: string = replaceKeywords(options, data.toString('utf8'));
             writeBadgeToFile(options, generated);
             console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
         });
     });
-}
+};
 
 function writeBadgeToFile(options: GenerateOptions, content: string): void {
     fs.writeFileSync(options.outputPath, content);
@@ -125,7 +132,7 @@ function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
     return defaultPath;
 }
 
-function handleError(path: string, caught: any): caught is null {
+function isError(path: string, caught: any): caught is null {
     if (caught) {
         if (caught.code === 'ENOENT') {
             console.warn(`File not found at path: ${path}`);
