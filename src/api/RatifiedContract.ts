@@ -1,15 +1,21 @@
-import { OptionalType, RequiredType, isNullOrUndefined} from "./Types";
-import { ClassCastException } from "./ClassCastException";
+import { RequiredType, OptionalType, isNotNullOrUndefined, isNullOrUndefined } from "./Types";
 import { ContractException } from "./ContractException";
 import { Contract, Config } from "./Contract";
 import { BasicContract } from "./BasicContract";
 
-export function create<T>(config?: Config<T> | null) : Contract<T> {
+export function create<T>(config?: Config<T> | null): Contract<T> {
     return RatifiedContract.create<T>(config);
 }
 
 export function isRatifiedContract(instance: unknown): instance is RatifiedContract<unknown> {
     return RatifiedContract.isRatifiedContract(instance);
+}
+
+export function isRatifiableConfig<T>(config?: OptionalType<Config<T>>): config is RequiredType<Config<T>> {
+    if (isNullOrUndefined(config)) {
+        return false;
+    }
+    return isNotNullOrUndefined(config.test) || isNotNullOrUndefined(config.cast);
 }
 
 class RatifiedContract<T> extends BasicContract<T> {
@@ -29,7 +35,6 @@ class RatifiedContract<T> extends BasicContract<T> {
         if (isNullOrUndefined(instance)) {
             return false;
         }
-
         try {
             const candidate = instance as RatifiedContract<unknown>;
             return candidate.#secret === RatifiedContract.#SECRET;
@@ -39,45 +44,34 @@ class RatifiedContract<T> extends BasicContract<T> {
     }
 
     /**
-     * This is a security check to prevent duck-typing or extending Contract class.
+     * Being a RatifiedContract means something special. It is not somehting that you proclaim
+     * by extending the class or duck-typing. 
+     * This is an integrity check to prevent duck-typing or extending Contract class.
+     * Since private constructors can still be invoked.
+     * This is not a security mechanism, just an integrity check.
+     * This relies on TypeScript private fields which are enforced at runtime.
      * 
-     * Note: When invoked by the constructor it is early in the initialization phase so
-     * most fields are not yet initialized.
+     * @throws ContractException when integrity check fails
      */
     private integrityCheck(): void {
-        try {
-            // Accessing private field to ensure it's really a Contract
-             
-            if (this.#secret !== RatifiedContract.#SECRET) {
-                throw new Error("Identifier  mismatch.");
-            }
-        } catch (thrown) {
-            throw new ContractException('Security violation detected. This is not permitted.');
+        if (this.#secret !== RatifiedContract.#SECRET) {
+            throw new ContractException('Integrity violation detected. This is not permitted.');
         }
     }
 
-    private constructor(config?: Config<T> | null) {
+    private constructor(config?: OptionalType<Config<T>>) {
         super(RatifiedContract.validateConfig(config));
-        this.integrityCheck();
         Object.freeze(this);
+        this.integrityCheck();
     }
 
-    private static validateConfig<T>(config?: Config<T> | null): RequiredType<Config<T>> {
-        if (isNullOrUndefined(config)) {
-            RatifiedContract.throwRequirementsViolation();
+    private static validateConfig<T>(config?: OptionalType<Config<T>>) : RequiredType<Config<T>> {
+        if (isRatifiableConfig(config)) {
+            return config as RequiredType<Config<T>>;
         }
-
-        if (isNullOrUndefined(config.test) && isNullOrUndefined(config.cast)) {
-            RatifiedContract.throwRequirementsViolation();
-        }
-
-        return config;
+        throw new ContractException("RatifiedContract requires either a test or cast function must be present.");
     }
 
-    private static throwRequirementsViolation(): never {
-        throw new ContractException("RatifiedContract requirements violation: either a test or cast function must be present.");
-    }
-
-    static readonly #SECRET : symbol = Symbol("Contract");
-    readonly #secret : symbol = RatifiedContract.#SECRET;
+    static readonly #SECRET: symbol = Symbol("Contract");
+    readonly #secret: symbol = RatifiedContract.#SECRET;
 }

@@ -1,8 +1,6 @@
 export type OptionalType<T> = T | null | undefined;
 export type RequiredType<T> = NonNullable<T>;
-export type OptionalSupplierType<T> = () => OptionalType<T>;
-export type RequiredSupplierType<T> = () => RequiredType<T>;
-export type AnyFunction = (...args: unknown[]) => unknown;
+export type UnknownFunction = (...args: unknown[]) => unknown;
 
 export interface Transform<I, O> {
    transform(I: OptionalType<I>): OptionalType<O>;
@@ -28,11 +26,11 @@ export function isNullOrUndefined<T>(value: unknown): value is null | undefined 
     return value === null || value === undefined;
 }
 
-export function isRequiredFunction<T extends AnyFunction>(value: unknown): value is RequiredType<T>{
+export function isRequiredFunction<T extends UnknownFunction>(value: unknown): value is RequiredType<T>{
     return isRequiredTypeOf(value, "function");
 }
 
-export function isFunction(value: unknown): value is OptionalType<AnyFunction>{
+export function isFunction(value: unknown): value is OptionalType<UnknownFunction>{
     return isTypeOf(value, "function");
 }
 
@@ -100,7 +98,7 @@ export function isConstructor<T>(value: unknown): value is RequiredType<(new () 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType<AnyFunction> {
+export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType<UnknownFunction> {
     return hasFunctionsHelper(value, propertyNames, false);
 }
 
@@ -111,7 +109,7 @@ export function hasFunctions(value: unknown, ...propertyNames: string[]): value 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasRequiredFunctions(value: unknown, ...propertyNames: string[]):  value is RequiredType<AnyFunction>{
+export function hasRequiredFunctions(value: unknown, ...propertyNames: string[]):  value is RequiredType<UnknownFunction>{
     return hasFunctionsHelper(value, propertyNames, true);
 }
 
