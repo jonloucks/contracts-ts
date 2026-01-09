@@ -1,5 +1,5 @@
 import { Contract, Config } from '../api/Contract';
-import { isNullOrUndefined, RequiredType, OptionalType, isNotNullOrUndefined } from '../api/Types';
+import { RequiredType, OptionalType } from '../api/Types';
 import { create as createRatifiedContract } from '../api/RatifiedContract';
 import { create as createBasicContract } from '../api/BasicContract';
 import { isRatifiableConfig } from '../api/RatifiedContract';

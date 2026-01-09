@@ -3,14 +3,33 @@ import { ContractException } from "./ContractException";
 import { Contract, Config } from "./Contract";
 import { BasicContract } from "./BasicContract";
 
+/**
+ * A RatifiedContract is a Contract that has been verified to have either a test or cast function.
+ * This ensures that the contract can actually perform some form of validation or transformation.
+ *
+ * @param <T> the type of deliverable for this Contract
+ * @param config the configuration for the RatifiedContract
+ * @returns the created RatifiedContract
+ */
 export function create<T>(config?: Config<T> | null): Contract<T> {
     return RatifiedContract.create<T>(config);
 }
 
+/**
+ * Checks if the given instance is a RatifiedContract.
+ * @param instance the instance to check
+ * @returns true if the instance is a RatifiedContract, false otherwise
+ */
 export function isRatifiedContract(instance: unknown): instance is RatifiedContract<unknown> {
     return RatifiedContract.isRatifiedContract(instance);
 }
 
+/**
+ * Checks if the given configuration is ratifiable.
+ * 
+ * @param config the configuration to check
+ * @returns true if the configuration is ratifiable, false otherwise
+ */
 export function isRatifiableConfig<T>(config?: OptionalType<Config<T>>): config is RequiredType<Config<T>> {
     if (isNullOrUndefined(config)) {
         return false;
@@ -18,6 +37,12 @@ export function isRatifiableConfig<T>(config?: OptionalType<Config<T>>): config 
     return isNotNullOrUndefined(config.test) || isNotNullOrUndefined(config.cast);
 }
 
+/**
+ * A RatifiedContract is a Contract that has been verified to have either a test or cast function.
+ * This ensures that the contract can actually perform some form of validation or transformation.
+ *
+ * @param <T> the type of deliverable for this Contract
+ */
 class RatifiedContract<T> extends BasicContract<T> {
 
     /**
@@ -44,8 +69,8 @@ class RatifiedContract<T> extends BasicContract<T> {
     }
 
     /**
-     * Being a RatifiedContract means something special. It is not somehting that you proclaim
-     * by extending the class or duck-typing. 
+     * Being a RatifiedContract means something special. It is not something that you proclaim
+     * by extending the class or duck-typing.
      * This is an integrity check to prevent duck-typing or extending Contract class.
      * Since private constructors can still be invoked.
      * This is not a security mechanism, just an integrity check.

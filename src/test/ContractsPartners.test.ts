@@ -4,7 +4,7 @@ import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
 import { AutoClose } from "../api/AutoClose";   
 
-describe('Constracts with partners', () => {
+describe('Contracts with partners', () => {
 
     it('when bound in both primary and partner, primary should use its own binding', () => {
         const contract: Contract<string> = Tools.createStringContract();

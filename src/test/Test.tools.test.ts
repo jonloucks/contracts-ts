@@ -379,13 +379,13 @@ export class Tools {
         Tools.withConfiguredContracts({ ratified: false }, consumerBlock);
     }
 
-        /**
+    /**
      * Enclosure that receives a new Contracts for testing
      * Note: The Contracts will be automatically closed after consumer block returns
      *
      * @param config The configuration for the new Contracts
      * @param consumerBlock the consumer of the new Contracts
-     */
+    */
     public static withConfiguredContracts(config: ContractsConfig, consumerBlock: ContractsConsumer): void {
         const validConfig: ContractsConfig = configCheck(config);
         const validConsumerBlock: (c: Contracts) => void = nullCheck(consumerBlock, "Block must be present.");

@@ -4,7 +4,7 @@ import { PromisorType } from "../api/Promisor";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { createContract } from "../index";
 
-describe('Constracts with ratified', () => {
+describe('Contracts with ratified', () => {
 
     it('bind with unratified contract should throw ContractException', () => {
         const contractsConfig: ContractsConfig = { ratified: true };
