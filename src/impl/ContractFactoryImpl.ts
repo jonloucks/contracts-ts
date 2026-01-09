@@ -1,13 +1,14 @@
-import { Contract, Config} from '../api/Contract';
-import { isNullOrUndefined, RequiredType, OptionalType } from '../api/Types';
+import { Contract, Config } from '../api/Contract';
+import { RequiredType, OptionalType } from '../api/Types';
 import { create as createRatifiedContract } from '../api/RatifiedContract';
 import { create as createBasicContract } from '../api/BasicContract';
+import { isRatifiableConfig } from '../api/RatifiedContract';
 
 import { ContractFactory } from '../api/ContractFactory';
 
 export function create(): RequiredType<ContractFactory> {
     return ContractFactoryImpl.internalCreate();
-}   
+}
 
 export function createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
     return create().create<T>(config);
@@ -18,16 +19,16 @@ export function createContract<T>(config?: OptionalType<Config<T>>): RequiredTyp
  */
 class ContractFactoryImpl implements ContractFactory {
     create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
-        if (isNullOrUndefined(config) || (config?.ratified ?? false) === false) {
-            return createBasicContract<T>(config);
-        } else {
+        if (config?.ratified === true || isRatifiableConfig<T>(config)) {
             return createRatifiedContract<T>(config);
+        } else {
+            return createBasicContract<T>(config);
         }
     }
 
     private constructor() {
     }
-    
+
     static internalCreate(): RequiredType<ContractFactory> {
         return new ContractFactoryImpl();
     }

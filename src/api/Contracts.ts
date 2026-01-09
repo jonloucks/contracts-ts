@@ -9,6 +9,10 @@ import { BindStrategyParameter as BindType } from "./BindStrategy";
  * The Contracts configuration
  */
 export interface Config {
+    /**
+     * @return if true, only ratified contracts can be used
+     */
+    ratified?: boolean;
 
     /**
      * @return optional partners. Aggregated Contracts

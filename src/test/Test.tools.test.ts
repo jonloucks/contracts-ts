@@ -2,7 +2,7 @@ import assert from 'node:assert';
 
 import { AssertionError, AssertPredicate } from 'node:assert';
 import { isRequiredConstructor, RequiredType } from "../api/Types";
-import { nullCheck } from "../api/Checks";
+import { configCheck, nullCheck } from "../api/Checks";
 import { IllegalStateException } from "../api/IllegalStateException";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { Contract, Config as ContractConfig } from "../api/Contract";
@@ -373,11 +373,21 @@ export class Tools {
      * Enclosure that receives a new Contracts for testing
      * Note: The Contracts will be automatically closed after consumer block returns
      *
-     * @param config The configuration for the new Contracts
      * @param consumerBlock the consumer of the new Contracts
      */
-    public static withContracts(consumerBlock: ContractsConsumer, config?: ContractsConfig): void {
-        const validConfig: ContractsConfig = config ?? {};
+    public static withContracts(consumerBlock: ContractsConsumer): void {
+        Tools.withConfiguredContracts({ ratified: false }, consumerBlock);
+    }
+
+    /**
+     * Enclosure that receives a new Contracts for testing
+     * Note: The Contracts will be automatically closed after consumer block returns
+     *
+     * @param config The configuration for the new Contracts
+     * @param consumerBlock the consumer of the new Contracts
+    */
+    public static withConfiguredContracts(config: ContractsConfig, consumerBlock: ContractsConsumer): void {
+        const validConfig: ContractsConfig = configCheck(config);
         const validConsumerBlock: (c: Contracts) => void = nullCheck(consumerBlock, "Block must be present.");
         const contracts: RequiredType<Contracts> = createContracts(validConfig);
         using usingContracts: AutoClose = contracts.open();
@@ -385,16 +395,15 @@ export class Tools {
         validConsumerBlock(contracts);
     }
 
-
     public static withPartnerContracts(consumerBlock: PartnerConsumer): void {
         Tools.withContracts((partner: Contracts) => {
             const primaryConfig: ContractsConfig = {
                 partners: [partner],
                 autoShutdown: false
             }
-            Tools.withContracts((primary: Contracts) => {
+            Tools.withConfiguredContracts(primaryConfig, (primary: Contracts) => {
                 consumerBlock(primary, partner);
-            }, primaryConfig);
+            });
         });
     }
     /**

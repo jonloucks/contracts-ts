@@ -19,7 +19,7 @@ class RepositoryImpl implements Repository {
      */
     open() : AutoClose {
         if (this.openState.transitionToOpen()) {
-            for (const storage of this.storedContracts.values()) {
+            for (const storage of this.#storedContracts.values()) {
                 storage.bind();
             }
             this.check();
@@ -36,7 +36,7 @@ class RepositoryImpl implements Repository {
         const validPromisor: Promisor<T> = typeToPromisor(promisor);
         const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
         
-        if (this.storedContracts.has(validContract) && this.openState.isOpen()) {
+        if (this.#storedContracts.has(validContract) && this.openState.isOpen()) {
             throw new ContractException( "The contract " + validContract + "  is already stored.");
         }
         
@@ -46,11 +46,11 @@ class RepositoryImpl implements Repository {
             storage.bind();
         }
         
-        this.storedContracts.set(validContract, storage);
+        this.#storedContracts.set(validContract, storage);
   
         return inlineAutoClose(() => {
-            if (this.storedContracts.get(validContract) === storage) {
-                this.storedContracts.delete(validContract);
+            if (this.#storedContracts.get(validContract) === storage) {
+                this.#storedContracts.delete(validContract);
                 storage.close();
             }
         });
@@ -67,7 +67,7 @@ class RepositoryImpl implements Repository {
      * Repository.check override.
      */
     check() : void {
-        this.requiredContracts.forEach((contract) => {
+        this.#requiredContracts.forEach((contract) => {
             if (!this.contracts.isBound(contract)) {
                 throw new ContractException( "The contract " + contract + " is required.");
             }
@@ -80,14 +80,14 @@ class RepositoryImpl implements Repository {
     require<T>(contract: Contract<T>) : void {
         const validContract : Contract<T> = contractCheck(contract);
         
-        this.requiredContracts.add(validContract);
+        this.#requiredContracts.add(validContract);
     }
 
     /**
      * Object.toString override.
      */
     toString(): string {
-        return `Repository[size: ${this.storedContracts.size}]`;
+        return `Repository[size: ${this.#storedContracts.size}]`;
     }
      
     private constructor(contracts: Contracts) {
@@ -102,7 +102,7 @@ class RepositoryImpl implements Repository {
     
     private reverseCloseStorage() : void {
         const storageStack: StorageImpl<unknown>[] = [];
-        for (const storage of this.storedContracts.values()) {
+        for (const storage of this.#storedContracts.values()) {
             storageStack.push(storage);
         }
         try {
@@ -110,7 +110,7 @@ class RepositoryImpl implements Repository {
                 storageStack.pop()!.close();
             }
         } finally {
-            this.storedContracts.clear();
+            this.#storedContracts.clear();
         }
     }
 
@@ -120,10 +120,10 @@ class RepositoryImpl implements Repository {
     
     private static ID_GENERATOR: number = 1000;
     private readonly id: number = RepositoryImpl.ID_GENERATOR++;
-    private readonly storedContracts = new Map<Contract<unknown>, StorageImpl<unknown>>();    
+    readonly #storedContracts = new Map<Contract<unknown>, StorageImpl<unknown>>();    
     private readonly contracts: Contracts;
     private readonly openState: IdempotentImpl = new IdempotentImpl();
-    private readonly requiredContracts: Set<Contract<unknown>> = new Set<Contract<unknown>>();
+    readonly #requiredContracts: Set<Contract<unknown>> = new Set<Contract<unknown>>();
 }
 
 import { RequiredType } from "../api/Types";
