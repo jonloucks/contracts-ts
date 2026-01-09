@@ -3,7 +3,6 @@
   "entryPoints": ["./src/index.ts"],
   "out": "docs/typedoc",
   "name": "Contracts-TS Documentation",
-  // "readme": "README.md",
   "theme": "default",
   "excludePrivate": true,
   "excludeProtected": true,
