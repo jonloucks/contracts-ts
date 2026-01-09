@@ -17,7 +17,7 @@ describe('Contracts with shutdown events', () => {
     const testEventNames: string[] = ['contracts-ts:green', 'contracts-ts:green'];
     const config = { shutdownEvents: testEventNames };
     testEventNames.forEach((eventName) => {
-        it(`with autoShutdown enabled should listen for event ${eventName} `, () => {
+        it(`with shutdownEvents configured should listen for event ${eventName}`, () => {
             assertListeningForEvent(config, eventName);
             assertEventTriggersShutdown(config, eventName);
         });
