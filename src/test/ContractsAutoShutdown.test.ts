@@ -1,9 +1,8 @@
-import { RequiredType, OptionalType } from "../api/Types";
+import assert from "assert";
+import { OptionalType } from "../api/Types";
 import { Tools } from "./Test.tools.test";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { AutoClose } from "../api/AutoClose";
+
 
 describe('Contracts with autoShutdown', () => {
 
@@ -45,8 +44,11 @@ function assertEventTriggersShutdown(config: OptionalType<ContractsConfig>, even
     const spyOff = jest.spyOn(process, 'off');
     try {
         Tools.withConfiguredContracts(config, (contracts: Contracts) => {
+            const contract = Tools.createStringContract();
+            using bindContract = contracts.bind<string>(contract, () => "test");
             process.emit(eventName);
             expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
+            assert.strictEqual(contracts.isBound(contract), false, 'Expected contract to be unbound after shutdown event');
         });
     } finally {
         spyOn.mockRestore();

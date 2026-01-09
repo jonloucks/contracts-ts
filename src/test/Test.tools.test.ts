@@ -443,7 +443,7 @@ export class Tools {
     public static createStringContract(): Contract<string> {
         return createContract<string>({
             test: (value: unknown): value is string => {
-                return value == null || value == undefined ||typeof value === 'string';
+                return value == null || value == undefined || typeof value === 'string';
             },
             typeName: "string",
             name: "String Contract",
