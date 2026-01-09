@@ -14,7 +14,7 @@ describe('Contracts with shutdown events', () => {
         jest.resetModules();
     });
 
-    const testEventNames: string[] = ['contracts-ts:green', 'contracts-ts:green'];
+    const testEventNames: string[] = ['contracts-ts:green', 'contracts-ts:blue'];
     const config = { shutdownEvents: testEventNames };
     testEventNames.forEach((eventName) => {
         it(`with shutdownEvents configured should listen for event ${eventName}`, () => {
