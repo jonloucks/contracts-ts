@@ -17,7 +17,7 @@
 import fs from 'fs';
 
 generateCoverageSummaryBadge()
-generateJsdocBadge()
+generateTypedocBadge()
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
@@ -38,12 +38,12 @@ function generateCoverageSummaryBadge(): void {
     });
 }
 
-function generateJsdocBadge(): void {
-    bestEffort("generate jsdoc badge", () => {
+function generateTypedocBadge(): void {
+    bestEffort("generate typedoc badge", () => {
         generateBadge({
-            name: "jsdoc",
-            outputPath: getJsdocBadgePath(),
-            label: " jsdoc ",
+            name: "typedoc",
+            outputPath: getTypedocBadgePath(),
+            label: " typedoc ",
             percent: 100
         });
     });
@@ -132,8 +132,8 @@ function getCoverageSummaryBadgePath(): string {
     return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
 }
 
-function getJsdocBadgePath(): string {
-    return getEnvPathOrDefault('KIT_JSDOC_BADGE_PATH', './coverage/jsdoc-badge.svg');
+function getTypedocBadgePath(): string {
+    return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', './coverage/typedoc-badge.svg');
 }
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
