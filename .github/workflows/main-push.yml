@@ -77,8 +77,7 @@ jobs:
       working-directory: main-project
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
-        KIT_JSDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-jsdoc.svg
-
+        KIT_TYPEDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-typedoc.svg
 
     - name: Upload Jest Code Coverage report
       uses: actions/upload-artifact@v4
@@ -89,8 +88,8 @@ jobs:
     - name: Copy Code Coverage and Source Documentation
       working-directory: gh-pages
       run: |
-        rm -rf jsdoc/ lcov-report/ ; mkdir -p jsdoc ; mkdir -p lcov-report
-        cp -r "${{ github.workspace }}/main-project/docs/jsdoc/"* jsdoc/
+        rm -rf typedoc/ lcov-report/ ; mkdir -p typedoc ; mkdir -p lcov-report
+        cp -r "${{ github.workspace }}/main-project/docs/typedoc/"* typedoc/
         cp -r "${{ github.workspace }}/main-project/coverage/lcov-report/"* lcov-report/
         cp -r "${{ github.workspace }}/main-project/"*.md .
 

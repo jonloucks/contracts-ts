@@ -5,9 +5,11 @@
 > This project is currently being set up. There is no production code or stable documentation available at this time.
 > Please check back later for updates.
 
+## Badges
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
 [![npm version](https://badge.fury.io/js/contracts-ts.svg)](https://www.npmjs.com/package/contracts-ts)
-[![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report)
+[![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report/)
+[![Typedoc Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-typedoc.svg)](https://jonloucks.github.io/contracts-ts/typedoc/)
 
 
 Typescript Dependency Contracts for dependency inversion
@@ -19,13 +21,8 @@ Typescript Dependency Contracts for dependency inversion
 * [Coding standards](CODING_STANDARDS.md)
 * [Security policy](SECURITY.md)
 * [Pull request template](PULL_REQUEST_TEMPLATE.md)
-* [How to use API](https://jonloucks.github.io/contracts-ts/jsdoc/)
+* [How to use API](https://jonloucks.github.io/contracts-ts/typedoc/)
 * [Test coverage report](https://jonloucks.github.io/contracts-ts/lcov-report)
-
-## Badges
-[![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report/)
-[![Javadoc Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-jsdoc.svg)](https://jonloucks.github.io/contracts-ts/jsdoc/)
-
 
 ## Installation
 
@@ -104,6 +101,10 @@ npm run lint
 
 # Fix linting issues
 npm run lint:fix
+
+# Generate documents
+npm run docs
+
 ```
 
 ### Project Structure
