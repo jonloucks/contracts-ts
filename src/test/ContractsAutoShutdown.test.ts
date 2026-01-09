@@ -45,7 +45,7 @@ function assertEventTriggersShutdown(config: OptionalType<ContractsConfig>, even
     const spyOff = jest.spyOn(process, 'off');
     try {
         Tools.withConfiguredContracts(config, (contracts: Contracts) => {
-            process.emit(eventName as any);
+            process.emit(eventName);
             expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
         });
     } finally {
