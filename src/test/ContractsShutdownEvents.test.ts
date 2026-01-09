@@ -4,7 +4,7 @@ import { Tools } from "./Test.tools.test";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 
 
-describe('Contracts with autoShutdown', () => {
+describe('Contracts with shutdown events', () => {
 
     beforeEach(() => {
         jest.resetModules();
@@ -14,12 +14,12 @@ describe('Contracts with autoShutdown', () => {
         jest.resetModules();
     });
 
-    const validEventNames: string[] = ['contracts-ts:shutdown', 'SIGINT', 'SIGTERM'];
-
-    validEventNames.forEach((eventName) => {
+    const testEventNames: string[] = ['contracts-ts:green', 'contracts-ts:green'];
+    const config = { shutdownEvents: testEventNames };
+    testEventNames.forEach((eventName) => {
         it(`with autoShutdown enabled should listen for event ${eventName} `, () => {
-            assertListeningForEvent({ autoShutdown: true }, eventName);
-            assertEventTriggersShutdown({ autoShutdown: true }, eventName);
+            assertListeningForEvent(config, eventName);
+            assertEventTriggersShutdown(config, eventName);
         });
     });
 });

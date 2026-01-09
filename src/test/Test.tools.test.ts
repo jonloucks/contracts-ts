@@ -398,8 +398,7 @@ export class Tools {
     public static withPartnerContracts(consumerBlock: PartnerConsumer): void {
         Tools.withContracts((partner: Contracts) => {
             const primaryConfig: ContractsConfig = {
-                partners: [partner],
-                autoShutdown: false
+                partners: [partner]
             }
             Tools.withConfiguredContracts(primaryConfig, (primary: Contracts) => {
                 consumerBlock(primary, partner);
