@@ -47,8 +47,7 @@ class ContractsImpl implements Contracts {
      */
     open(): AutoClose {
         if (this.openState.transitionToOpen()) {
-            this.closeRepository.set(this.repository.open());
-            return inlineAutoClose(() => this.close());
+            return this.firstOpen();
         }
         return AUTO_CLOSE_NONE;
     }
@@ -113,6 +112,14 @@ class ContractsImpl implements Contracts {
         return new ContractsImpl(config);
     }
 
+    private firstOpen(): AutoClose {
+        this.closeRepository.set(this.repository.open());
+        this.shutdownEvents.forEach(eventName => {
+            process.on(eventName, this.shutdownFunction);
+        });
+        return inlineAutoClose(() => this.close());
+    }
+
     private close(): void {
         if (this.openState.transitionToClosed()) {
             try {
@@ -123,6 +130,9 @@ class ContractsImpl implements Contracts {
                 }
             } finally {
                 this.closeRepository.close();
+                this.shutdownEvents.forEach(eventName => {
+                    process.off(eventName, this.shutdownFunction);
+                });
             }
         }
     }
@@ -295,18 +305,16 @@ class ContractsImpl implements Contracts {
         if (validPartners) {
             this.partners.push(...validPartners);
         }
-
-        if (validConfig?.autoShutdown ?? true) {
-            // Issue #12: Auto shutdown hooks are not supported in JavaScript/TypeScript runtime
-        }
+        this.shutdownEvents = validConfig?.shutdownEvents ?? [];
     }
-
+    private readonly shutdownFunction = () => this.close();
     private readonly openState: IdempotentImpl = new IdempotentImpl();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly repository: Repository = createRepository(this);
     private readonly partners: Contracts[] = [];
     private readonly closeRepository: CloserImpl = new CloserImpl();
     private readonly policy: ((contract: Contract<unknown>) => void);
+    private readonly shutdownEvents: string[];
 }
 
 

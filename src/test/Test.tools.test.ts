@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
 import { AssertionError, AssertPredicate } from 'node:assert';
-import { isRequiredConstructor, RequiredType } from "../api/Types";
+import { isRequiredConstructor, OptionalType, RequiredType } from "../api/Types";
 import { configCheck, nullCheck } from "../api/Checks";
 import { IllegalStateException } from "../api/IllegalStateException";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
@@ -386,7 +386,7 @@ export class Tools {
      * @param config The configuration for the new Contracts
      * @param consumerBlock the consumer of the new Contracts
     */
-    public static withConfiguredContracts(config: ContractsConfig, consumerBlock: ContractsConsumer): void {
+    public static withConfiguredContracts(config: OptionalType<ContractsConfig>, consumerBlock: ContractsConsumer): void {
         const validConfig: ContractsConfig = configCheck(config);
         const validConsumerBlock: (c: Contracts) => void = nullCheck(consumerBlock, "Block must be present.");
         const contracts: RequiredType<Contracts> = createContracts(validConfig);
@@ -398,8 +398,7 @@ export class Tools {
     public static withPartnerContracts(consumerBlock: PartnerConsumer): void {
         Tools.withContracts((partner: Contracts) => {
             const primaryConfig: ContractsConfig = {
-                partners: [partner],
-                autoShutdown: false
+                partners: [partner]
             }
             Tools.withConfiguredContracts(primaryConfig, (primary: Contracts) => {
                 consumerBlock(primary, partner);
@@ -442,8 +441,8 @@ export class Tools {
 
     public static createStringContract(): Contract<string> {
         return createContract<string>({
-            cast(instance: unknown): string {
-                return instance as string;
+            test: (value: unknown): value is string => {
+                return value == null || value == undefined || typeof value === 'string';
             },
             typeName: "string",
             name: "String Contract",
