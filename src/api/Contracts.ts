@@ -21,7 +21,7 @@ export interface Config {
 
     /**
      * an optional list of events that when fired will shutdown Contracts
-     * the defaul is no events.
+     * the default is no events.
      * It can be a custom event or system events like 'beforeExit', 'SIGINT', 'SIGTERM'
      * @return list of shutdown event names
      */
