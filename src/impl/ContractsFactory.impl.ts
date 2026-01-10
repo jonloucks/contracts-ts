@@ -1,7 +1,7 @@
 import { RequiredType } from "../api/Types";
 import { ContractsFactory } from "../api/ContractsFactory";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from '../api/AtomicIntegerFactory';
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { CONTRACT as PROMISOR_FACTORY } from "../api/PromisorFactory";
