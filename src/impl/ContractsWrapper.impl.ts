@@ -68,6 +68,10 @@ class ContractsWrapper implements Contracts {
         });
     }
 
+    toString(): string {
+        return this.contracts.toString();
+    }   
+
     private constructor(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) {
         this.contracts = contracts;
         this.repository = repository;
