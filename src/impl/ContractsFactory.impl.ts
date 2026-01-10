@@ -1,4 +1,4 @@
-import { RequiredType } from "../api/Types";
+import {  RequiredType } from "../api/Types";
 import { ContractsFactory } from "../api/ContractsFactory";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
@@ -14,6 +14,7 @@ import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory
 import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl";
 import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
 import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
+import { wrap as wrapContracts } from "./ContractsWrapper.impl";
 
 /**
  * Factory method to create a ContractsFactory
@@ -47,23 +48,16 @@ class ContractsFactoryImpl implements ContractsFactory {
     create(config?: ContractsConfig): RequiredType<Contracts> {
         const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
         const contracts: RequiredType<Contracts> = createContractsImpl(actualConfig);
-        const repository: RequiredType<Repository> = ContractsFactoryImpl.createKernelRepository(contracts);
+        const repository: RequiredType<Repository> = this.createKernelRepository(contracts);
 
-        // revisit: no resources to close, but repository should be closed later
-        repository.open();
-
-        return contracts;
+        return wrapContracts(contracts, repository);
     }
 
-    static internalCreate(): RequiredType<ContractsFactory> {
+    static internalCreate() : RequiredType<ContractsFactory> {
         return new ContractsFactoryImpl();
     }
 
-    private constructor() {
-        //  empty
-    }
-
-    private static createKernelRepository(contracts: Contracts): RequiredType<Repository> {
+    private createKernelRepository(contracts: Contracts): RequiredType<Repository> {
         const repositoryFactory: RequiredType<RepositoryFactory> = createRepositoryFactoryImpl(contracts);
         const repository: RequiredType<Repository> = repositoryFactory.create();
 
@@ -74,6 +68,10 @@ class ContractsFactoryImpl implements ContractsFactory {
         repository.keep(ATOMIC_REFERENCE_FACTORY, createAtomicReferenceFactoryImpl);
 
         return repository;
+    }
+
+    private constructor() {
+        //  empty
     }
 
     private defaultConfig: RequiredType<ContractsConfig> = {};
