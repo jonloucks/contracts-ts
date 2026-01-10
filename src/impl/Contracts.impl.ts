@@ -1,8 +1,4 @@
-
-import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
-import { AtomicInteger } from "../api/AtomicInteger";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from '../api/AtomicIntegerFactory';
-import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
+import { OptionalType, RequiredType, isPresent } from "../api/Types";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "../api/BindStrategy";
 import { configCheck, contractCheck, presentCheck } from "../api/Checks";
@@ -10,21 +6,9 @@ import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { CONTRACT as PROMISORS } from "../api/PromisorFactory";
-import { Repository } from "../api/Repository";
-import { CONTRACT as REPOSITORY_FACTORY } from "../api/RepositoryFactory";
-import { OptionalType, RequiredType } from "../api/Types";
-
 import { isRatifiedContract } from "../api/RatifiedContract";
-import { create as createAtomicBooleanFactory } from "./AtomicBooleanFactory.impl";
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
-import { create as createAtomicIntegerFactory } from "./AtomicIntegerFactory.impl";
-import { create as createAtomicReferenceFactory } from "./AtomicReferenceFactory.impl";
-import { CloserImpl } from "./Closer.impl";
+
 import { IdempotentImpl } from "./Indempotent.impl";
-import { create as createPromisorFactory } from "./PromisorFactory.impl";
-import { create as createRepository } from "./Repository.impl";
-import { create as createRepositoryFactory } from "./RepositoryFactory.impl";
 
 /**
  * Factory method to create Contracts instance.
@@ -59,9 +43,9 @@ class ContractsImpl implements Contracts {
     claim<T>(contract: Contract<T>): OptionalType<T> {
         const validContract: Contract<T> = contractCheck(contract);
         this.policy(validContract);
-        const promisor: Promisor<T> | null = this.getFromPromisorMap(validContract);
+        const promisor: OptionalType<Promisor<T>>  = this.getFromPromisorMap(validContract);
 
-        if (null !== promisor) {
+        if (isPresent(promisor)) {
             return validContract.cast(promisor.demand());
         } else {
             return this.claimFromPartners(validContract);
@@ -73,10 +57,10 @@ class ContractsImpl implements Contracts {
      */
     enforce<T>(contract: Contract<T>): RequiredType<T> {
         const deliverable: OptionalType<T> = this.claim(contract);
-        if (deliverable === null || deliverable === undefined) {
-            throw new ContractException("Contract " + contract + " returned a null deliverable.");
+        if (isPresent(deliverable)) {
+            return deliverable;
         }
-        return deliverable;
+        throw new ContractException("Contract " + contract + " enforcement failed: No value present.");
     }
 
     /**
@@ -85,9 +69,8 @@ class ContractsImpl implements Contracts {
     isBound<T>(contract: Contract<T>): boolean {
         const validContract: Contract<T> = contractCheck(contract);
         this.policy(validContract);
-        const promisor: Promisor<T> | null = this.getFromPromisorMap(validContract);
-
-        return (null !== promisor && undefined !== promisor) || this.isAnyPartnerBound(contract);
+        const promisor: OptionalType<Promisor<T>> = this.getFromPromisorMap(validContract);
+        return isPresent(promisor) || this.isAnyPartnerBound(contract);
     }
 
     /**
@@ -114,7 +97,6 @@ class ContractsImpl implements Contracts {
     }
 
     private firstOpen(): AutoClose {
-        this.closeRepository.set(this.repository.open());
         this.shutdownEvents.forEach(eventName => {
             process.on(eventName, this.shutdownFunction);
         });
@@ -126,11 +108,10 @@ class ContractsImpl implements Contracts {
             try {
                 for (let attempts: number = 1, broken = this.breakAllBindings(); broken > 0; broken = this.breakAllBindings(), attempts++) {
                     if (attempts > 5) {
-                        throw this.newCloseDidNotCompleteException();
+                        this.throwCloseDidNotCompleteException();
                     }
                 }
             } finally {
-                this.closeRepository.close();
                 this.shutdownEvents.forEach(eventName => {
                     process.off(eventName, this.shutdownFunction);
                 });
@@ -147,9 +128,9 @@ class ContractsImpl implements Contracts {
     }
 
     private checkBind<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy): boolean {
-        const optionalCurrent: Promisor<T> | null = this.getFromPromisorMap(contract);
+        const optionalCurrent: OptionalType<Promisor<T>> = this.getFromPromisorMap(contract);
 
-        if (optionalCurrent !== null) {
+        if (isPresent(optionalCurrent)) {
             return this.checkReplacement(contract, newPromisor, bindStrategy, optionalCurrent);
         } else {
             return true;
@@ -167,7 +148,7 @@ class ContractsImpl implements Contracts {
                 if (contract.replaceable) {
                     return true;
                 }
-                throw this.newContractNotReplaceableException(contract);
+                this.throwContractNotReplaceableException(contract);
             case "IF_NOT_BOUND":
                 return false;
             case "IF_ALLOWED":
@@ -182,9 +163,9 @@ class ContractsImpl implements Contracts {
         // This is mitigated by always incrementing the new value and decrementing the old value.
         promisor.incrementUsage();
 
-        const previousPromisor: Promisor<T> | undefined = this.#promisorMap.get(contract) as Promisor<T> | undefined
+        const previousPromisor: OptionalType<Promisor<T>> = this.getFromPromisorMap(contract);
         this.#promisorMap.set(contract, promisor);
-        if (previousPromisor !== undefined) {
+        if (isPresent(previousPromisor)) {
             previousPromisor.decrementUsage();
         }
         const breakBindingOnce: IdempotentImpl = new IdempotentImpl();
@@ -215,8 +196,8 @@ class ContractsImpl implements Contracts {
         }
     }
 
-    private getFromPromisorMap<T>(contract: Contract<T>): Promisor<T> | null {
-        return (this.#promisorMap.get(contract) as Promisor<T>) || null;
+    private getFromPromisorMap<T>(contract: Contract<T>): OptionalType<Promisor<T>> {
+        return (this.#promisorMap.get(contract) as OptionalType<Promisor<T>>);
     }
 
     private breakAllBindings(): number {
@@ -235,15 +216,14 @@ class ContractsImpl implements Contracts {
         // The following attains the write lock to attain all the current keys and values
         // in the reverse order from insertion.
         // The last to be inserted is the first to be removed.
-        // const contractCount: AtomicInteger = this.enforce(ATOMIC_INTEGER_FACTORY)()
-        const contractCount: AtomicInteger = createAtomicInteger();
+        let contractCount: number = 0;
 
         this.#promisorMap.forEach((promisor, contract) => {
             contracts.push(contract);
             promisors.push(promisor);
-            contractCount.incrementAndGet();
+            contractCount++;
         });
-        return contractCount.get();
+        return contractCount;
     }
 
     private hasPartners(): boolean {
@@ -258,7 +238,7 @@ class ContractsImpl implements Contracts {
                 }
             }
         }
-        throw this.newContractNotPromisedException(contract);
+        this.throwContractNotPromisedException(contract);
     }
 
     private isAnyPartnerBound<T>(contract: Contract<T>): boolean {
@@ -268,16 +248,16 @@ class ContractsImpl implements Contracts {
         return false;
     }
 
-    private newCloseDidNotCompleteException(): ContractException {
-        return new ContractException("Contracts failed to close after trying multiple times.");
+    private throwCloseDidNotCompleteException(): never {
+        throw new ContractException("Contracts failed to close after trying multiple times.");
     }
 
-    private newContractNotPromisedException<T>(contract: Contract<T>): ContractException {
-        return new ContractException("Contract " + contract + " was not promised.");
+    private throwContractNotPromisedException<T>(contract: Contract<T>): never {
+        throw new ContractException("Contract " + contract + " was not promised.");
     }
 
-    private newContractNotReplaceableException<T>(contract: Contract<T>): ContractException {
-        return new ContractException("Contract " + contract + " is not replaceable.");
+    private throwContractNotReplaceableException<T>(contract: Contract<T>): never {
+        throw new ContractException("Contract " + contract + " is not replaceable.");
     }
 
     private constructor(config: Config) {
@@ -297,23 +277,15 @@ class ContractsImpl implements Contracts {
             };
         }
 
-        // keeping the promises open permanently
-        this.repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactory);
-        this.repository.keep(ATOMIC_INTEGER_FACTORY, createAtomicIntegerFactory);
-        this.repository.keep(ATOMIC_REFERENCE_FACTORY, createAtomicReferenceFactory);
-        this.repository.keep(PROMISORS, createPromisorFactory);
-        this.repository.keep(REPOSITORY_FACTORY, () => createRepositoryFactory(this));
         if (validPartners) {
             this.partners.push(...validPartners);
         }
         this.shutdownEvents = validConfig?.shutdownEvents ?? [];
     }
-    private readonly shutdownFunction = () => this.close();
+    private readonly shutdownFunction = () => this.close(); // need the same reference to remove listener
     private readonly openState: IdempotentImpl = new IdempotentImpl();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
-    private readonly repository: Repository = createRepository(this);
     private readonly partners: Contracts[] = [];
-    private readonly closeRepository: CloserImpl = new CloserImpl();
     private readonly policy: ((contract: Contract<unknown>) => void);
     private readonly shutdownEvents: string[];
 }
