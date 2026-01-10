@@ -11,6 +11,8 @@ export function create(initialValue?: boolean): RequiredType<AtomicBoolean> {
     return AtomicBooleanImpl.internalCreate(initialValue);
 }
 
+// ---- Implementation details below ----
+
 const FALSE_AS_NUMBER : number = 0;
 const TRUE_AS_NUMBER : number = 1;
 

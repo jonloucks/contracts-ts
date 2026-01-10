@@ -1,3 +1,7 @@
+import { presentCheck, promisorCheck } from "../api/Checks";
+import { Promisor } from "../api/Promisor";
+import { OptionalType, RequiredType, Transform } from "../api/Types";
+
 /**
  * Factory method to create an ExtractPromisorImpl which is extraction promisor
  * 
@@ -11,9 +15,10 @@ export function create<T, R>(referent: Promisor<T>, transform: Transform<T, R>):
     return ExtractorPromisorImpl.internalCreate<T, R>(referent, transform);
 }   
 
+// ---- Implementation details below ----
+
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors#createExtractPromisor(Promisor, Transform)}
- * @see io.github.jonloucks.contracts.api.Promisors#createExtractPromisor(Promisor, Transform)
+ * Implementation of an Extractor Promisor
  * @param <T> the input deliverable type
  * @param <R> the output deliverable type
  */
@@ -46,13 +51,12 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
    
     private constructor(referent: Promisor<T>, transform: Transform<T, R>) {
         this.referent = promisorCheck(referent);
-        this.transform = nullCheck(transform, "Transform must be present.");
+        this.transform = presentCheck(transform, "Transform must be present.");
     }
     
     private readonly referent: Promisor<T>;
     private readonly transform: Transform<T, R>;
 }
 
-import { OptionalType, RequiredType, Transform } from "../api/Types";
-import { Promisor } from "../api/Promisor";
-import { promisorCheck, nullCheck } from "../api/Checks";
+
+

@@ -1,3 +1,13 @@
+import { AutoClose } from "../api/AutoClose";
+import { BindStrategy } from "../api/BindStrategy";
+import { Contract } from "../api/Contract";
+import { Contracts } from "../api/Contracts";
+import { Promisor } from "../api/Promisor";
+
+import { CloserImpl } from "./Closer.impl";
+
+// ---- Implementation details below ----
+
 export class StorageImpl<T> implements AutoClose {
 
     constructor(contracts: Contracts, contract: Contract<T>, promisor: Promisor<T | null>, bindStrategy: BindStrategy) {
@@ -25,11 +35,3 @@ export class StorageImpl<T> implements AutoClose {
     private readonly contracts: Contracts;
     private readonly closeBinding: CloserImpl = new CloserImpl();
 }
-
-import { AutoClose } from "../api/AutoClose";
-import { BindStrategy } from "../api/BindStrategy";
-import { Contract } from "../api/Contract";
-import { Contracts } from "../api/Contracts";
-import { Promisor } from "../api/Promisor";
-
-import { CloserImpl } from "./Closer.impl";

@@ -1,3 +1,6 @@
+import { OptionalType, RequiredType } from "../api/Types";
+import { Promisor } from "../api/Promisor";
+
 /**
  * Factory method to create an constant value promisor implementation
  * 
@@ -8,6 +11,8 @@
 export function create<T>(value: OptionalType<T>): RequiredType<Promisor<T>> {
     return ValuePromisorImpl.internalCreate(value);
 }
+
+// ---- Implementation details below ----
 
 class ValuePromisorImpl<T> implements Promisor<T> {
 
@@ -34,7 +39,4 @@ class ValuePromisorImpl<T> implements Promisor<T> {
 
     private readonly value: OptionalType<T>;
 }
-
-import { OptionalType, RequiredType } from "../api/Types";
-import { Promisor } from "../api/Promisor";
 

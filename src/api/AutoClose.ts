@@ -19,6 +19,9 @@ export interface AutoClose {
     [Symbol.dispose](): void;
 }
 
+/**
+ * A no-op AutoClose instance that does nothing on close or dispose.
+ */
 export const AUTO_CLOSE_NONE: AutoClose = {
 
     /**

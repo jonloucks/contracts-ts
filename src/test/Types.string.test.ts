@@ -1,6 +1,6 @@
 
-import { isString, isRequiredString } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isString, isStringPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: "", help: "a empty string value" },
@@ -25,7 +25,7 @@ generatePredicateSuite({
 
 generatePredicateSuite({
     name: 'isRequiredString',
-    function: isRequiredString,
+    function: isStringPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

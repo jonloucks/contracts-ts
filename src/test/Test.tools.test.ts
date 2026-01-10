@@ -1,14 +1,14 @@
 import assert from 'node:assert';
 
 import { AssertionError, AssertPredicate } from 'node:assert';
-import { isRequiredConstructor, OptionalType, RequiredType } from "../api/Types";
-import { configCheck, nullCheck } from "../api/Checks";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { Contracts, Config as ContractsConfig } from "../api/Contracts";
-import { Contract, Config as ContractConfig } from "../api/Contract";
 import { AutoClose } from "../api/AutoClose";
+import { configCheck, presentCheck } from "../api/Checks";
 import { ClassCastException } from "../api/ClassCastException";
-import { createContract, createContracts } from "../index"
+import { Contract, Config as ContractConfig } from "../api/Contract";
+import { Contracts, Config as ContractsConfig } from "../api/Contracts";
+import { IllegalStateException } from "../api/IllegalStateException";
+import { isConstructorPresent, OptionalType, RequiredType } from "../api/Types";
+import { createContract, createContracts } from "../index";
 
 describe('test utilities', () => {
     it('Dummy test', () => {
@@ -70,7 +70,7 @@ export class Tools {
     }
 
     public static assertThrows<T extends Error | string>(predicate: AssertPredicate, executable: () => unknown, message?: string): RequiredType<T> {
-        let validExecutable: (() => unknown) = nullCheck(executable, "Executable must be present.");
+        let validExecutable: (() => unknown) = presentCheck(executable, "Executable must be present.");
 
         let actual: unknown = null;
 
@@ -93,7 +93,7 @@ export class Tools {
     private static applyAssertPredicate<T extends Error | string>(predicate: AssertPredicate, actual: Error) {
         if (!predicate) {
             return;
-        } else if (isRequiredConstructor(predicate)) {
+        } else if (isConstructorPresent(predicate)) {
             const expectedType = predicate as new () => object;
             if (!(actual instanceof expectedType)) {
                 throw new AssertionError({ message: `Error was not instance of expected type ${expectedType.name}.` });
@@ -123,7 +123,7 @@ export class Tools {
      * @param executable the test that is expected to fail
      */
     public static assertFails(executable: () => unknown) {
-        let validExecutable: (() => unknown) = nullCheck(executable, "Executable must be present.");
+        let validExecutable: (() => unknown) = presentCheck(executable, "Executable must be present.");
         let thrown: AssertionError = Tools.assertThrows(AssertionError, validExecutable, "Expected AssertionError to be thrown.");
         Tools.assertObject(thrown, "Thrown must be an object.");
         Tools.assertNotNull(thrown.message, "Message must be present.");
@@ -388,7 +388,7 @@ export class Tools {
     */
     public static withConfiguredContracts(config: OptionalType<ContractsConfig>, consumerBlock: ContractsConsumer): void {
         const validConfig: ContractsConfig = configCheck(config);
-        const validConsumerBlock: (c: Contracts) => void = nullCheck(consumerBlock, "Block must be present.");
+        const validConsumerBlock: (c: Contracts) => void = presentCheck(consumerBlock, "Block must be present.");
         const contracts: RequiredType<Contracts> = createContracts(validConfig);
         using usingContracts: AutoClose = contracts.open();
 
@@ -412,7 +412,7 @@ export class Tools {
     * @throws IllegalArgumentException when arguments are null
     */
     public static implicitClose(autoClose: AutoClose): void {
-        const validClose: AutoClose = nullCheck(autoClose, "AutoClose must be present.");
+        const validClose: AutoClose = presentCheck(autoClose, "AutoClose must be present.");
         validClose.close();
     }
 
@@ -423,7 +423,7 @@ export class Tools {
      * @throws IllegalArgumentException when arguments are null
      */
     public static assertIdempotent(autoClose: AutoClose): void {
-        const validClose: AutoClose = nullCheck(autoClose, "AutoClose must be present.");
+        const validClose: AutoClose = presentCheck(autoClose, "AutoClose must be present.");
         for (let n = 0; n < 7; n++) {
             assert.doesNotThrow(() => Tools.implicitClose(validClose), "AutoClose should be idempotent.");
             Tools.assertObject(autoClose); // should not become a landmine

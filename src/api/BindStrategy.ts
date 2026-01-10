@@ -23,14 +23,31 @@ export type BindStrategy =
     */
     "IF_ALLOWED";
 
+/**
+ * The default binding strategy
+ */
 export const DEFAULT_BIND_STRATEGY: BindStrategy = "IF_ALLOWED"
 
-export type BindStrategyParameter = OptionalType<BindStrategy>;
+/**
+ * Type alias for optional BindStrategy
+ */
+export type BindStrategyType = OptionalType<BindStrategy>;
 
+/**
+ * Resolve the given BindStrategy or return the default
+ *
+ * @param bindStrategy the bind strategy to resolve
+ * @return the resolved bind strategy
+ */ 
 export function resolveBindStrategy(bindStrategy: OptionalType<BindStrategy>): RequiredType<BindStrategy> {
     return bindStrategy ?? DEFAULT_BIND_STRATEGY;
 }
 
+/**
+ * Check if given value is a BindStrategy or null/undefined
+ * @param instance the value to check
+ * @returns true if value is a BindStrategy or null/undefined
+ */
 export function isBindStrategy(instance: unknown): instance is OptionalType<BindStrategy> {
     switch (instance) {
         case undefined:

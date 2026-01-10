@@ -1,3 +1,12 @@
+import { AtomicBoolean } from "../api/AtomicBoolean";
+import { promisorCheck } from "../api/Checks";
+import { Promisor } from "../api/Promisor";
+import { OptionalType, RequiredType } from "../api/Types";
+
+import { AtomicReference } from "../api/AtomicReference";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+
 /**
  * Factory method to create an Singleton promisor implementation
  * 
@@ -9,9 +18,10 @@ export function create<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
     return SingletonPromisorImpl.internalCreate<T>(referent);
 }
 
+// ---- Implementation details below ----
+
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors#createSingletonPromisor(Promisor)}
- * @see io.github.jonloucks.contracts.api.Promisors#createSingletonPromisor(Promisor)
+ * Implementation of a Singleton Promisor
  * @param <T> The type of deliverable
  */
 class SingletonPromisorImpl<T> implements Promisor<T> {
@@ -43,13 +53,4 @@ class SingletonPromisorImpl<T> implements Promisor<T> {
     private readonly singletonRef: AtomicReference<OptionalType<T>> = createAtomicReference<OptionalType<T>>();
     private readonly firstTime: AtomicBoolean = createAtomicBoolean(true);
 }
-
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { promisorCheck } from "../api/Checks";
-import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType } from "../api/Types";
-
-import { AtomicReference } from "../api/AtomicReference";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
 

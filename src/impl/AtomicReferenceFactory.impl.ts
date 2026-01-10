@@ -1,3 +1,9 @@
+import { AtomicReference } from "../api/AtomicReference";
+import { AtomicReferenceFactory } from "../api/AtomicReferenceFactory";
+import { OptionalType, RequiredType } from "../api/Types";
+
+import { create as createAtomicReference } from "./AtomicReference.impl";
+
 /**
  * Factory method to create an AtomicReferenceFactory
  * 
@@ -6,6 +12,8 @@
 export function create(): RequiredType<AtomicReferenceFactory> {
     return AtomicReferenceFactoryImpl.internalCreate();
 }
+
+// ---- Implementation details below ----
 
 class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
 
@@ -24,9 +32,5 @@ class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
     }
 };
 
-import { AtomicReference } from "../api/AtomicReference";
-import { AtomicReferenceFactory } from "../api/AtomicReferenceFactory";
-import { OptionalType, RequiredType } from "../api/Types";
 
-import { create as createAtomicReference } from "./AtomicReference.impl";
 

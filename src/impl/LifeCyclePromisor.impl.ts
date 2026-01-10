@@ -1,3 +1,16 @@
+import { AtomicBoolean } from "../api/AtomicBoolean";
+import { AtomicInteger } from "../api/AtomicInteger";
+import { AtomicReference } from "../api/AtomicReference";
+import { AutoOpen } from "../api/AutoOpen";
+import { promisorCheck } from "../api/Checks";
+import { IllegalStateException } from "../api/IllegalStateException";
+import { Promisor } from "../api/Promisor";
+import { OptionalType, RequiredType } from "../api/Types";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+import { CloserImpl } from "./Closer.impl";
+
 /**
  * Factory to create an Life Cycle promisor implementation
  * 
@@ -7,11 +20,12 @@
  */
 export function create<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
     return LifeCyclePromisorImpl.internalCreate<T>(referent);
-}   
+}  
+
+// ---- Implementation details below ----
 
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors#createLifeCycle(Promisor)}
- * @see io.github.jonloucks.contracts.api.Promisors#createLifeCycle(Promisor)
+ * Implementation of a Life Cycle Promisor
  * @param <T> the type of deliverable
  */
 class LifeCyclePromisorImpl<T> implements Promisor<T> {
@@ -119,16 +133,4 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
     private readonly closer: CloserImpl = new CloserImpl();
 }
 
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { AtomicInteger } from "../api/AtomicInteger";
-import { AtomicReference } from "../api/AtomicReference";
-import { AutoOpen } from "../api/AutoOpen";
-import { promisorCheck } from "../api/Checks";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType } from "../api/Types";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
-import { CloserImpl } from "./Closer.impl";
 

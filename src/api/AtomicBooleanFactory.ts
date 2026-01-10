@@ -4,7 +4,6 @@ import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { create as createContract } from "./RatifiedContract";
 
-
 /**
  * Factory interface for creating AtomicBoolean instances.
  */

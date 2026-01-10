@@ -1,5 +1,5 @@
-import { isBoolean, isRequiredBoolean } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isBoolean, isBooleanPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 // should we consider 0 and 1 as valid boolean values?
 // should we consider "true" and "false" as valid boolean values?
@@ -35,7 +35,7 @@ generatePredicateSuite({
 
 generatePredicateSuite({
     name: 'isRequiredBoolean',
-    function: isRequiredBoolean,
+    function: isBooleanPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

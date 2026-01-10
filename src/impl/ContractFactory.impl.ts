@@ -6,13 +6,25 @@ import { isRatifiableConfig } from '../api/RatifiedContract';
 
 import { ContractFactory } from '../api/ContractFactory';
 
+/**
+ * Factory method to create a ContractFactory
+ * 
+ * @returns the new ContractFactory implementation
+ */
 export function create(): RequiredType<ContractFactory> {
     return ContractFactoryImpl.internalCreate();
 }
 
+/**
+ * Factory method to create a Contract
+ * @param config optional Contract configuration
+ * @returns the new Contract implementation
+ */
 export function createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
     return create().create<T>(config);
 }
+
+// ---- Implementation details below ----
 
 /**
  * An implementation of ContractFactory

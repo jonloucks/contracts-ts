@@ -1,5 +1,9 @@
+import { AtomicBoolean } from "../api/AtomicBoolean";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+
 const IS_CLOSED: boolean = false;
 const IS_OPEN: boolean = true;
+
 export class IdempotentImpl {
 
     transitionToOpen(): boolean {
@@ -25,5 +29,3 @@ export class IdempotentImpl {
     private readonly state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
 }
 
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";

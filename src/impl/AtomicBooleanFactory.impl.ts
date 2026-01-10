@@ -13,6 +13,8 @@ export function create(): RequiredType<AtomicBooleanFactory> {
     return AtomicBooleanFactoryImpl.internalCreate();
 }
 
+// ---- Implementation details below ----
+
 /**
  * AtomicBooleanFactory implementation.
  */

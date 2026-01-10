@@ -1,9 +1,9 @@
-import { OptionalType, RequiredType } from "./Types";
-import { Contract } from "./Contract";
-import { AutoOpen } from "./AutoOpen";
 import { AutoClose } from "./AutoClose";
+import { AutoOpen } from "./AutoOpen";
+import { BindStrategyType as BindType } from "./BindStrategy";
+import { Contract } from "./Contract";
 import { PromisorType } from "./Promisor";
-import { BindStrategyParameter as BindType } from "./BindStrategy";
+import { OptionalType, RequiredType } from "./Types";
 
 /**
  * The Contracts configuration

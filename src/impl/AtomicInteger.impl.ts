@@ -1,3 +1,6 @@
+import { RequiredType } from "../api/Types";
+import { AtomicInteger } from "../api/AtomicInteger";
+
 /**
  * Factory to create an AtomicInteger implementation
  * 
@@ -7,6 +10,8 @@
 export function create(initialValue?: number): RequiredType<AtomicInteger> {
     return AtomicIntegerImpl.internalCreate(initialValue);
 }
+
+// ---- Implementation details below ----
 
 /**
  * Implementation of AtomicInteger.
@@ -83,6 +88,4 @@ class AtomicIntegerImpl implements AtomicInteger {
     private readonly array: Int32Array = new Int32Array(this.buffer);
 }
 
-import { RequiredType } from "../api/Types";
-import { AtomicInteger } from "../api/AtomicInteger";
 
