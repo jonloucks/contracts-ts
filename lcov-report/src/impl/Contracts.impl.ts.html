@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/impl/ContractsImpl.ts</title>
+    <title>Code coverage report for src/impl/Contracts.impl.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> ContractsImpl.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> Contracts.impl.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.32% </span>
+                <span class="strong">94.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>133/141</span>
+                <span class='fraction'>132/140</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.07% </span>
+                <span class="strong">94.02% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>127/135</span>
+                <span class='fraction'>126/134</span>
             </div>
         
             
@@ -386,24 +386,22 @@
 <a name='L321'></a><a href='#L321'>321</a>
 <a name='L322'></a><a href='#L322'>322</a>
 <a name='L323'></a><a href='#L323'>323</a>
-<a name='L324'></a><a href='#L324'>324</a>
-<a name='L325'></a><a href='#L325'>325</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
@@ -712,33 +710,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-import { OptionalType, RequiredType } from "../api/Types";
-import { nullCheck, configCheck } from "../api/Checks";
-import { AutoClose, AUTO_CLOSE_NONE, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, resolveBindStrategy, BindStrategyParameter } from "../api/BindStrategy";
-import { contractCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { Contracts, Config } from "../api/Contracts";
-import { typeToPromisor, Promisor, PromisorType } from "../api/Promisor";
-import { CONTRACT as REPOSITORY_FACTORY } from "../api/RepositoryFactory";
-import { Repository } from "../api/Repository";
-import { CONTRACT as PROMISORS } from "../api/PromisorFactory";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
 import { AtomicInteger } from "../api/AtomicInteger";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from '../api/AtomicIntegerFactory';
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
+import { BindStrategy, BindStrategyParameter, resolveBindStrategy } from "../api/BindStrategy";
+import { configCheck, contractCheck, nullCheck } from "../api/Checks";
+import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
+import { Config, Contracts } from "../api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
+import { CONTRACT as PROMISORS } from "../api/PromisorFactory";
+import { Repository } from "../api/Repository";
+import { CONTRACT as REPOSITORY_FACTORY } from "../api/RepositoryFactory";
+import { OptionalType, RequiredType } from "../api/Types";
 &nbsp;
-import { IdempotentImpl } from "./IndempotentImpl";
-import { CloserImpl } from "./CloserImpl";
-import { create as createPromisorFactory } from "./PromisorFactoryImpl";
-import { create as createAtomicReferenceFactory } from "./AtomicReferenceFactoryImpl";
-import { create as createAtomicInteger } from "./AtomicIntegerImpl";
-import { create as createAtomicIntegerFactory } from "./AtomicIntegerFactoryImpl";
-import { create as createAtomicBooleanFactory } from "./AtomicBooleanFactoryImpl";
-import { create as createRepository } from "./RepositoryImpl";
-import { create as createRepositoryFactory } from "./RepositoryFactoryImpl";
 import { isRatifiedContract } from "../api/RatifiedContract";
+import { create as createAtomicBooleanFactory } from "./AtomicBooleanFactory.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicIntegerFactory } from "./AtomicIntegerFactory.impl";
+import { create as createAtomicReferenceFactory } from "./AtomicReferenceFactory.impl";
+import { CloserImpl } from "./Closer.impl";
+import { IdempotentImpl } from "./Indempotent.impl";
+import { create as createPromisorFactory } from "./PromisorFactory.impl";
+import { create as createRepository } from "./Repository.impl";
+import { create as createRepositoryFactory } from "./RepositoryFactory.impl";
 &nbsp;
 /**
  * Factory method to create Contracts instance.
@@ -1042,7 +1039,7 @@ class ContractsImpl implements Contracts {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-09T23:45:18.721Z
+                at 2026-01-10T13:08:02.582Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

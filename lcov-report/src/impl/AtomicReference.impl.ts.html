@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/impl/PromisorFactoryImpl.ts</title>
+    <title>Code coverage report for src/impl/AtomicReference.impl.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> PromisorFactoryImpl.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> AtomicReference.impl.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -120,53 +120,20 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">688x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,74 +141,125 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Factory to create a PromisorFactory implementation
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2566x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">673x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">670x</span>
+<span class="cline-any cline-yes">663x</span>
+<span class="cline-any cline-yes">663x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">688x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">688x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Factory method to create an AtomicReference
  * 
- * @returns the PromisorFactory implementation
+ * @param initialValue the initial value for the AtomicReference
+ * @returns the new AtomicReference implementation
  */
-export function create(): RequiredType&lt;PromisorFactory&gt; {
-    return PromisorsImpl.internalCreate();
+export function create&lt;T&gt;(initialValue?: OptionalType&lt;T&gt;): RequiredType&lt;AtomicReference&lt;T&gt;&gt; {
+    return AtomicReferenceImpl.internalCreate(initialValue);
 }
 &nbsp;
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors}
- * @see io.github.jonloucks.contracts.api.Promisors
+ * AtomicReference implementation.
  */
-class PromisorsImpl implements PromisorFactory {
+export class AtomicReferenceImpl&lt;T&gt; implements AtomicReference&lt;T&gt; {
 &nbsp;
     /**
-     * PromisorFactory.createValue override.
+     * AtomicReference.get override
      */
-    createValue&lt;T&gt;(deliverable: OptionalType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-        return createValue&lt;T&gt;(deliverable);
+    get(): OptionalType&lt;T&gt; {
+        return this.value;
     }
 &nbsp;
-    /**
-     * PromisorFactory.createSingleton override.
+    /** 
+     * AtomicReference.set override
      */
-    createSingleton&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-        return createSingleton&lt;T&gt;(typeToPromisor(promisor));
+    set(newValue: OptionalType&lt;T&gt;): void {
+        this.value = newValue;
     }
 &nbsp;
-    /**
-     * PromisorFactory.createLifeCycle override.
+    /** 
+     * AtomicReference.compareAndSet override
      */
-    createLifeCycle&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-        return createLifeCycle(typeToPromisor(promisor));
+    compareAndSet(expectedValue: OptionalType&lt;T&gt;, newValue: OptionalType&lt;T&gt;): boolean {
+        if (this.value === expectedValue) {
+            this.value = newValue;
+            return true;
+        } else {
+            return false;
+        }
     }
 &nbsp;
-    /**
-     * PromisorFactory.createExtractor override.
+    /** 
+     * Object.toString override
      */
-    createExtractor&lt;T, R&gt;(promisor: PromisorType&lt;T&gt;, extractor: Transform&lt;T, R&gt;): RequiredType&lt;Promisor&lt;R&gt;&gt; {
-        return createExtractor&lt;T, R&gt;(typeToPromisor(promisor), extractor);
+    toString(): string {
+        const current: OptionalType&lt;T&gt; = this.get();
+        return `AtomicReference[assigned:${current !== null &amp;&amp; current !== undefined ? <span class="branch-0 cbranch-no" title="branch not covered" >'true' </span>: 'false'}]`;
     }
 &nbsp;
-    static internalCreate(): RequiredType&lt;PromisorFactory&gt; {
-        return new PromisorsImpl();
+    static internalCreate&lt;T&gt;(initialValue?: OptionalType&lt;T&gt;): AtomicReference&lt;T&gt; {
+        return new AtomicReferenceImpl&lt;T&gt;(initialValue);
     }
 &nbsp;
-    private constructor() {
+    private constructor(initialValue?: OptionalType&lt;T&gt;) {
+        this.value = initialValue;
     }
+&nbsp;
+    private value: OptionalType&lt;T&gt;;
 }
 &nbsp;
-import { OptionalType, RequiredType, Transform } from "../api/Types";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { PromisorFactory } from "../api/PromisorFactory";
-import { create as createExtractor } from "./ExtractorPromisorImpl";
-import { create as createLifeCycle } from "./LifeCyclePromisorImpl";
-import { create as createSingleton } from "./SingletonPromisorImpl";
-import { create as createValue } from "./ValuePromisorImpl";</pre></td></tr></table></pre>
+import { RequiredType, OptionalType } from "../api/Types";
+import { AtomicReference } from "../api/AtomicReference";
+&nbsp;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-09T23:45:18.721Z
+                at 2026-01-10T13:08:02.582Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

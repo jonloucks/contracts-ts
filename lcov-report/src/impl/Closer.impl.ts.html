@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/impl/AtomicIntegerFactoryImpl.ts</title>
+    <title>Code coverage report for src/impl/Closer.impl.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> AtomicIntegerFactoryImpl.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> Closer.impl.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -93,74 +93,74 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1866x</span>
+<span class="cline-any cline-yes">1866x</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">660x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Factory method to create an AtomicIntegerFactory
- * 
- * @returns the AtomicIntegerFactory implementation
- */
-export function create(): RequiredType&lt;AtomicIntegerFactory&gt; {
-    return AtomicIntegerFactoryImpl.internalCreate();
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export class CloserImpl {
+    constructor() {
+    
+    }
+&nbsp;
+    close() : void {
+        let autoClose = this.reference.get();
+        if (autoClose !== null &amp;&amp; autoClose !== undefined &amp;&amp; this.reference.compareAndSet(autoClose, null)) {
+            autoClose.close();
+        }
+    }
+&nbsp;
+    set(autoClose: AutoClose) : void{
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (autoClose === this.reference.get()) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+        try {   
+            this.close();
+        } finally {
+            this.reference.set(autoClose);
+        }
+    }
+    
+    private readonly reference: AtomicReference&lt;AutoClose&gt; = createAtomicReference&lt;AutoClose&gt;();
 }
 &nbsp;
-class AtomicIntegerFactoryImpl implements AtomicIntegerFactory {
+import { AtomicReference } from "../api/AtomicReference";
+import { AutoClose } from "../api/AutoClose";
+import { create as createAtomicReference } from "./AtomicReference.impl";
 &nbsp;
-    /**
-     * AtomicIntegerFactory.create override
-     */
-    create(initialValue?: number): RequiredType&lt;AtomicInteger&gt; {
-        return createAtomicInteger(initialValue);
-    }
-&nbsp;
-    static internalCreate(): RequiredType&lt;AtomicIntegerFactory&gt; {
-        return new AtomicIntegerFactoryImpl();
-    }
-&nbsp;
-    private constructor() {
-    }
-};
-&nbsp;
-import { RequiredType } from "../api/Types";
-import { AtomicInteger} from "../api/AtomicInteger";
-import { AtomicIntegerFactory } from "../api/AtomicIntegerFactory";
-&nbsp;
-import { create as createAtomicInteger} from "./AtomicIntegerImpl";</pre></td></tr></table></pre>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-09T23:45:18.721Z
+                at 2026-01-10T13:08:02.582Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
