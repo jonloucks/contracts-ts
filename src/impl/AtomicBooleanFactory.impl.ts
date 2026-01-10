@@ -1,8 +1,8 @@
-import { RequiredType } from "../api/Types";
 import { AtomicBoolean } from "../api/AtomicBoolean";
 import { AtomicBooleanFactory } from "../api/AtomicBooleanFactory";
+import { RequiredType } from "../api/Types";
 
-import { create as createAtomicBoolean } from "./AtomicBooleanImpl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
 
 /**
  * Factory method to create an AtomicBooleanFactory

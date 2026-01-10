@@ -44,11 +44,12 @@ class SingletonPromisorImpl<T> implements Promisor<T> {
     private readonly firstTime: AtomicBoolean = createAtomicBoolean(true);
 }
 
-import { OptionalType, RequiredType } from "../api/Types";
+import { AtomicBoolean } from "../api/AtomicBoolean";
 import { promisorCheck } from "../api/Checks";
 import { Promisor } from "../api/Promisor";
-import { AtomicBoolean } from "../api/AtomicBoolean";
+import { OptionalType, RequiredType } from "../api/Types";
 
-import { create as createAtomicBoolean } from "./AtomicBooleanImpl";
 import { AtomicReference } from "../api/AtomicReference";
-import { create as createAtomicReference } from "./AtomicReferenceImpl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+

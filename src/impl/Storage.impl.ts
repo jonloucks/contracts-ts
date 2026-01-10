@@ -26,10 +26,10 @@ export class StorageImpl<T> implements AutoClose {
     private readonly closeBinding: CloserImpl = new CloserImpl();
 }
 
+import { AutoClose } from "../api/AutoClose";
+import { BindStrategy } from "../api/BindStrategy";
 import { Contract } from "../api/Contract";
 import { Contracts } from "../api/Contracts";
 import { Promisor } from "../api/Promisor";
-import { AutoClose } from "../api/AutoClose";
-import { BindStrategy } from "../api/BindStrategy";
 
-import { CloserImpl } from "./CloserImpl";
+import { CloserImpl } from "./Closer.impl";

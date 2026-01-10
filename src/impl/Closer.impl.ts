@@ -24,6 +24,7 @@ export class CloserImpl {
     private readonly reference: AtomicReference<AutoClose> = createAtomicReference<AutoClose>();
 }
 
-import { AutoClose } from "../api/AutoClose";
 import { AtomicReference } from "../api/AtomicReference";
-import { create as createAtomicReference } from "./AtomicReferenceImpl";
+import { AutoClose } from "../api/AutoClose";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+

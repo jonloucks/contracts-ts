@@ -24,9 +24,9 @@ class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
     }
 };
 
-import { RequiredType, OptionalType } from "../api/Types";
 import { AtomicReference } from "../api/AtomicReference";
 import { AtomicReferenceFactory } from "../api/AtomicReferenceFactory";
+import { OptionalType, RequiredType } from "../api/Types";
 
-import { create as createAtomicReference} from "./AtomicReferenceImpl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
 
