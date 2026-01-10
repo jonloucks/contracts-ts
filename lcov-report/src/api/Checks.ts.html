@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.84% </span>
+                <span class="strong">87.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/38</span>
+                <span class='fraction'>34/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.84% </span>
+                <span class="strong">87.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/38</span>
+                <span class='fraction'>34/39</span>
             </div>
         
             
@@ -218,7 +218,7 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -373,8 +373,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RequiredType, OptionalType } from "./Types";
-import { IllegalArgumentException } from "./IllegalArgumentException";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IllegalArgumentException } from "./IllegalArgumentException";
+import { isNotPresent, OptionalType, RequiredType } from "./Types";
 &nbsp;
 /**
  * Check if given Contract is not null or invalid
@@ -387,7 +387,7 @@ import { IllegalArgumentException } from "./IllegalArgumentException";
 export const contractCheck: &lt;T&gt;(contract: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(contract: OptionalType&lt;T&gt;) =&gt; {
-        return nullCheck(contract, "Contract must be present.");
+        return presentCheck(contract, "Contract must be present.");
     }
 &nbsp;
 /**
@@ -398,7 +398,7 @@ export const contractCheck: &lt;T&gt;(contract: OptionalType&lt;T&gt;)
 export const contractsCheck: &lt;T&gt;(contracts: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(contracts: OptionalType&lt;T&gt;) =&gt; {
-        return nullCheck(contracts, "Contracts must be present.");
+        return presentCheck(contracts, "Contracts must be present.");
     }
 &nbsp;
 /**
@@ -412,7 +412,7 @@ export const contractsCheck: &lt;T&gt;(contracts: OptionalType&lt;T&gt;)
 export const promisorCheck: &lt;T&gt;(promisor: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(promisor: OptionalType&lt;T&gt;) =&gt; {
-        return nullCheck(promisor, "Promisor must be present.");
+        return presentCheck(promisor, "Promisor must be present.");
     }
 &nbsp;
 /**
@@ -426,7 +426,7 @@ export const promisorCheck: &lt;T&gt;(promisor: OptionalType&lt;T&gt;)
 export const configCheck: &lt;T&gt;(config: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(config: OptionalType&lt;T&gt;) =&gt; {
-        return nullCheck(config, "Config must be present.");
+        return presentCheck(config, "Config must be present.");
     }
 &nbsp;
 /**
@@ -440,7 +440,7 @@ export const configCheck: &lt;T&gt;(config: OptionalType&lt;T&gt;)
 export const builderCheck: &lt;T&gt;(builder: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = <span class="fstat-no" title="function not covered" >&lt;T&gt;(b</span>uilder: OptionalType&lt;T&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >        return nullCheck(builder, "Builder must be present.");</span>
+<span class="cstat-no" title="statement not covered" >        return presentCheck(builder, "Builder must be present.");</span>
     }
 &nbsp;
 /**
@@ -454,7 +454,7 @@ export const builderCheck: &lt;T&gt;(builder: OptionalType&lt;T&gt;)
 export const builderConsumerCheck: &lt;T&gt;(builderConsumer: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = <span class="fstat-no" title="function not covered" >&lt;T&gt;(b</span>uilderConsumer: OptionalType&lt;T&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >        return nullCheck(builderConsumer, "Builder consumer must be present.");</span>
+<span class="cstat-no" title="statement not covered" >        return presentCheck(builderConsumer, "Builder consumer must be present.");</span>
     }
 &nbsp;
 /**
@@ -466,7 +466,7 @@ export const builderConsumerCheck: &lt;T&gt;(builderConsumer: OptionalType&lt;T&
 export const typeCheck: &lt;T&gt;(name: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = <span class="fstat-no" title="function not covered" >&lt;T&gt;(n</span>ame: OptionalType&lt;T&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >        return nullCheck(name, "Type must be present.");</span>
+<span class="cstat-no" title="statement not covered" >        return presentCheck(name, "Type must be present.");</span>
     }
 &nbsp;
 /**
@@ -478,7 +478,7 @@ export const typeCheck: &lt;T&gt;(name: OptionalType&lt;T&gt;)
 export const nameCheck: &lt;T&gt;(name: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = <span class="fstat-no" title="function not covered" >&lt;T&gt;(n</span>ame: T) =&gt; {
-<span class="cstat-no" title="statement not covered" >        return nullCheck(name, "Name must be present.");</span>
+<span class="cstat-no" title="statement not covered" >        return presentCheck(name, "Name must be present.");</span>
     }
 &nbsp;
 /**
@@ -490,7 +490,7 @@ export const nameCheck: &lt;T&gt;(name: OptionalType&lt;T&gt;)
 export const messageCheck: &lt;T&gt;(value: OptionalType&lt;T&gt;)
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(value: OptionalType&lt;T&gt;) =&gt; {
-        return nullCheck(value, "Message must be present.");
+        return presentCheck(value, "Message must be present.");
     }
 &nbsp;
 /**
@@ -500,10 +500,10 @@ export const messageCheck: &lt;T&gt;(value: OptionalType&lt;T&gt;)
  * @param {*} message the message used if an exception is thrown
  * @returns the value passed
  */
-export const nullCheck: &lt;T&gt;(value: OptionalType&lt;T&gt;, message: string) 
+export const presentCheck: &lt;T&gt;(value: OptionalType&lt;T&gt;, message: string) 
     =&gt; RequiredType&lt;T&gt;
     = &lt;T&gt;(value: OptionalType&lt;T&gt;, message: string) =&gt; {
-        return illegalCheck(value, value === null || value === undefined, message) as RequiredType&lt;T&gt;;
+        return illegalCheck(value, isNotPresent(value), message) as RequiredType&lt;T&gt;;
     };
 &nbsp;
 /**
@@ -517,7 +517,7 @@ export const nullCheck: &lt;T&gt;(value: OptionalType&lt;T&gt;, message: string)
 export const illegalCheck: &lt;T&gt;(value: T, failed: boolean, message: string)
     =&gt; T
     = &lt;T&gt;(value: T, failed: boolean, message: string) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (message === null || message === undefined) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isNotPresent(message)) {
 <span class="cstat-no" title="statement not covered" >            throw new IllegalArgumentException("Message for illegal check must be present.");</span>
         }
         if (failed) {
@@ -535,7 +535,7 @@ export const illegalCheck: &lt;T&gt;(value: T, failed: boolean, message: string)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-10T13:08:02.582Z
+                at 2026-01-10T15:30:13.689Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

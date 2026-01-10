@@ -197,7 +197,22 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,6 +221,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,19 +335,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AtomicBoolean } from "../api/AtomicBoolean";
+import { AtomicInteger } from "../api/AtomicInteger";
+import { AtomicReference } from "../api/AtomicReference";
+import { AutoOpen } from "../api/AutoOpen";
+import { promisorCheck } from "../api/Checks";
+import { IllegalStateException } from "../api/IllegalStateException";
+import { Promisor } from "../api/Promisor";
+import { OptionalType, RequiredType } from "../api/Types";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+import { CloserImpl } from "./Closer.impl";
+&nbsp;
+/**
  * Factory to create an Life Cycle promisor implementation
  * 
  * @param referent the source promisor
@@ -340,11 +357,12 @@
  */
 export function create&lt;T&gt;(referent: Promisor&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
     return LifeCyclePromisorImpl.internalCreate&lt;T&gt;(referent);
-}   
+}
+&nbsp;
+// ---- Implementation details below ----
 &nbsp;
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors#createLifeCycle(Promisor)}
- * @see io.github.jonloucks.contracts.api.Promisors#createLifeCycle(Promisor)
+ * Implementation of a Life Cycle Promisor
  * @param &lt;T&gt; the type of deliverable
  */
 class LifeCyclePromisorImpl&lt;T&gt; implements Promisor&lt;T&gt; {
@@ -452,18 +470,6 @@ class LifeCyclePromisorImpl&lt;T&gt; implements Promisor&lt;T&gt; {
     private readonly closer: CloserImpl = new CloserImpl();
 }
 &nbsp;
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { AtomicInteger } from "../api/AtomicInteger";
-import { AtomicReference } from "../api/AtomicReference";
-import { AutoOpen } from "../api/AutoOpen";
-import { promisorCheck } from "../api/Checks";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType } from "../api/Types";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
-import { CloserImpl } from "./Closer.impl";
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -472,7 +478,7 @@ import { CloserImpl } from "./Closer.impl";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-10T13:08:02.582Z
+                at 2026-01-10T15:30:13.689Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

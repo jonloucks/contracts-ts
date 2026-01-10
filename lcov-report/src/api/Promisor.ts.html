@@ -153,10 +153,23 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,6 +232,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">1164x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -233,6 +254,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">581x</span>
 <span class="cline-any cline-yes">581x</span>
@@ -243,11 +269,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { OptionalType, RequiredType, isRequiredConstructor, hasFunctions } from "./Types";
-import { nullCheck } from "./Checks";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { presentCheck } from "./Checks";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { create as createContract } from "./RatifiedContract";
+import { OptionalType, RequiredType, hasFunctions, isConstructorPresent } from "./Types";
 &nbsp;
 /**
  * Interface for providing a deliverable for a Contract
@@ -307,12 +333,20 @@ export const LAWYER: Lawyer&lt;Promisor&lt;unknown&gt;&gt; = new class implement
     }
 }
 &nbsp;
+/**
+ * A type that can be converted to a Promisor
+ */
 export type PromisorType&lt;T&gt; = (new () =&gt; T) | Promisor&lt;T&gt; | (() =&gt; T) | (() =&gt; () =&gt; T) | T | null;
 &nbsp;
+/**
+ * Convert a PromisorType to a Promisor
+ * @param type the type to convert
+ * @returns the Promisor
+ */
 export function typeToPromisor&lt;T&gt;(type: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt;{
     <span class="missing-if-branch" title="if path not taken" >I</span>if (type === null || type === undefined) {
 <span class="cstat-no" title="statement not covered" >        return inlinePromisor&lt;T&gt;(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >type)</span>;</span>
-    } else if (isRequiredConstructor&lt;T&gt;(type)) {
+    } else if (isConstructorPresent&lt;T&gt;(type)) {
         return inlinePromisor&lt;T&gt;(() =&gt; new type());
     } else if (LAWYER.isDeliverable&lt;Promisor&lt;T&gt;&gt;(type)) {
         return type;
@@ -323,8 +357,13 @@ export function typeToPromisor&lt;T&gt;(type: PromisorType&lt;T&gt;): RequiredTy
     }
 }
 &nbsp;
+/**
+ * Create a simple inline Promisor from a demand function
+ * @param demand the demand function
+ * @returns the Promisor
+ */
 export function inlinePromisor&lt;T&gt;(demand: () =&gt; OptionalType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-    const validDemand = nullCheck(demand, "Promisor demand function must be present.");
+    const validDemand = presentCheck(demand, "Promisor demand function must be present.");
     let usageCount : number = 0;
     return {
         demand: validDemand,
@@ -340,7 +379,7 @@ export function inlinePromisor&lt;T&gt;(demand: () =&gt; OptionalType&lt;T&gt;):
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-10T13:08:02.582Z
+                at 2026-01-10T15:30:13.689Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -205,7 +205,24 @@
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +230,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,21 +352,22 @@
 <span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
+import { BindStrategy, resolveBindStrategy } from "../api/BindStrategy";
+import { contractCheck } from "../api/Checks";
+import { Contract } from "../api/Contract";
+import { ContractException } from "../api/ContractException";
+import { Contracts } from "../api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
+import { Repository } from "../api/Repository";
+import { RequiredType } from "../api/Types";
+&nbsp;
+import { OptionalType } from "../api/Types";
+import { IdempotentImpl } from "./Indempotent.impl";
+import { StorageImpl } from "./Storage.impl";
+&nbsp;
+/**
  * Factory method to create Repository instance.
  * 
  * @param contracts the Contracts instance to be used by the Repository
@@ -356,6 +376,8 @@
 export function create(contracts: Contracts): RequiredType&lt;Repository&gt; {
     return RepositoryImpl.internalCreate(contracts);
 }
+&nbsp;
+// ---- Implementation details below ----
 &nbsp;
 /**
  * Implementation for {@link io.github.jonloucks.contracts.api.Repository}
@@ -475,19 +497,6 @@ class RepositoryImpl implements Repository {
     readonly #requiredContracts: Set&lt;Contract&lt;unknown&gt;&gt; = new Set&lt;Contract&lt;unknown&gt;&gt;();
 }
 &nbsp;
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, resolveBindStrategy } from "../api/BindStrategy";
-import { contractCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { Contracts } from "../api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { Repository } from "../api/Repository";
-import { RequiredType } from "../api/Types";
-&nbsp;
-import { OptionalType } from "../api/Types";
-import { IdempotentImpl } from "./Indempotent.impl";
-import { StorageImpl } from "./Storage.impl";
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -496,7 +505,7 @@ import { StorageImpl } from "./Storage.impl";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-10T13:08:02.582Z
+                at 2026-01-10T15:30:13.689Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
