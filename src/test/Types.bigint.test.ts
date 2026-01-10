@@ -23,7 +23,7 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredBigInt',
+    name: 'isBigIntPresent',
     function: isBigIntPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]

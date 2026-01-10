@@ -24,7 +24,7 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredString',
+    name: 'isStringPresent',
     function: isStringPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]

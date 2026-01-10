@@ -57,6 +57,3 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
     private readonly referent: Promisor<T>;
     private readonly transform: Transform<T, R>;
 }
-
-
-

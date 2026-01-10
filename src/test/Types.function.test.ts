@@ -21,7 +21,7 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredFunction',
+    name: 'isFunctionPresent',
     function: isFunctionPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]

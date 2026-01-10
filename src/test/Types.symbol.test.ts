@@ -22,7 +22,7 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredSymbol',
+    name: 'isSymbolPresent',
     function: isSymbolPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]

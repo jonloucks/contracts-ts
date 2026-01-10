@@ -144,7 +144,7 @@ export function isBooleanPresent(value: unknown): value is RequiredType<boolean>
     return _typeOfPresent(value, "boolean");
 }
 
-/** 
+/**
 * Check if given value is a boolean or null/undefined
  * @param value the value to check
  * @returns true if value is a boolean
@@ -217,7 +217,7 @@ function _isTypeOf<T>(value: unknown, type: string): value is OptionalType<T> {
 }
 
 function _typeOfPresent<T>(value: unknown, type: string): value is RequiredType<T> {
-    return isPresent(value)  && typeof value === type;
+    return isPresent(value) && typeof value === type;
 }
 
 function _hasFunctions(value: unknown, propertyNames: string[], required: boolean): boolean {

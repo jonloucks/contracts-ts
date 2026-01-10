@@ -20,7 +20,7 @@ import { CloserImpl } from "./Closer.impl";
  */
 export function create<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
     return LifeCyclePromisorImpl.internalCreate<T>(referent);
-}  
+}
 
 // ---- Implementation details below ----
 
