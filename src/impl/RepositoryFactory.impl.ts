@@ -20,7 +20,7 @@ class RepositoryFactoryImpl implements RepositoryFactory {
 }
 
 import { Contracts } from "../api/Contracts";
-import { RequiredType } from "../api/Types";
 import { Repository } from "../api/Repository";
-import { create as createRepository } from "./RepositoryImpl";
 import { RepositoryFactory } from "../api/RepositoryFactory";
+import { RequiredType } from "../api/Types";
+import { create as createRepository } from "./Repository.impl";

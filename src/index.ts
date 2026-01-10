@@ -8,7 +8,7 @@ export { AutoClose } from "./api/AutoClose";
 export { AutoOpen } from "./api/AutoOpen";
 export { AtomicReference } from "./api/AtomicReference";
 
-export { createContract } from "./impl/ContractFactoryImpl";
-export { createContracts } from "./impl/ContractsFactoryImpl";
+export { createContract } from "./impl/ContractFactory.impl";
+export { createContracts } from "./impl/ContractsFactory.impl";
 
 

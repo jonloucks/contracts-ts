@@ -24,8 +24,8 @@ class AtomicIntegerFactoryImpl implements AtomicIntegerFactory {
     }
 };
 
-import { RequiredType } from "../api/Types";
-import { AtomicInteger} from "../api/AtomicInteger";
+import { AtomicInteger } from "../api/AtomicInteger";
 import { AtomicIntegerFactory } from "../api/AtomicIntegerFactory";
+import { RequiredType } from "../api/Types";
 
-import { create as createAtomicInteger} from "./AtomicIntegerImpl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";

@@ -1,31 +1,30 @@
 
-import { OptionalType, RequiredType } from "../api/Types";
-import { nullCheck, configCheck } from "../api/Checks";
-import { AutoClose, AUTO_CLOSE_NONE, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, resolveBindStrategy, BindStrategyParameter } from "../api/BindStrategy";
-import { contractCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { Contracts, Config } from "../api/Contracts";
-import { typeToPromisor, Promisor, PromisorType } from "../api/Promisor";
-import { CONTRACT as REPOSITORY_FACTORY } from "../api/RepositoryFactory";
-import { Repository } from "../api/Repository";
-import { CONTRACT as PROMISORS } from "../api/PromisorFactory";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
 import { AtomicInteger } from "../api/AtomicInteger";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from '../api/AtomicIntegerFactory';
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
+import { BindStrategy, BindStrategyParameter, resolveBindStrategy } from "../api/BindStrategy";
+import { configCheck, contractCheck, nullCheck } from "../api/Checks";
+import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
+import { Config, Contracts } from "../api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
+import { CONTRACT as PROMISORS } from "../api/PromisorFactory";
+import { Repository } from "../api/Repository";
+import { CONTRACT as REPOSITORY_FACTORY } from "../api/RepositoryFactory";
+import { OptionalType, RequiredType } from "../api/Types";
 
-import { IdempotentImpl } from "./IndempotentImpl";
-import { CloserImpl } from "./CloserImpl";
-import { create as createPromisorFactory } from "./PromisorFactoryImpl";
-import { create as createAtomicReferenceFactory } from "./AtomicReferenceFactoryImpl";
-import { create as createAtomicInteger } from "./AtomicIntegerImpl";
-import { create as createAtomicIntegerFactory } from "./AtomicIntegerFactoryImpl";
-import { create as createAtomicBooleanFactory } from "./AtomicBooleanFactoryImpl";
-import { create as createRepository } from "./RepositoryImpl";
-import { create as createRepositoryFactory } from "./RepositoryFactoryImpl";
 import { isRatifiedContract } from "../api/RatifiedContract";
+import { create as createAtomicBooleanFactory } from "./AtomicBooleanFactory.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicIntegerFactory } from "./AtomicIntegerFactory.impl";
+import { create as createAtomicReferenceFactory } from "./AtomicReferenceFactory.impl";
+import { CloserImpl } from "./Closer.impl";
+import { IdempotentImpl } from "./Indempotent.impl";
+import { create as createPromisorFactory } from "./PromisorFactory.impl";
+import { create as createRepository } from "./Repository.impl";
+import { create as createRepositoryFactory } from "./RepositoryFactory.impl";
 
 /**
  * Factory method to create Contracts instance.

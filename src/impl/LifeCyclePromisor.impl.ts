@@ -119,16 +119,16 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
     private readonly closer: CloserImpl = new CloserImpl();
 }
 
-import { OptionalType, RequiredType } from "../api/Types";
-import { promisorCheck } from "../api/Checks";
-import { Promisor } from "../api/Promisor";
 import { AtomicBoolean } from "../api/AtomicBoolean";
-import { create as createAtomicBoolean} from "./AtomicBooleanImpl";
-import { AtomicReference } from "../api/AtomicReference";
-import { create as createAtomicReference } from "./AtomicReferenceImpl";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { AutoOpen } from "../api/AutoOpen";
 import { AtomicInteger } from "../api/AtomicInteger";
-import { create as createAtomicInteger } from "./AtomicIntegerImpl";
-import { CloserImpl } from "./CloserImpl";
+import { AtomicReference } from "../api/AtomicReference";
+import { AutoOpen } from "../api/AutoOpen";
+import { promisorCheck } from "../api/Checks";
+import { IllegalStateException } from "../api/IllegalStateException";
+import { Promisor } from "../api/Promisor";
+import { OptionalType, RequiredType } from "../api/Types";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+import { CloserImpl } from "./Closer.impl";
 

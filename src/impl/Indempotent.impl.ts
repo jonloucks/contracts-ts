@@ -26,4 +26,4 @@ export class IdempotentImpl {
 }
 
 import { AtomicBoolean } from "../api/AtomicBoolean";
-import { create as createAtomicBoolean} from "./AtomicBooleanImpl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";

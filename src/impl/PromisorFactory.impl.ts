@@ -52,7 +52,7 @@ class PromisorsImpl implements PromisorFactory {
 import { OptionalType, RequiredType, Transform } from "../api/Types";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
 import { PromisorFactory } from "../api/PromisorFactory";
-import { create as createExtractor } from "./ExtractorPromisorImpl";
-import { create as createLifeCycle } from "./LifeCyclePromisorImpl";
-import { create as createSingleton } from "./SingletonPromisorImpl";
-import { create as createValue } from "./ValuePromisorImpl";
+import { create as createExtractor } from "./ExtractorPromisor.impl";
+import { create as createLifeCycle } from "./LifeCyclePromisor.impl";
+import { create as createSingleton } from "./SingletonPromisor.impl";
+import { create as createValue } from "./ValuePromisor.impl";

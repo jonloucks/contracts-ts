@@ -1,7 +1,7 @@
 import { RequiredType } from "../api/Types";
 import { ContractsFactory } from "../api/ContractsFactory";
 import { Contracts, Config } from "../api/Contracts";
-import { create as createContractsImpl } from "./ContractsImpl"; 
+import { create as createContractsImpl } from "./Contracts.impl"; 
 
 
 /**
