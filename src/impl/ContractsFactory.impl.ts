@@ -1,4 +1,4 @@
-import {  RequiredType } from "../api/Types";
+import { RequiredType } from "../api/Types";
 import { ContractsFactory } from "../api/ContractsFactory";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
