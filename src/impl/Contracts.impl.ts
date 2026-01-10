@@ -252,7 +252,7 @@ class ContractsImpl implements Contracts {
         throw new ContractException("Contracts failed to close after trying multiple times.");
     }
 
-    private throwContractNotPromisedException<T>(contract: Contract<T>): never{
+    private throwContractNotPromisedException<T>(contract: Contract<T>): never {
         throw new ContractException("Contract " + contract + " was not promised.");
     }
 
