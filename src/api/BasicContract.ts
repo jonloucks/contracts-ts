@@ -17,6 +17,8 @@ export function create<T>(config?: Config<T> | null) : RequiredType<Contract<T>>
  * It does not enforce duck-typing checks, it is the
  * responsibility of the caller to ensure the instance is really the
  * correct deliverable type.
+ * 
+ * Class designed for extension.
  */
 export class BasicContract<T> implements Contract<T> {
 
@@ -83,6 +85,10 @@ export class BasicContract<T> implements Contract<T> {
         return `Contract(id=${this._id}, name=${this.name}, type=${this.typeName})`;
     }
 
+    /**
+     * 
+     * @param config 
+     */
     public constructor(config?: Config<T> | null) {
         const candidateConfig: Config<T> = config ?? {};
         this._replaceable = candidateConfig?.replaceable ?? false;

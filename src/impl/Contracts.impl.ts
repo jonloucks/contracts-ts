@@ -4,8 +4,8 @@ import { AtomicInteger } from "../api/AtomicInteger";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from '../api/AtomicIntegerFactory';
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, BindStrategyParameter, resolveBindStrategy } from "../api/BindStrategy";
-import { configCheck, contractCheck, nullCheck } from "../api/Checks";
+import { BindStrategy, BindStrategyType, resolveBindStrategy } from "../api/BindStrategy";
+import { configCheck, contractCheck, presentCheck } from "../api/Checks";
 import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
@@ -35,6 +35,8 @@ import { create as createRepositoryFactory } from "./RepositoryFactory.impl";
 export function create(config: Config): RequiredType<Contracts> {
     return ContractsImpl.internalCreate(config);
 }
+
+// ---- Implementation details below ----
 
 /**
  * Contracts implementation.
@@ -91,7 +93,7 @@ class ContractsImpl implements Contracts {
     /**
      * Contracts.bind override.
      */
-    bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyParameter): AutoClose {
+    bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
         const validContract: Contract<T> = contractCheck(contract);
         this.policy(validContract);
         const validPromisor: Promisor<T> = typeToPromisor<T>(promisor);
@@ -280,7 +282,7 @@ class ContractsImpl implements Contracts {
 
     private constructor(config: Config) {
         const validConfig = configCheck(config);
-        const validPartners = nullCheck(validConfig?.partners ?? [], "Partners must be present.");
+        const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
 
         // hardened by default
         if (validConfig?.ratified ?? true) {

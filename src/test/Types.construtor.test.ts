@@ -1,5 +1,5 @@
-import { isConstructor, isRequiredConstructor } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isConstructor, isConstructorPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: Date, help: "a class constructor" }
@@ -23,8 +23,8 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredConstructor',
-    function: isRequiredConstructor,
+    name: 'isConstructorPresent',
+    function: isConstructorPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

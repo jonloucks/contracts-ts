@@ -1,3 +1,6 @@
+import { RequiredType, OptionalType } from "../api/Types";
+import { AtomicReference } from "../api/AtomicReference";
+
 /**
  * Factory method to create an AtomicReference
  * 
@@ -7,6 +10,8 @@
 export function create<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>> {
     return AtomicReferenceImpl.internalCreate(initialValue);
 }
+
+// ---- Implementation details below ----
 
 /**
  * AtomicReference implementation.
@@ -58,6 +63,4 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
     private value: OptionalType<T>;
 }
 
-import { RequiredType, OptionalType } from "../api/Types";
-import { AtomicReference } from "../api/AtomicReference";
 

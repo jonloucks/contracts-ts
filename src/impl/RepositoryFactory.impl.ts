@@ -1,6 +1,20 @@
+import { Contracts } from "../api/Contracts";
+import { Repository } from "../api/Repository";
+import { RepositoryFactory } from "../api/RepositoryFactory";
+import { RequiredType } from "../api/Types";
+import { create as createRepository } from "./Repository.impl";
+
+/**
+ * Factory method to create a RepositoryFactory
+ * 
+ * @param contracts the Contracts instance to be used by the RepositoryFactory
+ * @returns the RepositoryFactory implementation
+ */
 export function create(contracts: Contracts): RequiredType<RepositoryFactory> {
     return RepositoryFactoryImpl.internalCreate(contracts);
 }
+
+// ---- Implementation details below ----
 
 class RepositoryFactoryImpl implements RepositoryFactory {
 
@@ -18,9 +32,3 @@ class RepositoryFactoryImpl implements RepositoryFactory {
 
     private readonly contracts: Contracts;
 }
-
-import { Contracts } from "../api/Contracts";
-import { Repository } from "../api/Repository";
-import { RepositoryFactory } from "../api/RepositoryFactory";
-import { RequiredType } from "../api/Types";
-import { create as createRepository } from "./Repository.impl";

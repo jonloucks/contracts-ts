@@ -1,7 +1,7 @@
-import { RequiredType, OptionalType, isNotNullOrUndefined, isNullOrUndefined } from "./Types";
-import { ContractException } from "./ContractException";
-import { Contract, Config } from "./Contract";
 import { BasicContract } from "./BasicContract";
+import { Config, Contract } from "./Contract";
+import { ContractException } from "./ContractException";
+import { OptionalType, RequiredType, isNotPresent, isPresent } from "./Types";
 
 /**
  * A RatifiedContract is a Contract that has been verified to have either a test or cast function.
@@ -31,10 +31,10 @@ export function isRatifiedContract(instance: unknown): instance is RatifiedContr
  * @returns true if the configuration is ratifiable, false otherwise
  */
 export function isRatifiableConfig<T>(config?: OptionalType<Config<T>>): config is RequiredType<Config<T>> {
-    if (isNullOrUndefined(config)) {
+    if (isNotPresent(config)) {
         return false;
     }
-    return isNotNullOrUndefined(config.test) || isNotNullOrUndefined(config.cast);
+    return isPresent(config.test) || isPresent(config.cast);
 }
 
 /**
@@ -57,7 +57,7 @@ class RatifiedContract<T> extends BasicContract<T> {
     }
 
     static isRatifiedContract(instance: unknown): instance is RatifiedContract<unknown> {
-        if (isNullOrUndefined(instance)) {
+        if (isNotPresent(instance)) {
             return false;
         }
         try {

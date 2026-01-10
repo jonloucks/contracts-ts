@@ -1,8 +1,8 @@
-import { OptionalType, RequiredType, isRequiredConstructor, hasFunctions } from "./Types";
-import { nullCheck } from "./Checks";
+import { presentCheck } from "./Checks";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { create as createContract } from "./RatifiedContract";
+import { OptionalType, RequiredType, hasFunctions, isConstructorPresent } from "./Types";
 
 /**
  * Interface for providing a deliverable for a Contract
@@ -62,12 +62,20 @@ export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Pro
     }
 }
 
+/**
+ * A type that can be converted to a Promisor
+ */
 export type PromisorType<T> = (new () => T) | Promisor<T> | (() => T) | (() => () => T) | T | null;
 
+/**
+ * Convert a PromisorType to a Promisor
+ * @param type the type to convert
+ * @returns the Promisor
+ */
 export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<T>>{
     if (type === null || type === undefined) {
         return inlinePromisor<T>(() => type);
-    } else if (isRequiredConstructor<T>(type)) {
+    } else if (isConstructorPresent<T>(type)) {
         return inlinePromisor<T>(() => new type());
     } else if (LAWYER.isDeliverable<Promisor<T>>(type)) {
         return type;
@@ -78,8 +86,13 @@ export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<
     }
 }
 
+/**
+ * Create a simple inline Promisor from a demand function
+ * @param demand the demand function
+ * @returns the Promisor
+ */
 export function inlinePromisor<T>(demand: () => OptionalType<T>): RequiredType<Promisor<T>> {
-    const validDemand = nullCheck(demand, "Promisor demand function must be present.");
+    const validDemand = presentCheck(demand, "Promisor demand function must be present.");
     let usageCount : number = 0;
     return {
         demand: validDemand,

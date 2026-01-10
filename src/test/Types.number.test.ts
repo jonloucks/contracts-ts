@@ -1,5 +1,5 @@
-import { isNumber, isRequiredNumber } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isNumber, isNumberPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: 42, help: "a number value" },
@@ -28,8 +28,8 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredNumber',
-    function: isRequiredNumber,
+    name: 'isNumberPresent',
+    function: isNumberPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

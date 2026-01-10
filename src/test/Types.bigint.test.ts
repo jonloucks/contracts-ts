@@ -1,5 +1,5 @@
-import { isBigInt, isRequiredBigInt } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isBigInt, isBigIntPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: BigInt(42), help: "a bigint value" }
@@ -23,8 +23,8 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredBigInt',
-    function: isRequiredBigInt,
+    name: 'isBigIntPresent',
+    function: isBigIntPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

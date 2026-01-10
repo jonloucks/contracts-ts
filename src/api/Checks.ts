@@ -1,5 +1,5 @@
-import { RequiredType, OptionalType } from "./Types";
 import { IllegalArgumentException } from "./IllegalArgumentException";
+import { isNotPresent, OptionalType, RequiredType } from "./Types";
 
 /**
  * Check if given Contract is not null or invalid
@@ -12,7 +12,7 @@ import { IllegalArgumentException } from "./IllegalArgumentException";
 export const contractCheck: <T>(contract: OptionalType<T>)
     => RequiredType<T>
     = <T>(contract: OptionalType<T>) => {
-        return nullCheck(contract, "Contract must be present.");
+        return presentCheck(contract, "Contract must be present.");
     }
 
 /**
@@ -23,7 +23,7 @@ export const contractCheck: <T>(contract: OptionalType<T>)
 export const contractsCheck: <T>(contracts: OptionalType<T>)
     => RequiredType<T>
     = <T>(contracts: OptionalType<T>) => {
-        return nullCheck(contracts, "Contracts must be present.");
+        return presentCheck(contracts, "Contracts must be present.");
     }
 
 /**
@@ -37,7 +37,7 @@ export const contractsCheck: <T>(contracts: OptionalType<T>)
 export const promisorCheck: <T>(promisor: OptionalType<T>)
     => RequiredType<T>
     = <T>(promisor: OptionalType<T>) => {
-        return nullCheck(promisor, "Promisor must be present.");
+        return presentCheck(promisor, "Promisor must be present.");
     }
 
 /**
@@ -51,7 +51,7 @@ export const promisorCheck: <T>(promisor: OptionalType<T>)
 export const configCheck: <T>(config: OptionalType<T>)
     => RequiredType<T>
     = <T>(config: OptionalType<T>) => {
-        return nullCheck(config, "Config must be present.");
+        return presentCheck(config, "Config must be present.");
     }
 
 /**
@@ -65,7 +65,7 @@ export const configCheck: <T>(config: OptionalType<T>)
 export const builderCheck: <T>(builder: OptionalType<T>)
     => RequiredType<T>
     = <T>(builder: OptionalType<T>) => {
-        return nullCheck(builder, "Builder must be present.");
+        return presentCheck(builder, "Builder must be present.");
     }
 
 /**
@@ -79,7 +79,7 @@ export const builderCheck: <T>(builder: OptionalType<T>)
 export const builderConsumerCheck: <T>(builderConsumer: OptionalType<T>)
     => RequiredType<T>
     = <T>(builderConsumer: OptionalType<T>) => {
-        return nullCheck(builderConsumer, "Builder consumer must be present.");
+        return presentCheck(builderConsumer, "Builder consumer must be present.");
     }
 
 /**
@@ -91,7 +91,7 @@ export const builderConsumerCheck: <T>(builderConsumer: OptionalType<T>)
 export const typeCheck: <T>(name: OptionalType<T>)
     => RequiredType<T>
     = <T>(name: OptionalType<T>) => {
-        return nullCheck(name, "Type must be present.");
+        return presentCheck(name, "Type must be present.");
     }
 
 /**
@@ -103,7 +103,7 @@ export const typeCheck: <T>(name: OptionalType<T>)
 export const nameCheck: <T>(name: OptionalType<T>)
     => RequiredType<T>
     = <T>(name: T) => {
-        return nullCheck(name, "Name must be present.");
+        return presentCheck(name, "Name must be present.");
     }
 
 /**
@@ -115,7 +115,7 @@ export const nameCheck: <T>(name: OptionalType<T>)
 export const messageCheck: <T>(value: OptionalType<T>)
     => RequiredType<T>
     = <T>(value: OptionalType<T>) => {
-        return nullCheck(value, "Message must be present.");
+        return presentCheck(value, "Message must be present.");
     }
 
 /**
@@ -125,10 +125,10 @@ export const messageCheck: <T>(value: OptionalType<T>)
  * @param {*} message the message used if an exception is thrown
  * @returns the value passed
  */
-export const nullCheck: <T>(value: OptionalType<T>, message: string) 
+export const presentCheck: <T>(value: OptionalType<T>, message: string) 
     => RequiredType<T>
     = <T>(value: OptionalType<T>, message: string) => {
-        return illegalCheck(value, value === null || value === undefined, message) as RequiredType<T>;
+        return illegalCheck(value, isNotPresent(value), message) as RequiredType<T>;
     };
 
 /**
@@ -142,7 +142,7 @@ export const nullCheck: <T>(value: OptionalType<T>, message: string)
 export const illegalCheck: <T>(value: T, failed: boolean, message: string)
     => T
     = <T>(value: T, failed: boolean, message: string) => {
-        if (message === null || message === undefined) {
+        if (isNotPresent(message)) {
             throw new IllegalArgumentException("Message for illegal check must be present.");
         }
         if (failed) {

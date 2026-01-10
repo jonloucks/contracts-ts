@@ -1,5 +1,5 @@
-import { isSymbol, isRequiredSymbol } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isSymbol, isSymbolPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: Symbol("test"), help: "a symbol value" },
@@ -22,8 +22,8 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredSymbol',
-    function: isRequiredSymbol,
+    name: 'isSymbolPresent',
+    function: isSymbolPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

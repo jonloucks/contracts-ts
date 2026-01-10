@@ -1,3 +1,17 @@
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
+import { BindStrategy, resolveBindStrategy } from "../api/BindStrategy";
+import { contractCheck } from "../api/Checks";
+import { Contract } from "../api/Contract";
+import { ContractException } from "../api/ContractException";
+import { Contracts } from "../api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
+import { Repository } from "../api/Repository";
+import { RequiredType } from "../api/Types";
+
+import { OptionalType } from "../api/Types";
+import { IdempotentImpl } from "./Indempotent.impl";
+import { StorageImpl } from "./Storage.impl";
+
 /**
  * Factory method to create Repository instance.
  * 
@@ -7,6 +21,8 @@
 export function create(contracts: Contracts): RequiredType<Repository> {
     return RepositoryImpl.internalCreate(contracts);
 }
+
+// ---- Implementation details below ----
 
 /**
  * Implementation for {@link io.github.jonloucks.contracts.api.Repository}
@@ -126,17 +142,4 @@ class RepositoryImpl implements Repository {
     readonly #requiredContracts: Set<Contract<unknown>> = new Set<Contract<unknown>>();
 }
 
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, resolveBindStrategy } from "../api/BindStrategy";
-import { contractCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { Contracts } from "../api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { Repository } from "../api/Repository";
-import { RequiredType } from "../api/Types";
-
-import { OptionalType } from "../api/Types";
-import { IdempotentImpl } from "./Indempotent.impl";
-import { StorageImpl } from "./Storage.impl";
 

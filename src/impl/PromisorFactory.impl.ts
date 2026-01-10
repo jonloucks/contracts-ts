@@ -1,3 +1,11 @@
+import { OptionalType, RequiredType, Transform } from "../api/Types";
+import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
+import { PromisorFactory } from "../api/PromisorFactory";
+import { create as createExtractor } from "./ExtractorPromisor.impl";
+import { create as createLifeCycle } from "./LifeCyclePromisor.impl";
+import { create as createSingleton } from "./SingletonPromisor.impl";
+import { create as createValue } from "./ValuePromisor.impl";
+
 /**
  * Factory to create a PromisorFactory implementation
  * 
@@ -7,9 +15,10 @@ export function create(): RequiredType<PromisorFactory> {
     return PromisorsImpl.internalCreate();
 }
 
+// ---- Implementation details below ----
+
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Promisors}
- * @see io.github.jonloucks.contracts.api.Promisors
+ * Implementation for PromisorFactory
  */
 class PromisorsImpl implements PromisorFactory {
 
@@ -48,11 +57,3 @@ class PromisorsImpl implements PromisorFactory {
     private constructor() {
     }
 }
-
-import { OptionalType, RequiredType, Transform } from "../api/Types";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { PromisorFactory } from "../api/PromisorFactory";
-import { create as createExtractor } from "./ExtractorPromisor.impl";
-import { create as createLifeCycle } from "./LifeCyclePromisor.impl";
-import { create as createSingleton } from "./SingletonPromisor.impl";
-import { create as createValue } from "./ValuePromisor.impl";

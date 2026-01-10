@@ -3,7 +3,6 @@ import { ContractsFactory } from "../api/ContractsFactory";
 import { Contracts, Config } from "../api/Contracts";
 import { create as createContractsImpl } from "./Contracts.impl"; 
 
-
 /**
  * Factory method to create a ContractsFactory
  * 
@@ -13,9 +12,17 @@ export function create(): RequiredType<ContractsFactory> {
     return ContractsFactoryImpl.internalCreate();
 }   
 
+/**
+ * Factory method to create Contracts instance.
+ * 
+ * @param config the configuration for the Contracts instance
+ * @returns the Contracts implementation
+ */
 export function createContracts(config?: Config): RequiredType<Contracts> {
     return create().create(config);
 }
+
+// ---- Implementation details below ----
 
 /**
  * Implementation for {@link io.github.jonloucks.contracts.api.ContractsFactory}

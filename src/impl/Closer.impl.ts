@@ -1,3 +1,7 @@
+import { AtomicReference } from "../api/AtomicReference";
+import { AutoClose } from "../api/AutoClose";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+
 export class CloserImpl {
     constructor() {
     
@@ -24,7 +28,4 @@ export class CloserImpl {
     private readonly reference: AtomicReference<AutoClose> = createAtomicReference<AutoClose>();
 }
 
-import { AtomicReference } from "../api/AtomicReference";
-import { AutoClose } from "../api/AutoClose";
-import { create as createAtomicReference } from "./AtomicReference.impl";
 

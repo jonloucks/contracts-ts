@@ -1,5 +1,5 @@
-import { isFunction, isRequiredFunction } from "../api/Types";
-import { generatePredicateSuite, PredicateCase, OPTIONAL_CASES } from "./Types.tools.test";
+import { isFunction, isFunctionPresent } from "../api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: () => { }, help: "a simple function" },
@@ -21,8 +21,8 @@ generatePredicateSuite({
 });
 
 generatePredicateSuite({
-    name: 'isRequiredFunction',
-    function: isRequiredFunction,
+    name: 'isFunctionPresent',
+    function: isFunctionPresent,
     validCases: VALID_CASES,
     invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });
