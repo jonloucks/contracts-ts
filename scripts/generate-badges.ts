@@ -156,7 +156,7 @@ function isError(path: string, caught: any): caught is null {
 
 function determineBackgroundColor(percent: number): string {
     if (percent >= 90) {
-        return '#66FF00';
+        return '#4bc124';
     } else if (percent >= 75) {
         return 'yellowgreen';
     } else if (percent >= 60) {
