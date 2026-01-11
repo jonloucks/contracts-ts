@@ -8,6 +8,7 @@ import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
 import { isRatifiedContract } from "../api/RatifiedContract";
 
+import { Internal } from "./Internal.impl";
 import { IdempotentImpl } from "./Indempotent.impl";
 
 /**
@@ -106,17 +107,22 @@ class ContractsImpl implements Contracts {
     private close(): void {
         if (this.openState.transitionToClosed()) {
             try {
-                for (let attempts: number = 1, broken = this.breakAllBindings(); broken > 0; broken = this.breakAllBindings(), attempts++) {
-                    if (attempts > 5) {
-                        this.throwCloseDidNotCompleteException();
-                    }
-                }
+                this.attemptToCloseBindings();
             } finally {
                 this.shutdownEvents.forEach(eventName => {
                     process.off(eventName, this.shutdownFunction);
                 });
             }
         }
+    }
+
+    private attemptToCloseBindings(): void {
+        for (let attempts: number = 1; attempts < 6; attempts++) {
+            if (this.breakAllBindings() === 0) {
+                return;
+            }
+        }
+        this.throwCloseDidNotCompleteException();
     }
 
     private maybeBind<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy): AutoClose {
@@ -201,26 +207,9 @@ class ContractsImpl implements Contracts {
     }
 
     private breakAllBindings(): number {
-        const reversedContracts: Contract<unknown>[] = [];
-        const reversedPromisors: Promisor<unknown>[] = [];
-        const contractCount: number = this.copyBindings(reversedContracts, reversedPromisors);
-
-        while (reversedContracts.length > 0) {
-            this.breakBinding(reversedContracts.pop()!, reversedPromisors.pop()!);
-        }
-        return contractCount;
-    }
-
-    private copyBindings(contracts: Contract<unknown>[], promisors: Promisor<unknown>[]): number {
-        // During shutdown other threads should be able to acquire read and write locks
-        // The following attains the write lock to attain all the current keys and values
-        // in the reverse order from insertion.
-        // The last to be inserted is the first to be removed.
         let contractCount: number = 0;
-
-        this.#promisorMap.forEach((promisor, contract) => {
-            contracts.push(contract);
-            promisors.push(promisor);
+        Internal.mapForEachReversed(this.#promisorMap, (contract, promisor) => {
+            this.breakBinding(contract, promisor);
             contractCount++;
         });
         return contractCount;
