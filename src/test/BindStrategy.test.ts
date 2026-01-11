@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { RequiredType } from "../api/Types";
+import { RequiredType, isNotPresent } from "../api/Types";
 import { BindStrategy, resolveBindStrategy, isBindStrategy, DEFAULT_BIND_STRATEGY } from "../api/BindStrategy";
 
 generateBindStrategySuite({
@@ -22,7 +22,6 @@ generateBindStrategySuite({
         { value: false, help: "a boolean false" }
     ],
 });
-
 
 interface TestCase {
     value: unknown;
@@ -46,7 +45,7 @@ export function generateBindStrategySuite(options: TestSuiteOptions) {
                 if (isBindStrategy(testCase.value)) {
                     const resolved: RequiredType<BindStrategy> = resolveBindStrategy(testCase.value);
                     assert.notStrictEqual(resolved, null, "resolved BindStrategy should not be null.");
-                    if (testCase.value === null || testCase.value === undefined) {
+                    if (isNotPresent(testCase.value)) {
                         assert.strictEqual(resolved, DEFAULT_BIND_STRATEGY, "resolved BindStrategy should be DEFAULT_BIND_STRATEGY.");
                     }
                 } else {

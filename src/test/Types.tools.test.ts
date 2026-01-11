@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { OptionalType, RequiredType } from "../api/Types";
+import { OptionalType, RequiredType, isNotPresent } from "../api/Types";
 
 export const OPTIONAL_CASES: PredicateCase[] = [
     { value: null, help: "a null value" },
@@ -8,14 +8,14 @@ export const OPTIONAL_CASES: PredicateCase[] = [
 ];
 
 function isUltimateAnswer(value: OptionalType<unknown>): value is OptionalType<number> {
-    if (value === null || value === undefined) {
+    if (isNotPresent(value)) {
         return true;
     }
     return typeof value === "number" ? value === 42 : false
 };
 
 function isRequiredUltimateAnswer(value: OptionalType<unknown>): value is RequiredType<number> {
-    if (value === null || value === undefined) {
+    if (isNotPresent(value)) {
         return false;
     }
     return isUltimateAnswer(value);

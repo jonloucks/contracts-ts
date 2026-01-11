@@ -2,7 +2,7 @@ import { presentCheck } from "./Checks";
 import { Contract, Config as ContractConfig } from "./Contract";
 import { Lawyer } from "./Lawyer";
 import { create as createContract } from "./RatifiedContract";
-import { OptionalType, RequiredType, hasFunctions, isConstructorPresent } from "./Types";
+import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPresent } from "./Types";
 
 /**
  * Interface for providing a deliverable for a Contract
@@ -73,12 +73,12 @@ export type PromisorType<T> = (new () => T) | Promisor<T> | (() => T) | (() => (
  * @returns the Promisor
  */
 export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<T>>{
-    if (type === null || type === undefined) {
+    if (isNotPresent(type)) {
         return inlinePromisor<T>(() => type);
     } else if (isConstructorPresent<T>(type)) {
         return inlinePromisor<T>(() => new type());
     } else if (LAWYER.isDeliverable<Promisor<T>>(type)) {
-        return type;
+        return type as RequiredType<Promisor<T>>;
     } else if (typeof type === 'function') {
         return inlinePromisor<T>(type as () => T); // not sure if this works for (() => () => T)
     } else {
