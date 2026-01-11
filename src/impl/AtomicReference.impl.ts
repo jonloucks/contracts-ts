@@ -1,4 +1,4 @@
-import { RequiredType, OptionalType } from "../api/Types";
+import { RequiredType, OptionalType, isPresent } from "../api/Types";
 import { AtomicReference } from "../api/AtomicReference";
 
 /**
@@ -49,7 +49,7 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
      */
     toString(): string {
         const current: OptionalType<T> = this.get();
-        return `AtomicReference[assigned:${current !== null && current !== undefined ? 'true' : 'false'}]`;
+        return `AtomicReference[assigned:${isPresent(current)? 'true' : 'false'}]`;
     }
 
     static internalCreate<T>(initialValue?: OptionalType<T>): AtomicReference<T> {

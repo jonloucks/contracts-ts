@@ -5,7 +5,7 @@ import { AutoOpen } from "../api/AutoOpen";
 import { promisorCheck } from "../api/Checks";
 import { IllegalStateException } from "../api/IllegalStateException";
 import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType } from "../api/Types";
+import { OptionalType, RequiredType, isPresent } from "../api/Types";
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
 import { create as createAtomicInteger } from "./AtomicInteger.impl";
 import { create as createAtomicReference } from "./AtomicReference.impl";
@@ -102,7 +102,7 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
 
     private openDeliverable(deliverable: OptionalType<T>): void {
         const autoopen: AutoOpen = deliverable as AutoOpen;
-        if (autoopen !== null && autoopen !== undefined && autoopen) {
+        if (isPresent(autoopen)) {
             try {
                 this.closer.set(autoopen.open());
             } catch (thrown) {

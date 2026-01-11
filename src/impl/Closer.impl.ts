@@ -1,15 +1,16 @@
 import { AtomicReference } from "../api/AtomicReference";
 import { AutoClose } from "../api/AutoClose";
+import { isPresent } from "../api/Types";
 import { create as createAtomicReference } from "./AtomicReference.impl";
 
 export class CloserImpl {
     constructor() {
-    
+        //
     }
 
     close() : void {
         let autoClose = this.reference.get();
-        if (autoClose !== null && autoClose !== undefined && this.reference.compareAndSet(autoClose, null)) {
+        if (isPresent(autoClose) && this.reference.compareAndSet(autoClose, null)) {
             autoClose.close();
         }
     }

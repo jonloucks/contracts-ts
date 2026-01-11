@@ -7,7 +7,7 @@ import { ClassCastException } from "../api/ClassCastException";
 import { Contract, Config as ContractConfig } from "../api/Contract";
 import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { IllegalStateException } from "../api/IllegalStateException";
-import { isConstructorPresent, OptionalType, RequiredType } from "../api/Types";
+import { isConstructorPresent, OptionalType, RequiredType, isNotPresent } from "../api/Types";
 import { createContract, createContracts } from "../index";
 
 describe('test utilities', () => {
@@ -81,7 +81,7 @@ export class Tools {
                 return true
             });
 
-        if (actual === null || actual === undefined) {
+        if (isNotPresent(actual)) {
             throw new AssertionError({ message: message ?? "Expected exception to be thrown." });
         }
         if (actual instanceof Error) {

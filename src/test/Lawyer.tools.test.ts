@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { OptionalType, RequiredType } from "../api/Types";
+import { OptionalType, RequiredType, isNotPresent } from "../api/Types";
 import { Config as ContractConfig, Contract } from "../api/Contract";
 import { Lawyer } from "../api/Lawyer";
 import { createContract } from "../index";
@@ -9,13 +9,13 @@ const LAWYER : Lawyer<Date> = new class implements Lawyer<Date> {
     createContract<X extends Date>(config?: ContractConfig<X> | undefined): RequiredType<Contract<X>>{
         const copy: ContractConfig<X> = { ...config ?? {} };
 
-        copy.test ??= (instance: unknown): instance is X => instance === null || instance === undefined || instance instanceof Date;
+        copy.test ??= (instance: unknown): instance is X => isNotPresent(instance) || instance instanceof Date;
 
         return createContract<X>(copy);
     }
 
     isDeliverable<X extends Date>(instance: unknown): instance is OptionalType<X> {
-        return instance === null || instance === undefined || instance instanceof Date;
+        return isNotPresent(instance) || instance instanceof Date;
     }
 }();
 
