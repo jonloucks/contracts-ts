@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/impl/AtomicReferenceFactory.impl.ts</title>
+    <title>Code coverage report for src/impl/Internal.impl.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> AtomicReferenceFactory.impl.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> Internal.impl.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -86,92 +86,53 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AtomicReference } from "../api/AtomicReference";
-import { AtomicReferenceFactory } from "../api/AtomicReferenceFactory";
-import { OptionalType, RequiredType } from "../api/Types";
-&nbsp;
-import { create as createAtomicReference } from "./AtomicReference.impl";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { presentCheck } from "../api/Checks";
 &nbsp;
 /**
- * Factory method to create an AtomicReferenceFactory
- * 
- * @returns the new AtomicReferenceFactory implementation
+ * Helper functions for internal implementations.
  */
-export function create(): RequiredType&lt;AtomicReferenceFactory&gt; {
-    return AtomicReferenceFactoryImpl.internalCreate();
-}
-&nbsp;
-// ---- Implementation details below ----
-&nbsp;
-class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
+export const Internal = {
 &nbsp;
     /**
-     * AtomicReferenceFactory.create override
+     * Iterate over a Map in reverse order, invoking the callback for each entry.
+     * @param map the Map to iterate over
+     * @param callback the callback to invoke for each entry
      */
-    create&lt;T&gt;(initialValue?: OptionalType&lt;T&gt;): RequiredType&lt;AtomicReference&lt;T&gt;&gt; {
-        return createAtomicReference(initialValue);
+    mapForEachReversed&lt;K, V&gt;(map: Map&lt;K, V&gt;, callback: (key: K, value: V) =&gt; void): void {
+        const validMap = presentCheck(map, "Map must be present.");
+        const entries: [K, V][] = [];
+        validMap.forEach((value, key) =&gt; {
+            entries.push([key, value]);
+        });
+        while (entries.length &gt; 0) {
+            const entry = entries.pop()!;
+            callback(entry[0], entry[1]);
+        }
     }
-&nbsp;
-    static internalCreate(): RequiredType&lt;AtomicReferenceFactory&gt; {
-        return new AtomicReferenceFactoryImpl();
-    }
-&nbsp;
-    private constructor() {
-    }
-};
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
