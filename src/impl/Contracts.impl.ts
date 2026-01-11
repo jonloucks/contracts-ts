@@ -117,7 +117,7 @@ class ContractsImpl implements Contracts {
     }
 
     private attemptToCloseBindings(): void {
-        for (let attempts: number = 1; attempts < 6; attempts++) {
+        for (let attempts: number = 1; attempts <= 6; attempts++) {
             if (this.breakAllBindings() === 0) {
                 return;
             }
