@@ -2,14 +2,16 @@ import { AtomicBoolean } from "../api/AtomicBoolean";
 import { AtomicInteger } from "../api/AtomicInteger";
 import { AtomicReference } from "../api/AtomicReference";
 import { AutoOpen } from "../api/AutoOpen";
+import { AutoCloseOne } from "../api/AutoClose";
 import { promisorCheck } from "../api/Checks";
 import { IllegalStateException } from "../api/IllegalStateException";
 import { Promisor } from "../api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "../api/Types";
+
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
 import { create as createAtomicInteger } from "./AtomicInteger.impl";
 import { create as createAtomicReference } from "./AtomicReference.impl";
-import { CloserImpl } from "./Closer.impl";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
 
 /**
  * Factory to create an Life Cycle promisor implementation
@@ -130,7 +132,7 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
     private readonly isDeliverableAcquired: AtomicBoolean = createAtomicBoolean();
     private readonly atomicDeliverable: AtomicReference<T> = createAtomicReference<T>();
     private readonly openException: AtomicReference<unknown> = createAtomicReference<unknown>();
-    private readonly closer: CloserImpl = new CloserImpl();
+    private readonly closer: AutoCloseOne = createAutoCloseOne();
 }
 
 

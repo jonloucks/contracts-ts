@@ -8,6 +8,7 @@ export const Internal = {
 
     /**
      * Iterate over a Map in reverse order, invoking the callback for each entry.
+     * 
      * @param map the Map to iterate over
      * @param callback the callback to invoke for each entry
      */
@@ -23,6 +24,13 @@ export const Internal = {
         }
     },
 
+    /**
+     * Throws an AggregateError with the provided message and list of errors.
+     * If only one error is provided, it throws that error directly.
+     * 
+     * @param message the message for the AggregateError
+     * @param errorList the list of errors to include
+     */
     throwAggregateError( message: string, ...errorList: unknown[]): never {
         if (errorList.length === 1) {
             throw errorList[0];
