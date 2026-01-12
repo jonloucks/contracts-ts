@@ -29,7 +29,7 @@ function compileContractCheck<T>(config?: ContractsConfig): (contract: Contract<
     } else {
         return (contract: Contract<T>) => {
             if (isRatifiedContract(contract) === false) {
-                 throw new ContractException("Action denied: Only a ratified contract can be used.");
+                throw new ContractException("Action denied: Only a ratified contract can be used.");
             }
         };
     }
