@@ -331,7 +331,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">6777x</span>
+<span class="cline-any cline-yes">8979x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,7 +341,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">7762x</span>
+<span class="cline-any cline-yes">9970x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,7 +350,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">3340x</span>
+<span class="cline-any cline-yes">4446x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -476,7 +476,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">1186x</span>
+<span class="cline-any cline-yes">1582x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -497,7 +497,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">861x</span>
+<span class="cline-any cline-yes">1125x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -516,20 +516,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3458x</span>
+<span class="cline-any cline-yes">4564x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">861x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1125x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">851x</span>
-<span class="cline-any cline-yes">851x</span>
-<span class="cline-any cline-yes">2146x</span>
-<span class="cline-any cline-yes">161x</span>
+<span class="cline-any cline-yes">1113x</span>
+<span class="cline-any cline-yes">1113x</span>
+<span class="cline-any cline-yes">2856x</span>
+<span class="cline-any cline-yes">187x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">690x</span>
+<span class="cline-any cline-yes">926x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 /**
@@ -730,7 +730,7 @@ export function isConstructor&lt;T&gt;(value: unknown): value is OptionalType&lt
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType&lt;UnknownFunction&gt; {
+export function hasFunctions(value: unknown, ...propertyNames: (string|symbol)[]): value is RequiredType&lt;UnknownFunction&gt; {
     return _hasFunctions(value, propertyNames, false);
 }
 &nbsp;
@@ -741,7 +741,7 @@ export function hasFunctions(value: unknown, ...propertyNames: string[]): value 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function <span class="fstat-no" title="function not covered" >hasFunctionsPresent(</span>value: unknown, ...propertyNames: string[]):  value is RequiredType&lt;UnknownFunction&gt;{
+export function <span class="fstat-no" title="function not covered" >hasFunctionsPresent(</span>value: unknown, ...propertyNames: (string|symbol)[]):  value is RequiredType&lt;UnknownFunction&gt;{
 <span class="cstat-no" title="statement not covered" >    return _hasFunctions(value, propertyNames, true);</span>
 }
 &nbsp;
@@ -753,11 +753,11 @@ function _typeOfPresent&lt;T&gt;(value: unknown, type: string): value is Require
     return isPresent(value) &amp;&amp; typeof value === type;
 }
 &nbsp;
-function _hasFunctions(value: unknown, propertyNames: string[], required: boolean): boolean {
+function _hasFunctions(value: unknown, propertyNames: (string | symbol)[], required: boolean): boolean {
     if (isNotPresent(value)) {
         return !required;
     }
-    const record = value as Record&lt;string, unknown&gt;;
+    const record = value as Record&lt;string|symbol, unknown&gt;;
     for (const propertyName of propertyNames) {
         if (!isFunctionPresent(record[propertyName])) {
             return false;
@@ -772,7 +772,7 @@ function _hasFunctions(value: unknown, propertyNames: string[], required: boolea
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-11T22:25:10.124Z
+                at 2026-01-12T11:40:46.145Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
