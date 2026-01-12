@@ -197,7 +197,7 @@ export function isConstructor<T>(value: unknown): value is OptionalType<(new () 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctions(value: unknown, ...propertyNames: string[]): value is RequiredType<UnknownFunction> {
+export function hasFunctions(value: unknown, ...propertyNames: (string|symbol)[]): value is RequiredType<UnknownFunction> {
     return _hasFunctions(value, propertyNames, false);
 }
 
@@ -208,7 +208,7 @@ export function hasFunctions(value: unknown, ...propertyNames: string[]): value 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctionsPresent(value: unknown, ...propertyNames: string[]):  value is RequiredType<UnknownFunction>{
+export function hasFunctionsPresent(value: unknown, ...propertyNames: (string|symbol)[]):  value is RequiredType<UnknownFunction>{
     return _hasFunctions(value, propertyNames, true);
 }
 
@@ -220,11 +220,11 @@ function _typeOfPresent<T>(value: unknown, type: string): value is RequiredType<
     return isPresent(value) && typeof value === type;
 }
 
-function _hasFunctions(value: unknown, propertyNames: string[], required: boolean): boolean {
+function _hasFunctions(value: unknown, propertyNames: (string | symbol)[], required: boolean): boolean {
     if (isNotPresent(value)) {
         return !required;
     }
-    const record = value as Record<string, unknown>;
+    const record = value as Record<string|symbol, unknown>;
     for (const propertyName of propertyNames) {
         if (!isFunctionPresent(record[propertyName])) {
             return false;

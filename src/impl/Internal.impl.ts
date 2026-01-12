@@ -1,4 +1,5 @@
 import { presentCheck } from "../api/Checks";
+import { ContractException } from "../api/ContractException";
 
 /**
  * Helper functions for internal implementations.
@@ -19,6 +20,20 @@ export const Internal = {
         while (entries.length > 0) {
             const entry = entries.pop()!;
             callback(entry[0], entry[1]);
+        }
+    },
+
+    throwAggregateError( message: string, ...errorList: unknown[]): never {
+        if (errorList.length === 1) {
+            throw errorList[0];
+        } else {
+            // Map each error object to its message property
+            const messages = errorList.map(error => `- ${error instanceof Error ? error.message : String(error)}`);
+
+            // Join the messages with a newline separator
+            const messagesJoined = messages.join('\n');
+
+            throw new ContractException(message + "\n" + messagesJoined);
         }
     }
 }
