@@ -1,10 +1,11 @@
-import { AutoClose } from "../api/AutoClose";
+import { AutoClose, AutoCloseOne } from "../api/AutoClose";
 import { BindStrategy } from "../api/BindStrategy";
 import { Contract } from "../api/Contract";
 import { Contracts } from "../api/Contracts";
 import { Promisor } from "../api/Promisor";
 
-import { CloserImpl } from "./Closer.impl";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
+
 
 // ---- Implementation details below ----
 
@@ -17,7 +18,7 @@ export class StorageImpl<T> implements AutoClose {
         this.bindStrategy = bindStrategy;
     }
     [Symbol.dispose](): void {
-       this.close();
+        this.close();
     }
 
     bind(): void {
@@ -33,5 +34,5 @@ export class StorageImpl<T> implements AutoClose {
     private readonly promisor: Promisor<T | null>;
     private readonly bindStrategy: BindStrategy;
     private readonly contracts: Contracts;
-    private readonly closeBinding: CloserImpl = new CloserImpl();
+    private readonly closeBinding: AutoCloseOne = createAutoCloseOne();
 }
