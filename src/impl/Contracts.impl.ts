@@ -1,4 +1,3 @@
-import { OptionalType, RequiredType, isPresent } from "../api/Types";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "../api/BindStrategy";
 import { configCheck, contractCheck, presentCheck } from "../api/Checks";
@@ -7,9 +6,12 @@ import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
 import { isRatifiedContract } from "../api/RatifiedContract";
+import { OptionalType, RequiredType, isPresent } from "../api/Types";
 
+import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { Events, create as createEvents } from "./Events.impl";
+import { IdempotentImpl } from "./Idempotent.impl";
 import { Internal } from "./Internal.impl";
-import { IdempotentImpl } from "./Indempotent.impl";
 
 /**
  * Factory method to create Contracts instance.
@@ -98,9 +100,7 @@ class ContractsImpl implements Contracts {
     }
 
     private firstOpen(): AutoClose {
-        this.shutdownEvents.forEach(eventName => {
-            process.on(eventName, this.shutdownFunction);
-        });
+        this.closeMany.add(this.events.open());
         return inlineAutoClose(() => this.close());
     }
 
@@ -109,9 +109,7 @@ class ContractsImpl implements Contracts {
             try {
                 this.attemptToCloseBindings();
             } finally {
-                this.shutdownEvents.forEach(eventName => {
-                    process.off(eventName, this.shutdownFunction);
-                });
+                this.closeMany.close();
             }
         }
     }
@@ -145,6 +143,7 @@ class ContractsImpl implements Contracts {
 
     private checkReplacement<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy, currentPromisor: Promisor<T>): boolean {
         // Double bind of same promisor, do not rebind
+        // Review unwrapping if needed in future
         if (currentPromisor === newPromisor) {
             return false;
         }
@@ -266,17 +265,23 @@ class ContractsImpl implements Contracts {
             };
         }
 
+        this.events = createEvents({
+            names: validConfig?.shutdownEvents ?? [],
+            callback: () => this.close()
+        });
+
         if (validPartners) {
             this.partners.push(...validPartners);
         }
-        this.shutdownEvents = validConfig?.shutdownEvents ?? [];
+
     }
-    private readonly shutdownFunction = () => this.close(); // need the same reference to remove listener
+
+    private readonly closeMany: AutoCloseMany = createAutoCloseMany();
     private readonly openState: IdempotentImpl = new IdempotentImpl();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly partners: Contracts[] = [];
     private readonly policy: ((contract: Contract<unknown>) => void);
-    private readonly shutdownEvents: string[];
+    private readonly events : Events;
 }
 
 
