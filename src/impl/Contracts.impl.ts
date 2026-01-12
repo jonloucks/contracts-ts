@@ -5,13 +5,13 @@ import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { isRatifiedContract } from "../api/RatifiedContract";
 import { OptionalType, RequiredType, isPresent } from "../api/Types";
 
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
 import { Events, create as createEvents } from "./Events.impl";
 import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { Internal } from "./Internal.impl";
+import { Policy, create as createPolicy } from "./Policy.impl";
 
 /**
  * Factory method to create Contracts instance.
@@ -45,7 +45,7 @@ class ContractsImpl implements Contracts {
      */
     claim<T>(contract: Contract<T>): OptionalType<T> {
         const validContract: Contract<T> = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const promisor: OptionalType<Promisor<T>>  = this.getFromPromisorMap(validContract);
 
         if (isPresent(promisor)) {
@@ -71,7 +71,7 @@ class ContractsImpl implements Contracts {
      */
     isBound<T>(contract: Contract<T>): boolean {
         const validContract: Contract<T> = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const promisor: OptionalType<Promisor<T>> = this.getFromPromisorMap(validContract);
         return isPresent(promisor) || this.isAnyPartnerBound(contract);
     }
@@ -81,7 +81,7 @@ class ContractsImpl implements Contracts {
      */
     bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
         const validContract: Contract<T> = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const validPromisor: Promisor<T> = typeToPromisor<T>(promisor);
         const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 
@@ -252,19 +252,7 @@ class ContractsImpl implements Contracts {
         const validConfig = configCheck(config);
         const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
 
-        // hardened by default
-        if (validConfig?.ratified ?? true) {
-            this.policy = (contract: Contract<unknown>) => {
-                if (isRatifiedContract(contract) === false) {
-                    throw new ContractException("Action denied: Only a ratified contract can be used.");
-                }
-            };
-        } else {
-            this.policy = (_: Contract<unknown>) => {
-                // no-op
-            };
-        }
-
+        this.policy = createPolicy(validConfig);
         this.events = createEvents({
             names: validConfig?.shutdownEvents ?? [],
             callback: () => this.closeFirstOpen()
@@ -279,7 +267,7 @@ class ContractsImpl implements Contracts {
     private readonly idempotent: Idempotent = createIdempotent();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly partners: Contracts[] = [];
-    private readonly policy: ((contract: Contract<unknown>) => void);
+    private readonly policy: Policy;
     private readonly events : Events;
 }
 
