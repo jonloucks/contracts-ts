@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/52</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/51</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -208,7 +208,12 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,10 +250,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">141x</span>
-<span class="cline-any cline-yes">138x</span>
-<span class="cline-any cline-yes">739x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -322,6 +323,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">739x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,6 +354,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">141x</span>
 <span class="cline-any cline-yes">141x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -364,7 +374,7 @@ import { Repository } from "../api/Repository";
 import { RequiredType } from "../api/Types";
 &nbsp;
 import { OptionalType } from "../api/Types";
-import { IdempotentImpl } from "./Idempotent.impl";
+import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { StorageImpl } from "./Storage.impl";
 &nbsp;
 /**
@@ -384,41 +394,37 @@ export function create(contracts: Contracts): RequiredType&lt;Repository&gt; {
  * @see io.github.jonloucks.contracts.api.Repository
  */
 class RepositoryImpl implements Repository {
-    
+&nbsp;
     /**
      * AutoOpen.open override.
      */
-    open() : AutoClose {
-        if (this.openState.transitionToOpen()) {
-            for (const storage of this.#storedContracts.values()) {
-                storage.bind();
-            }
-            this.check();
-            return inlineAutoClose(() =&gt; this.close());
+    open(): AutoClose {
+        if (this.idempotent.transitionToOpen()) {
+            return this.firstOpen();
         }
         return AUTO_CLOSE_NONE;
     }
-    
+&nbsp;
     /**
      * Repository.store override.
      */
-    store&lt;T&gt;( contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategy | undefined | null) : AutoClose {
+    store&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategy | undefined | null): AutoClose {
         const validContract: Contract&lt;T&gt; = contractCheck(contract);
         const validPromisor: Promisor&lt;T&gt; = typeToPromisor(promisor);
         const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
-        
-        if (this.#storedContracts.has(validContract) &amp;&amp; this.openState.isOpen()) {
-            throw new ContractException( "The contract " + validContract + "  is already stored.");
+&nbsp;
+        if (this.#storedContracts.has(validContract) &amp;&amp; this.idempotent.isOpen()) {
+            throw new ContractException("The contract " + validContract + "  is already stored.");
         }
-        
+&nbsp;
         const storage: StorageImpl&lt;T | null&gt; = new StorageImpl&lt;T | null&gt;(this.contracts, validContract, validPromisor, validBindStrategy);
-        
-        if (this.openState.isOpen()) {
+&nbsp;
+        if (this.idempotent.isOpen()) {
             storage.bind();
         }
-        
+&nbsp;
         this.#storedContracts.set(validContract, storage);
-  
+&nbsp;
         return inlineAutoClose(() =&gt; {
             if (this.#storedContracts.get(validContract) === storage) {
                 this.#storedContracts.delete(validContract);
@@ -430,27 +436,27 @@ class RepositoryImpl implements Repository {
     /**
      * Repository.keep override.
      */
-    keep&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: OptionalType&lt;BindStrategy&gt;) : void {
+    keep&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: OptionalType&lt;BindStrategy&gt;): void {
         this.store(contract, promisor, resolveBindStrategy(bindStrategy));
     }
 &nbsp;
     /**
      * Repository.check override.
      */
-    check() : void {
+    check(): void {
         this.#requiredContracts.forEach((contract) =&gt; {
             if (!this.contracts.isBound(contract)) {
-                throw new ContractException( "The contract " + contract + " is required.");
+                throw new ContractException("The contract " + contract + " is required.");
             }
         });
     }
-    
-     /**
+&nbsp;
+    /**
      * Repository.require override.
      */
-    require&lt;T&gt;(contract: Contract&lt;T&gt;) : void {
-        const validContract : Contract&lt;T&gt; = contractCheck(contract);
-        
+    require&lt;T&gt;(contract: Contract&lt;T&gt;): void {
+        const validContract: Contract&lt;T&gt; = contractCheck(contract);
+&nbsp;
         this.#requiredContracts.add(validContract);
     }
 &nbsp;
@@ -458,20 +464,28 @@ class RepositoryImpl implements Repository {
      * Object.toString override.
      */
     toString(): string {
-        return `Repository[size: ${this.#storedContracts.size}]`;
+        return `Repository(id=${this.id}, size=${this.#storedContracts.size})`;
     }
-     
+&nbsp;
     private constructor(contracts: Contracts) {
         this.contracts = contracts;
     }
-  
-    private close() : void {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.openState.transitionToClosed()) {
+&nbsp;
+    private firstOpen(): AutoClose {
+        for (const storage of this.#storedContracts.values()) {
+            storage.bind();
+        }
+        this.check();
+        return inlineAutoClose(() =&gt; this.closeFirstOpen());
+    }
+&nbsp;
+    private closeFirstOpen(): void {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.idempotent.transitionToClosed()) {
             this.reverseCloseStorage();
         }
     }
-    
-    private reverseCloseStorage() : void {
+&nbsp;
+    private reverseCloseStorage(): void {
         const storageStack: StorageImpl&lt;unknown&gt;[] = [];
         for (const storage of this.#storedContracts.values()) {
             storageStack.push(storage);
@@ -485,15 +499,16 @@ class RepositoryImpl implements Repository {
         }
     }
 &nbsp;
-    static internalCreate(contracts: Contracts) : RequiredType&lt;Repository&gt; {
+    static internalCreate(contracts: Contracts): RequiredType&lt;Repository&gt; {
         return new RepositoryImpl(contracts);
     }
-    
-    private static ID_GENERATOR: number = 1000;
+&nbsp;
+    private static ID_GENERATOR: number = 1;
+&nbsp;
     private readonly id: number = RepositoryImpl.ID_GENERATOR++;
-    readonly #storedContracts = new Map&lt;Contract&lt;unknown&gt;, StorageImpl&lt;unknown&gt;&gt;();    
+    readonly #storedContracts = new Map&lt;Contract&lt;unknown&gt;, StorageImpl&lt;unknown&gt;&gt;();
     private readonly contracts: Contracts;
-    private readonly openState: IdempotentImpl = new IdempotentImpl();
+    private readonly idempotent: Idempotent = createIdempotent();
     readonly #requiredContracts: Set&lt;Contract&lt;unknown&gt;&gt; = new Set&lt;Contract&lt;unknown&gt;&gt;();
 }
 &nbsp;
@@ -505,7 +520,7 @@ class RepositoryImpl implements Repository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-12T14:19:03.604Z
+                at 2026-01-12T20:08:21.123Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
