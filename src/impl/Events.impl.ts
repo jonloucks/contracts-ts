@@ -24,7 +24,7 @@ export interface Events extends AutoOpen {
 };
 
 /**
- *  Factory method to create Events instance.       
+ *  Factory method to create Events instance.
  * 
  * @param config the configuration for the Events implementation
  * @returns the new Events implementation
