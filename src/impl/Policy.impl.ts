@@ -24,7 +24,7 @@ export function create(config?: ContractsConfig): RequiredType<Policy> {
 
 function compileContractCheck<T>(config?: ContractsConfig): (contract: Contract<T>) => void {
     const ratified: boolean = config?.ratified ?? true;
-    if (isNotPresent(config) || ratified === false) {
+    if (ratified === false) {
         return (_: Contract<T>) => { /* no-op */ };
     } else {
         return (contract: Contract<T>) => {
