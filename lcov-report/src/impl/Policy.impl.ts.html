@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/api/AtomicIntegerFactory.ts</title>
+    <title>Code coverage report for src/impl/Policy.impl.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> AtomicIntegerFactory.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/impl</a> Policy.impl.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -98,21 +98,11 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,84 +114,61 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">123x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span></td><td class="text"><pre class="prettyprint lang-js">import { OptionalType, RequiredType, hasFunctions } from "./Types";
-import { Contract, Config as ContractConfig } from "./Contract";
-import { Lawyer } from "./Lawyer";
-import { AtomicInteger } from "./AtomicInteger";
-import { create as createContract } from "./RatifiedContract";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">123x</span>
+<span class="cline-any cline-yes">123x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">89x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isNotPresent, RequiredType } from "../api/Types";
+import { Policy } from "../impl/Policy";
+import { Contract } from "../api/Contract";
+import { Config as ContractsConfig } from "../api/Contracts";
+import { isRatifiedContract } from "../api/RatifiedContract";
+import { ContractException } from "../api/ContractException";
+&nbsp;
+export { Policy } from "../impl/Policy";
+export { RequiredType } from "../api/Types";
 &nbsp;
 /**
- * Factory interface for creating AtomicInteger instances.
+ * Factory method to create Policy instance.
+ * 
+ * @param config the configuration for the Policy instance
+ * @returns the Policy implementation
  */
-export interface AtomicIntegerFactory {
-&nbsp;
-    /**
-     * Create a new AtomicInteger instance.    
-     * @param initialValue the initial value of the AtomicInteger
-     */
-    create(initialValue?: number): RequiredType&lt;AtomicInteger&gt;;
+export function create(config?: ContractsConfig): RequiredType&lt;Policy&gt; {
+    return {
+        checkContract: compileContractCheck(config)
+    };
 }
 &nbsp;
-/**
- * For creating a Contract for AtomicInteger with duck-typing checks.
- */
-export const LAWYER: Lawyer&lt;AtomicIntegerFactory&gt; = new class implements Lawyer&lt;AtomicIntegerFactory&gt; {
+// ---- Implementation details below ----
 &nbsp;
-    /** 
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable&lt;X extends AtomicIntegerFactory&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
-        return hasFunctions(instance, 'create');
+function compileContractCheck&lt;T&gt;(config?: ContractsConfig): (contract: Contract&lt;T&gt;) =&gt; void {
+    const ratified: boolean = config?.ratified ?? true;
+    if (ratified === false) {
+        return (_: Contract&lt;T&gt;) =&gt; { /* no-op */ };
+    } else {
+        return (contract: Contract&lt;T&gt;) =&gt; {
+            if (isRatifiedContract(contract) === false) {
+                throw new ContractException("Action denied: Only a ratified contract can be used.");
+            }
+        };
     }
-&nbsp;
-    /** 
-     * Lawyer.createContract override
-     */
-    createContract&lt;X extends AtomicIntegerFactory&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
-        const copy: ContractConfig&lt;X&gt; = { ...config ?? {} };
-&nbsp;
-        copy.test ??= this.isDeliverable;
-        copy.typeName ??= "AtomicIntegerFactory";
-&nbsp;
-        return createContract&lt;X&gt;(copy);
-    }
-};
-&nbsp;
-/**
- * The factory Contract for creating new AtomicInteger instances.
- */
-export const CONTRACT: Contract&lt;AtomicIntegerFactory&gt; = LAWYER.createContract();</pre></td></tr></table></pre>
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

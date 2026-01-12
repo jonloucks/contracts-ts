@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.92% </span>
+                <span class="strong">92.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>105/113</span>
+                <span class='fraction'>101/109</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.41% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>41/48</span>
+                <span class='fraction'>35/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.93% </span>
+                <span class="strong">93.54% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>31/33</span>
+                <span class='fraction'>29/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.72% </span>
+                <span class="strong">92.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>102/110</span>
+                <span class='fraction'>98/106</span>
             </div>
         
             
@@ -341,19 +341,7 @@
 <a name='L276'></a><a href='#L276'>276</a>
 <a name='L277'></a><a href='#L277'>277</a>
 <a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a>
-<a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L279'></a><a href='#L279'>279</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -361,8 +349,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -607,19 +595,7 @@
 <span class="cline-any cline-yes">123x</span>
 <span class="cline-any cline-yes">123x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">123x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">89x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">111x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">123x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -650,13 +626,13 @@ import { Contract } from "../api/Contract";
 import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { isRatifiedContract } from "../api/RatifiedContract";
 import { OptionalType, RequiredType, isPresent } from "../api/Types";
 &nbsp;
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
 import { Events, create as createEvents } from "./Events.impl";
 import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { Internal } from "./Internal.impl";
+import { Policy, create as createPolicy } from "./Policy.impl";
 &nbsp;
 /**
  * Factory method to create Contracts instance.
@@ -690,7 +666,7 @@ class ContractsImpl implements Contracts {
      */
     claim&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
         const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt;  = this.getFromPromisorMap(validContract);
 &nbsp;
         if (isPresent(promisor)) {
@@ -716,7 +692,7 @@ class ContractsImpl implements Contracts {
      */
     isBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
         const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
         return isPresent(promisor) || this.isAnyPartnerBound(contract);
     }
@@ -726,7 +702,7 @@ class ContractsImpl implements Contracts {
      */
     bind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategyType): AutoClose {
         const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy(validContract);
+        this.policy.checkContract(validContract);
         const validPromisor: Promisor&lt;T&gt; = typeToPromisor&lt;T&gt;(promisor);
         const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 &nbsp;
@@ -897,19 +873,7 @@ class ContractsImpl implements Contracts {
         const validConfig = configCheck(config);
         const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
 &nbsp;
-        // hardened by default
-        if (validConfig?.ratified ?? true) {
-            this.policy = (contract: Contract&lt;unknown&gt;) =&gt; {
-                if (isRatifiedContract(contract) === false) {
-                    throw new ContractException("Action denied: Only a ratified contract can be used.");
-                }
-            };
-        } else {
-            this.policy = (_: Contract&lt;unknown&gt;) =&gt; {
-                // no-op
-            };
-        }
-&nbsp;
+        this.policy = createPolicy(validConfig);
         this.events = createEvents({
             names: validConfig?.shutdownEvents ?? [],
             callback: () =&gt; this.closeFirstOpen()
@@ -924,7 +888,7 @@ class ContractsImpl implements Contracts {
     private readonly idempotent: Idempotent = createIdempotent();
     readonly #promisorMap = new Map&lt;Contract&lt;unknown&gt;, Promisor&lt;unknown&gt;&gt;();
     private readonly partners: Contracts[] = [];
-    private readonly policy: ((contract: Contract&lt;unknown&gt;) =&gt; void);
+    private readonly policy: Policy;
     private readonly events : Events;
 }
 &nbsp;
@@ -940,7 +904,7 @@ class ContractsImpl implements Contracts {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-12T20:08:21.123Z
+                at 2026-01-12T22:13:43.952Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
