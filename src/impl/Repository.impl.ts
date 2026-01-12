@@ -87,8 +87,8 @@ class RepositoryImpl implements Repository {
     }
 
     /**
-    * Repository.require override.
-    */
+     * Repository.require override.
+     */
     require<T>(contract: Contract<T>): void {
         const validContract: Contract<T> = contractCheck(contract);
 
