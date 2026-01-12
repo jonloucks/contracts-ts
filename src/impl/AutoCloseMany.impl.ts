@@ -33,9 +33,11 @@ class AutoCloseManyImpl implements AutoCloseMany {
                 errorList.push(error);
             }
         }
-        if (errorList.length > 0) {
+        if (errorList.length === 1) {
             throw errorList[0];
-        };
+        } else if (errorList.length > 1) {
+            throw new AggregateError(errorList, "Multiple errors occurred while closing AutoCloseMany resources");
+        }
     }
 
     [Symbol.dispose](): void {
