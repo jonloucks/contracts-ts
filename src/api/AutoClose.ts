@@ -1,6 +1,6 @@
 import { presentCheck } from "./Checks";
 import { IllegalArgumentException } from "./IllegalArgumentException";
-import { OptionalType, RequiredType, hasFunctions } from "./Types";
+import { OptionalType, RequiredType, hasFunctions, isNotPresent } from "./Types";
 
 /**
  * Type alias for AutoClose or a simple close function.
@@ -37,6 +37,7 @@ export interface AutoCloseMany extends AutoClose {
 
     /**
      * Add a closeable resource to the list.
+     * Note: there are no guards against adding the same resource multiple times.
      * 
      * @param closeable the closeable resource to add
      */
@@ -77,16 +78,44 @@ export const AUTO_CLOSE_NONE: AutoClose = {
 };
 
 /**
+ * 
+ */
+export interface AutoCloseWrapper extends AutoClose {
+
+    /**
+     * Unwrap to get the original AutoCloseType.
+     */
+    unwrap(): RequiredType<AutoCloseType>;
+}
+
+/**
  * Convert a simple runnable into an AutoClose with dispose
  * 
  * @param action the runnable action to perform on close/dispose
  * @returns the AutoClose instance
  */
-export function inlineAutoClose(action: () => void): RequiredType<AutoClose> {
+export function inlineAutoClose(action: () => void): RequiredType<AutoCloseWrapper> {
     return {
         close: action,
-        [Symbol.dispose]: action
+        [Symbol.dispose]: action,
+        unwrap: () => action
     };
+}
+
+/**
+ * Unwrap an AutoClose to get the original type.
+ * 
+ * @param autoClose the AutoClose to unwrap
+ * @returns the original AutoCloseType
+ */
+export function unwrapAutoClose(autoClose: OptionalType<AutoClose>): OptionalType<AutoCloseType> {
+    if (isNotPresent(autoClose)) {
+        return autoClose;
+    }
+    if ('unwrap' in autoClose && typeof autoClose.unwrap === 'function') {
+        return autoClose.unwrap();
+    }
+    return autoClose;
 }
 
 /**

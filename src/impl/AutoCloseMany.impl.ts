@@ -1,5 +1,6 @@
 import { AutoClose, AutoCloseType, typeToAutoClose, AutoCloseMany } from "../api/AutoClose";
 import { RequiredType } from "../api/Types";
+import { Internal } from "./Internal.impl";
 
 export { RequiredType } from "../api/Types";
 export { AutoCloseMany } from "../api/AutoClose";
@@ -33,10 +34,8 @@ class AutoCloseManyImpl implements AutoCloseMany {
                 errorList.push(error);
             }
         }
-        if (errorList.length === 1) {
-            throw errorList[0];
-        } else if (errorList.length > 1) {
-            throw new AggregateError(errorList, "Multiple errors occurred while closing AutoCloseMany resources");
+        if (errorList.length > 0) {
+            Internal.throwAggregateError("Multiple while closing.", ...errorList);
         }
     }
 

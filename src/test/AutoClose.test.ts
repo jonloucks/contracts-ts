@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { AutoClose, isAutoClose, isClose, inlineAutoClose, AUTO_CLOSE_NONE } from "../api/AutoClose"
+import { AutoClose, isAutoClose, isClose, inlineAutoClose, AUTO_CLOSE_NONE, unwrapAutoClose } from "../api/AutoClose"
 
 import { Contracts } from "../api/Contracts";
 import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "../api/AutoCloseFactory";
@@ -64,6 +64,20 @@ describe('AutoClose tests', () => {
             [Symbol.dispose]: () => { }
         }), true, "object with close and dispose is AutoClose");
     });
+
+    it('unwrapAutoClose works', () => {
+        const closeFunction = () => { };
+        const wrapped = inlineAutoClose(closeFunction);
+        const notWrapped = {
+            close: closeFunction,
+            [Symbol.dispose]: () => { }
+        };
+
+        assert.strictEqual(unwrapAutoClose(null), null, "unwrap null is null");
+        assert.strictEqual(unwrapAutoClose(undefined), undefined, "unwrap undefined is undefined");
+        assert.strictEqual(unwrapAutoClose(wrapped), closeFunction, "unwrap inlineAutoClose returns original function");
+        assert.strictEqual(unwrapAutoClose(notWrapped), notWrapped, "unwrap non-wrapped returns same instance");
+    }); 
 });
 
 describe('AutoCloseFactory tests', () => {

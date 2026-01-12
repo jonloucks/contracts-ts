@@ -1,5 +1,5 @@
 import { AtomicReference } from "../api/AtomicReference";
-import { AutoClose, AutoCloseOne, AutoCloseType, typeToAutoClose } from "../api/AutoClose";
+import { AutoClose, AutoCloseOne, AutoCloseType, typeToAutoClose, unwrapAutoClose } from "../api/AutoClose";
 import { isPresent, RequiredType, OptionalType } from "../api/Types";
 import { create as createAtomicReference } from "./AtomicReference.impl";
 
@@ -20,10 +20,13 @@ class AutoCloseOneImpl implements AutoCloseOne {
     }
 
     set(newClose: OptionalType<AutoCloseType>): void {
-        if (newClose === this.reference.get()) {
-            return;
-        }
+        const current = this.reference.get();
         const validNewClose = isPresent(newClose) ? typeToAutoClose(newClose) : newClose;
+
+        if (unwrapAutoClose(current) === unwrapAutoClose(validNewClose)) {
+            return; // no change
+        }
+
         try {
             this.close(); // close current value if present
         } finally {
