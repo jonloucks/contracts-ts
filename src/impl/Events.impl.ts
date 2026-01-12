@@ -4,16 +4,31 @@ import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
 import { IdempotentImpl } from "./Indempotent.impl";
 import { configCheck, presentCheck } from "../api/Checks";
 
+/**
+ * Configuration for Events implementation
+ */
 export interface Config {
     names?: string[];
 
     callback: (...args: unknown[]) => void;
 }
 
+/**
+ * Factory to create Events implementation
+ * 
+ * @param config the configuration for the Events implementation
+ * @returns the new Events implementation
+ */
 export interface Events extends AutoOpen {
     get opened(): boolean;
 };
 
+/**
+ *  Factory method to create Events instance.       
+ * 
+ * @param config the configuration for the Events implementation
+ * @returns the new Events implementation
+ */
 export function create(config?: Config): RequiredType<Events> {
     return EventsImpl.internalCreate(config);
 }
