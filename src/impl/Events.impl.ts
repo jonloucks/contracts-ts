@@ -14,10 +14,10 @@ export interface Config {
 }
 
 /**
- * Factory to create Events implementation
- * 
- * @param config the configuration for the Events implementation
- * @returns the new Events implementation
+ * Event listener management interface for process-level events.
+ *
+ * Implementations manage the open/close lifecycle for registering and
+ * deregistering listeners on the Node.js process object.
  */
 export interface Events extends AutoOpen {
     get opened(): boolean;
