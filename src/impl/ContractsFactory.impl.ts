@@ -7,6 +7,7 @@ import { Contracts, Config as ContractsConfig } from "../api/Contracts";
 import { CONTRACT as PROMISOR_FACTORY } from "../api/PromisorFactory";
 import { Repository } from "../api/Repository";
 import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "../api/RepositoryFactory";
+import { CONTRACT as AUTO_CLOSE_FACTORY } from "../api/AutoCloseFactory";
 
 import { create as createContractsImpl } from "./Contracts.impl";
 import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl";
@@ -14,6 +15,7 @@ import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory
 import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl";
 import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
 import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
+import { create as createAutoCloseFactoryImpl } from "./AutoCloseFactory.impl";
 import { wrap as wrapContracts } from "./ContractsWrapper.impl";
 
 /**
@@ -66,7 +68,8 @@ class ContractsFactoryImpl implements ContractsFactory {
         repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactoryImpl);
         repository.keep(ATOMIC_INTEGER_FACTORY, createAtomicIntegerFactoryImpl);
         repository.keep(ATOMIC_REFERENCE_FACTORY, createAtomicReferenceFactoryImpl);
-
+        repository.keep(AUTO_CLOSE_FACTORY, createAutoCloseFactoryImpl);
+        
         return repository;
     }
 

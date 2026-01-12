@@ -1,4 +1,21 @@
+import { presentCheck } from "./Checks";
+import { IllegalArgumentException } from "./IllegalArgumentException";
 import { OptionalType, RequiredType, hasFunctions } from "./Types";
+
+/**
+ * Type alias for AutoClose or a simple close function.
+ */
+export type AutoCloseType = AutoClose | Close | (() => unknown);
+
+/**
+ * Interface for a closeable resource.
+ */
+export interface Close {
+    /**
+     * Close this instance.
+     */
+    close(): void;
+}
 
 /**
  * Opt-in interface to  For example, this is when threads should be stopped or hooks removed.
@@ -6,17 +23,37 @@ import { OptionalType, RequiredType, hasFunctions } from "./Types";
  * Features like life cycle promisors
  * will automatically call this method once if the deliverable implements this method.
  */
-export interface AutoClose {
-
-    /**
-     * AutoClose this instance.
-     */
-    close(): void;
-
+export interface AutoClose extends Close {
     /**
      * Dispose this instance.
      */
     [Symbol.dispose](): void;
+}
+
+/**
+ * Interface for managing many closeable resources.
+ */
+export interface AutoCloseMany extends AutoClose {
+
+    /**
+     * Add a closeable resource to the list.
+     * 
+     * @param closeable the closeable resource to add
+     */
+    add(closeable: RequiredType<AutoCloseType>): void;
+}
+
+/**
+ * Interface for a single closeable resource.
+ */
+export interface AutoCloseOne extends AutoClose {
+
+    /**
+     * Add a closeable resource to the list.
+     * 
+     * @param closeable the closeable resource to add or null to clear
+     */
+    set(closeable: OptionalType<AutoCloseType>): void;
 }
 
 /**
@@ -59,6 +96,36 @@ export function inlineAutoClose(action: () => void): RequiredType<AutoClose> {
  * @returns true if the instance implements AutoClose, false otherwise
  */
 export function isAutoClose(instance: unknown): instance is OptionalType<AutoClose> {
-    return hasFunctions(instance, 'close', '[Symbol.dispose]');
+    return hasFunctions(instance, 'close', Symbol.dispose);
 }
+
+/**
+ * Duck-typing check for object with close() method.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AutoClose, false otherwise
+ */
+export function isClose(instance: unknown): instance is OptionalType<AutoClose> {
+    return hasFunctions(instance, 'close');
+}
+
+/**
+ * Convert a AutoCloseType to a AutoClose
+ * @param type the type to convert
+ * @returns the AutoClose
+ */
+export function typeToAutoClose(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
+    const presentType = presentCheck(type, "AutoClose type must be present.");
+    if (isAutoClose(presentType)) {
+        return presentType;
+    } else if (isClose(presentType)) {
+        return inlineAutoClose(() => presentType.close());
+    } else if (typeof presentType === 'function') {
+        return inlineAutoClose(presentType as () => unknown);
+    } else {
+        throw new IllegalArgumentException("Invalid AutoClose type.");
+    }
+}
+
+
 
