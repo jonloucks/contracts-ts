@@ -18,7 +18,7 @@ export interface Close {
 }
 
 /**
- * Opt-in interface to  For example, this is when threads should be stopped or hooks removed.
+ * Opt-in interface for resources that need cleanup when their lifecycle ends. For example, this is when threads should be stopped or hooks removed.
  * See also {@link AutoOpen}
  * Features like life cycle promisors
  * will automatically call this method once if the deliverable implements this method.
