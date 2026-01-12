@@ -257,7 +257,7 @@ describe('AutoCloseMany tests', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-    it('AutoCloseMany.add with null does not throw', () => {
+    it('AutoCloseMany.add with null throws IllegalArgumentException', () => {
         Tools.withContracts((contracts: Contracts) => {
             const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
             using autoCloseMany = autoCloseFactory.createAutoCloseMany();
