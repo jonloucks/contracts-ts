@@ -33,10 +33,10 @@ describe("Events", () => {
             }
         });
 
-        expect(events.opened).toBe(false);
+        expect(events.isOpen()).toBe(false);
 
         const autoClose = events.open();
-        expect(events.opened).toBe(true);
+        expect(events.isOpen()).toBe(true);
 
         process.emit(eventName);
         expect(callbackInvoked).toBe(true);
@@ -44,7 +44,7 @@ describe("Events", () => {
         callbackInvoked = false; // reset for next test
 
         autoClose.close();
-        expect(events.opened).toBe(false);
+        expect(events.isOpen()).toBe(false);
 
         process.emit(eventName);
         expect(callbackInvoked).toBe(false); // should not be invoked after close
@@ -64,13 +64,13 @@ describe("Events", () => {
         const autoClose1 = events.open();
         const autoClose2 = events.open(); // should be no-op
 
-        expect(events.opened).toBe(true);
+        expect(events.isOpen()).toBe(true);
 
         process.emit(eventName);
         expect(callbackCount).toBe(1);
 
         autoClose1.close();
-        expect(events.opened).toBe(false);
+        expect(events.isOpen()).toBe(false);
 
         process.emit(eventName);
         expect(callbackCount).toBe(1); // should not increment after close
@@ -84,14 +84,14 @@ describe("Events", () => {
             callback: () => { }
         });
 
-        expect(events.opened).toBe(false);
+        expect(events.isOpen()).toBe(false);
 
         // Closing without opening should be a no-op
         const autoClose = events.open();
         autoClose.close();
         autoClose.close(); // second close should be no-op
 
-        expect(events.opened).toBe(false);
+        expect(events.isOpen()).toBe(false);
     });
 
 
@@ -109,7 +109,9 @@ describe("Events", () => {
         const autoClose = events.open();
         process.emit(eventName);
         expect(invoked).toBe(true);
+        expect(events.isOpen()).toBe(true);
 
         autoClose.close();
+        expect(events.isOpen()).toBe(false);
     });
 });

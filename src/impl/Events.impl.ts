@@ -1,27 +1,10 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { AutoOpen } from "../api/AutoOpen";
 import { configCheck, presentCheck } from "../api/Checks";
 import { RequiredType } from "../api/Types";
-import { IdempotentImpl } from "./Idempotent.impl";
+import { Config, Events } from "../impl/Events";
+import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 
-/**
- * Configuration for Events implementation
- */
-export interface Config {
-    names?: string[];
-
-    callback: (...args: unknown[]) => void;
-}
-
-/**
- * Event listener management interface for process-level events.
- *
- * Implementations manage the open/close lifecycle for registering and
- * deregistering listeners on the Node.js process object.
- */
-export interface Events extends AutoOpen {
-    get opened(): boolean;
-};
+export { Config, Events } from "../impl/Events";
 
 /**
  *  Factory method to create Events instance.
@@ -38,15 +21,15 @@ export function create(config?: Config): RequiredType<Events> {
 class EventsImpl implements Events {
 
     open(): AutoClose {
-        if (this.openState.transitionToOpen()) {
+        if (this.idempotent.transitionToOpen()) {
             return this.firstOpen();
         } else {
             return AUTO_CLOSE_NONE
         }
     }
 
-    get opened(): boolean {
-        return this.openState.isOpen();
+    isOpen(): boolean {
+        return this.idempotent.isOpen();
     }
 
     static internalCreate(config?: Config): RequiredType<Events> {
@@ -59,12 +42,16 @@ class EventsImpl implements Events {
         });
 
         return inlineAutoClose(() => {
-            if (this.openState.transitionToClosed()) {
-                this.names.forEach(name => {
-                    process.off(name, this.callback);
-                });
-            }
+            this.closeFirstOpen()
         });
+    }
+
+    private closeFirstOpen(): void {
+        if (this.idempotent.transitionToClosed()) {
+            this.names.forEach(name => {
+                process.off(name, this.callback);
+            });
+        }
     }
 
     private constructor(config?: Config) {
@@ -75,6 +62,6 @@ class EventsImpl implements Events {
 
     private readonly names: string[];
     private readonly callback: (...args: unknown[]) => void;
-    private readonly openState: IdempotentImpl = new IdempotentImpl();
+    private readonly idempotent: Idempotent = createIdempotent();
 }
 

@@ -10,7 +10,7 @@ import { OptionalType, RequiredType, isPresent } from "../api/Types";
 
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
 import { Events, create as createEvents } from "./Events.impl";
-import { IdempotentImpl } from "./Idempotent.impl";
+import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { Internal } from "./Internal.impl";
 
 /**
@@ -34,7 +34,7 @@ class ContractsImpl implements Contracts {
      * AutoOpen.open override.
      */
     open(): AutoClose {
-        if (this.openState.transitionToOpen()) {
+        if (this.idempotent.transitionToOpen()) {
             return this.firstOpen();
         }
         return AUTO_CLOSE_NONE;
@@ -101,11 +101,11 @@ class ContractsImpl implements Contracts {
 
     private firstOpen(): AutoClose {
         this.closeMany.add(this.events.open());
-        return inlineAutoClose(() => this.close());
+        return inlineAutoClose(() => this.closeFirstOpen());
     }
 
-    private close(): void {
-        if (this.openState.transitionToClosed()) {
+    private closeFirstOpen(): void {
+        if (this.idempotent.transitionToClosed()) {
             try {
                 this.attemptToCloseBindings();
             } finally {
@@ -173,7 +173,7 @@ class ContractsImpl implements Contracts {
         if (isPresent(previousPromisor)) {
             previousPromisor.decrementUsage();
         }
-        const breakBindingOnce: IdempotentImpl = new IdempotentImpl();
+        const breakBindingOnce: Idempotent = createIdempotent();
         breakBindingOnce.transitionToOpen();
         return inlineAutoClose(() => {
             if (breakBindingOnce.transitionToClosed()) {
@@ -267,17 +267,16 @@ class ContractsImpl implements Contracts {
 
         this.events = createEvents({
             names: validConfig?.shutdownEvents ?? [],
-            callback: () => this.close()
+            callback: () => this.closeFirstOpen()
         });
 
         if (validPartners) {
             this.partners.push(...validPartners);
         }
-
     }
 
     private readonly closeMany: AutoCloseMany = createAutoCloseMany();
-    private readonly openState: IdempotentImpl = new IdempotentImpl();
+    private readonly idempotent: Idempotent = createIdempotent();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly partners: Contracts[] = [];
     private readonly policy: ((contract: Contract<unknown>) => void);
