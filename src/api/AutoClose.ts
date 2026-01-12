@@ -110,7 +110,7 @@ export function isClose(instance: unknown): instance is OptionalType<AutoClose> 
 }
 
 /**
- * Convert a AutoCloseType to a AutoClose
+ * Convert an AutoCloseType to an AutoClose
  * @param type the type to convert
  * @returns the AutoClose
  */
