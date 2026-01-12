@@ -44,7 +44,7 @@ export const LAWYER: Lawyer<AutoCloseFactory> = new class implements Lawyer<Auto
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AutoCloseFactory>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, 'createAutoCloseMany', 'createAutoCloseOne');
+        return hasFunctions(instance, 'createAutoClose', 'createAutoCloseMany', 'createAutoCloseOne');
     }
 
     /** 
