@@ -1,8 +1,8 @@
-import { RequiredType } from "../api/Types";
-import { AutoOpen } from "../api/AutoOpen";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { IdempotentImpl } from "./Indempotent.impl";
+import { AutoOpen } from "../api/AutoOpen";
 import { configCheck, presentCheck } from "../api/Checks";
+import { RequiredType } from "../api/Types";
+import { IdempotentImpl } from "./Idempotent.impl";
 
 /**
  * Configuration for Events implementation

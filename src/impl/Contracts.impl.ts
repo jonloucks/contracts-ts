@@ -1,4 +1,3 @@
-import { OptionalType, RequiredType, isPresent } from "../api/Types";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "../api/BindStrategy";
 import { configCheck, contractCheck, presentCheck } from "../api/Checks";
@@ -7,11 +6,12 @@ import { ContractException } from "../api/ContractException";
 import { Config, Contracts } from "../api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
 import { isRatifiedContract } from "../api/RatifiedContract";
+import { OptionalType, RequiredType, isPresent } from "../api/Types";
 
-import { Internal } from "./Internal.impl";
-import { IdempotentImpl } from "./Indempotent.impl";
-import { Events, create as createEvents } from "./Events.impl";
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { Events, create as createEvents } from "./Events.impl";
+import { IdempotentImpl } from "./Idempotent.impl";
+import { Internal } from "./Internal.impl";
 
 /**
  * Factory method to create Contracts instance.

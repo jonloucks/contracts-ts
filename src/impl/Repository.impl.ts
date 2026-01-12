@@ -9,7 +9,7 @@ import { Repository } from "../api/Repository";
 import { RequiredType } from "../api/Types";
 
 import { OptionalType } from "../api/Types";
-import { IdempotentImpl } from "./Indempotent.impl";
+import { IdempotentImpl } from "./Idempotent.impl";
 import { StorageImpl } from "./Storage.impl";
 
 /**
