@@ -268,7 +268,7 @@ class ContractsImpl implements Contracts {
         this.events = createEvents({
             names: validConfig?.shutdownEvents ?? [],
             callback: () => this.close()
-        })
+        });
 
         if (validPartners) {
             this.partners.push(...validPartners);
