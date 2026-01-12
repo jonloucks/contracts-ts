@@ -276,7 +276,7 @@ class ContractsImpl implements Contracts {
 
     }
 
-    private readonly closeMany : AutoCloseMany = createAutoCloseMany();
+    private readonly closeMany: AutoCloseMany = createAutoCloseMany();
     private readonly openState: IdempotentImpl = new IdempotentImpl();
     readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
     private readonly partners: Contracts[] = [];
