@@ -1,10 +1,24 @@
 import { AtomicBoolean } from "../api/AtomicBoolean";
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { Idempotent } from "./Idempotent";
+
+export { Idempotent } from "./Idempotent";
+
+/**
+ * Factory to create an Idempotent implementation
+ * 
+ * @returns the new Idempotent implementation
+ */
+export function create(): Idempotent {
+    return IdempotentImpl.internalCreate();
+}
+
+// ---- Implementation details below ----
 
 const IS_CLOSED: boolean = false;
 const IS_OPEN: boolean = true;
 
-export class IdempotentImpl {
+class IdempotentImpl implements Idempotent {
 
     transitionToOpen(): boolean {
         return this.state.compareAndSet(IS_CLOSED, IS_OPEN);
@@ -20,9 +34,13 @@ export class IdempotentImpl {
 
     toString(): string {
         return `Idempotent[open:${this.state.get()}]`;
-    }   
+    }
 
-    constructor() {
+    static internalCreate(): Idempotent {
+        return new IdempotentImpl();
+    }
+
+    private constructor() {
         this.state.set(IS_CLOSED);
     }
 
