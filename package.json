@@ -16,7 +16,8 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
-    "docs": "typedoc --options typedoc.json"
+    "docs": "typedoc --options typedoc.json",
+    "badges": "npx tsx ./scripts/generate-badges.ts"
   },
   "keywords": [
     "typescript",
