@@ -1,12 +1,12 @@
 import assert from 'node:assert';
 
-import { OptionalType, RequiredType, Transform } from "../api/Types";
-import { Tools } from "./Test.tools.test";
-import { Contracts } from "../api/Contracts";
-import { Contract } from "../api/Contract";
-import { Promisor, typeToPromisor  } from "../api/Promisor";
-import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "../api/PromisorFactory";
-import { createContract } from "../index";
+import { Contract } from "contracts-ts/api/Contract";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
+import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "contracts-ts/api/PromisorFactory";
+import { OptionalType, RequiredType, Transform } from "contracts-ts/api/Types";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "contracts-ts";
 
 describe('Extract Promisor tests', () => {
 

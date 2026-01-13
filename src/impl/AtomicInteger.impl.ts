@@ -1,5 +1,5 @@
-import { RequiredType } from "../api/Types";
-import { AtomicInteger } from "../api/AtomicInteger";
+import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
+import { RequiredType } from "contracts-ts/api/Types";
 
 /**
  * Factory to create an AtomicInteger implementation

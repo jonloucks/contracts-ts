@@ -1,6 +1,6 @@
 
+import { create as createEvents, Events, Config as EventsConfig } from "contracts-ts/impl/Events.impl";
 import assert from 'node:assert';
-import { Events, create as createEvents, Config as EventsConfig } from "../impl/Events.impl";
 
 describe("Events", () => {
 

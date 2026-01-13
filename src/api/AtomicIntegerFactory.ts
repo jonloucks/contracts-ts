@@ -1,8 +1,8 @@
-import { OptionalType, RequiredType, hasFunctions } from "./Types";
-import { Contract, Config as ContractConfig } from "./Contract";
-import { Lawyer } from "./Lawyer";
-import { AtomicInteger } from "./AtomicInteger";
-import { create as createContract } from "./RatifiedContract";
+import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Lawyer } from "contracts-ts/api/Lawyer";
+import { create as createContract } from "contracts-ts/api/RatifiedContract";
+import { OptionalType, RequiredType, hasFunctions } from "contracts-ts/api/Types";
 
 /**
  * Factory interface for creating AtomicInteger instances.

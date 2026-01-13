@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
-import { Promisor, typeToPromisor, inlinePromisor, LAWYER } from "../api/Promisor";
-import { OptionalType } from "../api/Types";
+import { inlinePromisor, LAWYER, Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
+import { OptionalType } from "contracts-ts/api/Types";
 
 describe('api/Promisor.ts tests', () => {
     it('LAWYER.isDeliverable tests', () => {

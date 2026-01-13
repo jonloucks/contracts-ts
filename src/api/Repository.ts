@@ -1,11 +1,11 @@
-import { OptionalType, hasFunctions } from "./Types";
-import { AutoOpen } from "./AutoOpen";
-import { Contract, Config as ContractConfig } from "./Contract";
-import { PromisorType } from "./Promisor";
-import { BindStrategy } from "./BindStrategy";
-import { AutoClose } from "./AutoClose";
-import { Lawyer } from "./Lawyer";
-import { create as createContract } from "./RatifiedContract";
+import { AutoClose } from "contracts-ts/api/AutoClose";
+import { AutoOpen } from "contracts-ts/api/AutoOpen";
+import { BindStrategy } from "contracts-ts/api/BindStrategy";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Lawyer } from "contracts-ts/api/Lawyer";
+import { PromisorType } from "contracts-ts/api/Promisor";
+import { create as createContract } from "contracts-ts/api/RatifiedContract";
+import { OptionalType, hasFunctions } from "contracts-ts/api/Types";
 
 /**
  * A repository for multiple contract promisors

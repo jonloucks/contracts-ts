@@ -13,7 +13,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "contracts-ts": ["index.ts"], // Map the package name to its source entry point
+      "contracts-ts/*": ["*"] // Map subpaths if needed
+    },
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

@@ -1,6 +1,6 @@
-import { Contract } from "../api/Contract";
+import { Contract } from "contracts-ts/api/Contract";
 
-export { Contract } from "../api/Contract";
+export { Contract } from "contracts-ts/api/Contract";
 
 /**
  * Policy interface for checking contracts.

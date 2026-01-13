@@ -1,5 +1,5 @@
-import { isConstructor, isConstructorPresent } from "../api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
+import { isConstructor, isConstructorPresent } from "contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: Date, help: "a class constructor" }

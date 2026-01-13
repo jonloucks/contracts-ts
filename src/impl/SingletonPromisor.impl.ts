@@ -1,11 +1,11 @@
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { promisorCheck } from "../api/Checks";
-import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType } from "../api/Types";
+import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
+import { promisorCheck } from "contracts-ts/api/Checks";
+import { Promisor } from "contracts-ts/api/Promisor";
+import { OptionalType, RequiredType } from "contracts-ts/api/Types";
 
-import { AtomicReference } from "../api/AtomicReference";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
+import { AtomicReference } from "contracts-ts/api/AtomicReference";
+import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
+import { create as createAtomicReference } from "contracts-ts/impl/AtomicReference.impl";
 
 /**
  * Factory method to create an Singleton promisor implementation

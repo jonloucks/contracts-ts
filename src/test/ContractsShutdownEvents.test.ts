@@ -1,7 +1,7 @@
 import assert from "assert";
-import { OptionalType } from "../api/Types";
-import { Tools } from "./Test.tools.test";
-import { Contracts, Config as ContractsConfig } from "../api/Contracts";
+import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
+import { OptionalType } from "contracts-ts/api/Types";
+import { Tools } from "contracts-ts/test/Test.tools.test";
 
 
 describe('Contracts with shutdown events', () => {

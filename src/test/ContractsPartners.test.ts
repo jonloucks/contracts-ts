@@ -1,8 +1,8 @@
-import { Tools } from "./Test.tools.test";
-import { Contracts } from "../api/Contracts";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { AutoClose } from "../api/AutoClose";   
+import { AutoClose } from "contracts-ts/api/AutoClose";
+import { Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Tools } from "contracts-ts/test/Test.tools.test";
 
 describe('Contracts with partners', () => {
 

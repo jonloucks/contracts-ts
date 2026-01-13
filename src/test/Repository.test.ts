@@ -1,13 +1,13 @@
 import assert from 'node:assert';
 
-import { OptionalType } from "../api/Types";
-import { Tools } from "./Test.tools.test";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { Contracts } from "../api/Contracts";
-import { Repository, LAWYER } from "../api/Repository";
-import { CONTRACT as FACTORY, RepositoryFactory } from "../api/RepositoryFactory"; 
-import { createContract } from "../index";
+import { Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { LAWYER, Repository } from "contracts-ts/api/Repository";
+import { CONTRACT as FACTORY, RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
+import { OptionalType } from "contracts-ts/api/Types";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "contracts-ts";
 
 describe('RepositoryFactory tests', () => {
     it('Repository FACTORY works', () => {

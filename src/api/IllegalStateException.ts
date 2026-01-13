@@ -1,4 +1,4 @@
-import { messageCheck } from "./Checks";
+import { messageCheck } from "contracts-ts/api/Checks";
 
 /**
  * Exception thrown when an operation is invoked at an illegal or inappropriate time. 

@@ -1,6 +1,6 @@
-import { OptionalType, RequiredType } from "./Types";
-import { ClassCastException } from "./ClassCastException";
-import { Contract, Config } from "./Contract";
+import { ClassCastException } from "contracts-ts/api/ClassCastException";
+import { Config, Contract } from "contracts-ts/api/Contract";
+import { OptionalType, RequiredType } from "contracts-ts/api/Types";
 
 /**
  * Create a basic Contract

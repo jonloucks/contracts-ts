@@ -1,6 +1,6 @@
 import assert from "assert";
-import { Internal } from "./Internal.impl";
-import { ContractException } from "../api/ContractException";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Internal } from "contracts-ts/impl/Internal.impl";
 
 /**
  * Internal tests for internal Helpers functionality.

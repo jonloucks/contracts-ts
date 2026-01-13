@@ -1,8 +1,8 @@
-import { Contracts } from "../api/Contracts";
-import { Repository } from "../api/Repository";
-import { RepositoryFactory } from "../api/RepositoryFactory";
-import { RequiredType } from "../api/Types";
-import { create as createRepository } from "./Repository.impl";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Repository } from "contracts-ts/api/Repository";
+import { RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
+import { RequiredType } from "contracts-ts/api/Types";
+import { create as createRepository } from "contracts-ts/impl/Repository.impl";
 
 /**
  * Factory method to create a RepositoryFactory

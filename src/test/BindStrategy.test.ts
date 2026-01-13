@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
-import { RequiredType, isNotPresent } from "../api/Types";
-import { BindStrategy, resolveBindStrategy, isBindStrategy, DEFAULT_BIND_STRATEGY } from "../api/BindStrategy";
+import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
+import { RequiredType, isNotPresent } from "contracts-ts/api/Types";
 
 generateBindStrategySuite({
     validCases: [

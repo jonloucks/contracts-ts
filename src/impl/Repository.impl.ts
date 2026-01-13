@@ -1,16 +1,16 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, resolveBindStrategy } from "../api/BindStrategy";
-import { contractCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { Contracts } from "../api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { Repository } from "../api/Repository";
-import { RequiredType } from "../api/Types";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "contracts-ts/api/AutoClose";
+import { BindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
+import { contractCheck } from "contracts-ts/api/Checks";
+import { Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "contracts-ts/api/Promisor";
+import { Repository } from "contracts-ts/api/Repository";
+import { RequiredType } from "contracts-ts/api/Types";
 
-import { OptionalType } from "../api/Types";
-import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
-import { StorageImpl } from "./Storage.impl";
+import { OptionalType } from "contracts-ts/api/Types";
+import { Idempotent, create as createIdempotent } from "contracts-ts/impl/Idempotent.impl";
+import { StorageImpl } from "contracts-ts/impl/Storage.impl";
 
 /**
  * Factory method to create Repository instance.

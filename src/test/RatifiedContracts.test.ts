@@ -1,8 +1,8 @@
 import assert from 'assert';
-import { Tools } from "./Test.tools.test";
-import { PromisorType } from "../api/Promisor";
-import { Contracts, Config as ContractsConfig } from "../api/Contracts";
-import { createContract } from "../index";
+import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
+import { PromisorType } from "contracts-ts/api/Promisor";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "contracts-ts";
 
 describe('Contracts with ratified', () => {
 

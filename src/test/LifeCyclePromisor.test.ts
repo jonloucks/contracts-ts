@@ -1,13 +1,13 @@
-import { Tools } from "./Test.tools.test";
-import { Contracts } from "../api/Contracts";
-import { Contract } from "../api/Contract";
-import { AutoOpen, isAutoOpen } from "../api/AutoOpen";
-import { AutoClose, AUTO_CLOSE_NONE } from "..//api/AutoClose";
-import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "../api/PromisorFactory";
-import { AtomicInteger } from "../api/AtomicInteger";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
-import { ClassCastException } from "../api/ClassCastException";
-import { createContract } from "../index";
+import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "contracts-ts/api/AtomicIntegerFactory";
+import { AutoOpen, isAutoOpen } from "contracts-ts/api/AutoOpen";
+import { ClassCastException } from "contracts-ts/api/ClassCastException";
+import { Contract } from "contracts-ts/api/Contract";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "contracts-ts/api/PromisorFactory";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { AUTO_CLOSE_NONE, AutoClose } from "contracts-ts/api/AutoClose";
+import { createContract } from "contracts-ts";
 
 describe('LifeCyclePromisor tests', () => {
     it('Reentrancy failure: Issue #69', () => {

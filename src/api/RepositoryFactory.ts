@@ -1,8 +1,8 @@
-import { OptionalType, RequiredType, hasFunctions } from "./Types";
-import { Repository } from "./Repository";
-import { Contract, Config as ContractConfig } from "./Contract";
-import { create as createContract } from "./RatifiedContract";
-import { Lawyer } from "./Lawyer";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Lawyer } from "contracts-ts/api/Lawyer";
+import { create as createContract } from "contracts-ts/api/RatifiedContract";
+import { Repository } from "contracts-ts/api/Repository";
+import { OptionalType, RequiredType, hasFunctions } from "contracts-ts/api/Types";
 
 /**
  * Factory interface for creating Repository instances.

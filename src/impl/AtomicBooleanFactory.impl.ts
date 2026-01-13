@@ -1,8 +1,8 @@
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { AtomicBooleanFactory } from "../api/AtomicBooleanFactory";
-import { RequiredType } from "../api/Types";
+import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
+import { AtomicBooleanFactory } from "contracts-ts/api/AtomicBooleanFactory";
+import { RequiredType } from "contracts-ts/api/Types";
 
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
 
 /**
  * Factory method to create an AtomicBooleanFactory

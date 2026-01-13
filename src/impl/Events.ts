@@ -1,5 +1,5 @@
-import { AutoOpen } from "../api/AutoOpen";
-export { AutoOpen } from "../api/AutoOpen";
+import { AutoOpen } from "contracts-ts/api/AutoOpen";
+export { AutoOpen } from "contracts-ts/api/AutoOpen";
 
 /**
  * Configuration for Events implementation

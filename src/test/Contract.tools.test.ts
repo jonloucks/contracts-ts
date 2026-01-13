@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 
-import { Contract } from "../api/Contract";
-import { createContract } from "../index"
+import { Contract } from "contracts-ts/api/Contract";
+import { createContract } from "contracts-ts";
 
 export interface CastCase<T> {
     instance: unknown;

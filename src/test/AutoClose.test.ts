@@ -1,9 +1,9 @@
 import assert from 'node:assert';
 
-import { AutoClose, isAutoClose, isClose, inlineAutoClose, AUTO_CLOSE_NONE, unwrapAutoClose } from "../api/AutoClose"
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose, isAutoClose, isClose, unwrapAutoClose } from "contracts-ts/api/AutoClose";
 
-import { Contracts } from "../api/Contracts";
-import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "../api/AutoCloseFactory";
+import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AutoCloseFactory";
+import { Contracts } from "contracts-ts/api/Contracts";
 import { generateTestsForLawyer } from './Lawyer.tools.test';
 import { Tools } from './Test.tools.test';
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from './Types.tools.test';

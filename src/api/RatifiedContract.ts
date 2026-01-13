@@ -1,7 +1,7 @@
-import { BasicContract } from "./BasicContract";
-import { Config, Contract } from "./Contract";
-import { ContractException } from "./ContractException";
-import { OptionalType, RequiredType, isNotPresent, isPresent } from "./Types";
+import { BasicContract } from "contracts-ts/api/BasicContract";
+import { Config, Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { OptionalType, RequiredType, isNotPresent, isPresent } from "contracts-ts/api/Types";
 
 /**
  * A RatifiedContract is a Contract that has been verified to have either a test or cast function.

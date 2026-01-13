@@ -1,5 +1,5 @@
-import { isNumber, isNumberPresent } from "../api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
+import { isNumber, isNumberPresent } from "contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: 42, help: "a number value" },

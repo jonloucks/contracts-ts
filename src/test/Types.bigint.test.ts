@@ -1,5 +1,5 @@
-import { isBigInt, isBigIntPresent } from "../api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
+import { isBigInt, isBigIntPresent } from "contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: BigInt(42), help: "a bigint value" }
