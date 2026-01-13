@@ -46,7 +46,7 @@ describe("Example Life Cycle", () => {
         console.log("Is Logger bound?", isLoggerBound);
     });
 
-    it("use logging service", () => {
+    it("Use logging service", () => {
         const logger : Logger = CONTRACTS.enforce<Logger>(LOGGER_CONTRACT);
         assert.notStrictEqual(logger, null, "Logger should be enforced and not null");
         logger.log("Using the service in the test.");
