@@ -1,23 +1,27 @@
 import assert from "node:assert";
-import { createContract, createContracts, Contracts, Contract, PromisorFactory, PROMISOR_FACTORY, AutoClose } from "../index";
+import { createContract, createContracts, Contracts, Contract, PromisorFactory, PROMISOR_FACTORY, AutoClose, hasFunctions } from "../index";
 
-// Create a Contracts container
-const CONTRACTS: Contracts = createContracts();
-
-// Define a service interface
+// Define a service interface, a Contract can be for any type.
 interface Logger {
     log(message: string): void;
 }
 
 // Create a contract for the service
 const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
-    name: "Logger",
-    test: (obj: any): obj is Logger => { // example of duck-typing check
-        return typeof obj.log === "function";
+    name: "Logger", // Optional name for the contract
+
+    // Define how to test if an object satisfies the Logger interface
+    test: (obj: unknown): obj is Logger => { 
+        return hasFunctions(obj, 'log'); // Example of using hasFunctions utility
     }
 });
 
-describe("Example Life Cycle", () => {
+describe("Example Logger Service Contract", () => {
+
+    // Create a Contracts container
+    const CONTRACTS: Contracts = createContracts();
+    const DEBUG = false;
+
     let closeContracts: AutoClose;
     let closeBinding: AutoClose;
     it("Open Contracts", () => {
@@ -28,14 +32,16 @@ describe("Example Life Cycle", () => {
     });
 
     it("Bind logging service contract to a Promisor", () => {
-        // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create Promisors
+        // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create a Promisor
         let promisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
 
         closeBinding = CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
             promisorFactory.createSingleton<Logger>(
                 () => ({
                     log: (message: string) => {
-                        console.log("LOG:", message);
+                        if (DEBUG) {
+                            console.log("LOG:", message);
+                        }
                     }
                 })));
     });
@@ -43,7 +49,6 @@ describe("Example Life Cycle", () => {
     it("Optional - Check if logging service is bound", () => {
         const isLoggerBound : boolean = CONTRACTS.isBound(LOGGER_CONTRACT);
         assert.strictEqual(isLoggerBound, true, "Logger should be bound");
-        console.log("Is Logger bound?", isLoggerBound);
     });
 
     it("Use logging service", () => {
