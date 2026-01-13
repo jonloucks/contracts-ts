@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
 import { ClassCastException } from "contracts-ts/api/ClassCastException";
 import { ContractException } from "contracts-ts/api/ContractException";

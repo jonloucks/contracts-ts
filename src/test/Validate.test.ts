@@ -1,11 +1,12 @@
 
-import assert from 'assert';
+import assert from "node:assert";
+
 import { Contracts } from "contracts-ts/api/Contracts";
 import { validateContracts } from "contracts-ts/api/Validate";
 import { Tools } from "contracts-ts/test/Test.tools.test";
-import { AutoClose } from 'contracts-ts/api/AutoClose';
-import { ContractException } from 'contracts-ts/api/ContractException';
-import { Promisor, typeToPromisor } from 'contracts-ts/api/Promisor';
+import { AutoClose } from "contracts-ts/api/AutoClose";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
 
 describe('Validate contracts', () => {
     it('Working scenario', () => {

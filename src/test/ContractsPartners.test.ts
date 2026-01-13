@@ -9,8 +9,8 @@ describe('Contracts with partners', () => {
     it('when bound in both primary and partner, primary should use its own binding', () => {
         const contract: Contract<string> = Tools.createStringContract();
         Tools.withPartnerContracts((primary: Contracts, partner: Contracts) => {
-            using usingPrimaryBind: AutoClose = primary.bind(contract, () => "Primary");
-            using usingPartnerBind: AutoClose = partner.bind(contract, () => "Partner");
+            using _: AutoClose = primary.bind(contract, () => "Primary");
+            using __: AutoClose = partner.bind(contract, () => "Partner");
 
             Tools.assertEquals("Primary", primary.claim(contract));
         });

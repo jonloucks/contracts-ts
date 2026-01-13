@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
 import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
 import { RequiredType, isNotPresent } from "contracts-ts/api/Types";

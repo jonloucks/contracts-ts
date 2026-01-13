@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { isRatifiedContract } from "contracts-ts/api/RatifiedContract";

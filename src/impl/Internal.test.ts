@@ -1,4 +1,5 @@
-import assert from "assert";
+import assert from "node:assert";
+
 import { ContractException } from "contracts-ts/api/ContractException";
 import { Internal } from "contracts-ts/impl/Internal.impl";
 

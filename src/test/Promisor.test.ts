@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
 import { inlinePromisor, LAWYER, Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
 import { OptionalType } from "contracts-ts/api/Types";

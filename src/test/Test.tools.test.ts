@@ -1,4 +1,6 @@
-import assert from 'node:assert';
+import assert from "node:assert";
+import { AssertionError, AssertPredicate } from "node:assert";
+
 
 import { AutoClose } from "contracts-ts/api/AutoClose";
 import { configCheck, presentCheck } from "contracts-ts/api/Checks";
@@ -7,7 +9,6 @@ import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 import { IllegalStateException } from "contracts-ts/api/IllegalStateException";
 import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "contracts-ts/api/Types";
-import { AssertionError, AssertPredicate } from 'node:assert';
 import { createContract, createContracts } from "contracts-ts";
 
 describe('test utilities', () => {

@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
 import { Contract } from "contracts-ts/api/Contract";
 import { ContractException } from "contracts-ts/api/ContractException";

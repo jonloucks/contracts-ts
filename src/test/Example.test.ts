@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { createContract, createContracts, Contracts, Contract, PromisorFactory, PROMISOR_FACTORY, AutoClose, hasFunctions } from 'contracts-ts';
+import { createContract, createContracts, Contracts, Contract, PromisorFactory, PROMISOR_FACTORY, AutoClose, hasFunctions } from "contracts-ts";
 
 // Define a service interface, a Contract can be for any type.
 interface Logger {
