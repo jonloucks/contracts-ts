@@ -159,7 +159,7 @@ npm run badges
 <details markdown="1"><summary>Project Structure</summary>
 
 * All tests must have suffix of -test.ts or -spec.ts
-* Tests that validate supported API's go in src/test
+* Tests that validate supported APIs go in src/test
 * Tests that validate internal implementation details go in src/impl
 
 ```
