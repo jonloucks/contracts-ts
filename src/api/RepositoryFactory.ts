@@ -9,10 +9,10 @@ import { OptionalType, RequiredType, hasFunctions } from "contracts-ts/api/Types
  */
 export interface RepositoryFactory {
 
-    /**
-     * Create a new Repository instance.    
-     */
-    create(): RequiredType<Repository>;
+  /**
+   * Create a new Repository instance.    
+   */
+  create(): RequiredType<Repository>;
 }
 
 /**
@@ -20,24 +20,24 @@ export interface RepositoryFactory {
  */
 export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<RepositoryFactory> {
 
-    /** 
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable<X extends RepositoryFactory>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, "create");
-    }
+  /** 
+   * Lawyer.isDeliverable override
+   */
+  isDeliverable<X extends RepositoryFactory>(instance: unknown): instance is OptionalType<X> {
+    return hasFunctions(instance, "create");
+  }
 
-    /** 
-     * Lawyer.createContract override
-     */
-    createContract<X extends RepositoryFactory>(config?: ContractConfig<X>): Contract<X> {
-        const copy: ContractConfig<X> = { ...config ?? {} };
+  /** 
+   * Lawyer.createContract override
+   */
+  createContract<X extends RepositoryFactory>(config?: ContractConfig<X>): Contract<X> {
+    const copy: ContractConfig<X> = { ...config ?? {} };
 
-        copy.test ??= this.isDeliverable;
-        copy.typeName ??= "RepositoryFactory";
+    copy.test ??= this.isDeliverable;
+    copy.typeName ??= "RepositoryFactory";
 
-        return createContract<X>(copy);
-    }
+    return createContract<X>(copy);
+  }
 };
 
 /**

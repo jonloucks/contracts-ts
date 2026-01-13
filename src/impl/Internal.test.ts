@@ -8,72 +8,72 @@ import { Internal } from "contracts-ts/impl/Internal.impl";
  */
 describe("Internal mapForEachReversed", () => {
 
-    it("with null map throws", () => {
-        assert.throws(() => {
-            Internal.mapForEachReversed(null as unknown as Map<unknown, unknown>, (_, __) => {
-            })
-        }, {
-            name: 'IllegalArgumentException',
-            message: 'Map must be present.'
-        })
+  it("with null map throws", () => {
+    assert.throws(() => {
+      Internal.mapForEachReversed(null as unknown as Map<unknown, unknown>, (_, __) => {
+      })
+    }, {
+      name: 'IllegalArgumentException',
+      message: 'Map must be present.'
+    })
+  });
+
+  it("with empty map does not call callback", () => {
+    let callCount = 0;
+    const testMap = new Map<string, number>();
+    Internal.mapForEachReversed(testMap, (_, __) => {
+      callCount++;
+    });
+    assert.strictEqual(callCount, 0);
+  });
+
+  it("with multiple entries calls callback in reverse order", () => {
+    const testMap = new Map<string, number>();
+    testMap.set("one", 1);
+    testMap.set("two", 2);
+    testMap.set("three", 3);
+
+    const keys: string[] = [];
+    const values: number[] = [];
+
+    Internal.mapForEachReversed(testMap, (key, value) => {
+      keys.push(key);
+      values.push(value);
     });
 
-    it("with empty map does not call callback", () => {
-        let callCount = 0;
-        const testMap = new Map<string, number>();
-        Internal.mapForEachReversed(testMap, (_, __) => {
-            callCount++;
-        });
-        assert.strictEqual(callCount, 0);
-    });
-
-    it("with multiple entries calls callback in reverse order", () => {
-        const testMap = new Map<string, number>();
-        testMap.set("one", 1);
-        testMap.set("two", 2);
-        testMap.set("three", 3);
-
-        const keys: string[] = [];
-        const values: number[] = [];
-
-        Internal.mapForEachReversed(testMap, (key, value) => {
-            keys.push(key);
-            values.push(value);
-        });
-
-        assert.deepStrictEqual(keys, ["three", "two", "one"]);
-        assert.deepStrictEqual(values, [3, 2, 1]);
-    });
+    assert.deepStrictEqual(keys, ["three", "two", "one"]);
+    assert.deepStrictEqual(values, [3, 2, 1]);
+  });
 });
 
 describe("Internal throwAggregateError", () => {
 
-    it("with single error throws that error", () => {
-        const singleError = new Error("Single error occurred.");
-        assert.throws(() => {
-            Internal.throwAggregateError("Aggregate error:", singleError);
-        }, {
-            name: 'Error',
-            message: "Single error occurred."
-        });
+  it("with single error throws that error", () => {
+    const singleError = new Error("Single error occurred.");
+    assert.throws(() => {
+      Internal.throwAggregateError("Aggregate error:", singleError);
+    }, {
+      name: 'Error',
+      message: "Single error occurred."
     });
+  });
 
-    it("with multiple errors throws ContractException with aggregated messages", () => {
-        const error1 = new Error("First error.");
-        const error2 = new Error("Second error.");
-        const error3 = "Third error as string.";
+  it("with multiple errors throws ContractException with aggregated messages", () => {
+    const error1 = new Error("First error.");
+    const error2 = new Error("Second error.");
+    const error3 = "Third error as string.";
 
-        try {
-            Internal.throwAggregateError("Multiple errors occurred:", error1, error2, error3);
-            assert.fail("Expected throwAggregateError to throw.");
-        } catch (e) {
-            assert.ok(e instanceof ContractException);
-            const expectedMessage =
-                "Multiple errors occurred:\n" +
-                "- First error.\n" +
-                "- Second error.\n" +
-                "- Third error as string.";
-            assert.strictEqual(e.message, expectedMessage);
-        }   
-    });
+    try {
+      Internal.throwAggregateError("Multiple errors occurred:", error1, error2, error3);
+      assert.fail("Expected throwAggregateError to throw.");
+    } catch (e) {
+      assert.ok(e instanceof ContractException);
+      const expectedMessage =
+        "Multiple errors occurred:\n" +
+        "- First error.\n" +
+        "- Second error.\n" +
+        "- Third error as string.";
+      assert.strictEqual(e.message, expectedMessage);
+    }
+  });
 });

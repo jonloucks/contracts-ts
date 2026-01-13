@@ -5,9 +5,9 @@ export { AutoOpen } from "contracts-ts/api/AutoOpen";
  * Configuration for Events implementation
  */
 export interface Config {
-    names?: string[];
+  names?: string[];
 
-    callback: (...args: unknown[]) => void;
+  callback: (...args: unknown[]) => void;
 }
 
 /**
@@ -18,10 +18,10 @@ export interface Config {
  */
 export interface Events extends AutoOpen {
 
-    /**
-     * Check if the event listeners are currently open.
-     *
-     * @returns true if the event listeners are open, false otherwise
-     */
-    isOpen(): boolean;
+  /**
+   * Check if the event listeners are currently open.
+   *
+   * @returns true if the event listeners are open, false otherwise
+   */
+  isOpen(): boolean;
 };

@@ -12,7 +12,7 @@ import { create as createValue } from "contracts-ts/impl/ValuePromisor.impl";
  * @returns the PromisorFactory implementation
  */
 export function create(): RequiredType<PromisorFactory> {
-    return PromisorsImpl.internalCreate();
+  return PromisorsImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
@@ -22,38 +22,38 @@ export function create(): RequiredType<PromisorFactory> {
  */
 class PromisorsImpl implements PromisorFactory {
 
-    /**
-     * PromisorFactory.createValue override.
-     */
-    createValue<T>(deliverable: OptionalType<T>): RequiredType<Promisor<T>> {
-        return createValue<T>(deliverable);
-    }
+  /**
+   * PromisorFactory.createValue override.
+   */
+  createValue<T>(deliverable: OptionalType<T>): RequiredType<Promisor<T>> {
+    return createValue<T>(deliverable);
+  }
 
-    /**
-     * PromisorFactory.createSingleton override.
-     */
-    createSingleton<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
-        return createSingleton<T>(typeToPromisor(promisor));
-    }
+  /**
+   * PromisorFactory.createSingleton override.
+   */
+  createSingleton<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
+    return createSingleton<T>(typeToPromisor(promisor));
+  }
 
-    /**
-     * PromisorFactory.createLifeCycle override.
-     */
-    createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
-        return createLifeCycle(typeToPromisor(promisor));
-    }
+  /**
+   * PromisorFactory.createLifeCycle override.
+   */
+  createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
+    return createLifeCycle(typeToPromisor(promisor));
+  }
 
-    /**
-     * PromisorFactory.createExtractor override.
-     */
-    createExtractor<T, R>(promisor: PromisorType<T>, extractor: Transform<T, R>): RequiredType<Promisor<R>> {
-        return createExtractor<T, R>(typeToPromisor(promisor), extractor);
-    }
+  /**
+   * PromisorFactory.createExtractor override.
+   */
+  createExtractor<T, R>(promisor: PromisorType<T>, extractor: Transform<T, R>): RequiredType<Promisor<R>> {
+    return createExtractor<T, R>(typeToPromisor(promisor), extractor);
+  }
 
-    static internalCreate(): RequiredType<PromisorFactory> {
-        return new PromisorsImpl();
-    }
+  static internalCreate(): RequiredType<PromisorFactory> {
+    return new PromisorsImpl();
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 }

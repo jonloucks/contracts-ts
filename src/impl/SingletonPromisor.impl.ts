@@ -15,7 +15,7 @@ import { create as createAtomicReference } from "contracts-ts/impl/AtomicReferen
  * @returns the new Singleton Promisor implementation
  */
 export function create<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
-    return SingletonPromisorImpl.internalCreate<T>(referent);
+  return SingletonPromisorImpl.internalCreate<T>(referent);
 }
 
 // ---- Implementation details below ----
@@ -26,31 +26,31 @@ export function create<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
  */
 class SingletonPromisorImpl<T> implements Promisor<T> {
 
-    demand(): OptionalType<T> {
-        if (this.firstTime.compareAndSet(true, false)) {
-            this.singletonRef.set(this.referent.demand());
-        }
-        return this.singletonRef.get();
+  demand(): OptionalType<T> {
+    if (this.firstTime.compareAndSet(true, false)) {
+      this.singletonRef.set(this.referent.demand());
     }
+    return this.singletonRef.get();
+  }
 
-    incrementUsage(): number {
-        return this.referent.incrementUsage();
-    }
+  incrementUsage(): number {
+    return this.referent.incrementUsage();
+  }
 
-    decrementUsage(): number {
-        return this.referent.decrementUsage();
-    }
+  decrementUsage(): number {
+    return this.referent.decrementUsage();
+  }
 
-    static internalCreate<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
-        return new SingletonPromisorImpl<T>(referent);
-    }   
+  static internalCreate<T>(referent: Promisor<T>): RequiredType<Promisor<T>> {
+    return new SingletonPromisorImpl<T>(referent);
+  }
 
-    private constructor(referent: Promisor<T>) {
-        this.referent = promisorCheck(referent);
-    }
+  private constructor(referent: Promisor<T>) {
+    this.referent = promisorCheck(referent);
+  }
 
-    private readonly referent: Promisor<T>;
-    private readonly singletonRef: AtomicReference<OptionalType<T>> = createAtomicReference<OptionalType<T>>();
-    private readonly firstTime: AtomicBoolean = createAtomicBoolean(true);
+  private readonly referent: Promisor<T>;
+  private readonly singletonRef: AtomicReference<OptionalType<T>> = createAtomicReference<OptionalType<T>>();
+  private readonly firstTime: AtomicBoolean = createAtomicBoolean(true);
 }
 

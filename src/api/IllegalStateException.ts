@@ -5,13 +5,13 @@ import { messageCheck } from "contracts-ts/api/Checks";
  * Note: This can not extend ContractException due to circular dependency.
  */
 export class IllegalStateException extends Error {
-    constructor(message: string, thrown: Error | null = null) {
-        // super(messageCheck(message), thrown || undefined);
-        super(messageCheck(message));
+  constructor(message: string, _thrown: Error | null = null) {
+    // super(messageCheck(message), thrown || undefined);
+    super(messageCheck(message));
 
-        this.name = "IllegalStateException";
-        Object.setPrototypeOf(this, IllegalStateException.prototype)
-    }
+    this.name = "IllegalStateException";
+    Object.setPrototypeOf(this, IllegalStateException.prototype)
+  }
 }
 
 
