@@ -1,11 +1,11 @@
-import { OptionalType, RequiredType } from "../api/Types";
-import { AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { Contracts } from "../api/Contracts";
-import { Repository } from "../api/Repository";
-import { AutoOpen } from "../api/AutoOpen";
-import { BindStrategyType } from "../api/BindStrategy";
-import { Contract } from "../api/Contract";
-import { PromisorType } from "../api/Promisor";
+import { AutoClose, inlineAutoClose } from "contracts-ts/api/AutoClose";
+import { AutoOpen } from "contracts-ts/api/AutoOpen";
+import { BindStrategyType } from "contracts-ts/api/BindStrategy";
+import { Contract } from "contracts-ts/api/Contract";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { PromisorType } from "contracts-ts/api/Promisor";
+import { Repository } from "contracts-ts/api/Repository";
+import { OptionalType, RequiredType } from "contracts-ts/api/Types";
 
 /**
  * Wrapper method to create a Contracts wrapper which is responsible for managing

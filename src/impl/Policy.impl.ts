@@ -1,12 +1,12 @@
-import { isNotPresent, RequiredType } from "../api/Types";
-import { Policy } from "../impl/Policy";
-import { Contract } from "../api/Contract";
-import { Config as ContractsConfig } from "../api/Contracts";
-import { isRatifiedContract } from "../api/RatifiedContract";
-import { ContractException } from "../api/ContractException";
+import { Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Config as ContractsConfig } from "contracts-ts/api/Contracts";
+import { isRatifiedContract } from "contracts-ts/api/RatifiedContract";
+import { RequiredType } from "contracts-ts/api/Types";
+import { Policy } from "contracts-ts/impl/Policy";
 
-export { Policy } from "../impl/Policy";
-export { RequiredType } from "../api/Types";
+export { RequiredType } from "contracts-ts/api/Types";
+export { Policy } from "contracts-ts/impl/Policy";
 
 /**
  * Factory method to create Policy instance.

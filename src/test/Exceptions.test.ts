@@ -1,9 +1,9 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { ContractException } from "../api/ContractException";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { IllegalArgumentException } from "../api/IllegalArgumentException";
-import { ClassCastException } from "../api/ClassCastException";
+import { ClassCastException } from "contracts-ts/api/ClassCastException";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { IllegalArgumentException } from "contracts-ts/api/IllegalArgumentException";
+import { IllegalStateException } from "contracts-ts/api/IllegalStateException";
 
 describe('ContractException Tests', () => {
     it('without message throws IllegalArgumentException', () => {

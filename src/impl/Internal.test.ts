@@ -1,6 +1,7 @@
-import assert from "assert";
-import { Internal } from "./Internal.impl";
-import { ContractException } from "../api/ContractException";
+import assert from "node:assert";
+
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Internal } from "contracts-ts/impl/Internal.impl";
 
 /**
  * Internal tests for internal Helpers functionality.

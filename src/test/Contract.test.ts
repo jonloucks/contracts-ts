@@ -1,11 +1,11 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { Contract } from "../api/Contract";
-import { Tools } from "./Test.tools.test";
-import { generateContractSuite } from "./Contract.tools.test";
-import { isString } from "../api/Types";
-import { ClassCastException } from "../api/ClassCastException";
-import { createContract } from "../index";
+import { ClassCastException } from "contracts-ts/api/ClassCastException";
+import { Contract } from "contracts-ts/api/Contract";
+import { isString } from "contracts-ts/api/Types";
+import { generateContractSuite } from "contracts-ts/test/Contract.tools.test";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "contracts-ts";
 
 describe('Create string contract', () => {
   const contract: Contract<string> = createContract<string>({

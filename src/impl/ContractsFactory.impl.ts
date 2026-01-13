@@ -1,22 +1,22 @@
-import { RequiredType } from "../api/Types";
-import { ContractsFactory } from "../api/ContractsFactory";
-import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "../api/AtomicBooleanFactory";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "../api/AtomicIntegerFactory";
-import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "../api/AtomicReferenceFactory";
-import { Contracts, Config as ContractsConfig } from "../api/Contracts";
-import { CONTRACT as PROMISOR_FACTORY } from "../api/PromisorFactory";
-import { Repository } from "../api/Repository";
-import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "../api/RepositoryFactory";
-import { CONTRACT as AUTO_CLOSE_FACTORY } from "../api/AutoCloseFactory";
+import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "contracts-ts/api/AtomicBooleanFactory";
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "contracts-ts/api/AtomicIntegerFactory";
+import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "contracts-ts/api/AtomicReferenceFactory";
+import { CONTRACT as AUTO_CLOSE_FACTORY } from "contracts-ts/api/AutoCloseFactory";
+import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
+import { ContractsFactory } from "contracts-ts/api/ContractsFactory";
+import { CONTRACT as PROMISOR_FACTORY } from "contracts-ts/api/PromisorFactory";
+import { Repository } from "contracts-ts/api/Repository";
+import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
+import { RequiredType } from "contracts-ts/api/Types";
 
-import { create as createContractsImpl } from "./Contracts.impl";
-import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl";
-import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory.impl";
-import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl";
-import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
-import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
-import { create as createAutoCloseFactoryImpl } from "./AutoCloseFactory.impl";
-import { wrap as wrapContracts } from "./ContractsWrapper.impl";
+import { create as createAtomicBooleanFactoryImpl } from "contracts-ts/impl/AtomicBooleanFactory.impl";
+import { create as createAtomicIntegerFactoryImpl } from "contracts-ts/impl/AtomicIntegerFactory.impl";
+import { create as createAtomicReferenceFactoryImpl } from "contracts-ts/impl/AtomicReferenceFactory.impl";
+import { create as createAutoCloseFactoryImpl } from "contracts-ts/impl/AutoCloseFactory.impl";
+import { create as createContractsImpl } from "contracts-ts/impl/Contracts.impl";
+import { wrap as wrapContracts } from "contracts-ts/impl/ContractsWrapper.impl";
+import { create as createPromisorFactoryImpl } from "contracts-ts/impl/PromisorFactory.impl";
+import { create as createRepositoryFactoryImpl } from "contracts-ts/impl/RepositoryFactory.impl";
 
 /**
  * Factory method to create a ContractsFactory

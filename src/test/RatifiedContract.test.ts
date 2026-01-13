@@ -1,8 +1,8 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { Contract, Config as ContractConfig } from "../api/Contract";
-import { isRatifiedContract } from "../api/RatifiedContract";
-import { createContract, OptionalType } from "../index";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { isRatifiedContract } from "contracts-ts/api/RatifiedContract";
+import { createContract, OptionalType } from "contracts-ts";
 
 describe('api/RatifiedContract.ts tests', () => {
 

@@ -1,7 +1,7 @@
-import { AtomicReference } from "../api/AtomicReference";
-import { AutoClose, AutoCloseOne, AutoCloseType, typeToAutoClose, unwrapAutoClose } from "../api/AutoClose";
-import { isPresent, RequiredType, OptionalType } from "../api/Types";
-import { create as createAtomicReference } from "./AtomicReference.impl";
+import { AtomicReference } from "contracts-ts/api/AtomicReference";
+import { AutoClose, AutoCloseOne, AutoCloseType, typeToAutoClose, unwrapAutoClose } from "contracts-ts/api/AutoClose";
+import { isPresent, OptionalType, RequiredType } from "contracts-ts/api/Types";
+import { create as createAtomicReference } from "contracts-ts/impl/AtomicReference.impl";
 
 export function create(): RequiredType<AutoCloseOne> {
     return AutoCloseOneImpl.internalCreate();

@@ -1,10 +1,10 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { Contracts } from "../api/Contracts";
-import { AtomicInteger, LAWYER } from "../api/AtomicInteger";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "../api/AtomicIntegerFactory";
-import { Tools } from "./Test.tools.test"
-import { generateTestsForLawyer } from './Lawyer.tools.test';
+import { AtomicInteger, LAWYER } from "contracts-ts/api/AtomicInteger";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AtomicIntegerFactory";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
 
 describe('AtomicInteger', () => {
 

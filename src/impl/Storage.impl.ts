@@ -1,10 +1,10 @@
-import { AutoClose, AutoCloseOne } from "../api/AutoClose";
-import { BindStrategy } from "../api/BindStrategy";
-import { Contract } from "../api/Contract";
-import { Contracts } from "../api/Contracts";
-import { Promisor } from "../api/Promisor";
+import { AutoClose, AutoCloseOne } from "contracts-ts/api/AutoClose";
+import { BindStrategy } from "contracts-ts/api/BindStrategy";
+import { Contract } from "contracts-ts/api/Contract";
+import { Contracts } from "contracts-ts/api/Contracts";
+import { Promisor } from "contracts-ts/api/Promisor";
 
-import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
+import { create as createAutoCloseOne } from "contracts-ts/impl/AutoCloseOne.impl";
 
 
 // ---- Implementation details below ----

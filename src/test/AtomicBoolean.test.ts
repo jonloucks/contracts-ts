@@ -1,10 +1,10 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { Contracts } from "../api/Contracts";
-import { AtomicBoolean, LAWYER } from "../api/AtomicBoolean";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "../api/AtomicBooleanFactory";
-import { Tools } from "./Test.tools.test";
-import { generateTestsForLawyer } from './Lawyer.tools.test';
+import { Contracts } from "contracts-ts/api/Contracts";
+import { AtomicBoolean, LAWYER } from "contracts-ts/api/AtomicBoolean";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AtomicBooleanFactory";
+import { Tools } from "contracts-ts/test/Test.tools.test";
+import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
 
 describe('AtomicBoolean', () => {
 

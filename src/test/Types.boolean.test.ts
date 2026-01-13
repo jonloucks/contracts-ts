@@ -1,5 +1,5 @@
-import { isBoolean, isBooleanPresent } from "../api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
+import { isBoolean, isBooleanPresent } from "contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 // should we consider 0 and 1 as valid boolean values?
 // should we consider "true" and "false" as valid boolean values?

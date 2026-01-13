@@ -1,17 +1,17 @@
-import { AtomicBoolean } from "../api/AtomicBoolean";
-import { AtomicInteger } from "../api/AtomicInteger";
-import { AtomicReference } from "../api/AtomicReference";
-import { AutoOpen } from "../api/AutoOpen";
-import { AutoCloseOne } from "../api/AutoClose";
-import { promisorCheck } from "../api/Checks";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { Promisor } from "../api/Promisor";
-import { OptionalType, RequiredType, isPresent } from "../api/Types";
+import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
+import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
+import { AtomicReference } from "contracts-ts/api/AtomicReference";
+import { AutoCloseOne } from "contracts-ts/api/AutoClose";
+import { AutoOpen } from "contracts-ts/api/AutoOpen";
+import { promisorCheck } from "contracts-ts/api/Checks";
+import { IllegalStateException } from "contracts-ts/api/IllegalStateException";
+import { Promisor } from "contracts-ts/api/Promisor";
+import { OptionalType, RequiredType, isPresent } from "contracts-ts/api/Types";
 
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
-import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
+import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
+import { create as createAtomicInteger } from "contracts-ts/impl/AtomicInteger.impl";
+import { create as createAtomicReference } from "contracts-ts/impl/AtomicReference.impl";
+import { create as createAutoCloseOne } from "contracts-ts/impl/AutoCloseOne.impl";
 
 /**
  * Factory to create an Life Cycle promisor implementation

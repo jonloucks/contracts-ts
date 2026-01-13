@@ -1,8 +1,8 @@
-import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "./AutoClose";
-import { Contract, Config as ContractConfig } from "./Contract";
-import { create as createContract } from "./RatifiedContract";
-import { Lawyer } from "./Lawyer";
-import { hasFunctions, OptionalType, RequiredType } from "./Types";
+import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "contracts-ts/api/AutoClose";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Lawyer } from "contracts-ts/api/Lawyer";
+import { create as createContract } from "contracts-ts/api/RatifiedContract";
+import { hasFunctions, OptionalType, RequiredType } from "contracts-ts/api/Types";
 
 /**
  * Interface for a factory that creates AutoClose instances.
@@ -31,9 +31,9 @@ export interface AutoCloseFactory {
     createAutoCloseOne(): RequiredType<AutoCloseOne>;
 }
 
-export { OptionalType, RequiredType } from "./Types";
-export { Contract } from "./Contract";
-export { AutoClose, AutoCloseType, AutoCloseMany, AutoCloseOne } from "./AutoClose";
+export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "contracts-ts/api/AutoClose";
+export { Contract } from "contracts-ts/api/Contract";
+export { OptionalType, RequiredType } from "contracts-ts/api/Types";
 
 /**
  * For creating a Contract for AutoCloseFactory with duck-typing checks.

@@ -1,17 +1,17 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "../api/AutoClose";
-import { BindStrategy, BindStrategyType, resolveBindStrategy } from "../api/BindStrategy";
-import { configCheck, contractCheck, presentCheck } from "../api/Checks";
-import { Contract } from "../api/Contract";
-import { ContractException } from "../api/ContractException";
-import { Config, Contracts } from "../api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "../api/Promisor";
-import { OptionalType, RequiredType, isPresent } from "../api/Types";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "contracts-ts/api/AutoClose";
+import { BindStrategy, BindStrategyType, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
+import { configCheck, contractCheck, presentCheck } from "contracts-ts/api/Checks";
+import { Contract } from "contracts-ts/api/Contract";
+import { ContractException } from "contracts-ts/api/ContractException";
+import { Config, Contracts } from "contracts-ts/api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "contracts-ts/api/Promisor";
+import { OptionalType, RequiredType, isPresent } from "contracts-ts/api/Types";
 
-import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
-import { Events, create as createEvents } from "./Events.impl";
-import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
-import { Internal } from "./Internal.impl";
-import { Policy, create as createPolicy } from "./Policy.impl";
+import { AutoCloseMany, create as createAutoCloseMany } from "contracts-ts/impl/AutoCloseMany.impl";
+import { Events, create as createEvents } from "contracts-ts/impl/Events.impl";
+import { Idempotent, create as createIdempotent } from "contracts-ts/impl/Idempotent.impl";
+import { Internal } from "contracts-ts/impl/Internal.impl";
+import { Policy, create as createPolicy } from "contracts-ts/impl/Policy.impl";
 
 /**
  * Factory method to create Contracts instance.

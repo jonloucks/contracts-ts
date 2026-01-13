@@ -1,5 +1,5 @@
-import { isSymbol, isSymbolPresent } from "../api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "./Types.tools.test";
+import { isSymbol, isSymbolPresent } from "contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
     { value: Symbol("test"), help: "a symbol value" },

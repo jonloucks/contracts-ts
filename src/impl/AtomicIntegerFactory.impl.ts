@@ -1,8 +1,8 @@
-import { AtomicInteger } from "../api/AtomicInteger";
-import { AtomicIntegerFactory } from "../api/AtomicIntegerFactory";
-import { RequiredType } from "../api/Types";
+import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
+import { AtomicIntegerFactory } from "contracts-ts/api/AtomicIntegerFactory";
+import { RequiredType } from "contracts-ts/api/Types";
 
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicInteger } from "contracts-ts/impl/AtomicInteger.impl";
 
 /**
  * Factory method to create an AtomicIntegerFactory

@@ -1,4 +1,4 @@
-import { OptionalType } from "./Types";
+import { OptionalType } from "contracts-ts/api/Types";
 
 /**
  * Configuration for a Contract

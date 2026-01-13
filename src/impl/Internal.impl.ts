@@ -1,5 +1,5 @@
-import { presentCheck } from "../api/Checks";
-import { ContractException } from "../api/ContractException";
+import { presentCheck } from "contracts-ts/api/Checks";
+import { ContractException } from "contracts-ts/api/ContractException";
 
 /**
  * Helper functions for internal implementations.

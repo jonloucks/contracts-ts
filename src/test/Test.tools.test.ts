@@ -1,14 +1,15 @@
-import assert from 'node:assert';
+import assert from "node:assert";
+import { AssertionError, AssertPredicate } from "node:assert";
 
-import { AssertionError, AssertPredicate } from 'node:assert';
-import { AutoClose } from "../api/AutoClose";
-import { configCheck, presentCheck } from "../api/Checks";
-import { ClassCastException } from "../api/ClassCastException";
-import { Contract, Config as ContractConfig } from "../api/Contract";
-import { Contracts, Config as ContractsConfig } from "../api/Contracts";
-import { IllegalStateException } from "../api/IllegalStateException";
-import { isConstructorPresent, OptionalType, RequiredType, isNotPresent } from "../api/Types";
-import { createContract, createContracts } from "../index";
+
+import { AutoClose } from "contracts-ts/api/AutoClose";
+import { configCheck, presentCheck } from "contracts-ts/api/Checks";
+import { ClassCastException } from "contracts-ts/api/ClassCastException";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
+import { IllegalStateException } from "contracts-ts/api/IllegalStateException";
+import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "contracts-ts/api/Types";
+import { createContract, createContracts } from "contracts-ts";
 
 describe('test utilities', () => {
     it('Dummy test', () => {

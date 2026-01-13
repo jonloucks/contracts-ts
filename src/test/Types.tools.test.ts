@@ -1,6 +1,6 @@
-import assert from 'node:assert';
+import assert from "node:assert";
 
-import { OptionalType, RequiredType, isNotPresent } from "../api/Types";
+import { OptionalType, RequiredType, isNotPresent } from "contracts-ts/api/Types";
 
 export const OPTIONAL_CASES: PredicateCase[] = [
     { value: null, help: "a null value" },
