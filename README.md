@@ -30,101 +30,181 @@ Typescript Dependency Contracts for dependency inversion
 npm install contracts-ts
 ```
 
-## Usage
+## Usage - code fragments from Example.test.ts
 
-### Creating Contracts
+<details markdown="1"><summary>Creating a Contract</summary>
 
 ```typescript
 import { createContract, Contract } from 'contracts-ts';
 
 // Define a service interface
 interface Logger {
-  log(message: string): void;
+    log(message: string): void;
 }
 
 // Create a contract for the service
-const LoggerContract = createContract<Logger>('Logger');
+const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
+    name: "Logger",
+    test: (obj: any): obj is Logger => { // example of duck-typing check
+        return typeof obj.log === "function";
+    }
+});
 ```
+</details>
 
-### Using the Container
+<details markdown="1"><summary>Creating a Contracts container</summary>
 
 ```typescript
-import { Container, createContract } from 'contracts-ts';
+import { Contracts, createContracts } from 'contracts-ts';
 
-// Create a container
-const container = new Container();
+// Create a Contracts
+const CONTRACTS: Contracts = createContracts();
 
-// Define a contract
-interface Database {
-  query(sql: string): Promise<any>;
-}
-
-const DatabaseContract = createContract<Database>('Database');
-
-// Bind an implementation
-const myDatabase: Database = {
-  query: async (sql: string) => {
-    // Implementation here
-    return [];
-  }
-};
-
-container.bind(DatabaseContract, myDatabase);
-
-// Resolve the implementation
-const db = container.resolve(DatabaseContract);
-await db.query('SELECT * FROM users');
+CONTRACTS.open(); // the return value should be closed when done with
 ```
+
+</details>
+
+<details markdown="1"><summary>Binding a Contract</summary>
+
+```typescript
+import { PromisorFactory, PROMISOR_FACTORY } from 'contracts-ts';
+
+// Optional - PromisorFactory is not required, but provides trivial and advanced ways to create Promisors
+let promisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
+
+CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
+    promisorFactory.createSingleton<Logger>(
+        () => ({
+            log: (message: string) => {
+                console.log("LOG:", message);
+            }
+        })));
+```
+</details>
+
+<details markdown="1"><summary>Using the Contract</summary>
+
+```typescript
+const logger : Logger = CONTRACTS.enforce<Logger>(LOGGER_CONTRACT);
+logger.log("Using the service in the test.");
+```
+</details>
 
 ## Development
 
-### Setup
+<details markdown="1"><summary>Install dependencies</summary>
 
 ```bash
-# Install dependencies
 npm install
+```
+</details>
 
-# Build the project
+<details markdown="1"><summary>Build the project</summary>
+
+```bash
 npm run build
+```
+</details>
 
-# Run tests
+<details markdown="1"><summary>Run tests</summary>
+
+```bash
 npm test
+```
+</details>
 
-# Run tests in watch mode
+<details markdown="1"><summary>Run tests in watch mode</summary>
+
+```bash
 npm run test:watch
+```
+</details>
 
-# Run tests with coverage
+<details markdown="1"><summary>Run test coverage</summary>
+
+```bash
 npm run test:coverage
+```
+</details>
 
-# Lint the code
+<details markdown="1"><summary>Lint the code</summary>
+
+```bash
 npm run lint
+```
+</details>
 
-# Fix linting issues
+<details markdown="1"><summary>Fix linting issues</summary>
+
+```bash
 npm run lint:fix
+```
+</details>
 
-# Generate documents
+<details markdown="1"><summary>Generate documents</summary>
+
+```bash
 npm run docs
+```
+</details>
+
+<details markdown="1"><summary>Generate badges</summary>
+
+```bash
+npm run badges
+```
+</details>
+
+<details markdown="1"><summary>Project Structure</summary>
+
+* All tests must have postfix of -test.ts or -spec.ts
+* Tests that validate supported API's go in src/test
+* Tests that validate internal implementation details go in src/impl
 
 ```
-
-### Project Structure
-
+contracts-ts
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── workflows
+│       ├── main-pull-request-matrix.yml
+│       ├── main-pull-request.yml
+│       ├── main-push.yml
+│       └── main-release.yml
+├── CODE_OF_CONDUCT.md
+├── CODING_STANDARDS.md
+├── CONTRIBUTING.md
+├── editorconfig
+├── eslint.config.mjs
+├── jest.config.js
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── PULL_REQUEST_TEMPLATE.md
+├── README.md
+├── scripts
+│   ├── badge-template.svg.dat
+│   ├── generate-badges.ts
+│   └── tsconfig.json
+├── SECURITY.md
+├── src
+│   ├── index.ts
+│   ├── api
+│   │   ├── *.ts
+│   │   ├── *.api.ts
+│   ├── impl
+│   │   ├── *.ts
+│   │   ├── *.impl.ts
+│   │   ├── *.test.ts
+│   │   ├── *.api.ts
+│   └── test
+│       └── *.test.ts
+├── tsconfig.json
+└── typedoc.json
 ```
-contracts-ts/
-├── src/
-│   ├── contract.ts       # Contract definition and creation
-│   ├── container.ts      # Dependency injection container
-│   ├── index.ts          # Main exports
-│   └── *.test.ts         # Test files
-├── dist/                 # Compiled output (generated)
-├── .github/
-│   └── workflows/
-│       ├── ci.yml        # CI workflow
-│       └── publish.yml   # NPM publish workflow
-├── jest.config.js        # Jest configuration
-├── tsconfig.json         # TypeScript configuration
-└── package.json          # Package configuration
-```
+</details>
 
 ## GitHub Workflows
 

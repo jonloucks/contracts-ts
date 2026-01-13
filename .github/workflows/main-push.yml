@@ -73,7 +73,7 @@ jobs:
       working-directory: main-project
 
     - name: Generate coverage badges
-      run: npx tsx ./scripts/generate-badges.ts
+      run: npm run badges
       working-directory: main-project
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
