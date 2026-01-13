@@ -57,7 +57,7 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 ```typescript
 import { Contracts, createContracts } from 'contracts-ts';
 
-// Create a Contracts
+// Create a Contracts container
 const CONTRACTS: Contracts = createContracts();
 
 CONTRACTS.open(); // the return value should be closed when done with
