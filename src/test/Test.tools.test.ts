@@ -1,7 +1,6 @@
 import assert from "node:assert";
 import { AssertionError, AssertPredicate } from "node:assert";
 
-
 import { AutoClose } from "contracts-ts/api/AutoClose";
 import { configCheck, presentCheck } from "contracts-ts/api/Checks";
 import { ClassCastException } from "contracts-ts/api/ClassCastException";
@@ -354,7 +353,7 @@ export class Tools {
   public static createStringContract(): Contract<string> {
     return createContract<string>({
       test: (value: unknown): value is string => {
-        return value == null || value == undefined || typeof value === 'string';
+        return value === null || value === undefined || typeof value === 'string';
       },
       typeName: "string",
       name: "String Contract",

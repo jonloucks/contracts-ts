@@ -64,7 +64,6 @@ generateValueSuite<Person>({
   ],
 });
 
-
 interface TestCase<T> {
   value: OptionalType<T>;
   help?: string;
@@ -86,7 +85,7 @@ function generateValueSuite<T>(options: TestSuiteOptions<T>) {
           const contract: Contract<T> = createContract<T>();
           const promisor: Promisor<T> = promisorFactory.createValue<T>(testCase.value)
 
-          using usingPromisor = contracts.bind(contract, promisor);
+          using _usingPromisor = contracts.bind(contract, promisor);
 
           const delivered: OptionalType<T> = contracts.claim(contract);
           assert.strictEqual(delivered, testCase.value, "promisor demand should match the value.");
