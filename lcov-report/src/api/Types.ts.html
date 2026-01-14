@@ -555,7 +555,7 @@ export type UnknownFunction = (...args: unknown[]) =&gt; unknown;
  * A transformation from type I to type O
  */
 export interface Transform&lt;I, O&gt; {
-   transform(I: OptionalType&lt;I&gt;): OptionalType&lt;O&gt;;
+  transform(I: OptionalType&lt;I&gt;): OptionalType&lt;O&gt;;
 }
 &nbsp;
 /**
@@ -565,7 +565,7 @@ export interface Transform&lt;I, O&gt; {
  * @returns true iif value is not null or undefined, false for actual values
  */
 export function isPresent&lt;T&gt;(value: unknown): value is RequiredType&lt;T&gt; {
-   return value !== null &amp;&amp; value !== undefined;
+  return value !== null &amp;&amp; value !== undefined;
 }
 &nbsp;
 /**
@@ -575,7 +575,7 @@ export function isPresent&lt;T&gt;(value: unknown): value is RequiredType&lt;T&g
  * @returns true iif value is null or undefined, false for actual values
  */
 export function isNotPresent&lt;T&gt;(value: unknown): value is null | undefined {
-    return value === null || value === undefined;
+  return value === null || value === undefined;
 }
 &nbsp;
 /**
@@ -583,17 +583,17 @@ export function isNotPresent&lt;T&gt;(value: unknown): value is null | undefined
  * @param value the value to check
  * @returns true if value is a function and is not null or undefined
  */
-export function isFunctionPresent&lt;T extends UnknownFunction&gt;(value: unknown): value is RequiredType&lt;T&gt;{
-    return _typeOfPresent(value, "function");
+export function isFunctionPresent&lt;T extends UnknownFunction&gt;(value: unknown): value is RequiredType&lt;T&gt; {
+  return _typeOfPresent(value, "function");
 }
 &nbsp;
 /**
  * Check if given value is a function or null/undefined
  * @param value the value to check
  * @returns true if value is a function
- */ 
-export function isFunction(value: unknown): value is OptionalType&lt;UnknownFunction&gt;{
-    return _isTypeOf(value, "function");
+ */
+export function isFunction(value: unknown): value is OptionalType&lt;UnknownFunction&gt; {
+  return _isTypeOf(value, "function");
 }
 &nbsp;
 /**
@@ -602,7 +602,7 @@ export function isFunction(value: unknown): value is OptionalType&lt;UnknownFunc
  * @returns true if value is an object and is not null or undefined
  */
 export function <span class="fstat-no" title="function not covered" >isObjectPresent(</span>value: unknown): value is RequiredType&lt;object&gt; {
-<span class="cstat-no" title="statement not covered" >    return _typeOfPresent(value, "object");</span>
+<span class="cstat-no" title="statement not covered" >  return _typeOfPresent(value, "object");</span>
 }
 &nbsp;
 /**
@@ -611,7 +611,7 @@ export function <span class="fstat-no" title="function not covered" >isObjectPre
  * @returns true if value is an object
  */
 export function <span class="fstat-no" title="function not covered" >isObject(</span>value: unknown): value is OptionalType&lt;object&gt; {
-<span class="cstat-no" title="statement not covered" >    return _isTypeOf(value, "object");</span>
+<span class="cstat-no" title="statement not covered" >  return _isTypeOf(value, "object");</span>
 }
 &nbsp;
 /**
@@ -620,7 +620,7 @@ export function <span class="fstat-no" title="function not covered" >isObject(</
  * @returns true if value is a string and is not null or undefined
  */
 export function isStringPresent(value: unknown): value is RequiredType&lt;string&gt; {
-    return _typeOfPresent(value, "string");
+  return _typeOfPresent(value, "string");
 }
 &nbsp;
 /**
@@ -629,7 +629,7 @@ export function isStringPresent(value: unknown): value is RequiredType&lt;string
  * @returns true if value is a string
  */
 export function isString(value: unknown): value is OptionalType&lt;string&gt; {
-    return _isTypeOf(value, "string");
+  return _isTypeOf(value, "string");
 }
 &nbsp;
 /**
@@ -638,7 +638,7 @@ export function isString(value: unknown): value is OptionalType&lt;string&gt; {
  * @returns true if value is a number and is not null or undefined
  */
 export function isNumberPresent(value: unknown): value is RequiredType&lt;number&gt; {
-    return _typeOfPresent(value, "number");
+  return _typeOfPresent(value, "number");
 }
 &nbsp;
 /**
@@ -647,7 +647,7 @@ export function isNumberPresent(value: unknown): value is RequiredType&lt;number
  * @returns true if value is a number
  */
 export function isNumber(value: unknown): value is OptionalType&lt;number&gt; {
-    return _isTypeOf(value, "number");
+  return _isTypeOf(value, "number");
 }
 &nbsp;
 /**
@@ -656,7 +656,7 @@ export function isNumber(value: unknown): value is OptionalType&lt;number&gt; {
  * @returns true if value is a symbol and is not null or undefined
  */
 export function isSymbolPresent(value: unknown): value is RequiredType&lt;symbol&gt; {
-    return _typeOfPresent(value, "symbol");
+  return _typeOfPresent(value, "symbol");
 }
 &nbsp;
 /**
@@ -665,7 +665,7 @@ export function isSymbolPresent(value: unknown): value is RequiredType&lt;symbol
  * @returns true if value is a symbol
  */
 export function isSymbol(value: unknown): value is OptionalType&lt;symbol&gt; {
-    return _isTypeOf(value, "symbol");
+  return _isTypeOf(value, "symbol");
 }
 &nbsp;
 /**
@@ -674,7 +674,7 @@ export function isSymbol(value: unknown): value is OptionalType&lt;symbol&gt; {
  * @returns true if value is a boolean and is not null or undefined
  */
 export function isBooleanPresent(value: unknown): value is RequiredType&lt;boolean&gt; {
-    return _typeOfPresent(value, "boolean");
+  return _typeOfPresent(value, "boolean");
 }
 &nbsp;
 /**
@@ -683,7 +683,7 @@ export function isBooleanPresent(value: unknown): value is RequiredType&lt;boole
  * @returns true if value is a boolean
  */
 export function isBoolean(value: unknown): value is OptionalType&lt;boolean&gt; {
-    return _isTypeOf(value, "boolean");
+  return _isTypeOf(value, "boolean");
 }
 &nbsp;
 /**
@@ -692,7 +692,7 @@ export function isBoolean(value: unknown): value is OptionalType&lt;boolean&gt; 
  * @returns true if value is a bigint and is not null or undefined
  */
 export function isBigIntPresent(value: unknown): value is RequiredType&lt;bigint&gt; {
-    return _typeOfPresent(value, "bigint");
+  return _typeOfPresent(value, "bigint");
 }
 &nbsp;
 /**
@@ -701,7 +701,7 @@ export function isBigIntPresent(value: unknown): value is RequiredType&lt;bigint
  * @returns true if value is a bigint
  */
 export function isBigInt(value: unknown): value is OptionalType&lt;bigint&gt; {
-    return _isTypeOf(value, "bigint");
+  return _isTypeOf(value, "bigint");
 }
 &nbsp;
 /**
@@ -710,7 +710,7 @@ export function isBigInt(value: unknown): value is OptionalType&lt;bigint&gt; {
  * @returns true if value is a constructor and is not null or undefined
  */
 export function isConstructorPresent&lt;T&gt;(value: unknown): value is RequiredType&lt;(new () =&gt; T)&gt; {
-    return isFunctionPresent(value) &amp;&amp;'prototype' in value &amp;&amp; 'constructor' in value
+  return isFunctionPresent(value) &amp;&amp; 'prototype' in value &amp;&amp; 'constructor' in value
 }
 &nbsp;
 /**
@@ -719,7 +719,7 @@ export function isConstructorPresent&lt;T&gt;(value: unknown): value is Required
  * @returns true if value is a constructor
  */
 export function isConstructor&lt;T&gt;(value: unknown): value is OptionalType&lt;(new () =&gt; T)&gt; {
-   return isNotPresent(value) || isConstructorPresent&lt;T&gt;(value);
+  return isNotPresent(value) || isConstructorPresent&lt;T&gt;(value);
 }
 &nbsp;
 /**
@@ -730,8 +730,8 @@ export function isConstructor&lt;T&gt;(value: unknown): value is OptionalType&lt
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function hasFunctions(value: unknown, ...propertyNames: (string|symbol)[]): value is RequiredType&lt;UnknownFunction&gt; {
-    return _hasFunctions(value, propertyNames, false);
+export function hasFunctions(value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType&lt;UnknownFunction&gt; {
+  return _hasFunctions(value, propertyNames, false);
 }
 &nbsp;
 /**
@@ -741,29 +741,29 @@ export function hasFunctions(value: unknown, ...propertyNames: (string|symbol)[]
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function <span class="fstat-no" title="function not covered" >hasFunctionsPresent(</span>value: unknown, ...propertyNames: (string|symbol)[]):  value is RequiredType&lt;UnknownFunction&gt;{
-<span class="cstat-no" title="statement not covered" >    return _hasFunctions(value, propertyNames, true);</span>
+export function <span class="fstat-no" title="function not covered" >hasFunctionsPresent(</span>value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType&lt;UnknownFunction&gt; {
+<span class="cstat-no" title="statement not covered" >  return _hasFunctions(value, propertyNames, true);</span>
 }
 &nbsp;
 function _isTypeOf&lt;T&gt;(value: unknown, type: string): value is OptionalType&lt;T&gt; {
-      return isNotPresent(value) || _typeOfPresent(value, type);
+  return isNotPresent(value) || _typeOfPresent(value, type);
 }
 &nbsp;
 function _typeOfPresent&lt;T&gt;(value: unknown, type: string): value is RequiredType&lt;T&gt; {
-    return isPresent(value) &amp;&amp; typeof value === type;
+  return isPresent(value) &amp;&amp; typeof value === type;
 }
 &nbsp;
 function _hasFunctions(value: unknown, propertyNames: (string | symbol)[], required: boolean): boolean {
-    if (isNotPresent(value)) {
-        return !required;
+  if (isNotPresent(value)) {
+    return !required;
+  }
+  const record = value as Record&lt;string | symbol, unknown&gt;;
+  for (const propertyName of propertyNames) {
+    if (!isFunctionPresent(record[propertyName])) {
+      return false;
     }
-    const record = value as Record&lt;string|symbol, unknown&gt;;
-    for (const propertyName of propertyNames) {
-        if (!isFunctionPresent(record[propertyName])) {
-            return false;
-        }
-    }
-    return true;
+  }
+  return true;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -772,7 +772,7 @@ function _hasFunctions(value: unknown, propertyNames: (string | symbol)[], requi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

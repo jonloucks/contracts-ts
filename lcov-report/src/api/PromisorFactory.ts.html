@@ -241,48 +241,48 @@ import { OptionalType, RequiredType, Transform, hasFunctions } from "contracts-t
  * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
  */
 export interface PromisorFactory {
- 
-    /**
-     * Creates a Promisor that returns the given value every time it is claimed.
-     *
-     * @param deliverable the value to
-     * @return The new Promisor
-     * @param &lt;T&gt; the type of deliverable
-     */
-    createValue&lt;T&gt;(deliverable: OptionalType&lt;T&gt;) : RequiredType&lt;Promisor&lt;T&gt;&gt;;
-    
-    /**
-     * Creates a Promisor that only calls the source Promisor once and then always
-     * returns that value.
-     * Note: increment and decrementUsage are relayed to the source promisor.
-     *
-     * @param promisor the source Promisor
-     * @return The new Promisor
-     * @param &lt;T&gt; the type of deliverable
-     */
-    createSingleton&lt;T&gt;(promisor : PromisorType&lt;T&gt;) : RequiredType&lt;Promisor&lt;T&gt;&gt;;
-    
-    /**
-     * Reference counted, lazy loaded, with opt-in 'open' and 'close' invoked on deliverable.
-     * Note: increment and decrementUsage are relayed to the source promisor.
-     *
-     * @param promisor the source promisor
-     * @return the new Promisor
-     * @param &lt;T&gt; the type of deliverable
-     */
-    createLifeCycle&lt;T&gt;(promisor : PromisorType&lt;T&gt;) : RequiredType&lt;Promisor&lt;T&gt;&gt;;
-    
-    /**
-     * Extract
-     * Note: increment and decrementUsage are relayed to the source promisor.
-     *
-     * @param promisor the source promisor
-     * @param extractor the function that gets an object from the deliverable. For example Person  =&gt; Age
-     * @return the new Promisor
-     * @param &lt;T&gt; the type of deliverable
-     * @param &lt;R&gt; the new Promisor deliverable type
-     */
-    createExtractor&lt;T,R&gt;(promisor: PromisorType&lt;T&gt;, extractor: Transform&lt;T, R&gt;) : RequiredType&lt;Promisor&lt;R&gt;&gt;;
+&nbsp;
+  /**
+   * Creates a Promisor that returns the given value every time it is claimed.
+   *
+   * @param deliverable the value to
+   * @return The new Promisor
+   * @param &lt;T&gt; the type of deliverable
+   */
+  createValue&lt;T&gt;(deliverable: OptionalType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt;;
+&nbsp;
+  /**
+   * Creates a Promisor that only calls the source Promisor once and then always
+   * returns that value.
+   * Note: increment and decrementUsage are relayed to the source promisor.
+   *
+   * @param promisor the source Promisor
+   * @return The new Promisor
+   * @param &lt;T&gt; the type of deliverable
+   */
+  createSingleton&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt;;
+&nbsp;
+  /**
+   * Reference counted, lazy loaded, with opt-in 'open' and 'close' invoked on deliverable.
+   * Note: increment and decrementUsage are relayed to the source promisor.
+   *
+   * @param promisor the source promisor
+   * @return the new Promisor
+   * @param &lt;T&gt; the type of deliverable
+   */
+  createLifeCycle&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt;;
+&nbsp;
+  /**
+   * Extract
+   * Note: increment and decrementUsage are relayed to the source promisor.
+   *
+   * @param promisor the source promisor
+   * @param extractor the function that gets an object from the deliverable. For example Person  =&gt; Age
+   * @return the new Promisor
+   * @param &lt;T&gt; the type of deliverable
+   * @param &lt;R&gt; the new Promisor deliverable type
+   */
+  createExtractor&lt;T, R&gt;(promisor: PromisorType&lt;T&gt;, extractor: Transform&lt;T, R&gt;): RequiredType&lt;Promisor&lt;R&gt;&gt;;
 }
 &nbsp;
 /**
@@ -290,24 +290,24 @@ export interface PromisorFactory {
  */
 export const LAWYER: Lawyer&lt;PromisorFactory&gt; = new class implements Lawyer&lt;PromisorFactory&gt; {
 &nbsp;
-    /**
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable&lt;X extends PromisorFactory&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
-        return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
-    }
+  /**
+   * Lawyer.isDeliverable override
+   */
+  isDeliverable&lt;X extends PromisorFactory&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
+    return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
+  }
 &nbsp;
-    /** 
-     * Lawyer.createContract override
-     */
-    createContract&lt;X extends PromisorFactory&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
-        const copy: ContractConfig&lt;X&gt; = { ...config ?? {} };
+  /** 
+   * Lawyer.createContract override
+   */
+  createContract&lt;X extends PromisorFactory&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
+    const copy: ContractConfig&lt;X&gt; = { ...config ?? {} };
 &nbsp;
-        copy.test ??= this.isDeliverable;
-        copy.typeName ??= "PromisorFactory";
+    copy.test ??= this.isDeliverable;
+    copy.typeName ??= "PromisorFactory";
 &nbsp;
-        return createContract&lt;X&gt;(copy);
-    }
+    return createContract&lt;X&gt;(copy);
+  }
 };
 &nbsp;
 /**
@@ -322,7 +322,7 @@ export const CONTRACT: Contract&lt;PromisorFactory&gt; = LAWYER.createContract()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

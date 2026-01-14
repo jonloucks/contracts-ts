@@ -384,7 +384,7 @@ import { StorageImpl } from "contracts-ts/impl/Storage.impl";
  * @returns the Repository implementation
  */
 export function create(contracts: Contracts): RequiredType&lt;Repository&gt; {
-    return RepositoryImpl.internalCreate(contracts);
+  return RepositoryImpl.internalCreate(contracts);
 }
 &nbsp;
 // ---- Implementation details below ----
@@ -395,121 +395,121 @@ export function create(contracts: Contracts): RequiredType&lt;Repository&gt; {
  */
 class RepositoryImpl implements Repository {
 &nbsp;
-    /**
-     * AutoOpen.open override.
-     */
-    open(): AutoClose {
-        if (this.idempotent.transitionToOpen()) {
-            return this.firstOpen();
-        }
-        return AUTO_CLOSE_NONE;
+  /**
+   * AutoOpen.open override.
+   */
+  open(): AutoClose {
+    if (this.idempotent.transitionToOpen()) {
+      return this.firstOpen();
+    }
+    return AUTO_CLOSE_NONE;
+  }
+&nbsp;
+  /**
+   * Repository.store override.
+   */
+  store&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategy | undefined | null): AutoClose {
+    const validContract: Contract&lt;T&gt; = contractCheck(contract);
+    const validPromisor: Promisor&lt;T&gt; = typeToPromisor(promisor);
+    const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
+&nbsp;
+    if (this.#storedContracts.has(validContract) &amp;&amp; this.idempotent.isOpen()) {
+      throw new ContractException("The contract " + validContract + "  is already stored.");
     }
 &nbsp;
-    /**
-     * Repository.store override.
-     */
-    store&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategy | undefined | null): AutoClose {
-        const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        const validPromisor: Promisor&lt;T&gt; = typeToPromisor(promisor);
-        const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
+    const storage: StorageImpl&lt;T | null&gt; = new StorageImpl&lt;T | null&gt;(this.contracts, validContract, validPromisor, validBindStrategy);
 &nbsp;
-        if (this.#storedContracts.has(validContract) &amp;&amp; this.idempotent.isOpen()) {
-            throw new ContractException("The contract " + validContract + "  is already stored.");
-        }
-&nbsp;
-        const storage: StorageImpl&lt;T | null&gt; = new StorageImpl&lt;T | null&gt;(this.contracts, validContract, validPromisor, validBindStrategy);
-&nbsp;
-        if (this.idempotent.isOpen()) {
-            storage.bind();
-        }
-&nbsp;
-        this.#storedContracts.set(validContract, storage);
-&nbsp;
-        return inlineAutoClose(() =&gt; {
-            if (this.#storedContracts.get(validContract) === storage) {
-                this.#storedContracts.delete(validContract);
-                storage.close();
-            }
-        });
+    if (this.idempotent.isOpen()) {
+      storage.bind();
     }
 &nbsp;
-    /**
-     * Repository.keep override.
-     */
-    keep&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: OptionalType&lt;BindStrategy&gt;): void {
-        this.store(contract, promisor, resolveBindStrategy(bindStrategy));
+    this.#storedContracts.set(validContract, storage);
+&nbsp;
+    return inlineAutoClose(() =&gt; {
+      if (this.#storedContracts.get(validContract) === storage) {
+        this.#storedContracts.delete(validContract);
+        storage.close();
+      }
+    });
+  }
+&nbsp;
+  /**
+   * Repository.keep override.
+   */
+  keep&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: OptionalType&lt;BindStrategy&gt;): void {
+    this.store(contract, promisor, resolveBindStrategy(bindStrategy));
+  }
+&nbsp;
+  /**
+   * Repository.check override.
+   */
+  check(): void {
+    this.#requiredContracts.forEach((contract) =&gt; {
+      if (!this.contracts.isBound(contract)) {
+        throw new ContractException("The contract " + contract + " is required.");
+      }
+    });
+  }
+&nbsp;
+  /**
+   * Repository.require override.
+   */
+  require&lt;T&gt;(contract: Contract&lt;T&gt;): void {
+    const validContract: Contract&lt;T&gt; = contractCheck(contract);
+&nbsp;
+    this.#requiredContracts.add(validContract);
+  }
+&nbsp;
+  /**
+   * Object.toString override.
+   */
+  toString(): string {
+    return `Repository(id=${this.id}, size=${this.#storedContracts.size})`;
+  }
+&nbsp;
+  private constructor(contracts: Contracts) {
+    this.contracts = contracts;
+  }
+&nbsp;
+  private firstOpen(): AutoClose {
+    for (const storage of this.#storedContracts.values()) {
+      storage.bind();
     }
+    this.check();
+    return inlineAutoClose(() =&gt; this.closeFirstOpen());
+  }
 &nbsp;
-    /**
-     * Repository.check override.
-     */
-    check(): void {
-        this.#requiredContracts.forEach((contract) =&gt; {
-            if (!this.contracts.isBound(contract)) {
-                throw new ContractException("The contract " + contract + " is required.");
-            }
-        });
+  private closeFirstOpen(): void {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.idempotent.transitionToClosed()) {
+      this.reverseCloseStorage();
     }
+  }
 &nbsp;
-    /**
-     * Repository.require override.
-     */
-    require&lt;T&gt;(contract: Contract&lt;T&gt;): void {
-        const validContract: Contract&lt;T&gt; = contractCheck(contract);
-&nbsp;
-        this.#requiredContracts.add(validContract);
+  private reverseCloseStorage(): void {
+    const storageStack: StorageImpl&lt;unknown&gt;[] = [];
+    for (const storage of this.#storedContracts.values()) {
+      storageStack.push(storage);
     }
-&nbsp;
-    /**
-     * Object.toString override.
-     */
-    toString(): string {
-        return `Repository(id=${this.id}, size=${this.#storedContracts.size})`;
+    try {
+      while (storageStack.length &gt; 0) {
+        storageStack.pop()!.close();
+      }
+    } finally {
+      this.#storedContracts.clear();
     }
+  }
 &nbsp;
-    private constructor(contracts: Contracts) {
-        this.contracts = contracts;
-    }
+  static internalCreate(contracts: Contracts): RequiredType&lt;Repository&gt; {
+    return new RepositoryImpl(contracts);
+  }
 &nbsp;
-    private firstOpen(): AutoClose {
-        for (const storage of this.#storedContracts.values()) {
-            storage.bind();
-        }
-        this.check();
-        return inlineAutoClose(() =&gt; this.closeFirstOpen());
-    }
+  private static ID_GENERATOR: number = 1;
 &nbsp;
-    private closeFirstOpen(): void {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.idempotent.transitionToClosed()) {
-            this.reverseCloseStorage();
-        }
-    }
-&nbsp;
-    private reverseCloseStorage(): void {
-        const storageStack: StorageImpl&lt;unknown&gt;[] = [];
-        for (const storage of this.#storedContracts.values()) {
-            storageStack.push(storage);
-        }
-        try {
-            while (storageStack.length &gt; 0) {
-                storageStack.pop()!.close();
-            }
-        } finally {
-            this.#storedContracts.clear();
-        }
-    }
-&nbsp;
-    static internalCreate(contracts: Contracts): RequiredType&lt;Repository&gt; {
-        return new RepositoryImpl(contracts);
-    }
-&nbsp;
-    private static ID_GENERATOR: number = 1;
-&nbsp;
-    private readonly id: number = RepositoryImpl.ID_GENERATOR++;
-    readonly #storedContracts = new Map&lt;Contract&lt;unknown&gt;, StorageImpl&lt;unknown&gt;&gt;();
-    private readonly contracts: Contracts;
-    private readonly idempotent: Idempotent = createIdempotent();
-    readonly #requiredContracts: Set&lt;Contract&lt;unknown&gt;&gt; = new Set&lt;Contract&lt;unknown&gt;&gt;();
+  private readonly id: number = RepositoryImpl.ID_GENERATOR++;
+  readonly #storedContracts = new Map&lt;Contract&lt;unknown&gt;, StorageImpl&lt;unknown&gt;&gt;();
+  private readonly contracts: Contracts;
+  private readonly idempotent: Idempotent = createIdempotent();
+  readonly #requiredContracts: Set&lt;Contract&lt;unknown&gt;&gt; = new Set&lt;Contract&lt;unknown&gt;&gt;();
 }
 &nbsp;
 &nbsp;
@@ -520,7 +520,7 @@ class RepositoryImpl implements Repository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

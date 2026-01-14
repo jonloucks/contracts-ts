@@ -283,29 +283,29 @@ import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPr
  */
 export interface Promisor&lt;T&gt; {
 &nbsp;
-    /**
-     * Return the deliverable promised for a Contract
-     * @return the current deliverable
-     */
-    demand(): OptionalType&lt;T&gt;;
+  /**
+   * Return the deliverable promised for a Contract
+   * @return the current deliverable
+   */
+  demand(): OptionalType&lt;T&gt;;
 &nbsp;
-    /**
-     * Reference counting used for advanced resource management
-     * Incremented when bound or by other Promisors
-     * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
-     * Every successful 'open' must be followed by a 'close' at the appropriate time
-     * @return the usage count.  This might be a constant
-     */
-    incrementUsage(): number;
+  /**
+   * Reference counting used for advanced resource management
+   * Incremented when bound or by other Promisors
+   * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
+   * Every successful 'open' must be followed by a 'close' at the appropriate time
+   * @return the usage count.  This might be a constant
+   */
+  incrementUsage(): number;
 &nbsp;
-    /**
-     * Reference counting used for advanced resource management
-     * Incremented by when bound or by other Promisors
-     * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
-     * Every successful 'open' must be followed by a 'close' at the appropriate time
-     * @return the usage count.  This might be a constant
-     */
-    decrementUsage(): number;
+  /**
+   * Reference counting used for advanced resource management
+   * Incremented by when bound or by other Promisors
+   * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
+   * Every successful 'open' must be followed by a 'close' at the appropriate time
+   * @return the usage count.  This might be a constant
+   */
+  decrementUsage(): number;
 }
 &nbsp;
 /**
@@ -313,24 +313,24 @@ export interface Promisor&lt;T&gt; {
  */
 export const LAWYER: Lawyer&lt;Promisor&lt;unknown&gt;&gt; = new class implements Lawyer&lt;Promisor&lt;unknown&gt;&gt; {
 &nbsp;
-    /**
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable&lt;X extends Promisor&lt;unknown&gt;&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
-        return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
-    }
+  /**
+   * Lawyer.isDeliverable override
+   */
+  isDeliverable&lt;X extends Promisor&lt;unknown&gt;&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
+    return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
+  }
 &nbsp;
-    /** 
-     * Lawyer.createContract override
-     */
-<span class="fstat-no" title="function not covered" >    createContract&lt;</span>X extends Promisor&lt;unknown&gt;&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
-        const copy: ContractConfig&lt;X&gt; = <span class="cstat-no" title="statement not covered" >{ ...config ?? {} };</span>
+  /** 
+   * Lawyer.createContract override
+   */
+<span class="fstat-no" title="function not covered" >  createContract&lt;</span>X extends Promisor&lt;unknown&gt;&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
+    const copy: ContractConfig&lt;X&gt; = <span class="cstat-no" title="statement not covered" >{ ...config ?? {} };</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        copy.test ??= this.isDeliverable;</span>
-<span class="cstat-no" title="statement not covered" >        copy.typeName ??= "Promisor";</span>
+<span class="cstat-no" title="statement not covered" >    copy.test ??= this.isDeliverable;</span>
+<span class="cstat-no" title="statement not covered" >    copy.typeName ??= "Promisor";</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return createContract&lt;X&gt;(copy);</span>
-    }
+<span class="cstat-no" title="statement not covered" >    return createContract&lt;X&gt;(copy);</span>
+  }
 }
 &nbsp;
 /**
@@ -343,18 +343,18 @@ export type PromisorType&lt;T&gt; = (new () =&gt; T) | Promisor&lt;T&gt; | (() =
  * @param type the type to convert
  * @returns the Promisor
  */
-export function typeToPromisor&lt;T&gt;(type: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt;{
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNotPresent(type)) {
-<span class="cstat-no" title="statement not covered" >        return inlinePromisor&lt;T&gt;(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >type)</span>;</span>
-    } else if (isConstructorPresent&lt;T&gt;(type)) {
-        return inlinePromisor&lt;T&gt;(() =&gt; new type());
-    } else if (LAWYER.isDeliverable&lt;Promisor&lt;T&gt;&gt;(type)) {
-        return type as RequiredType&lt;Promisor&lt;T&gt;&gt;;
-    } else if (typeof type === 'function') {
-        return inlinePromisor&lt;T&gt;(type as () =&gt; T); // not sure if this works for (() =&gt; () =&gt; T)
-    } else {
-        return inlinePromisor&lt;T&gt;(() =&gt; type);
-    }
+export function typeToPromisor&lt;T&gt;(type: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (isNotPresent(type)) {
+<span class="cstat-no" title="statement not covered" >    return inlinePromisor&lt;T&gt;(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >type)</span>;</span>
+  } else if (isConstructorPresent&lt;T&gt;(type)) {
+    return inlinePromisor&lt;T&gt;(() =&gt; new type());
+  } else if (LAWYER.isDeliverable&lt;Promisor&lt;T&gt;&gt;(type)) {
+    return type as RequiredType&lt;Promisor&lt;T&gt;&gt;;
+  } else if (typeof type === 'function') {
+    return inlinePromisor&lt;T&gt;(type as () =&gt; T); // not sure if this works for (() =&gt; () =&gt; T)
+  } else {
+    return inlinePromisor&lt;T&gt;(() =&gt; type);
+  }
 }
 &nbsp;
 /**
@@ -363,13 +363,13 @@ export function typeToPromisor&lt;T&gt;(type: PromisorType&lt;T&gt;): RequiredTy
  * @returns the Promisor
  */
 export function inlinePromisor&lt;T&gt;(demand: () =&gt; OptionalType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-    const validDemand = presentCheck(demand, "Promisor demand function must be present.");
-    let usageCount : number = 0;
-    return {
-        demand: validDemand,
-        incrementUsage: () =&gt; ++usageCount,
-        decrementUsage: () =&gt; --usageCount
-    };
+  const validDemand = presentCheck(demand, "Promisor demand function must be present.");
+  let usageCount: number = 0;
+  return {
+    demand: validDemand,
+    incrementUsage: () =&gt; ++usageCount,
+    decrementUsage: () =&gt; --usageCount
+  };
 }
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -379,7 +379,7 @@ export function inlinePromisor&lt;T&gt;(demand: () =&gt; OptionalType&lt;T&gt;):
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

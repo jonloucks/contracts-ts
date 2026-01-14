@@ -279,7 +279,7 @@ import { OptionalType, RequiredType, isNotPresent, isPresent } from "contracts-t
  * @returns the created RatifiedContract
  */
 export function create&lt;T&gt;(config?: Config&lt;T&gt; | null): Contract&lt;T&gt; {
-    return RatifiedContract.create&lt;T&gt;(config);
+  return RatifiedContract.create&lt;T&gt;(config);
 }
 &nbsp;
 /**
@@ -288,7 +288,7 @@ export function create&lt;T&gt;(config?: Config&lt;T&gt; | null): Contract&lt;T&
  * @returns true if the instance is a RatifiedContract, false otherwise
  */
 export function isRatifiedContract(instance: unknown): instance is RatifiedContract&lt;unknown&gt; {
-    return RatifiedContract.isRatifiedContract(instance);
+  return RatifiedContract.isRatifiedContract(instance);
 }
 &nbsp;
 /**
@@ -298,10 +298,10 @@ export function isRatifiedContract(instance: unknown): instance is RatifiedContr
  * @returns true if the configuration is ratifiable, false otherwise
  */
 export function isRatifiableConfig&lt;T&gt;(config?: OptionalType&lt;Config&lt;T&gt;&gt;): config is RequiredType&lt;Config&lt;T&gt;&gt; {
-    if (isNotPresent(config)) {
-        return false;
-    }
-    return isPresent(config.test) || isPresent(config.cast);
+  if (isNotPresent(config)) {
+    return false;
+  }
+  return isPresent(config.test) || isPresent(config.cast);
 }
 &nbsp;
 /**
@@ -312,60 +312,60 @@ export function isRatifiableConfig&lt;T&gt;(config?: OptionalType&lt;Config&lt;T
  */
 class RatifiedContract&lt;T&gt; extends BasicContract&lt;T&gt; {
 &nbsp;
-    /**
-      * Create a contract derived from the given configuration
-      *
-      * @param config the name for the contract, null is not allowed
-      * @param &lt;T&gt;    the type of deliverable for this Contract
-      * @return the new Contract
-      */
-    static create&lt;T&gt;(config?: Config&lt;T&gt; | null): Contract&lt;T&gt; {
-        return new RatifiedContract&lt;T&gt;(config);
-    }
+  /**
+    * Create a contract derived from the given configuration
+    *
+    * @param config the name for the contract, null is not allowed
+    * @param &lt;T&gt;    the type of deliverable for this Contract
+    * @return the new Contract
+    */
+  static create&lt;T&gt;(config?: Config&lt;T&gt; | null): Contract&lt;T&gt; {
+    return new RatifiedContract&lt;T&gt;(config);
+  }
 &nbsp;
-    static isRatifiedContract(instance: unknown): instance is RatifiedContract&lt;unknown&gt; {
-        if (isNotPresent(instance)) {
-            return false;
-        }
-        try {
-            const candidate = instance as RatifiedContract&lt;unknown&gt;;
-            return candidate.#secret === RatifiedContract.#SECRET;
-        } catch {
-            return false;
-        }
+  static isRatifiedContract(instance: unknown): instance is RatifiedContract&lt;unknown&gt; {
+    if (isNotPresent(instance)) {
+      return false;
     }
-&nbsp;
-    /**
-     * Being a RatifiedContract means something special. It is not something that you proclaim
-     * by extending the class or duck-typing.
-     * This is an integrity check to prevent duck-typing or extending Contract class.
-     * Since private constructors can still be invoked.
-     * This is not a security mechanism, just an integrity check.
-     * This relies on TypeScript private fields which are enforced at runtime.
-     * 
-     * @throws ContractException when integrity check fails
-     */
-    private integrityCheck(): void {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.#secret !== RatifiedContract.#SECRET) {
-<span class="cstat-no" title="statement not covered" >            throw new ContractException('Integrity violation detected. This is not permitted.');</span>
-        }
+    try {
+      const candidate = instance as RatifiedContract&lt;unknown&gt;;
+      return candidate.#secret === RatifiedContract.#SECRET;
+    } catch {
+      return false;
     }
+  }
 &nbsp;
-    private constructor(config?: OptionalType&lt;Config&lt;T&gt;&gt;) {
-        super(RatifiedContract.validateConfig(config));
-        Object.freeze(this);
-        this.integrityCheck();
+  /**
+   * Being a RatifiedContract means something special. It is not something that you proclaim
+   * by extending the class or duck-typing.
+   * This is an integrity check to prevent duck-typing or extending Contract class.
+   * Since private constructors can still be invoked.
+   * This is not a security mechanism, just an integrity check.
+   * This relies on TypeScript private fields which are enforced at runtime.
+   * 
+   * @throws ContractException when integrity check fails
+   */
+  private integrityCheck(): void {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.#secret !== RatifiedContract.#SECRET) {
+<span class="cstat-no" title="statement not covered" >      throw new ContractException('Integrity violation detected. This is not permitted.');</span>
     }
+  }
 &nbsp;
-    private static validateConfig&lt;T&gt;(config?: OptionalType&lt;Config&lt;T&gt;&gt;) : RequiredType&lt;Config&lt;T&gt;&gt; {
-        if (isRatifiableConfig(config)) {
-            return config as RequiredType&lt;Config&lt;T&gt;&gt;;
-        }
-        throw new ContractException("RatifiedContract requires either a test or cast function must be present.");
+  private constructor(config?: OptionalType&lt;Config&lt;T&gt;&gt;) {
+    super(RatifiedContract.validateConfig(config));
+    Object.freeze(this);
+    this.integrityCheck();
+  }
+&nbsp;
+  private static validateConfig&lt;T&gt;(config?: OptionalType&lt;Config&lt;T&gt;&gt;): RequiredType&lt;Config&lt;T&gt;&gt; {
+    if (isRatifiableConfig(config)) {
+      return config as RequiredType&lt;Config&lt;T&gt;&gt;;
     }
+    throw new ContractException("RatifiedContract requires either a test or cast function must be present.");
+  }
 &nbsp;
-    static readonly #SECRET: symbol = Symbol("Contract");
-    readonly #secret: symbol = RatifiedContract.#SECRET;
+  static readonly #SECRET: symbol = Symbol("Contract");
+  readonly #secret: symbol = RatifiedContract.#SECRET;
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -373,7 +373,7 @@ class RatifiedContract&lt;T&gt; extends BasicContract&lt;T&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

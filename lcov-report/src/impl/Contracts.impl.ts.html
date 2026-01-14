@@ -641,7 +641,7 @@ import { Policy, create as createPolicy } from "contracts-ts/impl/Policy.impl";
  * @returns the Contracts implementation
  */
 export function create(config: Config): RequiredType&lt;Contracts&gt; {
-    return ContractsImpl.internalCreate(config);
+  return ContractsImpl.internalCreate(config);
 }
 &nbsp;
 // ---- Implementation details below ----
@@ -651,245 +651,245 @@ export function create(config: Config): RequiredType&lt;Contracts&gt; {
  */
 class ContractsImpl implements Contracts {
 &nbsp;
-    /**
-     * AutoOpen.open override.
-     */
-    open(): AutoClose {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (this.idempotent.transitionToOpen()) {
-            return this.firstOpen();
+  /**
+   * AutoOpen.open override.
+   */
+  open(): AutoClose {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.idempotent.transitionToOpen()) {
+      return this.firstOpen();
+    }
+<span class="cstat-no" title="statement not covered" >    return AUTO_CLOSE_NONE;</span>
+  }
+&nbsp;
+  /**
+   * Contracts.claim override.
+   */
+  claim&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
+    const validContract: Contract&lt;T&gt; = contractCheck(contract);
+    this.policy.checkContract(validContract);
+    const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
+&nbsp;
+    if (isPresent(promisor)) {
+      return validContract.cast(promisor.demand());
+    } else {
+      return this.claimFromPartners(validContract);
+    }
+  }
+&nbsp;
+  /**
+   * Contracts.enforce override.
+   */
+  enforce&lt;T&gt;(contract: Contract&lt;T&gt;): RequiredType&lt;T&gt; {
+    const deliverable: OptionalType&lt;T&gt; = this.claim(contract);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (isPresent(deliverable)) {
+      return deliverable;
+    }
+<span class="cstat-no" title="statement not covered" >    throw new ContractException("Contract " + contract + " enforcement failed: No value present.");</span>
+  }
+&nbsp;
+  /**
+   * Contracts.isBound override.
+   */
+  isBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
+    const validContract: Contract&lt;T&gt; = contractCheck(contract);
+    this.policy.checkContract(validContract);
+    const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
+    return isPresent(promisor) || this.isAnyPartnerBound(contract);
+  }
+&nbsp;
+  /**
+   * Contracts.bind override.
+   */
+  bind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategyType): AutoClose {
+    const validContract: Contract&lt;T&gt; = contractCheck(contract);
+    this.policy.checkContract(validContract);
+    const validPromisor: Promisor&lt;T&gt; = typeToPromisor&lt;T&gt;(promisor);
+    const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
+&nbsp;
+    return this.maybeBind(validContract, validPromisor, validBindStrategy);
+  }
+&nbsp;
+  /**
+   * Object.toString override.
+   */
+<span class="fstat-no" title="function not covered" >  toString(</span>): string {
+<span class="cstat-no" title="statement not covered" >    return `Contracts[size: ${this.#promisorMap.size}]`;</span>
+  }
+&nbsp;
+  static internalCreate(config: Config): RequiredType&lt;Contracts&gt; {
+    return new ContractsImpl(config);
+  }
+&nbsp;
+  private firstOpen(): AutoClose {
+    this.closeMany.add(this.events.open());
+    return inlineAutoClose(() =&gt; this.closeFirstOpen());
+  }
+&nbsp;
+  private closeFirstOpen(): void {
+    if (this.idempotent.transitionToClosed()) {
+      try {
+        this.attemptToCloseBindings();
+      } finally {
+        this.closeMany.close();
+      }
+    }
+  }
+&nbsp;
+  private attemptToCloseBindings(): void {
+    for (let attempts: number = 1; attempts &lt;= 6; attempts++) {
+      if (this.breakAllBindings() === 0) {
+        return;
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    this.throwCloseDidNotCompleteException();</span>
+  }
+&nbsp;
+  private maybeBind&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy): AutoClose {
+    if (this.checkBind(contract, newPromisor, bindStrategy)) {
+      return this.doBind(contract, newPromisor);
+    } else {
+      return AUTO_CLOSE_NONE;
+    }
+  }
+&nbsp;
+  private checkBind&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy): boolean {
+    const optionalCurrent: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(contract);
+&nbsp;
+    if (isPresent(optionalCurrent)) {
+      return this.checkReplacement(contract, newPromisor, bindStrategy, optionalCurrent);
+    } else {
+      return true;
+    }
+  }
+&nbsp;
+  private checkReplacement&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy, currentPromisor: Promisor&lt;T&gt;): boolean {
+    // Double bind of same promisor, do not rebind
+    // Review unwrapping if needed in future
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (currentPromisor === newPromisor) {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+&nbsp;
+    switch (bindStrategy) {
+      case "ALWAYS":
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (contract.replaceable) {
+<span class="cstat-no" title="statement not covered" >          return true;</span>
         }
-<span class="cstat-no" title="statement not covered" >        return AUTO_CLOSE_NONE;</span>
+        this.throwContractNotReplaceableException(contract);
+<span class="branch-1 cbranch-no" title="branch not covered" >      case "IF_NOT_BOUND":</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+      case "IF_ALLOWED":
+      default:
+        return contract.replaceable;
     }
+  }
 &nbsp;
-    /**
-     * Contracts.claim override.
-     */
-    claim&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
-        const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy.checkContract(validContract);
-        const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt;  = this.getFromPromisorMap(validContract);
+  private doBind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): AutoClose {
+    // Since ReentrantReadWriteLock does not support lock upgrade, there are opportunities
+    // for changes by other threads between the reads and writes.
+    // This is mitigated by always incrementing the new value and decrementing the old value.
+    promisor.incrementUsage();
 &nbsp;
-        if (isPresent(promisor)) {
-            return validContract.cast(promisor.demand());
-        } else {
-            return this.claimFromPartners(validContract);
+    const previousPromisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(contract);
+    this.#promisorMap.set(contract, promisor);
+    if (isPresent(previousPromisor)) {
+      previousPromisor.decrementUsage();
+    }
+    const breakBindingOnce: Idempotent = createIdempotent();
+    breakBindingOnce.transitionToOpen();
+    return inlineAutoClose(() =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (breakBindingOnce.transitionToClosed()) {
+        this.breakBinding(contract, promisor);
+      }
+    });
+  }
+&nbsp;
+  private breakBinding&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): void {
+    // it is possible the Contract has already been removed or updated with a new Promisor
+    // Checking the removed promisor is required to avoid:
+    //   1. Calling decrementUsage twice on Promisors already removed
+    //   2. Not calling decrementUsage enough times
+    // decrementing usage too many times.
+    try {
+      this.removeFromPromisorMap(contract, promisor);
+    } finally {
+      promisor.decrementUsage();
+    }
+  }
+&nbsp;
+  private removeFromPromisorMap&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): void {
+    if (this.#promisorMap.get(contract) === promisor) {
+      this.#promisorMap.delete(contract);
+    }
+  }
+&nbsp;
+  private getFromPromisorMap&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;Promisor&lt;T&gt;&gt; {
+    return (this.#promisorMap.get(contract) as OptionalType&lt;Promisor&lt;T&gt;&gt;);
+  }
+&nbsp;
+  private breakAllBindings(): number {
+    let contractCount: number = 0;
+    Internal.mapForEachReversed(this.#promisorMap, (contract, promisor) =&gt; {
+      this.breakBinding(contract, promisor);
+      contractCount++;
+    });
+    return contractCount;
+  }
+&nbsp;
+  private hasPartners(): boolean {
+    return this.partners.length &gt; 0;
+  }
+&nbsp;
+  private claimFromPartners&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
+    if (this.hasPartners()) {
+      for (const partner of this.partners) {
+        if (partner.isBound(contract)) {
+          return partner.claim(contract);
         }
+      }
     }
+    this.throwContractNotPromisedException(contract);
+  }
 &nbsp;
-    /**
-     * Contracts.enforce override.
-     */
-    enforce&lt;T&gt;(contract: Contract&lt;T&gt;): RequiredType&lt;T&gt; {
-        const deliverable: OptionalType&lt;T&gt; = this.claim(contract);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (isPresent(deliverable)) {
-            return deliverable;
-        }
-<span class="cstat-no" title="statement not covered" >        throw new ContractException("Contract " + contract + " enforcement failed: No value present.");</span>
+  private isAnyPartnerBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
+    if (this.hasPartners()) {
+      return this.partners.some(partner =&gt; partner.isBound(contract));
     }
+    return false;
+  }
 &nbsp;
-    /**
-     * Contracts.isBound override.
-     */
-    isBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
-        const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy.checkContract(validContract);
-        const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
-        return isPresent(promisor) || this.isAnyPartnerBound(contract);
+  private <span class="fstat-no" title="function not covered" >throwCloseDidNotCompleteException(</span>): never {
+<span class="cstat-no" title="statement not covered" >    throw new ContractException("Contracts failed to close after trying multiple times.");</span>
+  }
+&nbsp;
+  private throwContractNotPromisedException&lt;T&gt;(contract: Contract&lt;T&gt;): never {
+    throw new ContractException("Contract " + contract + " was not promised.");
+  }
+&nbsp;
+  private throwContractNotReplaceableException&lt;T&gt;(contract: Contract&lt;T&gt;): never {
+    throw new ContractException("Contract " + contract + " is not replaceable.");
+  }
+&nbsp;
+  private constructor(config: Config) {
+    const validConfig = configCheck(config);
+    const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
+&nbsp;
+    this.policy = createPolicy(validConfig);
+    this.events = createEvents({
+      names: validConfig?.shutdownEvents ?? [],
+      callback: () =&gt; this.closeFirstOpen()
+    });
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (validPartners) {
+      this.partners.push(...validPartners);
     }
+  }
 &nbsp;
-    /**
-     * Contracts.bind override.
-     */
-    bind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategyType): AutoClose {
-        const validContract: Contract&lt;T&gt; = contractCheck(contract);
-        this.policy.checkContract(validContract);
-        const validPromisor: Promisor&lt;T&gt; = typeToPromisor&lt;T&gt;(promisor);
-        const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
-&nbsp;
-        return this.maybeBind(validContract, validPromisor, validBindStrategy);
-    }
-&nbsp;
-    /**
-     * Object.toString override.
-     */
-<span class="fstat-no" title="function not covered" >    toString(</span>): string {
-<span class="cstat-no" title="statement not covered" >        return `Contracts[size: ${this.#promisorMap.size}]`;</span>
-    }
-&nbsp;
-    static internalCreate(config: Config): RequiredType&lt;Contracts&gt; {
-        return new ContractsImpl(config);
-    }
-&nbsp;
-    private firstOpen(): AutoClose {
-        this.closeMany.add(this.events.open());
-        return inlineAutoClose(() =&gt; this.closeFirstOpen());
-    }
-&nbsp;
-    private closeFirstOpen(): void {
-        if (this.idempotent.transitionToClosed()) {
-            try {
-                this.attemptToCloseBindings();
-            } finally {
-                this.closeMany.close();
-            }
-        }
-    }
-&nbsp;
-    private attemptToCloseBindings(): void {
-        for (let attempts: number = 1; attempts &lt;= 6; attempts++) {
-            if (this.breakAllBindings() === 0) {
-                return;
-            }
-        }
-<span class="cstat-no" title="statement not covered" >        this.throwCloseDidNotCompleteException();</span>
-    }
-&nbsp;
-    private maybeBind&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy): AutoClose {
-        if (this.checkBind(contract, newPromisor, bindStrategy)) {
-            return this.doBind(contract, newPromisor);
-        } else {
-            return AUTO_CLOSE_NONE;
-        }
-    }
-&nbsp;
-    private checkBind&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy): boolean {
-        const optionalCurrent: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(contract);
-&nbsp;
-        if (isPresent(optionalCurrent)) {
-            return this.checkReplacement(contract, newPromisor, bindStrategy, optionalCurrent);
-        } else {
-            return true;
-        }
-    }
-&nbsp;
-    private checkReplacement&lt;T&gt;(contract: Contract&lt;T&gt;, newPromisor: Promisor&lt;T&gt;, bindStrategy: BindStrategy, currentPromisor: Promisor&lt;T&gt;): boolean {
-        // Double bind of same promisor, do not rebind
-        // Review unwrapping if needed in future
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (currentPromisor === newPromisor) {
-<span class="cstat-no" title="statement not covered" >            return false;</span>
-        }
-&nbsp;
-        switch (bindStrategy) {
-            case "ALWAYS":
-                <span class="missing-if-branch" title="if path not taken" >I</span>if (contract.replaceable) {
-<span class="cstat-no" title="statement not covered" >                    return true;</span>
-                }
-                this.throwContractNotReplaceableException(contract);
-<span class="branch-1 cbranch-no" title="branch not covered" >            case "IF_NOT_BOUND":</span>
-<span class="cstat-no" title="statement not covered" >                return false;</span>
-            case "IF_ALLOWED":
-            default:
-                return contract.replaceable;
-        }
-    }
-&nbsp;
-    private doBind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): AutoClose {
-        // Since ReentrantReadWriteLock does not support lock upgrade, there are opportunities
-        // for changes by other threads between the reads and writes.
-        // This is mitigated by always incrementing the new value and decrementing the old value.
-        promisor.incrementUsage();
-&nbsp;
-        const previousPromisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(contract);
-        this.#promisorMap.set(contract, promisor);
-        if (isPresent(previousPromisor)) {
-            previousPromisor.decrementUsage();
-        }
-        const breakBindingOnce: Idempotent = createIdempotent();
-        breakBindingOnce.transitionToOpen();
-        return inlineAutoClose(() =&gt; {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (breakBindingOnce.transitionToClosed()) {
-                this.breakBinding(contract, promisor);
-            }
-        });
-    }
-&nbsp;
-    private breakBinding&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): void {
-        // it is possible the Contract has already been removed or updated with a new Promisor
-        // Checking the removed promisor is required to avoid:
-        //   1. Calling decrementUsage twice on Promisors already removed
-        //   2. Not calling decrementUsage enough times
-        // decrementing usage too many times.
-        try {
-            this.removeFromPromisorMap(contract, promisor);
-        } finally {
-            promisor.decrementUsage();
-        }
-    }
-&nbsp;
-    private removeFromPromisorMap&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: Promisor&lt;T&gt;): void {
-        if (this.#promisorMap.get(contract) === promisor) {
-            this.#promisorMap.delete(contract);
-        }
-    }
-&nbsp;
-    private getFromPromisorMap&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;Promisor&lt;T&gt;&gt; {
-        return (this.#promisorMap.get(contract) as OptionalType&lt;Promisor&lt;T&gt;&gt;);
-    }
-&nbsp;
-    private breakAllBindings(): number {
-        let contractCount: number = 0;
-        Internal.mapForEachReversed(this.#promisorMap, (contract, promisor) =&gt; {
-            this.breakBinding(contract, promisor);
-            contractCount++;
-        });
-        return contractCount;
-    }
-&nbsp;
-    private hasPartners(): boolean {
-        return this.partners.length &gt; 0;
-    }
-&nbsp;
-    private claimFromPartners&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
-        if (this.hasPartners()) {
-            for (const partner of this.partners) {
-                if (partner.isBound(contract)) {
-                    return partner.claim(contract);
-                }
-            }
-        }
-        this.throwContractNotPromisedException(contract);
-    }
-&nbsp;
-    private isAnyPartnerBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
-        if (this.hasPartners()) {
-            return this.partners.some(partner =&gt; partner.isBound(contract));
-        }
-        return false;
-    }
-&nbsp;
-    private <span class="fstat-no" title="function not covered" >throwCloseDidNotCompleteException(</span>): never {
-<span class="cstat-no" title="statement not covered" >        throw new ContractException("Contracts failed to close after trying multiple times.");</span>
-    }
-&nbsp;
-    private throwContractNotPromisedException&lt;T&gt;(contract: Contract&lt;T&gt;): never {
-        throw new ContractException("Contract " + contract + " was not promised.");
-    }
-&nbsp;
-    private throwContractNotReplaceableException&lt;T&gt;(contract: Contract&lt;T&gt;): never {
-        throw new ContractException("Contract " + contract + " is not replaceable.");
-    }
-&nbsp;
-    private constructor(config: Config) {
-        const validConfig = configCheck(config);
-        const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
-&nbsp;
-        this.policy = createPolicy(validConfig);
-        this.events = createEvents({
-            names: validConfig?.shutdownEvents ?? [],
-            callback: () =&gt; this.closeFirstOpen()
-        });
-&nbsp;
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (validPartners) {
-            this.partners.push(...validPartners);
-        }
-    }
-&nbsp;
-    private readonly closeMany: AutoCloseMany = createAutoCloseMany();
-    private readonly idempotent: Idempotent = createIdempotent();
-    readonly #promisorMap = new Map&lt;Contract&lt;unknown&gt;, Promisor&lt;unknown&gt;&gt;();
-    private readonly partners: Contracts[] = [];
-    private readonly policy: Policy;
-    private readonly events : Events;
+  private readonly closeMany: AutoCloseMany = createAutoCloseMany();
+  private readonly idempotent: Idempotent = createIdempotent();
+  readonly #promisorMap = new Map&lt;Contract&lt;unknown&gt;, Promisor&lt;unknown&gt;&gt;();
+  private readonly partners: Contracts[] = [];
+  private readonly policy: Policy;
+  private readonly events: Events;
 }
 &nbsp;
 &nbsp;
@@ -904,7 +904,7 @@ class ContractsImpl implements Contracts {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-13T21:24:51.939Z
+                at 2026-01-14T00:07:00.172Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
