@@ -10,25 +10,28 @@ import { create as createAtomicInteger } from "contracts-ts/impl/AtomicInteger.i
  * @returns the AtomicIntegerFactory implementation
  */
 export function create(): RequiredType<AtomicIntegerFactory> {
-    return AtomicIntegerFactoryImpl.internalCreate();
+  return AtomicIntegerFactoryImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
 
+/**
+ * The AtomicIntegerFactory implementation
+ */
 class AtomicIntegerFactoryImpl implements AtomicIntegerFactory {
 
-    /**
-     * AtomicIntegerFactory.create override
-     */
-    create(initialValue?: number): RequiredType<AtomicInteger> {
-        return createAtomicInteger(initialValue);
-    }
+  /**
+   * AtomicIntegerFactory.create override
+   */
+  create(initialValue?: number): RequiredType<AtomicInteger> {
+    return createAtomicInteger(initialValue);
+  }
 
-    static internalCreate(): RequiredType<AtomicIntegerFactory> {
-        return new AtomicIntegerFactoryImpl();
-    }
+  static internalCreate(): RequiredType<AtomicIntegerFactory> {
+    return new AtomicIntegerFactoryImpl();
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 };
 

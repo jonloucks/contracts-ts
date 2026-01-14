@@ -4,55 +4,55 @@ import { Contract } from "contracts-ts/api/Contract";
 import { createContract } from "contracts-ts";
 
 export interface CastCase<T> {
-    instance: unknown;
-    expected?: T;
-    help?: string;
+  instance: unknown;
+  expected?: T;
+  help?: string;
 }
 
 export interface ContractSuiteOptions<T> {
-    name: string;
-    contract: Contract<T>;
-    validCases?: CastCase<T>[];
-    invalidCases?: CastCase<T>[];
+  name: string;
+  contract: Contract<T>;
+  validCases?: CastCase<T>[];
+  invalidCases?: CastCase<T>[];
 }
 
 const someContract: Contract<string> = createContract<string>();
 
 generateContractSuite({
-    name: 'SomeContract',
-    contract: someContract,
-    validCases: [
-        { instance: "hello", expected: "hello", help: "a string value" }
-    ]
+  name: 'SomeContract',
+  contract: someContract,
+  validCases: [
+    { instance: "hello", expected: "hello", help: "a string value" }
+  ]
 });
 
 export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
-    const { contract, validCases, invalidCases } = options;
+  const { contract, validCases, invalidCases } = options;
 
-    describe(`Contract Suite for ${options.name}`, () => {
-        validCases?.forEach((testCase, index) => {
-            const help = testCase?.help ?? String(testCase.instance);
-            const expected = testCase?.expected ?? testCase.instance;
-            const scenario: string = `case ${index} => (${help}) : return ${expected}`;
+  describe(`Contract Suite for ${options.name}`, () => {
+    validCases?.forEach((testCase, index) => {
+      const help = testCase?.help ?? String(testCase.instance);
+      const expected = testCase?.expected ?? testCase.instance;
+      const scenario: string = `case ${index} => (${help}) : return ${expected}`;
 
-            it(scenario, () => {
-                const actual = contract.cast(testCase.instance);
-                assert.strictEqual(actual, expected);
-            });
+      it(scenario, () => {
+        const actual = contract.cast(testCase.instance);
+        assert.strictEqual(actual, expected);
+      });
+    });
+
+    invalidCases?.forEach((testCase, index) => {
+      const help = testCase?.help ?? String(testCase.instance);
+      const scenario: string = `case ${index} => (${help}) : should throw ClassCastException`;
+
+      it(scenario, () => {
+        assert.throws(() => {
+          contract.cast(testCase.instance);
+        }, {
+          name: 'ClassCastException'
         });
-
-        invalidCases?.forEach((testCase, index) => {
-            const help = testCase?.help ?? String(testCase.instance);
-            const scenario: string = `case ${index} => (${help}) : should throw ClassCastException`;
-
-            it(scenario, () => {
-                assert.throws(() => {
-                    contract.cast(testCase.instance);
-                }, {
-                    name: 'ClassCastException'
-                });
-            });
-        });
-    })
+      });
+    });
+  })
 }
 

@@ -3,84 +3,84 @@ import assert from "node:assert";
 import { OptionalType, RequiredType, isNotPresent } from "contracts-ts/api/Types";
 
 export const OPTIONAL_CASES: PredicateCase[] = [
-    { value: null, help: "a null value" },
-    { value: undefined, help: "an undefined value" }
+  { value: null, help: "a null value" },
+  { value: undefined, help: "an undefined value" }
 ];
 
 function isUltimateAnswer(value: OptionalType<unknown>): value is OptionalType<number> {
-    if (isNotPresent(value)) {
-        return true;
-    }
-    return typeof value === "number" ? value === 42 : false
+  if (isNotPresent(value)) {
+    return true;
+  }
+  return typeof value === "number" ? value === 42 : false
 };
 
 function isRequiredUltimateAnswer(value: OptionalType<unknown>): value is RequiredType<number> {
-    if (isNotPresent(value)) {
-        return false;
-    }
-    return isUltimateAnswer(value);
+  if (isNotPresent(value)) {
+    return false;
+  }
+  return isUltimateAnswer(value);
 };
 
 const VALID_CASES: PredicateCase[] = [
-    { value: 42, help: "the ultimate answer" },
+  { value: 42, help: "the ultimate answer" },
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-    { value: 0 },
-    { value: 43 },
-    { value: () => { }, help: "a simple function" },
-    { value: Symbol("test"), help: "a symbol value" },
-    { value: function () { }, help: "a traditional function" },
-    { value: async () => { }, help: "an async function" },
-    { value: {}, help: "an object value" }
+  { value: 0 },
+  { value: 43 },
+  { value: () => { }, help: "a simple function" },
+  { value: Symbol("test"), help: "a symbol value" },
+  { value: function () { }, help: "a traditional function" },
+  { value: async () => { }, help: "an async function" },
+  { value: {}, help: "an object value" }
 ]
 
 generatePredicateSuite({
-    name: 'isUltimateAnswer',
-    function: isUltimateAnswer,
-    validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-    invalidCases: INVALID_CASES
+  name: 'isUltimateAnswer',
+  function: isUltimateAnswer,
+  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
+  invalidCases: INVALID_CASES
 });
 
 generatePredicateSuite({
-    name: 'isRequiredUltimateAnswer',
-    function: isRequiredUltimateAnswer,
-    validCases: VALID_CASES,
-    invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
+  name: 'isRequiredUltimateAnswer',
+  function: isRequiredUltimateAnswer,
+  validCases: VALID_CASES,
+  invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });
 
 export interface PredicateCase {
-    value: OptionalType<unknown>
-    help?: string;
+  value: OptionalType<unknown>
+  help?: string;
 }
 
 export interface PredicateSuiteOptions {
-    name: string;
-    function: (value: OptionalType<unknown>) => boolean;
-    validCases?: PredicateCase[];
-    invalidCases?: PredicateCase[];
+  name: string;
+  function: (value: OptionalType<unknown>) => boolean;
+  validCases?: PredicateCase[];
+  invalidCases?: PredicateCase[];
 }
 
 export function generatePredicateSuite<T>(options: PredicateSuiteOptions) {
-    const { validCases, invalidCases } = options;
-    describe(`Predicate Suite for ${options.name}`, () => {
-        validCases?.forEach((testCase, index) => {
-            const help = testCase?.help ?? String(testCase.value);
-            const scenario: string = `case ${index} => (${help}) : should pass`;
-            it(scenario, () => {
-                const actual: boolean = options.function(testCase.value);
-                assert.strictEqual(actual, true, options.name + "(" + help + ") returned " + actual);
-            });
-        });
-        invalidCases?.forEach((testCase, index) => {
-            const help = testCase?.help ?? String(testCase.value);
-            const scenario: string = `case ${index} => (${help}) : should fail`;
-            it(scenario, () => {
-                const actual: boolean = options.function(testCase.value);
-                assert.strictEqual(actual, false, options.name + "(" + help + ") returned " + actual);
-            });
-        });
+  const { validCases, invalidCases } = options;
+  describe(`Predicate Suite for ${options.name}`, () => {
+    validCases?.forEach((testCase, index) => {
+      const help = testCase?.help ?? String(testCase.value);
+      const scenario: string = `case ${index} => (${help}) : should pass`;
+      it(scenario, () => {
+        const actual: boolean = options.function(testCase.value);
+        assert.strictEqual(actual, true, options.name + "(" + help + ") returned " + actual);
+      });
     });
+    invalidCases?.forEach((testCase, index) => {
+      const help = testCase?.help ?? String(testCase.value);
+      const scenario: string = `case ${index} => (${help}) : should fail`;
+      it(scenario, () => {
+        const actual: boolean = options.function(testCase.value);
+        assert.strictEqual(actual, false, options.name + "(" + help + ") returned " + actual);
+      });
+    });
+  });
 }
 
 

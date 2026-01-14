@@ -12,7 +12,7 @@ import { ContractFactory } from "contracts-ts/api/ContractFactory";
  * @returns the new ContractFactory implementation
  */
 export function create(): RequiredType<ContractFactory> {
-    return ContractFactoryImpl.internalCreate();
+  return ContractFactoryImpl.internalCreate();
 }
 
 /**
@@ -21,7 +21,7 @@ export function create(): RequiredType<ContractFactory> {
  * @returns the new Contract implementation
  */
 export function createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
-    return create().create<T>(config);
+  return create().create<T>(config);
 }
 
 // ---- Implementation details below ----
@@ -30,18 +30,18 @@ export function createContract<T>(config?: OptionalType<Config<T>>): RequiredTyp
  * An implementation of ContractFactory
  */
 class ContractFactoryImpl implements ContractFactory {
-    create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
-        if (config?.ratified === true || isRatifiableConfig<T>(config)) {
-            return createRatifiedContract<T>(config);
-        } else {
-            return createBasicContract<T>(config);
-        }
+  create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
+    if (config?.ratified === true || isRatifiableConfig<T>(config)) {
+      return createRatifiedContract<T>(config);
+    } else {
+      return createBasicContract<T>(config);
     }
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 
-    static internalCreate(): RequiredType<ContractFactory> {
-        return new ContractFactoryImpl();
-    }
+  static internalCreate(): RequiredType<ContractFactory> {
+    return new ContractFactoryImpl();
+  }
 };

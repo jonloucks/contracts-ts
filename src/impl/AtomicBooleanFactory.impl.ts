@@ -10,7 +10,7 @@ import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.i
  * @returns the AtomicBooleanFactory implementation
  */
 export function create(): RequiredType<AtomicBooleanFactory> {
-    return AtomicBooleanFactoryImpl.internalCreate();
+  return AtomicBooleanFactoryImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
@@ -20,19 +20,19 @@ export function create(): RequiredType<AtomicBooleanFactory> {
  */
 class AtomicBooleanFactoryImpl implements AtomicBooleanFactory {
 
-    /**
-     * AutomicBooleanFactory.create override
-     */
-    create(initialValue?: boolean): RequiredType<AtomicBoolean> {
-        return createAtomicBoolean(initialValue);
-    }
+  /**
+   * AutomicBooleanFactory.create override
+   */
+  create(initialValue?: boolean): RequiredType<AtomicBoolean> {
+    return createAtomicBoolean(initialValue);
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 
-    static internalCreate(): RequiredType<AtomicBooleanFactory> {
-        return new AtomicBooleanFactoryImpl();
-    }
+  static internalCreate(): RequiredType<AtomicBooleanFactory> {
+    return new AtomicBooleanFactoryImpl();
+  }
 };
 
 

@@ -10,64 +10,64 @@ import { createContract } from "contracts-ts";
 
 describe('Extract Promisor tests', () => {
 
-    it("", () => {
-        const referent: CurrentDatePromisor = new CurrentDatePromisor();
-        const converted : RequiredType<Promisor<Date>> = typeToPromisor<Date>(referent);
-        assert.strictEqual(converted, referent, "Converted promisor should be the same as the original referent.");
+  it("", () => {
+    const referent: CurrentDatePromisor = new CurrentDatePromisor();
+    const converted: RequiredType<Promisor<Date>> = typeToPromisor<Date>(referent);
+    assert.strictEqual(converted, referent, "Converted promisor should be the same as the original referent.");
 
-        const transform : Transform<Date, string> = {
-            transform: (date: RequiredType<Date>) : string => {
-                return date?.toString();
-            }
-        };
+    const transform: Transform<Date, string> = {
+      transform: (date: RequiredType<Date>): string => {
+        return date?.toString();
+      }
+    };
 
-        assert.notStrictEqual(transform.transform(new Date()), null, "Transform should not be null.");
-        assert.notStrictEqual(transform.transform(new Date()), undefined, "Transform should not be undefined.");
+    assert.notStrictEqual(transform.transform(new Date()), null, "Transform should not be null.");
+    assert.notStrictEqual(transform.transform(new Date()), undefined, "Transform should not be undefined.");
 
 
-        Tools.withContracts((contracts: Contracts) => {
-            const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
-            const contract: Contract<string> = createContract<string>();
-            const promisor: Promisor<string> = promisorFactory.createExtractor<Date, string>(referent, transform);
+    Tools.withContracts((contracts: Contracts) => {
+      const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
+      const contract: Contract<string> = createContract<string>();
+      const promisor: Promisor<string> = promisorFactory.createExtractor<Date, string>(referent, transform);
 
-            using usingPromisor = contracts.bind(contract, promisor);
+      using usingPromisor = contracts.bind(contract, promisor);
 
-            const claimeValue: OptionalType<string> = contracts.claim(contract);
-            const claimeValue2: OptionalType<string> = contracts.claim(contract);
+      const claimeValue: OptionalType<string> = contracts.claim(contract);
+      const claimeValue2: OptionalType<string> = contracts.claim(contract);
 
-            assert.notStrictEqual(claimeValue, null, "First claim should not be null.");
-            assert.notStrictEqual(claimeValue, undefined, "First claim should not be undefined.");
-            assert.ok(typeof claimeValue === 'string', "First claimed value should be a string.");
+      assert.notStrictEqual(claimeValue, null, "First claim should not be null.");
+      assert.notStrictEqual(claimeValue, undefined, "First claim should not be undefined.");
+      assert.ok(typeof claimeValue === 'string', "First claimed value should be a string.");
 
-            assert.notStrictEqual(claimeValue2, null, "Second claim should not be null.");
-            assert.notStrictEqual(claimeValue2, undefined, "Second claim should not be undefined.");
-            assert.ok(typeof claimeValue2 === 'string', "Second claimed value should be a string.");
-        });
-        assert.strictEqual(referent.usageCount, 0, "Referent usage count should be zero after use.");
-        assert.strictEqual(referent.demandCount, 2, "Referent demand count should be two after use.");
+      assert.notStrictEqual(claimeValue2, null, "Second claim should not be null.");
+      assert.notStrictEqual(claimeValue2, undefined, "Second claim should not be undefined.");
+      assert.ok(typeof claimeValue2 === 'string', "Second claimed value should be a string.");
     });
+    assert.strictEqual(referent.usageCount, 0, "Referent usage count should be zero after use.");
+    assert.strictEqual(referent.demandCount, 2, "Referent demand count should be two after use.");
+  });
 });
 
 class CurrentDatePromisor implements Promisor<Date> {
-    demand(): OptionalType<Date> {
-        ++this.demandCount
-        if (this.usageCount <= 0) {
-            throw new Error("Usage count should be greater than zero.");
-        }
-        return new Date();
+  demand(): OptionalType<Date> {
+    ++this.demandCount
+    if (this.usageCount <= 0) {
+      throw new Error("Usage count should be greater than zero.");
     }
-    incrementUsage(): number {
-        return ++this.usageCount;
+    return new Date();
+  }
+  incrementUsage(): number {
+    return ++this.usageCount;
+  }
+  decrementUsage(): number {
+    const save = --this.usageCount;
+    if (this.usageCount < 0) {
+      throw new Error("Decemented too many times.");
     }
-    decrementUsage(): number {
-        const save = --this.usageCount;
-        if (this.usageCount < 0) {
-            throw new Error("Decemented too many times.");
-        }
-        return save;
-    }
-    usageCount: number = 0;
-    demandCount: number = 0;
+    return save;
+  }
+  usageCount: number = 0;
+  demandCount: number = 0;
 };
 
 // @Test

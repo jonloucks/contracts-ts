@@ -11,24 +11,27 @@ import { create as createRepository } from "contracts-ts/impl/Repository.impl";
  * @returns the RepositoryFactory implementation
  */
 export function create(contracts: Contracts): RequiredType<RepositoryFactory> {
-    return RepositoryFactoryImpl.internalCreate(contracts);
+  return RepositoryFactoryImpl.internalCreate(contracts);
 }
 
 // ---- Implementation details below ----
 
+/**
+ * The RepositoryFactory implementation
+ */
 class RepositoryFactoryImpl implements RepositoryFactory {
 
-    create(): RequiredType<Repository> {
-        return createRepository(this.contracts);
-    }
+  create(): RequiredType<Repository> {
+    return createRepository(this.contracts);
+  }
 
-    static internalCreate(contracts: Contracts): RequiredType<RepositoryFactory> {
-        return new RepositoryFactoryImpl(contracts);
-    }
+  static internalCreate(contracts: Contracts): RequiredType<RepositoryFactory> {
+    return new RepositoryFactoryImpl(contracts);
+  }
 
-    private constructor(contracts: Contracts) {
-        this.contracts = contracts;     
-    }
+  private constructor(contracts: Contracts) {
+    this.contracts = contracts;
+  }
 
-    private readonly contracts: Contracts;
+  private readonly contracts: Contracts;
 }

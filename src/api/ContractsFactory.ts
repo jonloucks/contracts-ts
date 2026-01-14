@@ -7,13 +7,13 @@ import { Contracts, Config } from "contracts-ts/api/Contracts";
  */
 export interface ContractsFactory {
 
-    /**
-     * Create a new Contracts
-     * Note: Caller is responsible for invoking 'open' before using methods
-     * Note: If caller does invoke 'open' it is required to invoke 'close' when appropriate
-     * @param config the Contracts configuration
-     * @return the new Contracts
-     */
-    create(config?: Config): RequiredType<Contracts>;
+  /**
+   * Create a new Contracts
+   * Note: Caller is responsible for invoking 'open' before using methods
+   * Note: If caller does invoke 'open' it is required to invoke 'close' when appropriate
+   * @param config the Contracts configuration
+   * @return the new Contracts
+   */
+  create(config?: Config): RequiredType<Contracts>;
 }
 

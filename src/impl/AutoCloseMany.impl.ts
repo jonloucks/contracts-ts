@@ -11,7 +11,7 @@ export { RequiredType } from "contracts-ts/api/Types";
  * @returns the AutoCloseMany implementation
  */
 export function create(): RequiredType<AutoCloseMany> {
-    return AutoCloseManyImpl.internalCreate();
+  return AutoCloseManyImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
@@ -21,35 +21,35 @@ export function create(): RequiredType<AutoCloseMany> {
  */
 class AutoCloseManyImpl implements AutoCloseMany {
 
-    add(closeable: RequiredType<AutoCloseType>): void {
-        this.closeables.push(typeToAutoClose(closeable));
+  add(closeable: RequiredType<AutoCloseType>): void {
+    this.closeables.push(typeToAutoClose(closeable));
+  }
+
+  close(): void {
+    const errorList: unknown[] = [];
+    while (this.closeables.length > 0) {
+      try {
+        this.closeables.pop()?.close();
+      } catch (error) {
+        errorList.push(error);
+      }
     }
-
-    close(): void {
-        const errorList: unknown[] = [];
-        while (this.closeables.length > 0) {
-            try {
-                this.closeables.pop()?.close();
-            } catch (error) {
-                errorList.push(error);
-            }
-        }
-        if (errorList.length > 0) {
-            Internal.throwAggregateError("Multiple while closing.", ...errorList);
-        }
+    if (errorList.length > 0) {
+      Internal.throwAggregateError("Multiple while closing.", ...errorList);
     }
+  }
 
-    [Symbol.dispose](): void {
-        this.close();
-    }
+  [Symbol.dispose](): void {
+    this.close();
+  }
 
-    static internalCreate(): RequiredType<AutoCloseMany> {
-        return new AutoCloseManyImpl();
-    }
+  static internalCreate(): RequiredType<AutoCloseMany> {
+    return new AutoCloseManyImpl();
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 
 
-    private closeables: RequiredType<AutoClose>[] = [];
+  private closeables: RequiredType<AutoClose>[] = [];
 };

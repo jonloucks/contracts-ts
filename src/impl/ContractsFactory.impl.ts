@@ -24,7 +24,7 @@ import { create as createRepositoryFactoryImpl } from "contracts-ts/impl/Reposit
  * @returns the ContractsFactory implementation
  */
 export function create(): RequiredType<ContractsFactory> {
-    return ContractsFactoryImpl.internalCreate();
+  return ContractsFactoryImpl.internalCreate();
 }
 
 /**
@@ -34,7 +34,7 @@ export function create(): RequiredType<ContractsFactory> {
  * @returns the Contracts implementation
  */
 export function createContracts(config?: ContractsConfig): RequiredType<Contracts> {
-    return create().create(config);
+  return create().create(config);
 }
 
 // ---- Implementation details below ----
@@ -44,38 +44,38 @@ export function createContracts(config?: ContractsConfig): RequiredType<Contract
  */
 class ContractsFactoryImpl implements ContractsFactory {
 
-    /**
-     * ContractsFactory.create override
-     */
-    create(config?: ContractsConfig): RequiredType<Contracts> {
-        const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
-        const contracts: RequiredType<Contracts> = createContractsImpl(actualConfig);
-        const repository: RequiredType<Repository> = this.createKernelRepository(contracts);
+  /**
+   * ContractsFactory.create override
+   */
+  create(config?: ContractsConfig): RequiredType<Contracts> {
+    const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
+    const contracts: RequiredType<Contracts> = createContractsImpl(actualConfig);
+    const repository: RequiredType<Repository> = this.createKernelRepository(contracts);
 
-        return wrapContracts(contracts, repository);
-    }
+    return wrapContracts(contracts, repository);
+  }
 
-    static internalCreate() : RequiredType<ContractsFactory> {
-        return new ContractsFactoryImpl();
-    }
+  static internalCreate(): RequiredType<ContractsFactory> {
+    return new ContractsFactoryImpl();
+  }
 
-    private createKernelRepository(contracts: Contracts): RequiredType<Repository> {
-        const repositoryFactory: RequiredType<RepositoryFactory> = createRepositoryFactoryImpl(contracts);
-        const repository: RequiredType<Repository> = repositoryFactory.create();
+  private createKernelRepository(contracts: Contracts): RequiredType<Repository> {
+    const repositoryFactory: RequiredType<RepositoryFactory> = createRepositoryFactoryImpl(contracts);
+    const repository: RequiredType<Repository> = repositoryFactory.create();
 
-        repository.keep(PROMISOR_FACTORY, createPromisorFactoryImpl);
-        repository.keep(REPOSITORY_FACTORY, () => repositoryFactory);
-        repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactoryImpl);
-        repository.keep(ATOMIC_INTEGER_FACTORY, createAtomicIntegerFactoryImpl);
-        repository.keep(ATOMIC_REFERENCE_FACTORY, createAtomicReferenceFactoryImpl);
-        repository.keep(AUTO_CLOSE_FACTORY, createAutoCloseFactoryImpl);
-        
-        return repository;
-    }
+    repository.keep(PROMISOR_FACTORY, createPromisorFactoryImpl);
+    repository.keep(REPOSITORY_FACTORY, () => repositoryFactory);
+    repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactoryImpl);
+    repository.keep(ATOMIC_INTEGER_FACTORY, createAtomicIntegerFactoryImpl);
+    repository.keep(ATOMIC_REFERENCE_FACTORY, createAtomicReferenceFactoryImpl);
+    repository.keep(AUTO_CLOSE_FACTORY, createAutoCloseFactoryImpl);
 
-    private constructor() {
-        //  empty
-    }
+    return repository;
+  }
 
-    private defaultConfig: RequiredType<ContractsConfig> = {};
+  private constructor() {
+    //  empty
+  }
+
+  private defaultConfig: RequiredType<ContractsConfig> = {};
 }

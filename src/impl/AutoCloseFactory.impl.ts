@@ -13,30 +13,33 @@ export { RequiredType } from "contracts-ts/api/Types";
  *
  * @returns the AutoCloseFactory implementation
  */
-export function create() : RequiredType<AutoCloseFactory> {
-    return AutoCloseFactoryImpl.internalCreate();
+export function create(): RequiredType<AutoCloseFactory> {
+  return AutoCloseFactoryImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
 
+/**
+ * The AutoCloseFactory implementation
+ */
 class AutoCloseFactoryImpl implements AutoCloseFactory {
 
-    createAutoClose(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
-        return typeToAutoClose(type);
-    }
+  createAutoClose(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
+    return typeToAutoClose(type);
+  }
 
-    createAutoCloseMany(): RequiredType<AutoCloseMany> {
-        return createAutoCloseMany()
-    }
+  createAutoCloseMany(): RequiredType<AutoCloseMany> {
+    return createAutoCloseMany()
+  }
 
-    createAutoCloseOne(): RequiredType<AutoCloseOne> {
-        return createAutoCloseOne();
-    }
+  createAutoCloseOne(): RequiredType<AutoCloseOne> {
+    return createAutoCloseOne();
+  }
 
-    static internalCreate(): RequiredType<AutoCloseFactory> {
-        return new AutoCloseFactoryImpl();
-    }
+  static internalCreate(): RequiredType<AutoCloseFactory> {
+    return new AutoCloseFactoryImpl();
+  }
 
-    private constructor() {
-    }
+  private constructor() {
+  }
 }

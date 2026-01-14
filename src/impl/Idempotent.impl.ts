@@ -10,7 +10,7 @@ export { Idempotent } from "contracts-ts/impl/Idempotent";
  * @returns the new Idempotent implementation
  */
 export function create(): Idempotent {
-    return IdempotentImpl.internalCreate();
+  return IdempotentImpl.internalCreate();
 }
 
 // ---- Implementation details below ----
@@ -18,32 +18,35 @@ export function create(): Idempotent {
 const IS_CLOSED: boolean = false;
 const IS_OPEN: boolean = true;
 
+/**
+ * The Idempotent implementation
+ */
 class IdempotentImpl implements Idempotent {
 
-    transitionToOpen(): boolean {
-        return this.state.compareAndSet(IS_CLOSED, IS_OPEN);
-    }
+  transitionToOpen(): boolean {
+    return this.state.compareAndSet(IS_CLOSED, IS_OPEN);
+  }
 
-    transitionToClosed(): boolean {
-        return this.state.compareAndSet(IS_OPEN, IS_CLOSED);
-    }
+  transitionToClosed(): boolean {
+    return this.state.compareAndSet(IS_OPEN, IS_CLOSED);
+  }
 
-    isOpen(): boolean {
-        return this.state.get() === IS_OPEN;
-    }
+  isOpen(): boolean {
+    return this.state.get() === IS_OPEN;
+  }
 
-    toString(): string {
-        return `Idempotent[open:${this.state.get()}]`;
-    }
+  toString(): string {
+    return `Idempotent[open:${this.state.get()}]`;
+  }
 
-    static internalCreate(): Idempotent {
-        return new IdempotentImpl();
-    }
+  static internalCreate(): Idempotent {
+    return new IdempotentImpl();
+  }
 
-    private constructor() {
-        this.state.set(IS_CLOSED);
-    }
+  private constructor() {
+    this.state.set(IS_CLOSED);
+  }
 
-    private readonly state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
+  private readonly state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
 }
 

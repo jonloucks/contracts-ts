@@ -24,55 +24,55 @@ generateTypedocBadge()
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
 function generateCoverageSummaryBadge(): void {
-    bestEffort("generate coverage summary badge", () => {
-        const inputPath: string = getCoverageSummaryFilePath();
+  bestEffort("generate coverage summary badge", () => {
+    const inputPath: string = getCoverageSummaryFilePath();
 
-        fs.readFile(inputPath, (err, data) => {
-            bestEffort(`Read coverage summary report '${inputPath}'`, () => {
-                if (isError(inputPath, err)) {
-                    return;
-                }
-                processCoverageSummaryReport(data);
-            });
-        });
+    fs.readFile(inputPath, (err, data) => {
+      bestEffort(`Read coverage summary report '${inputPath}'`, () => {
+        if (isError(inputPath, err)) {
+          return;
+        }
+        processCoverageSummaryReport(data);
+      });
     });
+  });
 }
 
 function generateTypedocBadge(): void {
-    bestEffort("generate typedoc badge", () => {
-        generateBadge({
-            name: "typedoc",
-            outputPath: getTypedocBadgePath(),
-            label: " typedoc ",
-            percent: 100
-        });
+  bestEffort("generate typedoc badge", () => {
+    generateBadge({
+      name: "typedoc",
+      outputPath: getTypedocBadgePath(),
+      label: " typedoc ",
+      percent: 100
     });
+  });
 }
 
 function processCoverageSummaryReport(data: Buffer): void {
-    generateBadge({
-        name: "coverage-summary",
-        outputPath: getCoverageSummaryBadgePath(),
-        label: "coverage",
-        percent: readPercentageFromCoverageSummary(data)
-    });
+  generateBadge({
+    name: "coverage-summary",
+    outputPath: getCoverageSummaryBadgePath(),
+    label: "coverage",
+    percent: readPercentageFromCoverageSummary(data)
+  });
 }
 
 function bestEffort<T>(name: string, block: () => T): T {
-    try {
-        return block();
-    } catch (error) {
-        console.warn(`Best effort ${name} operation failed:`, error);
-        return undefined as unknown as T;
-    }
+  try {
+    return block();
+  } catch (error) {
+    console.warn(`Best effort ${name} operation failed:`, error);
+    return undefined as unknown as T;
+  }
 }
 
 interface GenerateOptions {
-    name: string;
-    templatePath?: string;
-    outputPath: string;
-    label: string;
-    percent: number;
+  name: string;
+  templatePath?: string;
+  outputPath: string;
+  label: string;
+  percent: number;
 }
 
 /**
@@ -80,90 +80,90 @@ interface GenerateOptions {
  * @param options 
  */
 function generateBadge(options: GenerateOptions): void {
-    const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
-    console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
-    fs.readFile(templatePath, (err, data) => {
-        bestEffort(`Read template content '${templatePath}'`, () => {
-            if (isError(templatePath, err)) {
-                return
-            }
-            const generated: string = replaceKeywords(options, data.toString('utf8'));
-            writeBadgeToFile(options, generated);
-            console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
-        });
+  const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
+  console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
+  fs.readFile(templatePath, (err, data) => {
+    bestEffort(`Read template content '${templatePath}'`, () => {
+      if (isError(templatePath, err)) {
+        return
+      }
+      const generated: string = replaceKeywords(options, data.toString('utf8'));
+      writeBadgeToFile(options, generated);
+      console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
     });
+  });
 };
 
 function writeBadgeToFile(options: GenerateOptions, content: string): void {
-    fs.writeFileSync(options.outputPath, content);
+  fs.writeFileSync(options.outputPath, content);
 }
 
 function replaceKeywords(options: GenerateOptions, template: string): string {
-    const color: string = determineBackgroundColor(options.percent);
-    const replacements = {
-        LABEL: options.label,
-        PERCENT: options.percent,
-        COLOR: color
-    };
-    // Use a regex with a replacement function to dynamically insert values
-    const generatedContent: string = template.replace(/{{(.*?)}}/g, (match, key: string) => {
-        const trimmedKey = key.trim() as keyof typeof replacements;
-        // trim whitespace and look up the key in the data object
-        return replacements[trimmedKey] !== undefined ? String(replacements[trimmedKey]) : match;
-    })
-    return generatedContent;
+  const color: string = determineBackgroundColor(options.percent);
+  const replacements = {
+    LABEL: options.label,
+    PERCENT: options.percent,
+    COLOR: color
+  };
+  // Use a regex with a replacement function to dynamically insert values
+  const generatedContent: string = template.replace(/{{(.*?)}}/g, (match, key: string) => {
+    const trimmedKey = key.trim() as keyof typeof replacements;
+    // trim whitespace and look up the key in the data object
+    return replacements[trimmedKey] !== undefined ? String(replacements[trimmedKey]) : match;
+  })
+  return generatedContent;
 }
 
 function readPercentageFromCoverageSummary(data: Buffer): number {
-    const text: string = data.toString('utf8');
-    const jsonData = JSON.parse(text);
-    return jsonData.total.lines.pct;
+  const text: string = data.toString('utf8');
+  const jsonData = JSON.parse(text);
+  return jsonData.total.lines.pct;
 }
 
 function getCoverageSummaryFilePath(): string {
-    return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_PATH', './coverage/coverage-summary.json');
+  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_PATH', './coverage/coverage-summary.json');
 }
 
 function getTemplateBadgePath(): string {
-    return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './scripts/badge-template.svg.dat');
+  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './scripts/badge-template.svg.dat');
 }
 
 function getCoverageSummaryBadgePath(): string {
-    return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
+  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
 }
 
 function getTypedocBadgePath(): string {
-    return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', './coverage/typedoc-badge.svg');
+  return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', './coverage/typedoc-badge.svg');
 }
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
-    const myVarValue: string | undefined = process.env[envVarName];
-    if (myVarValue && myVarValue.trim() !== '') {
-        return myVarValue.trim();
-    }
-    return defaultPath;
+  const myVarValue: string | undefined = process.env[envVarName];
+  if (myVarValue && myVarValue.trim() !== '') {
+    return myVarValue.trim();
+  }
+  return defaultPath;
 }
 
 function isError(path: string, caught: any): caught is null {
-    if (caught) {
-        if (caught.code === 'ENOENT') {
-            console.warn(`File not found at path: ${path}`);
-        }
-        return true;
+  if (caught) {
+    if (caught.code === 'ENOENT') {
+      console.warn(`File not found at path: ${path}`);
     }
-    return false;
+    return true;
+  }
+  return false;
 }
 
 function determineBackgroundColor(percent: number): string {
-    if (percent >= 90) {
-        return '#4bc124';
-    } else if (percent >= 75) {
-        return 'yellowgreen';
-    } else if (percent >= 60) {
-        return 'yellow';
-    } else if (percent >= 40) {
-        return 'orange';
-    } else {
-        return 'red';
-    }
+  if (percent >= 90) {
+    return '#4bc124';
+  } else if (percent >= 75) {
+    return 'yellowgreen';
+  } else if (percent >= 60) {
+    return 'yellow';
+  } else if (percent >= 40) {
+    return 'orange';
+  } else {
+    return 'red';
+  }
 }

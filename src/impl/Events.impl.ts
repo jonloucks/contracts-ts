@@ -13,55 +13,58 @@ export { Config, Events } from "contracts-ts/impl/Events";
  * @returns the new Events implementation
  */
 export function create(config?: Config): RequiredType<Events> {
-    return EventsImpl.internalCreate(config);
+  return EventsImpl.internalCreate(config);
 }
 
 // ---- Implementation details below ----
 
+/**
+ * The Events implementation
+ */
 class EventsImpl implements Events {
 
-    open(): AutoClose {
-        if (this.idempotent.transitionToOpen()) {
-            return this.firstOpen();
-        } else {
-            return AUTO_CLOSE_NONE
-        }
+  open(): AutoClose {
+    if (this.idempotent.transitionToOpen()) {
+      return this.firstOpen();
+    } else {
+      return AUTO_CLOSE_NONE
     }
+  }
 
-    isOpen(): boolean {
-        return this.idempotent.isOpen();
+  isOpen(): boolean {
+    return this.idempotent.isOpen();
+  }
+
+  static internalCreate(config?: Config): RequiredType<Events> {
+    return new EventsImpl(config);
+  }
+
+  private firstOpen(): AutoClose {
+    this.names.forEach(name => {
+      process.on(name, this.callback);
+    });
+
+    return inlineAutoClose(() => {
+      this.closeFirstOpen()
+    });
+  }
+
+  private closeFirstOpen(): void {
+    if (this.idempotent.transitionToClosed()) {
+      this.names.forEach(name => {
+        process.off(name, this.callback);
+      });
     }
+  }
 
-    static internalCreate(config?: Config): RequiredType<Events> {
-        return new EventsImpl(config);
-    }
+  private constructor(config?: Config) {
+    const validConfig = configCheck(config);
+    this.names = validConfig?.names ?? [];
+    this.callback = presentCheck(validConfig?.callback, "Callback must be present.")
+  }
 
-    private firstOpen(): AutoClose {
-        this.names.forEach(name => {
-            process.on(name, this.callback);
-        });
-
-        return inlineAutoClose(() => {
-            this.closeFirstOpen()
-        });
-    }
-
-    private closeFirstOpen(): void {
-        if (this.idempotent.transitionToClosed()) {
-            this.names.forEach(name => {
-                process.off(name, this.callback);
-            });
-        }
-    }
-
-    private constructor(config?: Config) {
-        const validConfig = configCheck(config);
-        this.names = validConfig?.names ?? [];
-        this.callback = presentCheck(validConfig?.callback, "Callback must be present.")
-    }
-
-    private readonly names: string[];
-    private readonly callback: (...args: unknown[]) => void;
-    private readonly idempotent: Idempotent = createIdempotent();
+  private readonly names: string[];
+  private readonly callback: (...args: unknown[]) => void;
+  private readonly idempotent: Idempotent = createIdempotent();
 }
 
