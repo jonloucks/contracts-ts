@@ -1,9 +1,6 @@
 # contracts-ts
 
-> ⚠️ **PROJECT SETUP IN PROGRESS**
->
-> This project is currently being set up. There is no production code or stable documentation available at this time.
-> Please check back later for updates.
+> ⚠️ **PROJECT READY FOR FEEDBACK**
 
 ## Badges
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
