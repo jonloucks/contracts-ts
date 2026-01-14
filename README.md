@@ -1,6 +1,6 @@
 # contracts-ts
 
-> ⚠️ **PROJECT READY FOR FEEDBACK**
+> ⚠️ **PREPARING FOR INITIAL RELEASE, Feedback on API or documentation welcome**
 
 ## Badges
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
