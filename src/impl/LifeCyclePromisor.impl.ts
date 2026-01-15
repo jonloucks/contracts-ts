@@ -1,5 +1,5 @@
 import { AutoCloseOne } from "contracts-ts/api/AutoClose";
-import { AutoOpen, isAutoOpen } from "contracts-ts/api/AutoOpen";
+import { isAutoOpen } from "contracts-ts/api/AutoOpen";
 import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
 import { AtomicInteger } from "contracts-ts/api/auxiliary/AtomicInteger";
 import { AtomicReference } from "contracts-ts/api/auxiliary/AtomicReference";
