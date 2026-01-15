@@ -83,5 +83,5 @@ class ThrowsOnOpen implements AutoOpen {
     throw this.error;
   }
 
-  private readonly error: unknown
+  private readonly error: unknown;
 }
