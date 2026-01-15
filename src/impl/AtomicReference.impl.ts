@@ -48,7 +48,7 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
    * Object.toString override
    */
   toString(): string {
-    return `Reference[${String(this.get())} ]`;
+    return `Reference[${String(this.get())}]`;
   }
 
   static internalCreate<T>(initialValue?: OptionalType<T>): AtomicReference<T> {
