@@ -48,8 +48,7 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
    * Object.toString override
    */
   toString(): string {
-    const current: OptionalType<T> = this.get();
-    return `AtomicReference[assigned:${isPresent(current) ? 'true' : 'false'}]`;
+    return `Reference[${String(this.get())}]`;
   }
 
   static internalCreate<T>(initialValue?: OptionalType<T>): AtomicReference<T> {

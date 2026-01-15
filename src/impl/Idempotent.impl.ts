@@ -35,10 +35,6 @@ class IdempotentImpl implements Idempotent {
     return this.state.get() === IS_OPEN;
   }
 
-  toString(): string {
-    return `Idempotent[open:${this.state.get()}]`;
-  }
-
   static internalCreate(): Idempotent {
     return new IdempotentImpl();
   }

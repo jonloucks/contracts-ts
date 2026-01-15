@@ -1,5 +1,5 @@
 import { AutoCloseOne } from "contracts-ts/api/AutoClose";
-import { AutoOpen } from "contracts-ts/api/AutoOpen";
+import { isAutoOpen } from "contracts-ts/api/AutoOpen";
 import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
 import { AtomicInteger } from "contracts-ts/api/auxiliary/AtomicInteger";
 import { AtomicReference } from "contracts-ts/api/auxiliary/AtomicReference";
@@ -79,8 +79,8 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
   }
 
   private maybeRethrowOpenException(): void {
-    const thrown = this.openException.get();
-    if (thrown) {
+    const thrown: unknown = this.openException.get();
+    if (isPresent(thrown)) {
       throw thrown;
     }
   }
@@ -103,10 +103,10 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
   }
 
   private openDeliverable(deliverable: OptionalType<T>): void {
-    const autoopen: AutoOpen = deliverable as AutoOpen;
-    if (isPresent(autoopen)) {
+    if (isPresent(deliverable) && isAutoOpen(deliverable)) {
+      const autoOpen = deliverable;
       try {
-        this.closer.set(autoopen.open());
+        this.closer.set(autoOpen.open());
       } catch (thrown) {
         this.openException.set(thrown);
         this.isDeliverableAcquired.set(false);
