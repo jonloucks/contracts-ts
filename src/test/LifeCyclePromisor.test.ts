@@ -28,7 +28,7 @@ describe('LifeCyclePromisor tests', () => {
       const sourcePromisor: Promisor<unknown> = promisorFactory.createValue(openMock);
       const promisor: Promisor<unknown> = promisorFactory.createLifeCycle(sourcePromisor);
       promisor.incrementUsage();
-      const deliverable: unknown = promisor.demand();
+      promisor.demand();
       expect(openMock.open).toHaveBeenCalledTimes(1);
     });
   });
