@@ -65,7 +65,7 @@ interface TestSuiteOptions<T> {
 export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
   const { validCases, invalidCases } = options;
 
-  describe(options.name, () => {
+  describe(options.name + " valid cases", () => {
     validCases?.forEach((testCase, index) => {
       it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
         Tools.withContracts((contracts: Contracts) => {
@@ -84,7 +84,7 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
     });
   });
 
-  describe(options.name, () => {
+  describe(options.name + " invalid cases", () => {
     invalidCases?.forEach((testCase, index) => {
       it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
         Tools.withContracts((contracts: Contracts) => {
