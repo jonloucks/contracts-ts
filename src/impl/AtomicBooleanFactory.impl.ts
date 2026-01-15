@@ -1,6 +1,6 @@
-import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
-import { AtomicBooleanFactory } from "contracts-ts/api/AtomicBooleanFactory";
-import { RequiredType } from "contracts-ts/api/Types";
+import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicBooleanFactory } from "contracts-ts/api/auxiliary/AtomicBooleanFactory";
+import { RequiredType } from "contracts-ts/api/auxiliary/Types";
 
 import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
 

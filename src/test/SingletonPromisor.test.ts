@@ -1,12 +1,12 @@
 import assert from "node:assert";
 
+import { createContract } from "contracts-ts";
 import { Contract } from "contracts-ts/api/Contract";
 import { Contracts } from "contracts-ts/api/Contracts";
-import { typeToPromisor, Promisor } from "contracts-ts/api/Promisor";
+import { Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "contracts-ts/api/PromisorFactory";
-import { OptionalType } from "contracts-ts/api/Types";
+import { OptionalType } from "contracts-ts/api/auxiliary/Types";
 import { Tools } from "contracts-ts/test/Test.tools.test";
-import { createContract } from "contracts-ts";
 
 generateSingletonSuite<Date>({
   name: 'Singleton Promisor with current Date',

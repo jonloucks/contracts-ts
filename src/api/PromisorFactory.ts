@@ -2,7 +2,7 @@ import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Lawyer } from "contracts-ts/api/Lawyer";
 import { Promisor, PromisorType } from "contracts-ts/api/Promisor";
 import { create as createContract } from "contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, Transform, hasFunctions } from "contracts-ts/api/Types";
+import { OptionalType, RequiredType, Transform, hasFunctions } from "contracts-ts/api/auxiliary/Types";
 
 /**
  * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}

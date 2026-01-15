@@ -1,9 +1,9 @@
-import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
-import { promisorCheck } from "contracts-ts/api/Checks";
+import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicReference } from "contracts-ts/api/auxiliary/AtomicReference";
+import { promisorCheck } from "contracts-ts/api/auxiliary/Checks";
+import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
 import { Promisor } from "contracts-ts/api/Promisor";
-import { OptionalType, RequiredType } from "contracts-ts/api/Types";
 
-import { AtomicReference } from "contracts-ts/api/AtomicReference";
 import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
 import { create as createAtomicReference } from "contracts-ts/impl/AtomicReference.impl";
 

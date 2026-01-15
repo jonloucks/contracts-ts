@@ -1,4 +1,4 @@
-import { presentCheck } from "contracts-ts/api/Checks";
+import { presentCheck } from "contracts-ts/api/auxiliary/Checks";
 import { ContractException } from "contracts-ts/api/ContractException";
 
 /**

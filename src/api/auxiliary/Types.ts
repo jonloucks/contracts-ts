@@ -41,7 +41,7 @@ export function isPresent<T>(value: unknown): value is RequiredType<T> {
  * @param value the value to check
  * @returns true iif value is null or undefined, false for actual values
  */
-export function isNotPresent<T>(value: unknown): value is null | undefined {
+export function isNotPresent(value: unknown): value is null | undefined {
   return value === null || value === undefined;
 }
 

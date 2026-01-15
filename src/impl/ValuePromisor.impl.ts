@@ -1,5 +1,5 @@
 import { Promisor } from "contracts-ts/api/Promisor";
-import { OptionalType, RequiredType } from "contracts-ts/api/Types";
+import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
 
 /**
  * Factory method to create an constant value promisor implementation

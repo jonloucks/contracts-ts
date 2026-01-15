@@ -1,13 +1,13 @@
-import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "contracts-ts/api/AtomicBooleanFactory";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "contracts-ts/api/AtomicIntegerFactory";
-import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "contracts-ts/api/AtomicReferenceFactory";
 import { CONTRACT as AUTO_CLOSE_FACTORY } from "contracts-ts/api/AutoCloseFactory";
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 import { ContractsFactory } from "contracts-ts/api/ContractsFactory";
 import { CONTRACT as PROMISOR_FACTORY } from "contracts-ts/api/PromisorFactory";
 import { Repository } from "contracts-ts/api/Repository";
 import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
-import { RequiredType } from "contracts-ts/api/Types";
+import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "contracts-ts/api/auxiliary/AtomicBooleanFactory";
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "contracts-ts/api/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "contracts-ts/api/auxiliary/AtomicReferenceFactory";
+import { RequiredType } from "contracts-ts/api/auxiliary/Types";
 
 import { create as createAtomicBooleanFactoryImpl } from "contracts-ts/impl/AtomicBooleanFactory.impl";
 import { create as createAtomicIntegerFactoryImpl } from "contracts-ts/impl/AtomicIntegerFactory.impl";

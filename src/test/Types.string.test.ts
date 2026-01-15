@@ -1,5 +1,5 @@
 
-import { isString, isStringPresent } from "contracts-ts/api/Types";
+import { isString, isStringPresent } from "contracts-ts/api/auxiliary/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [

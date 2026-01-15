@@ -1,7 +1,7 @@
 import assert from "node:assert";
 
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
-import { OptionalType } from "contracts-ts/api/Types";
+import { OptionalType } from "contracts-ts/api/auxiliary/Types";
 import { Tools } from "contracts-ts/test/Test.tools.test";
 
 describe('Contracts with shutdown events', () => {

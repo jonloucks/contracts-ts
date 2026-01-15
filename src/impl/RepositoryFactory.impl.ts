@@ -1,7 +1,7 @@
 import { Contracts } from "contracts-ts/api/Contracts";
 import { Repository } from "contracts-ts/api/Repository";
 import { RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
-import { RequiredType } from "contracts-ts/api/Types";
+import { RequiredType } from "contracts-ts/api/auxiliary/Types";
 import { create as createRepository } from "contracts-ts/impl/Repository.impl";
 
 /**

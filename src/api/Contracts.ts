@@ -3,7 +3,7 @@ import { AutoOpen } from "contracts-ts/api/AutoOpen";
 import { BindStrategyType as BindType } from "contracts-ts/api/BindStrategy";
 import { Contract } from "contracts-ts/api/Contract";
 import { PromisorType } from "contracts-ts/api/Promisor";
-import { OptionalType, RequiredType } from "contracts-ts/api/Types";
+import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
 
 /**
  * The Contracts configuration
