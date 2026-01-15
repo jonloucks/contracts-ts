@@ -2,7 +2,7 @@ import assert from "node:assert";
 
 import { Contract } from "contracts-ts/api/Contract";
 import { Contracts } from "contracts-ts/api/Contracts";
-import { inlinePromisor, Promisor } from "contracts-ts/api/Promisor";
+import { typeToPromisor, Promisor } from "contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "contracts-ts/api/PromisorFactory";
 import { OptionalType } from "contracts-ts/api/Types";
 import { Tools } from "contracts-ts/test/Test.tools.test";
@@ -40,6 +40,8 @@ generateSingletonSuite<Person>({
     { value: () => { return null; }, help: "a null Person" },
     { value: () => { return { name: "Alice", age: 30 } }, help: "a Person object" }
   ],
+  invalidCases: [
+  ]
 });
 
 interface TestCase<T> {
@@ -47,10 +49,17 @@ interface TestCase<T> {
   help?: string;
 }
 
+interface InvalidTestCase<T> {
+  value: () => OptionalType<T>;
+  errorType?: string;
+  errorMessage?: string;
+  help?: string;
+}
+
 interface TestSuiteOptions<T> {
   name: string;
   validCases?: TestCase<T>[];
-  invalidCases?: TestCase<T>[];
+  invalidCases?: InvalidTestCase<T>[];
 }
 
 export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
@@ -62,10 +71,10 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
         Tools.withContracts((contracts: Contracts) => {
           const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
           const contract: Contract<T> = createContract<T>();
-          const valuePromisor: Promisor<T> = inlinePromisor<T>(testCase.value);
+          const valuePromisor: Promisor<T> = typeToPromisor<T>(testCase.value);
           const promisor: Promisor<T> = promisorFactory.createSingleton<T>(valuePromisor)
 
-          using usingPromisor = contracts.bind(contract, promisor);
+          using _usingPromisor = contracts.bind(contract, promisor);
 
           const firstClaim: OptionalType<T> = contracts.claim(contract);
           const secondClaim: OptionalType<T> = contracts.claim(contract);
@@ -75,14 +84,20 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
     });
   });
 
-  // invalidCases?.forEach((testCase, index) => {
-  //     it(`cast with ${testCase?.help ?? testCase.instance} throws ClassCastException`, () => {
-  //         assert.throws(() => {
-  //             contract.cast(testCase.instance);
-  //         }, {
-  //             name: 'ClassCastException'
-  //         });
-  //     });
-  // });
+  describe(options.name, () => {
+    invalidCases?.forEach((testCase, index) => {
+      it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
+        Tools.withContracts((contracts: Contracts) => {
+          const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
+          assert.throws(() => {
+            promisorFactory.createSingleton<T>(null as unknown as Promisor<T>);
+          }, {
+            name: testCase.errorType,
+            message: testCase.errorMessage
+          });
+        });
+      });
+    });
+  });
 }
 

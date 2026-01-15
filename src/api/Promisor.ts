@@ -38,6 +38,15 @@ export interface Promisor<T> {
 }
 
 /**
+ * Check if an instance is a Promisor
+ * @param instance the instance to check
+ * @returns true if the instance is a Promisor, false otherwise
+ */
+export function isPromisor<T>(instance: unknown): instance is Promisor<T> {
+  return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
+}
+
+/**
  * For creating a Contract for Promisor with duck-typing checks.
  */
 export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Promisor<unknown>> {
@@ -46,7 +55,7 @@ export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Pro
    * Lawyer.isDeliverable override
    */
   isDeliverable<X extends Promisor<unknown>>(instance: unknown): instance is OptionalType<X> {
-    return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
+    return isPromisor<X>(instance);
   }
 
   /** 
@@ -65,39 +74,70 @@ export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Pro
 /**
  * A type that can be converted to a Promisor
  */
-export type PromisorType<T> = (new () => T) | Promisor<T> | (() => T) | (() => () => T) | T | null;
+export type PromisorType<T> = (new () => T) | Promisor<T> | (() => OptionalType<T>) | (() => () => T) | T | null | undefined;
 
 /**
  * Convert a PromisorType to a Promisor
+ * 
  * @param type the type to convert
  * @returns the Promisor
  */
 export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<T>> {
   if (isNotPresent(type)) {
-    return inlinePromisor<T>(() => type);
+    return wrapPromisor<T>(type, () => type); // supplier of null or undefined
   } else if (isConstructorPresent<T>(type)) {
-    return inlinePromisor<T>(() => new type());
-  } else if (LAWYER.isDeliverable<Promisor<T>>(type)) {
-    return type as RequiredType<Promisor<T>>;
+    return wrapPromisor<T>(type, () => new type()); // supplier of new instance
+  } else if (isPromisor(type)) {
+    return type; // already a Promisor
   } else if (typeof type === 'function') {
-    return inlinePromisor<T>(type as () => T); // not sure if this works for (() => () => T)
+    return wrapPromisor<T>(type, type as () => T); 
   } else {
-    return inlinePromisor<T>(() => type);
+    return wrapPromisor<T>(type, () => type); // instance of T, runtime type-guard happens in demand
   }
 }
 
 /**
+ * Wrapper interface for Promisor to provide unwrapping capability
+ */
+interface PromisorWrapper<T> extends Promisor<T> {
+
+    /**
+     * Unwrap to get the original Promisor.
+     */
+    unwrapPromisorType(): PromisorType<T>;
+}
+
+/**
  * Create a simple inline Promisor from a demand function
+ * 
+ * @param type the PromisorType
  * @param demand the demand function
  * @returns the Promisor
  */
-export function inlinePromisor<T>(demand: () => OptionalType<T>): RequiredType<Promisor<T>> {
+function wrapPromisor<T>(type: PromisorType<T>, demand: () => OptionalType<T>): RequiredType<PromisorWrapper<T>> {
   const validDemand = presentCheck(demand, "Promisor demand function must be present.");
-  let usageCount: number = 0;
+  let usageCount: number = 0; 
   return {
     demand: validDemand,
-    incrementUsage: () => ++usageCount,
-    decrementUsage: () => --usageCount
+    incrementUsage: () => ++usageCount, 
+    decrementUsage: () => --usageCount, 
+    unwrapPromisorType: () => type
   };
+}
+
+/**
+ * Unwrap an AutoClose to get the original type.
+ * 
+ * @param promisor the AutoClose to unwrap
+ * @returns the original AutoCloseType
+ */
+export function unwrapPromisorType<T>(promisor: OptionalType<Promisor<T>>): OptionalType<PromisorType<T>> {
+    if (isNotPresent(promisor)) {
+        return promisor;
+    }
+    if ('unwrapPromisorType' in promisor && typeof promisor.unwrapPromisorType === 'function') {
+        return promisor.unwrapPromisorType();
+    }
+    return promisor
 }
 
