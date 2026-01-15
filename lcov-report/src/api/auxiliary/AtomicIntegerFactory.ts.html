@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/api/Validate.ts</title>
+    <title>Code coverage report for src/api/auxiliary/AtomicIntegerFactory.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> Validate.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/api/auxiliary</a> AtomicIntegerFactory.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -108,113 +108,116 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AutoClose } from "contracts-ts/api/AutoClose";
-import { contractsCheck } from "contracts-ts/api/Checks";
-import { Contract } from "contracts-ts/api/Contract";
-import { ContractException } from "contracts-ts/api/ContractException";
-import { Contracts } from "contracts-ts/api/Contracts";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span></td><td class="text"><pre class="prettyprint lang-js">import { AtomicInteger } from "contracts-ts/api/auxiliary/AtomicInteger";
+import { OptionalType, RequiredType, hasFunctions } from "contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
+import { Lawyer } from "contracts-ts/api/Lawyer";
 import { create as createContract } from "contracts-ts/api/RatifiedContract";
 &nbsp;
 /**
-* A simple runtime validation of deployed implementation
-*
-* @param contracts the contracts to check
-*/
-export function validateContracts(contracts: Contracts): void {
-  const validContracts: Contracts = contractsCheck(contracts);
-  try {
-    const contract: Contract&lt;Date&gt; = createContract&lt;Date&gt;({
-      test: (instance: unknown): instance is Date =&gt; { return instance instanceof Date; }
-    });
-    const deliverableValue: Date = new Date();
+ * Factory interface for creating AtomicInteger instances.
+ */
+export interface AtomicIntegerFactory {
 &nbsp;
-    if (validContracts.isBound(contract)) {
-      throw new ContractException("Contract should not be bound.");
-    }
-    {
-      using bindReturn: AutoClose = validContracts.bind(contract, () =&gt; deliverableValue);
-&nbsp;
-      if (null === bindReturn || bindReturn === undefined) {
-        throw new ContractException("Contract bind returned null.");
-      }
-&nbsp;
-      if (!validContracts.isBound(contract)) {
-        throw new ContractException("Contract should have been bound.");
-      }
-      if (deliverableValue !== validContracts.claim(contract)) {
-        throw new ContractException("Contract claiming not working.");
-      }
-    }
-&nbsp;
-    if (validContracts.isBound(contract)) {
-      throw new ContractException("Contract unbinding not working.");
-    }
-  } catch (thrown: unknown) {
-    ContractException.rethrow(thrown, "Contracts unexpected validation error.");
-  }
+    /**
+     * Create a new AtomicInteger instance.    
+     * @param initialValue the initial value of the AtomicInteger
+     */
+    create(initialValue?: number): RequiredType&lt;AtomicInteger&gt;;
 }
-&nbsp;</pre></td></tr></table></pre>
+&nbsp;
+/**
+ * For creating a Contract for AtomicInteger with duck-typing checks.
+ */
+export const LAWYER: Lawyer&lt;AtomicIntegerFactory&gt; = new class implements Lawyer&lt;AtomicIntegerFactory&gt; {
+&nbsp;
+    /** 
+     * Lawyer.isDeliverable override
+     */
+    isDeliverable&lt;X extends AtomicIntegerFactory&gt;(instance: unknown): instance is OptionalType&lt;X&gt; {
+        return hasFunctions(instance, 'create');
+    }
+&nbsp;
+    /** 
+     * Lawyer.createContract override
+     */
+    createContract&lt;X extends AtomicIntegerFactory&gt;(config?: ContractConfig&lt;X&gt;): Contract&lt;X&gt; {
+        const copy: ContractConfig&lt;X&gt; = { ...config ?? {} };
+&nbsp;
+        copy.test ??= this.isDeliverable;
+        copy.typeName ??= "AtomicIntegerFactory";
+&nbsp;
+        return createContract&lt;X&gt;(copy);
+    }
+};
+&nbsp;
+/**
+ * The factory Contract for creating new AtomicInteger instances.
+ */
+export const CONTRACT: Contract&lt;AtomicIntegerFactory&gt; = LAWYER.createContract();</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-15T11:30:59.486Z
+                at 2026-01-15T14:26:32.578Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     
