@@ -1,7 +1,8 @@
 import assert from "node:assert";
 
-import { inlinePromisor, LAWYER, Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
+import { LAWYER, Promisor, typeToPromisor, unwrapPromisorType } from "contracts-ts/api/Promisor";
 import { OptionalType } from "contracts-ts/api/Types";
+import { generateTestsForLawyer } from "./Lawyer.tools.test";
 
 describe('api/Promisor.ts tests', () => {
   it('LAWYER.isDeliverable tests', () => {
@@ -15,13 +16,23 @@ describe('api/Promisor.ts tests', () => {
 });
 
 describe('typeToPromisor tests', () => {
+  it('with null returns Promisor that returns null', () => {
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(null);
+    const instance: OptionalType<DummyClass> = promisor.demand();
+    assert.strictEqual(instance, null);
+  });
+  it('with undefined returns Promisor that returns undefined', () => {
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(undefined);
+    const instance: OptionalType<DummyClass> = promisor.demand();
+    assert.strictEqual(instance, undefined);
+  });
   it('with constructor type returns Promisor', () => {
     const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(DummyClass);
     const instance: OptionalType<DummyClass> = promisor.demand();
     assert.ok(instance instanceof DummyClass);
   });
   it('with Promisor type returns same Promisor', () => {
-    const originalPromisor: Promisor<DummyClass> = inlinePromisor<DummyClass>(() => new DummyClass(42));
+    const originalPromisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(() => new DummyClass(42));
     const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(originalPromisor);
     assert.strictEqual(promisor, originalPromisor);
   });
@@ -50,6 +61,54 @@ describe('typeToPromisor tests', () => {
   });
 });
 
+describe('unwrapPromisorType tests', () => {
+
+  it('returns original type passed to typeToPromisor', () => {
+    const originalInstance: DummyClass = new DummyClass(123);
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(originalInstance);
+    const unwrappedType = unwrapPromisorType(promisor);
+    assert.strictEqual(unwrappedType, originalInstance);
+  });
+  it('with null type returns null', () => {
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(null);
+    const unwrappedType = unwrapPromisorType(promisor);
+    assert.strictEqual(unwrappedType, null);
+  });
+  it('with undefined type returns undefined', () => {
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(undefined);
+    const unwrappedType = unwrapPromisorType(promisor);
+    assert.strictEqual(unwrappedType, undefined);
+  });
+  it('with constructor type returns constructor', () => {
+    const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(DummyClass);
+    const unwrappedType = unwrapPromisorType(promisor);
+    assert.strictEqual(unwrappedType, DummyClass);
+  });
+  it('with undefined returns undefined', () => {
+    assert.strictEqual(unwrapPromisorType<DummyClass>(undefined), undefined);
+  });
+  it('with null returns null', () => {
+    assert.strictEqual(unwrapPromisorType<DummyClass>(null), null);
+  });
+  it('with custom instance returns same instance', () => {
+    const promisor: Promisor<DummyClass> = new class implements Promisor<DummyClass> {
+      demand(): OptionalType<DummyClass> {
+        return new DummyClass(456);
+      }
+      incrementUsage(): number {
+        return 1;
+      }
+      decrementUsage(): number {
+        return 0;
+      }
+    };
+  
+    const unwrappedType = unwrapPromisorType(promisor);
+    assert.strictEqual(unwrappedType, promisor);
+  });
+});
+
+generateTestsForLawyer(LAWYER);
 
 class DummyClass {
   value: number;
