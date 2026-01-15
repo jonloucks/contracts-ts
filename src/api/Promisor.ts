@@ -126,10 +126,10 @@ function wrapPromisor<T>(type: PromisorType<T>, demand: () => OptionalType<T>): 
 }
 
 /**
- * Unwrap an AutoClose to get the original type.
+ * Unwrap a Promisor to get the original type.
  * 
- * @param promisor the AutoClose to unwrap
- * @returns the original AutoCloseType
+ * @param promisor the Promisor to unwrap
+ * @returns the original PromisorType
  */
 export function unwrapPromisorType<T>(promisor: OptionalType<Promisor<T>>): OptionalType<PromisorType<T>> {
     if (isNotPresent(promisor)) {
