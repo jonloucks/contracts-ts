@@ -115,8 +115,16 @@ class ContractsImpl implements Contracts {
   }
 
   private attemptToCloseBindings(): void {
-    while (this.breakAllBindings() > 0) { 
-      // empty loop
+    const MAX_RETRIES = 6;
+    let iterations = 0;
+
+    while (this.breakAllBindings() > 0) {
+      iterations++;
+      if (iterations >= MAX_RETRIES) {
+        throw new ContractException(
+          `Failed to break all bindings after ${MAX_RETRIES} attempts`
+        );
+      }
     }
   }
 
