@@ -1,12 +1,12 @@
-import { AtomicBoolean } from "contracts-ts/api/AtomicBoolean";
-import { AtomicInteger } from "contracts-ts/api/AtomicInteger";
-import { AtomicReference } from "contracts-ts/api/AtomicReference";
 import { AutoCloseOne } from "contracts-ts/api/AutoClose";
 import { AutoOpen } from "contracts-ts/api/AutoOpen";
-import { promisorCheck } from "contracts-ts/api/Checks";
-import { IllegalStateException } from "contracts-ts/api/IllegalStateException";
+import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicInteger } from "contracts-ts/api/auxiliary/AtomicInteger";
+import { AtomicReference } from "contracts-ts/api/auxiliary/AtomicReference";
+import { promisorCheck } from "contracts-ts/api/auxiliary/Checks";
+import { IllegalStateException } from "contracts-ts/api/auxiliary/IllegalStateException";
+import { OptionalType, RequiredType, isPresent } from "contracts-ts/api/auxiliary/Types";
 import { Promisor } from "contracts-ts/api/Promisor";
-import { OptionalType, RequiredType, isPresent } from "contracts-ts/api/Types";
 
 import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
 import { create as createAtomicInteger } from "contracts-ts/impl/AtomicInteger.impl";

@@ -1,9 +1,9 @@
 import assert from "node:assert";
 
+import { createContract } from "contracts-ts";
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Lawyer } from "contracts-ts/api/Lawyer";
-import { OptionalType, RequiredType, isNotPresent } from "contracts-ts/api/Types";
-import { createContract } from "contracts-ts";
+import { OptionalType, RequiredType, isNotPresent } from "contracts-ts/api/auxiliary/Types";
 
 const LAWYER: Lawyer<Date> = new class implements Lawyer<Date> {
   createContract<X extends Date>(config?: ContractConfig<X> | undefined): RequiredType<Contract<X>> {

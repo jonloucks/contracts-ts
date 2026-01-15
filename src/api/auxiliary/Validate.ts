@@ -1,5 +1,5 @@
 import { AutoClose } from "contracts-ts/api/AutoClose";
-import { contractsCheck } from "contracts-ts/api/Checks";
+import { contractsCheck } from "contracts-ts/api/auxiliary/Checks";
 import { Contract } from "contracts-ts/api/Contract";
 import { ContractException } from "contracts-ts/api/ContractException";
 import { Contracts } from "contracts-ts/api/Contracts";

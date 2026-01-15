@@ -1,7 +1,7 @@
 import assert from "node:assert";
 
 import { LAWYER, Promisor, typeToPromisor, unwrapPromisorType } from "contracts-ts/api/Promisor";
-import { OptionalType } from "contracts-ts/api/Types";
+import { OptionalType } from "contracts-ts/api/auxiliary/Types";
 import { generateTestsForLawyer } from "./Lawyer.tools.test";
 
 describe('api/Promisor.ts tests', () => {

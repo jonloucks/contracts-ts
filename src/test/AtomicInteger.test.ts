@@ -1,7 +1,7 @@
 import assert from "node:assert";
 
-import { AtomicInteger, LAWYER } from "contracts-ts/api/AtomicInteger";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AtomicIntegerFactory";
+import { AtomicInteger, LAWYER } from "contracts-ts/api/auxiliary/AtomicInteger";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/auxiliary/AtomicIntegerFactory";
 import { Contracts } from "contracts-ts/api/Contracts";
 import { Tools } from "contracts-ts/test/Test.tools.test";
 import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";

@@ -1,7 +1,7 @@
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Lawyer } from "contracts-ts/api/Lawyer";
 import { create as createContract } from "contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "contracts-ts/api/Types";
+import { OptionalType, hasFunctions } from "contracts-ts/api/auxiliary/Types";
 
 /**
  * Responsibility: An atomic integer interface for thread-safe integer operations.

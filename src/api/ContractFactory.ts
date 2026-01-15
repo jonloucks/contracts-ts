@@ -1,5 +1,5 @@
-import { RequiredType, OptionalType } from "contracts-ts/api/Types";
-import { Contract, Config } from "contracts-ts/api/Contract";
+import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
+import { Config, Contract } from "contracts-ts/api/Contract";
 
 /**
  * A Contractsfactory to bootstrapping Global Contracts and provide
