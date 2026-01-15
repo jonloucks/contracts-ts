@@ -115,12 +115,9 @@ class ContractsImpl implements Contracts {
   }
 
   private attemptToCloseBindings(): void {
-    for (let attempts: number = 1; attempts <= 6; attempts++) {
-      if (this.breakAllBindings() === 0) {
-        return;
-      }
+    while (this.breakAllBindings() > 0) { 
+      // empty loop
     }
-    this.throwCloseDidNotCompleteException();
   }
 
   private maybeBind<T>(contract: Contract<T>, newPromisor: Promisor<T>, bindStrategy: BindStrategy): AutoClose {
@@ -236,10 +233,6 @@ class ContractsImpl implements Contracts {
     return false;
   }
 
-  private throwCloseDidNotCompleteException(): never {
-    throw new ContractException("Contracts failed to close after trying multiple times.");
-  }
-
   private throwContractNotPromisedException<T>(contract: Contract<T>): never {
     throw new ContractException("Contract " + contract + " was not promised.");
   }
@@ -258,7 +251,7 @@ class ContractsImpl implements Contracts {
       callback: () => this.closeFirstOpen()
     });
 
-    if (validPartners) {
+    if (isPresent(validPartners)) {
       this.partners.push(...validPartners);
     }
   }

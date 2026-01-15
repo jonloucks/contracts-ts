@@ -1,0 +1,57 @@
+import { hasFunctions, hasFunctionsPresent } from "contracts-ts/api/auxiliary/Types";
+
+describe("hasFunctions", () => {
+  it("should return true when all functions are present", () => {
+    const obj = {
+      func1: () => { },
+      func2: async () => { },
+    };
+
+    expect(hasFunctions(obj, "func1", "func2")).toBe(true);
+  });
+
+  it("should return false when any function is missing", () => {
+    const obj = {
+      func1: () => { },
+    };
+
+    expect(hasFunctions(obj, "func1", "func2")).toBe(false);
+  });
+
+  it("should return false when any function is not a function", () => {
+    const obj = {
+      func1: () => { },
+      func2: "not a function",
+    };
+
+    expect(hasFunctions(obj, "func1", "func2")).toBe(false);
+  });
+});
+
+describe("hasFunctionsPresent", () => {
+  it("should return true when all functions are present", () => {
+    const obj = {
+      func1: () => { },
+      func2: async () => { },
+    };
+
+    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(true);
+  });
+
+  it("should return false when any function is missing", () => {
+    const obj = {
+      func1: () => { },
+    };
+
+    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(false);
+  });
+
+  it("should return false when any function is not a function", () => {
+    const obj = {
+      func1: () => { },
+      func2: "not a function",
+    };
+
+    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(false);
+  });
+});

@@ -68,6 +68,9 @@ describe('AtomicReference', () => {
 
       atomic.set(undefined);
       assert.strictEqual(atomic.get(), undefined, "set to undefined should be get as undefined");
+
+      assert.notStrictEqual(atomic.toString(), null, "toString with undefined should not be null");
+      assert.notStrictEqual(atomic.toString(), undefined, "toString with undefined should not be undefined");
     });
   });
 

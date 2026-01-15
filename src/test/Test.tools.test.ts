@@ -146,6 +146,7 @@ export class Tools {
       let object: object = instance as object;
       Tools.assertNotNull(object.toString(), "Object toString() was null.");
     }
+    assert.notStrictEqual(String(instance), 'undefined', message ?? "Object must be defined."); 
   }
 
   /**
@@ -301,7 +302,7 @@ export class Tools {
     const validConfig: ContractsConfig = configCheck(config);
     const validConsumerBlock: (c: Contracts) => void = presentCheck(consumerBlock, "Block must be present.");
     const contracts: RequiredType<Contracts> = createContracts(validConfig);
-    using usingContracts: AutoClose = contracts.open();
+    using _usingContracts: AutoClose = contracts.open();
 
     validConsumerBlock(contracts);
   }

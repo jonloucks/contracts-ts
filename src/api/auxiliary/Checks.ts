@@ -55,34 +55,6 @@ export const configCheck: <T>(config: OptionalType<T>)
     }
 
 /**
- * Check if given builder is not null or invalid
- *
- * @param builder the builder to check
- * @param <T>      the type of builder
- * @return a valid builder
- * @throws IllegalArgumentException when invalid
- */
-export const builderCheck: <T>(builder: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(builder: OptionalType<T>) => {
-        return presentCheck(builder, "Builder must be present.");
-    }
-
-/**
- * Check if given builder consumer is not null or invalid
- *
- * @param builderConsumer the builder consumer to check
- * @param <T>      the type of builder consumer
- * @return a valid builder consumer
- * @throws IllegalArgumentException when invalid
- */
-export const builderConsumerCheck: <T>(builderConsumer: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(builderConsumer: OptionalType<T>) => {
-        return presentCheck(builderConsumer, "Builder consumer must be present.");
-    }
-
-/**
  * Check if given type is not null or invalid
  *
  * @param {*} type the type to check
@@ -150,6 +122,3 @@ export const illegalCheck: <T>(value: T, failed: boolean, message: string)
         }
         return value;
     };
-
-
-
