@@ -1,11 +1,11 @@
-import { AutoClose, inlineAutoClose } from "contracts-ts/api/AutoClose";
-import { AutoOpen } from "contracts-ts/api/AutoOpen";
-import { BindStrategyType } from "contracts-ts/api/BindStrategy";
-import { Contract } from "contracts-ts/api/Contract";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { PromisorType } from "contracts-ts/api/Promisor";
-import { Repository } from "contracts-ts/api/Repository";
-import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
+import { AutoClose, inlineAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
+import { BindStrategyType } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { PromisorType } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
+import { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Wrapper method to create a Contracts wrapper which is responsible for managing

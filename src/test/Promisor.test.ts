@@ -1,7 +1,7 @@
-import { strictEqual, notStrictEqual, ok } from "node:assert";
+import { notStrictEqual, ok, strictEqual } from "node:assert";
 
-import { LAWYER, Promisor, typeToPromisor, unwrapPromisorType } from "contracts-ts/api/Promisor";
-import { OptionalType } from "contracts-ts/api/auxiliary/Types";
+import { LAWYER, Promisor, typeToPromisor, unwrapPromisorType } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 import { generateTestsForLawyer } from "./Lawyer.tools.test";
 
 describe('api/Promisor.ts tests', () => {

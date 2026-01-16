@@ -1,5 +1,5 @@
-import { typeCheck, nameCheck, illegalCheck } from "../api/auxiliary/Checks";
-import { IllegalArgumentException } from "contracts-ts/api/auxiliary/IllegalArgumentException";
+import { IllegalArgumentException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalArgumentException";
+import { illegalCheck, nameCheck, typeCheck } from "../api/auxiliary/Checks";
 
 describe("typeCheck", () => {
   it("should pass for valid types", () => {

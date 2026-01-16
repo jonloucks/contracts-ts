@@ -1,16 +1,16 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "contracts-ts/api/AutoClose";
-import { contractCheck } from "contracts-ts/api/auxiliary/Checks";
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
-import { BindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
-import { Contract } from "contracts-ts/api/Contract";
-import { ContractException } from "contracts-ts/api/ContractException";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "contracts-ts/api/Promisor";
-import { Repository } from "contracts-ts/api/Repository";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { contractCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { BindStrategy, resolveBindStrategy } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
 
-import { OptionalType } from "contracts-ts/api/auxiliary/Types";
-import { Idempotent, create as createIdempotent } from "contracts-ts/impl/Idempotent.impl";
-import { StorageImpl } from "contracts-ts/impl/Storage.impl";
+import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Idempotent, create as createIdempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent.impl";
+import { StorageImpl } from "@io.github.jonloucks/contracts-ts/impl/Storage.impl";
 
 /**
  * Factory method to create Repository instance.

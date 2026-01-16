@@ -1,6 +1,6 @@
 
-import { isString, isStringPresent } from "contracts-ts/api/auxiliary/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
+import { isString, isStringPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@io.github.jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   { value: "", help: "a empty string value" },

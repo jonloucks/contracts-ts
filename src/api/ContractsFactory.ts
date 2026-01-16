@@ -1,5 +1,5 @@
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
-import { Config, Contracts } from "contracts-ts/api/Contracts";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Config, Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
 
 /**
  * A Contracts factory to bootstrapping Global Contracts and provide

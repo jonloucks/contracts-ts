@@ -1,9 +1,9 @@
 import { throws } from "node:assert";
 
-import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
-import { PromisorType } from "contracts-ts/api/Promisor";
-import { Tools } from "contracts-ts/test/Test.tools.test";
-import { createContract } from "contracts-ts";
+import { createContract } from "@io.github.jonloucks/contracts-ts";
+import { Contracts, Config as ContractsConfig } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { PromisorType } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Contracts with ratified', () => {
 

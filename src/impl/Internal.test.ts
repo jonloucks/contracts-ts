@@ -1,7 +1,7 @@
-import { strictEqual, throws, deepStrictEqual, fail, ok } from "node:assert";
+import { deepStrictEqual, fail, ok, strictEqual, throws } from "node:assert";
 
-import { ContractException } from "contracts-ts/api/ContractException";
-import { Internal } from "contracts-ts/impl/Internal.impl";
+import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
+import { Internal } from "@io.github.jonloucks/contracts-ts/impl/Internal.impl";
 
 /**
  * Internal tests for internal Helpers functionality.

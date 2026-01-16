@@ -1,8 +1,8 @@
-import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
-import { OptionalType, RequiredType, hasFunctions } from "contracts-ts/api/auxiliary/Types";
-import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
-import { Lawyer } from "contracts-ts/api/Lawyer";
-import { create as createContract } from "contracts-ts/api/RatifiedContract";
+import { AtomicBoolean } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { OptionalType, RequiredType, hasFunctions } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
+import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
 
 /**
  * Factory interface for creating AtomicBoolean instances.

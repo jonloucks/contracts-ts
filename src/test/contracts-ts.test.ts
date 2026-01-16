@@ -38,15 +38,15 @@ import {
   typeToPromisor,
   validateContracts,
   VERSION,
-} from "contracts-ts";
+} from "@io.github.jonloucks/contracts-ts";
 
 /** 
- * Tests for contracts-ts index and version exports
+ * Tests for @io.github.jonloucks/contracts-ts index and version exports
  * All exported functions and constants must already have been tested in their respective test files
  * These tests ensure that the index exports are correctly set up and accessible
  * Also tests the VERSION constant to ensure it matches the version in package.json
  * If this file fails to compile, it indicates a possible breaking for deployment consumers
- * @module contracts-ts/tests/contracts-ts.test.ts
+ * @module @io.github.jonloucks/contracts-ts/tests/contracts-ts.test.ts
  */
 
 describe('VERSION constant', () => {

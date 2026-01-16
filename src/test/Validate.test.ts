@@ -1,11 +1,11 @@
 import { throws } from "node:assert";
 
-import { AutoClose } from "contracts-ts/api/AutoClose";
-import { ContractException } from "contracts-ts/api/ContractException";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
-import { validateContracts } from "contracts-ts/api/auxiliary/Validate";
-import { Tools } from "contracts-ts/test/Test.tools.test";
+import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { Promisor, typeToPromisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { validateContracts } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Validate";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Validate contracts', () => {
   it('Working scenario', () => {

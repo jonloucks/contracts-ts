@@ -1,12 +1,12 @@
 import { strictEqual } from "node:assert";
 
-import { createContract } from "contracts-ts";
-import { Contract } from "contracts-ts/api/Contract";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { Promisor } from "contracts-ts/api/Promisor";
-import { CONTRACT as PROMISOR_FACTORY_CONTRACT, PromisorFactory } from "contracts-ts/api/PromisorFactory";
-import { OptionalType } from "contracts-ts/api/auxiliary/Types";
-import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "@io.github.jonloucks/contracts-ts";
+import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { Promisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { CONTRACT as PROMISOR_FACTORY_CONTRACT, PromisorFactory } from "@io.github.jonloucks/contracts-ts/api/PromisorFactory";
+import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 generateValueSuite<string>({
   name: 'Value Promisor with primitive string values',
