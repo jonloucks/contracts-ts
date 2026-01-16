@@ -49,7 +49,7 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 ```
 </details>
 
-<details markdown="1"><summary>Importing Package</summary>
+<details markdown="1"><summary>Importing the Package</summary>
 
 ```typescript
 import { CONTRACTS, createContract, PromisorFactory, PROMISOR_FACTORY } from '@io.github.jonloucks/contracts-ts';
