@@ -14,7 +14,7 @@
  * Usage:   
  * npx tsx scripts/generate-code-coverage-badge.ts
  */
-import { readFile, writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
 generateCoverageSummaryBadge();
 generateTypedocBadge();
@@ -23,23 +23,16 @@ generateTypedocBadge();
  * Generates a code coverage summary badge based on the coverage summary JSON file.
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
-function generateCoverageSummaryBadge(): void {
-  bestEffort("generate coverage summary badge", () : void => {
+export function generateCoverageSummaryBadge(): void {
+  bestEffort("generate coverage summary badge", (): void => {
     const inputPath: string = getCoverageSummaryFilePath();
-
-    readFile(inputPath, (err, data) => {
-      bestEffort(`Read coverage summary report '${inputPath}'`, () => {
-        if (isError(inputPath, err)) {
-          return;
-        }
-        processCoverageSummaryReport(data);
-      });
-    });
+    const data: Buffer = readFileSync(inputPath);
+    processCoverageSummaryReport(data);
   });
 }
 
-function generateTypedocBadge(): void {
-  bestEffort("generate typedoc badge", () : void => {
+export function generateTypedocBadge(): void {
+  bestEffort("generate typedoc badge", (): void => {
     generateBadge({
       name: "typedoc",
       outputPath: getTypedocBadgePath(),
@@ -82,16 +75,10 @@ interface GenerateOptions {
 function generateBadge(options: GenerateOptions): void {
   const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
   console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
-  readFile(templatePath, (err, data) => {
-    bestEffort(`Read template content '${templatePath}'`, () => {
-      if (isError(templatePath, err)) {
-        return
-      }
-      const generated: string = replaceKeywords(options, data.toString('utf8'));
-      writeBadgeToFile(options, generated);
-      console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
-    });
-  });
+  const data: Buffer = readFileSync(templatePath);
+  const generated: string = replaceKeywords(options, data.toString('utf8'));
+  writeBadgeToFile(options, generated);
+  console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
 };
 
 function writeBadgeToFile(options: GenerateOptions, content: string): void {
