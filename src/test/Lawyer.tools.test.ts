@@ -39,7 +39,7 @@ export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) {
 
     it('Lawyer created contract is replaceable', () => {
       strictEqual(lawyer.createContract({ replaceable: false }).replaceable, false, "with replaceable false in config, replaceable is false");
-      strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true, "with replaceable true in config, replaceable is true" );
+      strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true, "with replaceable true in config, replaceable is true");
     });
   });
 }
