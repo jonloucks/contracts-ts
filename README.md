@@ -24,7 +24,7 @@ Typescript Dependency Contracts for dependency inversion
 ## Installation
 
 ```bash
-npm install contracts-ts
+npm install @io.github.jonloucks/contracts-ts
 ```
 
 ## Usage - code fragments from Example.test.ts
@@ -32,7 +32,7 @@ npm install contracts-ts
 <details markdown="1"><summary>Creating a Contract</summary>
 
 ```typescript
-import { createContract, Contract } from 'contracts-ts';
+import { createContract, Contract, CONTRACTS } from '@io.github.jonloucks/contracts-ts';
 
 // Define a service interface
 interface Logger {
@@ -52,12 +52,7 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 <details markdown="1"><summary>Creating a Contracts container</summary>
 
 ```typescript
-import { Contracts, createContracts } from 'contracts-ts';
-
-// Create a Contracts container
-const CONTRACTS: Contracts = createContracts();
-
-CONTRACTS.open(); // the return value should be closed when done with
+import { Contracts, createContracts, CONTRACTS } from '@io.github.jonloucks/contracts-ts';
 ```
 
 </details>
@@ -65,7 +60,7 @@ CONTRACTS.open(); // the return value should be closed when done with
 <details markdown="1"><summary>Binding a Contract</summary>
 
 ```typescript
-import { PromisorFactory, PROMISOR_FACTORY } from 'contracts-ts';
+import { PromisorFactory, PROMISOR_FACTORY } from '@io.github.jonloucks/contracts-ts';
 
 // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create Promisors
 let promisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);

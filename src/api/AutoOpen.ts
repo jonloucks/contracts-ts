@@ -1,5 +1,5 @@
-import { AutoClose } from "contracts-ts/api/AutoClose";
-import { hasFunctions } from "contracts-ts/api/auxiliary/Types";
+import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { hasFunctions } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Opt-in interface to be called once after creation, although implementations should

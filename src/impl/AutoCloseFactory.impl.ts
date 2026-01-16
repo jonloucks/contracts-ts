@@ -1,12 +1,12 @@
-import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "contracts-ts/api/AutoClose";
-import { AutoCloseFactory } from "contracts-ts/api/AutoCloseFactory";
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
-import { create as createAutoCloseMany } from "contracts-ts/impl/AutoCloseMany.impl";
-import { create as createAutoCloseOne } from "contracts-ts/impl/AutoCloseOne.impl";
+import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { AutoCloseFactory } from "@io.github.jonloucks/contracts-ts/api/AutoCloseFactory";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { create as createAutoCloseMany } from "@io.github.jonloucks/contracts-ts/impl/AutoCloseMany.impl";
+import { create as createAutoCloseOne } from "@io.github.jonloucks/contracts-ts/impl/AutoCloseOne.impl";
 
-export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "contracts-ts/api/AutoClose";
-export { AutoCloseFactory } from "contracts-ts/api/AutoCloseFactory";
-export { RequiredType } from "contracts-ts/api/auxiliary/Types";
+export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+export { AutoCloseFactory } from "@io.github.jonloucks/contracts-ts/api/AutoCloseFactory";
+export { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Create an AutoCloseFactory instance.

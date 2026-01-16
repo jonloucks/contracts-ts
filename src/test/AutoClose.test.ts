@@ -1,11 +1,11 @@
-import { strictEqual, notStrictEqual, throws, doesNotThrow } from "node:assert";
+import { doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
 
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose, isAutoClose, isClose, unwrapAutoClose } from "contracts-ts/api/AutoClose";
-import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AutoCloseFactory";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
-import { Tools } from "contracts-ts/test/Test.tools.test";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose, isAutoClose, isClose, unwrapAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@io.github.jonloucks/contracts-ts/api/AutoCloseFactory";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { generateTestsForLawyer } from "@io.github.jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@io.github.jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   {

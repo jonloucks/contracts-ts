@@ -1,11 +1,11 @@
-import { AutoClose } from "contracts-ts/api/AutoClose";
-import { AutoOpen } from "contracts-ts/api/AutoOpen";
-import { BindStrategy } from "contracts-ts/api/BindStrategy";
-import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
-import { Lawyer } from "contracts-ts/api/Lawyer";
-import { PromisorType } from "contracts-ts/api/Promisor";
-import { create as createContract } from "contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "contracts-ts/api/auxiliary/Types";
+import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
+import { BindStrategy } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
+import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
+import { PromisorType } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
+import { OptionalType, hasFunctions } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * A repository for multiple contract promisors

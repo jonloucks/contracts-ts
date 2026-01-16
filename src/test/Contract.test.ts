@@ -1,11 +1,11 @@
-import { strictEqual, ok } from "node:assert";
+import { ok, strictEqual } from "node:assert";
 
-import { createContract } from "contracts-ts";
-import { ClassCastException } from "contracts-ts/api/auxiliary/ClassCastException";
-import { isString } from "contracts-ts/api/auxiliary/Types";
-import { Contract } from "contracts-ts/api/Contract";
-import { generateContractSuite } from "contracts-ts/test/Contract.tools.test";
-import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "@io.github.jonloucks/contracts-ts";
+import { ClassCastException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/ClassCastException";
+import { isString } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { generateContractSuite } from "@io.github.jonloucks/contracts-ts/test/Contract.tools.test";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Create string contract', () => {
   const contract: Contract<string> = createContract<string>({

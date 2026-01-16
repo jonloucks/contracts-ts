@@ -1,9 +1,9 @@
-import { AutoClose, AutoCloseMany, AutoCloseType, typeToAutoClose } from "contracts-ts/api/AutoClose";
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
-import { Internal } from "contracts-ts/impl/Internal.impl";
+import { AutoClose, AutoCloseMany, AutoCloseType, typeToAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Internal } from "@io.github.jonloucks/contracts-ts/impl/Internal.impl";
 
-export { AutoCloseMany } from "contracts-ts/api/AutoClose";
-export { RequiredType } from "contracts-ts/api/auxiliary/Types";
+export { AutoCloseMany } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+export { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Create an AutoCloseMany instance.

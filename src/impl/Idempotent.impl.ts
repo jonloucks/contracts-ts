@@ -1,8 +1,8 @@
-import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
-import { create as createAtomicBoolean } from "contracts-ts/impl/AtomicBoolean.impl";
-import { Idempotent } from "contracts-ts/impl/Idempotent";
+import { AtomicBoolean } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { create as createAtomicBoolean } from "@io.github.jonloucks/contracts-ts/impl/AtomicBoolean.impl";
+import { Idempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent";
 
-export { Idempotent } from "contracts-ts/impl/Idempotent";
+export { Idempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent";
 
 /**
  * Factory to create an Idempotent implementation

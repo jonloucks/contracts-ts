@@ -1,7 +1,7 @@
-import { strictEqual, notStrictEqual, fail } from "node:assert";
+import { fail, notStrictEqual, strictEqual } from "node:assert";
 
-import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
-import { RequiredType, isNotPresent } from "contracts-ts/api/auxiliary/Types";
+import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
+import { RequiredType, isNotPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 generateBindStrategySuite({
   validCases: [

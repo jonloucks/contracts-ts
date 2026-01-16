@@ -1,22 +1,22 @@
-import { CONTRACT as AUTO_CLOSE_FACTORY } from "contracts-ts/api/AutoCloseFactory";
-import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
-import { ContractsFactory } from "contracts-ts/api/ContractsFactory";
-import { CONTRACT as PROMISOR_FACTORY } from "contracts-ts/api/PromisorFactory";
-import { Repository } from "contracts-ts/api/Repository";
-import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "contracts-ts/api/RepositoryFactory";
-import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "contracts-ts/api/auxiliary/AtomicBooleanFactory";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "contracts-ts/api/auxiliary/AtomicIntegerFactory";
-import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "contracts-ts/api/auxiliary/AtomicReferenceFactory";
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
+import { CONTRACT as AUTO_CLOSE_FACTORY } from "@io.github.jonloucks/contracts-ts/api/AutoCloseFactory";
+import { Contracts, Config as ContractsConfig } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { ContractsFactory } from "@io.github.jonloucks/contracts-ts/api/ContractsFactory";
+import { CONTRACT as PROMISOR_FACTORY } from "@io.github.jonloucks/contracts-ts/api/PromisorFactory";
+import { Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
+import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "@io.github.jonloucks/contracts-ts/api/RepositoryFactory";
+import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBooleanFactory";
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
-import { create as createAtomicBooleanFactoryImpl } from "contracts-ts/impl/AtomicBooleanFactory.impl";
-import { create as createAtomicIntegerFactoryImpl } from "contracts-ts/impl/AtomicIntegerFactory.impl";
-import { create as createAtomicReferenceFactoryImpl } from "contracts-ts/impl/AtomicReferenceFactory.impl";
-import { create as createAutoCloseFactoryImpl } from "contracts-ts/impl/AutoCloseFactory.impl";
-import { create as createContractsImpl } from "contracts-ts/impl/Contracts.impl";
-import { wrap as wrapContracts } from "contracts-ts/impl/ContractsWrapper.impl";
-import { create as createPromisorFactoryImpl } from "contracts-ts/impl/PromisorFactory.impl";
-import { create as createRepositoryFactoryImpl } from "contracts-ts/impl/RepositoryFactory.impl";
+import { create as createAtomicBooleanFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/AtomicBooleanFactory.impl";
+import { create as createAtomicIntegerFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/AtomicIntegerFactory.impl";
+import { create as createAtomicReferenceFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/AtomicReferenceFactory.impl";
+import { create as createAutoCloseFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/AutoCloseFactory.impl";
+import { create as createContractsImpl } from "@io.github.jonloucks/contracts-ts/impl/Contracts.impl";
+import { wrap as wrapContracts } from "@io.github.jonloucks/contracts-ts/impl/ContractsWrapper.impl";
+import { create as createPromisorFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/PromisorFactory.impl";
+import { create as createRepositoryFactoryImpl } from "@io.github.jonloucks/contracts-ts/impl/RepositoryFactory.impl";
 
 /**
  * Factory method to create a ContractsFactory

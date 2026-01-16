@@ -1,10 +1,10 @@
-import { strictEqual, notStrictEqual } from "node:assert";
+import { notStrictEqual, strictEqual } from "node:assert";
 
-import { AtomicInteger, LAWYER } from "contracts-ts/api/auxiliary/AtomicInteger";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/auxiliary/AtomicIntegerFactory";
-import { Contracts } from "contracts-ts/api/Contracts";
-import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
-import { Tools } from "contracts-ts/test/Test.tools.test";
+import { AtomicInteger, LAWYER } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicInteger";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicIntegerFactory";
+import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { generateTestsForLawyer } from "@io.github.jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('AtomicInteger', () => {
 

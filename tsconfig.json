@@ -17,7 +17,9 @@
     "baseUrl": "./src",
     "paths": {
       "contracts-ts": ["index.ts"], // Map the package name to its source entry point
-      "contracts-ts/*": ["*"] // Map subpaths if needed
+      "contracts-ts/*": ["*"], // Map subpaths if needed,
+      "@io.github.jonloucks/contracts-ts": ["index.ts"],
+      "@io.github.jonloucks/contracts-ts/*": ["*"]
     },
   },
   "include": ["src/**/*"],

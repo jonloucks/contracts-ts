@@ -1,4 +1,4 @@
-import { hasFunctions, hasFunctionsPresent } from "contracts-ts/api/auxiliary/Types";
+import { hasFunctions, hasFunctionsPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 describe("hasFunctions", () => {
   it("should return true when all functions are present", () => {

@@ -2,13 +2,22 @@
   "preset": "ts-jest",
   "testEnvironment": "node",
   "moduleNameMapper": {
-   "^contracts-ts$": "<rootDir>/src/index.ts",
-   "^contracts-ts/(.*)$": "<rootDir>/src/$1"
+    "^contracts-ts$": "<rootDir>/src/index.ts",
+    "^contracts-ts/(.*)$": "<rootDir>/src/$1",
+    "^@io.github.jonloucks/contracts-ts$": "<rootDir>/src/index.ts",
+    "^@io.github.jonloucks/contracts-ts/(.*)$": "<rootDir>/src/$1"
   },
   "transform": {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
-  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ],
   "roots": [
     "<rootDir>/src"
   ],

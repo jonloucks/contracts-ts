@@ -1,6 +1,6 @@
-import { presentCheck } from "contracts-ts/api/auxiliary/Checks";
-import { IllegalArgumentException } from "contracts-ts/api/auxiliary/IllegalArgumentException";
-import { OptionalType, RequiredType, hasFunctions, isNotPresent } from "contracts-ts/api/auxiliary/Types";
+import { presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
+import { IllegalArgumentException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalArgumentException";
+import { OptionalType, RequiredType, hasFunctions, isNotPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Type alias for AutoClose or a simple close function.
