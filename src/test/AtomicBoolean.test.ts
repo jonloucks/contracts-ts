@@ -134,7 +134,7 @@ interface CompareAndSetSuiteOptions {
   validCases?: CompareAndSetCase[];
 }
 
-function generateCompareAndSet(options: CompareAndSetSuiteOptions) {
+export function generateCompareAndSet(options: CompareAndSetSuiteOptions) {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicBoolean`, () => {
