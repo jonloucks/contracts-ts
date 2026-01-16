@@ -107,7 +107,7 @@ describe('OptionalType and RequiredType aliases', () => {
     strictEqual(optionalValue, undefined, 'OptionalType should allow undefined');
 
     optionalValue = null;
-    optionalValue = undefined
+    optionalValue = undefined;
     optionalValue = 42;
     strictEqual(optionalValue, 42, 'OptionalType should allow assigned value');
 
