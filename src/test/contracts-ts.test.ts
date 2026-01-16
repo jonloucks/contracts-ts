@@ -1,6 +1,44 @@
 import { ok, strictEqual } from "node:assert";
 
-import { AUTO_CLOSE_FACTORY, AutoClose, AutoCloseFactory, AutoCloseMany, AutoCloseOne, AutoCloseType, AutoOpen, BindStrategy, Contract, ContractConfig, ContractException, Contracts, CONTRACTS, ContractsConfig, ContractsFactory, createContract, createContractFactory, createContracts, createContractsFactory, DEFAULT_BIND_STRATEGY, hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, Promisor, PROMISOR_FACTORY, PromisorFactory, Repository, REPOSITORY_FACTORY, RepositoryFactory, RequiredType, typeToAutoClose, typeToPromisor, validateContracts, VERSION } from "contracts-ts";
+import {
+  AUTO_CLOSE_FACTORY,
+  AutoClose,
+  AutoCloseFactory,
+  AutoCloseMany,
+  AutoCloseOne,
+  AutoCloseType,
+  AutoOpen,
+  BindStrategy,
+  Contract,
+  ContractConfig,
+  ContractException,
+  Contracts,
+  CONTRACTS,
+  ContractsConfig,
+  ContractsFactory,
+  createContract,
+  createContractFactory,
+  createContracts,
+  createContractsFactory,
+  DEFAULT_BIND_STRATEGY,
+  hasFunctions,
+  isNotPresent,
+  isNumber,
+  isPresent,
+  isString,
+  OptionalType,
+  Promisor,
+  PROMISOR_FACTORY,
+  PromisorFactory,
+  Repository,
+  REPOSITORY_FACTORY,
+  RepositoryFactory,
+  RequiredType,
+  typeToAutoClose,
+  typeToPromisor,
+  validateContracts,
+  VERSION,
+} from "contracts-ts";
 
 /** 
  * Tests for contracts-ts index and version exports
