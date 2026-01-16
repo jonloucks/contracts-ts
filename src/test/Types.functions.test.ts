@@ -3,8 +3,8 @@ import { hasFunctions, hasFunctionsPresent } from "contracts-ts/api/auxiliary/Ty
 describe("hasFunctions", () => {
   it("should return true when all functions are present", () => {
     const obj = {
-      func1: () => { },
-      func2: async () => { },
+      func1: () : void => { },
+      func2: async () : Promise<void> => { },
     };
 
     expect(hasFunctions(obj, "func1", "func2")).toBe(true);
@@ -12,7 +12,7 @@ describe("hasFunctions", () => {
 
   it("should return false when any function is missing", () => {
     const obj = {
-      func1: () => { },
+      func1: () : void => { },
     };
 
     expect(hasFunctions(obj, "func1", "func2")).toBe(false);
@@ -20,7 +20,7 @@ describe("hasFunctions", () => {
 
   it("should return false when any function is not a function", () => {
     const obj = {
-      func1: () => { },
+      func1: () : void => { },
       func2: "not a function",
     };
 
@@ -31,8 +31,8 @@ describe("hasFunctions", () => {
 describe("hasFunctionsPresent", () => {
   it("should return true when all functions are present", () => {
     const obj = {
-      func1: () => { },
-      func2: async () => { },
+      func1: () : void => { },
+      func2: async () : Promise<void> => { },
     };
 
     expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(true);
@@ -40,7 +40,7 @@ describe("hasFunctionsPresent", () => {
 
   it("should return false when any function is missing", () => {
     const obj = {
-      func1: () => { },
+      func1: () : void => { },
     };
 
     expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(false);
@@ -48,7 +48,7 @@ describe("hasFunctionsPresent", () => {
 
   it("should return false when any function is not a function", () => {
     const obj = {
-      func1: () => { },
+      func1: () : void => { },
       func2: "not a function",
     };
 

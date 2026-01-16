@@ -8,9 +8,9 @@ const VALID_CASES: PredicateCase[] = [
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-  { value: () => { }, help: "a simple function" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  { value: async () => { }, help: "an async function" },
+  { value: async () : Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
   { value: {}, help: "an object value" }
 ]

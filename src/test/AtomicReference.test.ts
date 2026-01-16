@@ -77,8 +77,8 @@ describe('AtomicReference', () => {
 
   it('FACTORY_LAWYER.isDeliverable', () => {
     Tools.withContracts((contracts: Contracts) => {
-      strictEqual(FACTORY_LAWYER.isDeliverable(() => { return {}; }), false, "with function is false");
-      let duck = { create: () => { return {}; } };
+      strictEqual(FACTORY_LAWYER.isDeliverable(() : unknown => { return {}; }), false, "with function is false");
+      let duck = { create: () : unknown => { return {}; } };
       strictEqual(FACTORY_LAWYER.isDeliverable(duck), true, "with duck-type is true");
       strictEqual(FACTORY_LAWYER.isDeliverable("abc"), false, 'with string is false');
       strictEqual(FACTORY_LAWYER.isDeliverable(123), false, 'with number is false');
@@ -119,7 +119,7 @@ interface CompareAndSetSuiteOptions<T> {
   validCases?: CompareAndSetCase<T>[];
 }
 
-export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) {
+export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) : void {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicReference`, () => {
@@ -130,7 +130,7 @@ export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) 
 
           const wasUpdated = atomic.compareAndSet(testCase.required, testCase.requested);
           strictEqual(wasUpdated, testCase.updated, testCase.updated ? `Expected update` : `Expected no update`);
-          strictEqual(atomic.get(), testCase.final);
+          strictEqual(atomic.get(), testCase.final, `Expected final value to be ${testCase.final}`);
         });
       });
     });

@@ -8,13 +8,18 @@ import { Tools } from "contracts-ts/test/Test.tools.test";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
-  { value: { close: () => { }, [Symbol.dispose]: () => { } }, help: "an AutoClose value" },
+  {
+    value: {
+      close: (): void => { },
+      [Symbol.dispose]: (): void => { }
+    }, help: "an AutoClose value"
+  },
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-  { value: () => { }, help: "a simple function" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  { value: async () => { }, help: "an async function" },
+  { value: async (): Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
   { value: "abc", help: "a string value" },
   { value: {}, help: "an object value" }
@@ -55,17 +60,17 @@ describe('AutoClose tests', () => {
     strictEqual(isAutoClose(undefined), true, "undefined is AutoClose");
     strictEqual(isAutoClose({}), false, "empty object is not AutoClose");
     strictEqual(isAutoClose({
-      close: () => { },
-      [Symbol.dispose]: () => { }
+      close: (): void => { },
+      [Symbol.dispose]: (): void => { }
     }), true, "object with close and dispose is AutoClose");
   });
 
   it('unwrapAutoClose works', () => {
-    const closeFunction = () => { };
+    const closeFunction = (): void => { };
     const wrapped = inlineAutoClose(closeFunction);
     const notWrapped = {
       close: closeFunction,
-      [Symbol.dispose]: () => { }
+      [Symbol.dispose]: (): void => { }
     };
 
     strictEqual(unwrapAutoClose(null), null, "unwrap null is null");
@@ -116,7 +121,7 @@ describe('createAutoClose', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       const autoClose: AutoClose = autoCloseFactory.createAutoClose({
-        close: () => closeMock.close()
+        close: () : void => closeMock.close()
       });
       notStrictEqual(autoClose, null, "with close-only instance returns AutoClose wrapping close");
       notStrictEqual(autoClose, closeMock, "with close-only instance returns AutoClose wrapping close");
@@ -133,7 +138,7 @@ describe('createAutoClose', () => {
       close: jest.fn(),
       [Symbol.dispose]: jest.fn()
     });
-    const closeFunction = () => closeMock.close();
+    const closeFunction = () : void => closeMock.close();
 
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);

@@ -38,7 +38,7 @@ describe("Example Logger Service Contract", () => {
     closeBinding = CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
       promisorFactory.createSingleton<Logger>(
         () => ({
-          log: (message: string) => {
+          log: (message: string) : void => {
             if (DEBUG) {
               console.log("LOG:", message);
             }

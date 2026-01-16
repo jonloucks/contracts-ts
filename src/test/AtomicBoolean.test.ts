@@ -91,7 +91,7 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(factoryLawyer.isDeliverable(() => { return {}; }), false, "with function is false");
 
-      let duck = { create: () => { return {}; } };
+      let duck = { create: () : unknown => { return {}; } };
       strictEqual(factoryLawyer.isDeliverable(duck), true, "with duck-type is true");
 
       strictEqual(factoryLawyer.isDeliverable("abc"), false, 'with string is false');
@@ -134,7 +134,7 @@ interface CompareAndSetSuiteOptions {
   validCases?: CompareAndSetCase[];
 }
 
-export function generateCompareAndSet(options: CompareAndSetSuiteOptions) {
+export function generateCompareAndSet(options: CompareAndSetSuiteOptions) : void {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicBoolean`, () => {

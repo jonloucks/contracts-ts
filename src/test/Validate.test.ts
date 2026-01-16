@@ -53,7 +53,7 @@ describe('Validate contracts', () => {
   it('validate_isBound_AfterBind_ReturnsFalse_Throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const closeMock = jest.mocked<AutoClose>({
-        close: () => { },
+        close: () : void => { },
         [Symbol.dispose]: function (): void {
         }
       });
@@ -72,7 +72,7 @@ describe('Validate contracts', () => {
   it('validate_claim_AfterBind_ReturnsUnexpected_Throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const closeMock = jest.mocked<AutoClose>({
-        close: () => { },
+        close: () : void => { },
         [Symbol.dispose]: function (): void {
         }
       });
@@ -97,7 +97,7 @@ describe('Validate contracts', () => {
   it('validate_claim_AfterBind_ThrowsUnexpected_Throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const closeMock = jest.mocked<AutoClose>({
-        close: () => { },
+        close: () : void => { },
         [Symbol.dispose]: function (): void {
         }
       });
@@ -124,12 +124,12 @@ describe('Validate contracts', () => {
     Tools.withContracts((contracts: Contracts) => {
       let capturePromisor: Promisor<unknown> | null = null;
       const closeMock = jest.mocked<AutoClose>({
-        close: () => { },
+        close: () : void => { },
         [Symbol.dispose]: function (): void {
         }
       });
       jest.spyOn(contracts, 'isBound').mockReturnValueOnce(false);
-      jest.spyOn(contracts, 'bind').mockImplementation((c, type, strategy) => {
+      jest.spyOn(contracts, 'bind').mockImplementation((_, type, __) => {
         capturePromisor = typeToPromisor(type);
         return closeMock;
       });

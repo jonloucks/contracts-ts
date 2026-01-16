@@ -16,9 +16,9 @@ describe('Create string contract', () => {
   });
 
   it('should have correct properties', () => {
-    strictEqual(contract.name, "Test String Contract");
-    strictEqual(contract.typeName, "string");
-    strictEqual(contract.replaceable, false);
+    strictEqual(contract.name, "Test String Contract", "Contract name should be 'Test String Contract'");
+    strictEqual(contract.typeName, "string", "Contract typeName should be 'string'");
+    strictEqual(contract.replaceable, false, "Contract replaceable should be false");
   });
 
   generateContractSuite({

@@ -27,7 +27,7 @@ function assertListeningForEvent(config: OptionalType<ContractsConfig>, eventNam
   const spyOn = jest.spyOn(process, 'on');
   const spyOff = jest.spyOn(process, 'off');
   try {
-    Tools.withConfiguredContracts(config, (contracts: Contracts) => {
+    Tools.withConfiguredContracts(config, (_contracts: Contracts) => {
       expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
     });
     expect(spyOff).toHaveBeenCalledWith(eventName, expect.any(Function));

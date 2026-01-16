@@ -41,9 +41,9 @@ export class BasicContract<T> implements Contract<T> {
     * @return the checked value. Note: null is possible. The Promisor is allowed to return null
     * @throws ClassCastException iif the value can't be cast to the return type.
     */
-    public cast(value: unknown | null | undefined): OptionalType<T> {
+    public cast(value: unknown | null | undefined): DeliveryType<T> {
         if (this._tester(value)) {
-            return this._caster(value) as OptionalType<T>;
+            return this._caster(value) as DeliveryType<T>;
         } else {
             throw new ClassCastException(`${this.toString()} cast failed.`);
         }
@@ -94,8 +94,8 @@ export class BasicContract<T> implements Contract<T> {
         this._replaceable = candidateConfig?.replaceable ?? false;
         this._name = candidateConfig?.name ?? "";
         this._typeName = candidateConfig?.typeName ?? "";
-        this._tester = candidateConfig?.test ?? ((instance: unknown): instance is OptionalType<T> => true);
-        this._caster = candidateConfig?.cast ?? ((instance: unknown) => instance);
+        this._tester = candidateConfig?.test ?? ((instance: unknown): instance is DeliveryType<T> => true);
+        this._caster = candidateConfig?.cast ?? ((instance: unknown): DeliveryType<T> => instance as DeliveryType<T>);
     }
 
     private static ID_GENERATOR: number = 1;
@@ -103,7 +103,11 @@ export class BasicContract<T> implements Contract<T> {
     private readonly _id: number = BasicContract.ID_GENERATOR++;
     private readonly _name: string;
     private readonly _typeName: string;
-    private readonly _tester: (instance: unknown) => instance is OptionalType<T>;
-    private readonly _caster: (instance: unknown) => unknown;
+    private readonly _tester: TestType<T>;
+    private readonly _caster: CastType<T>;
     private readonly _replaceable: boolean;
 }
+
+type DeliveryType<T> = OptionalType<T>;
+type CastType<T> = (instance: unknown) => DeliveryType<T>;
+type TestType<T> = (instance: unknown) => instance is DeliveryType<T>;

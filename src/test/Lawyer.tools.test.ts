@@ -21,7 +21,7 @@ const LAWYER: Lawyer<Date> = new class implements Lawyer<Date> {
 
 generateTestsForLawyer(LAWYER);
 
-export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) {
+export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) : void {
   describe(`Testing Lawyer: ${lawyer}`, () => {
 
     it('Lawyer created contract name', () => {

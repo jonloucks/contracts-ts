@@ -19,7 +19,6 @@ generateValueSuite<string>({
   ],
 });
 
-
 generateValueSuite<boolean>({
   name: 'Value Promisor with primitive boolean values',
   validCases: [
@@ -74,7 +73,7 @@ interface TestSuiteOptions<T> {
   validCases?: TestCase<T>[];
 }
 
-function generateValueSuite<T>(options: TestSuiteOptions<T>) {
+function generateValueSuite<T>(options: TestSuiteOptions<T>) : void {
   const { validCases } = options;
 
   describe(options.name, () => {

@@ -14,20 +14,20 @@
  * Usage:   
  * npx tsx scripts/generate-code-coverage-badge.ts
  */
-import fs from 'fs';
+import { readFile, writeFileSync } from "fs";
 
-generateCoverageSummaryBadge()
-generateTypedocBadge()
+generateCoverageSummaryBadge();
+generateTypedocBadge();
 
 /**
  * Generates a code coverage summary badge based on the coverage summary JSON file.
  * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
 function generateCoverageSummaryBadge(): void {
-  bestEffort("generate coverage summary badge", () => {
+  bestEffort("generate coverage summary badge", () : void => {
     const inputPath: string = getCoverageSummaryFilePath();
 
-    fs.readFile(inputPath, (err, data) => {
+    readFile(inputPath, (err, data) => {
       bestEffort(`Read coverage summary report '${inputPath}'`, () => {
         if (isError(inputPath, err)) {
           return;
@@ -39,7 +39,7 @@ function generateCoverageSummaryBadge(): void {
 }
 
 function generateTypedocBadge(): void {
-  bestEffort("generate typedoc badge", () => {
+  bestEffort("generate typedoc badge", () : void => {
     generateBadge({
       name: "typedoc",
       outputPath: getTypedocBadgePath(),
@@ -82,7 +82,7 @@ interface GenerateOptions {
 function generateBadge(options: GenerateOptions): void {
   const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
   console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
-  fs.readFile(templatePath, (err, data) => {
+  readFile(templatePath, (err, data) => {
     bestEffort(`Read template content '${templatePath}'`, () => {
       if (isError(templatePath, err)) {
         return
@@ -95,7 +95,7 @@ function generateBadge(options: GenerateOptions): void {
 };
 
 function writeBadgeToFile(options: GenerateOptions, content: string): void {
-  fs.writeFileSync(options.outputPath, content);
+  writeFileSync(options.outputPath, content);
 }
 
 function replaceKeywords(options: GenerateOptions, template: string): string {

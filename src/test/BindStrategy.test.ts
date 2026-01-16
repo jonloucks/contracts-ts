@@ -33,7 +33,7 @@ interface TestSuiteOptions {
   invalidCases?: TestCase[];
 }
 
-export function generateBindStrategySuite(options: TestSuiteOptions) {
+export function generateBindStrategySuite(options: TestSuiteOptions) : void {
   const { validCases, invalidCases } = options;
 
   describe("BindStategy valid values", () => {

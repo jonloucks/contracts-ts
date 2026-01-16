@@ -15,7 +15,7 @@ import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
  * @param repository the underlying Repository instance
  * @returns the Contracts implementation
  */
-export function wrap(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) {
+export function wrap(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) : Contracts {
   return ContractsWrapper.internalCreate(contracts, repository);
 }
 

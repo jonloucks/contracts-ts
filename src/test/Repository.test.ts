@@ -53,7 +53,7 @@ test('repository_contract', () => {
 
 test('repository_check_WithNoRequirements', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       notStrictEqual(repository.toString(), null, "toString should work");
     }
   });
@@ -61,7 +61,7 @@ test('repository_check_WithNoRequirements', () => {
 
 test('repository_check_WithNoRequirements', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       doesNotThrow(() => repository.check(), "repository.check() should not throw with no requirements");
     }
   });
@@ -69,7 +69,7 @@ test('repository_check_WithNoRequirements', () => {
 
 test('repository_check_WithOneMissingRequirement_Throws', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       const contract: Contract<number> = createContract<number>();
       repository.require(contract);
 
@@ -120,7 +120,7 @@ test('repository_store_Works', () => {
 
 test('repository_store_WhenClosedTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       const contract: Contract<number> = createContract<number>();
       using useBinding = repository.store(contract, () => 7);
       Tools.assertIdempotent(useBinding)
@@ -130,7 +130,7 @@ test('repository_store_WhenClosedTwice_DoesNothing', () => {
 
 test('repository_store_WhenClosedTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
       using closeStore = repository.store(contract, () => "x");
       Tools.assertIdempotent(closeStore);
@@ -151,7 +151,7 @@ test('repository_open_WhenCalledTwice_DoesNothing', () => {
 
 test('repository_close_WhenCalledTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
 
       using usingSecond = repository.open();
       Tools.assertIdempotent(usingSecond);
@@ -161,7 +161,7 @@ test('repository_close_WhenCalledTwice_DoesNothing', () => {
 
 test('repository_keep_ReplaceWhenOpen_Throws', () => {
   runWithScenario({
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (_contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
       repository.keep(contract, () => "x");
 
@@ -179,7 +179,7 @@ test('repository_keep_ReplaceBeforeOpen_Works', () => {
       repository.keep(contract, () => "x");
       repository.keep(contract, () => "y");
     },
-    accept: function (contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, _repository: Repository): void {
       Tools.assertEquals("y", contracts.enforce(contract), "Changing bindings before should be allowed.");
     }
   });

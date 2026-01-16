@@ -37,7 +37,7 @@ describe('typeToPromisor tests', () => {
     strictEqual(promisor, originalPromisor, "with Promisor type returns same Promisor");
   });
   it('with function type returns Promisor', () => {
-    const func = () => new DummyClass(7);
+    const func = () : DummyClass=> new DummyClass(7);
     const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(func);
     const instance: OptionalType<DummyClass> = promisor.demand();
     ok(instance instanceof DummyClass, "with function type returns Promisor that returns instance");
@@ -50,7 +50,8 @@ describe('typeToPromisor tests', () => {
     strictEqual(demandedInstance, instance, "with instance type returns Promisor that returns the same instance");
   });
   it('with Factory type returns Promisor', () => {
-    const factorySupplier = () => () => new DummyClass(55);
+    const factory = () : DummyClass => new DummyClass(55);
+    const factorySupplier = () : (() => DummyClass) => factory;
     const promisor: Promisor<() => DummyClass> = typeToPromisor<() => DummyClass>(factorySupplier);
     notStrictEqual(promisor, null, "with Factory type returns non-null Promisor");
     const actualFactory: OptionalType<() => DummyClass> = promisor.demand();

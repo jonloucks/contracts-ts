@@ -35,19 +35,19 @@ export class Tools {
     }
   }
 
-  public static assertTrue(condition: boolean, message?: string) {
+  public static assertTrue(condition: boolean, message?: string) : void {
     strictEqual(condition, true, message);
   }
 
-  public static assertFalse(condition: boolean, message?: string) {
+  public static assertFalse(condition: boolean, message?: string) : void {
     strictEqual(condition, false, message);
   }
 
-  public static assertEquals(expected: unknown, actual: unknown, message?: string) {
+  public static assertEquals(expected: unknown, actual: unknown, message?: string) : void {
     strictEqual(actual, expected, message);
   }
 
-  public static assertSame(expected: unknown, actual: unknown, message?: string) {
+  public static assertSame(expected: unknown, actual: unknown, message?: string) : void {
     equal(actual, expected, message);
   }
 
@@ -55,16 +55,16 @@ export class Tools {
     return char === char.toUpperCase() && char !== char.toLowerCase();
   }
 
-  public static assertNotNull(value: unknown, message?: string) {
+  public static assertNotNull(value: unknown, message?: string) : void {
     ok(value, message); // Passes if truthy
     notStrictEqual(value, null, message);
   }
 
-  public static assertNull(value: unknown, message?: string) {
+  public static assertNull(value: unknown, message?: string) : void {
     strictEqual(value, null, message);
   }
 
-  public static assertUndefined(value: unknown, message?: string) {
+  public static assertUndefined(value: unknown, message?: string) : void {
     strictEqual(value, undefined, message);
   }
 
@@ -89,7 +89,7 @@ export class Tools {
     return actual as T;
   }
 
-  private static applyAssertPredicate(predicate: AssertPredicate, actual: Error) {
+  private static applyAssertPredicate(predicate: AssertPredicate, actual: Error) : void{
     if (!predicate) {
       return;
     } else if (isConstructorPresent(predicate)) {
@@ -121,7 +121,7 @@ export class Tools {
    *x
    * @param executable the test that is expected to fail
    */
-  public static assertFails(executable: () => unknown) {
+  public static assertFails(executable: () => unknown) : void {
     let validExecutable: (() => unknown) = presentCheck(executable, "Executable must be present.");
     let thrown: AssertionError = Tools.assertThrows(AssertionError, validExecutable, "Expected AssertionError to be thrown.");
     Tools.assertObject(thrown, "Thrown must be an object.");
@@ -133,7 +133,7 @@ export class Tools {
    *
    * @param instance the object to check
    */
-  public static assertObject(instance: unknown, message?: string) {
+  public static assertObject(instance: unknown, message?: string) : void {
     Tools.assertNotNull(instance, message ?? "Object must be present.");
 
     if (typeof instance === 'object') {
@@ -148,7 +148,7 @@ export class Tools {
    *
    * @param theClass the class to check
    */
-  public static assertInstantiateThrows(type: (new () => unknown)) {
+  public static assertInstantiateThrows(type: (new () => unknown)) : void {
     Tools.assertThrows<Error>(Error, () => {
       new type();
     });
@@ -166,7 +166,6 @@ export class Tools {
 
     Tools.assertAll(
       () => Tools.assertMessage(thrown.message),
-      // () => Tools.assertEquals(cause, thrown.cause, "The cause should match."),
       () => Tools.assertEquals(reason, thrown.message, "The reason should match."),
       () => Tools.assertNotNull(thrown.toString(), "The toString() should not be null.")
     );
@@ -248,7 +247,7 @@ export class Tools {
         if (sanitizer) {
           try {
             sanitizer();
-          } catch (ignored) {
+          } catch (_) {
           }
         }
       }
@@ -260,7 +259,7 @@ export class Tools {
    */
   public static clean(): void {
     Tools.sanitize(() => {
-      // init();
+      // place holder for future cleaning logic
     });
   }
 
@@ -269,8 +268,8 @@ export class Tools {
    *
    * @param duration how long to sleep
    */
-  public static async asyncsleep(duration: Duration) {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  public static async asyncsleep(duration: Duration) : Promise<void> {
+    const sleep = (ms: number) : Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
     await sleep(duration.milliseconds ? duration.milliseconds() : 4);
   }

@@ -11,9 +11,9 @@ import { Tools } from "contracts-ts/test/Test.tools.test";
 generateSingletonSuite<Date>({
   name: 'Singleton Promisor with current Date',
   validCases: [
-    { value: () => { return undefined; }, help: "an undefined Date" },
-    { value: () => { return null; }, help: "a null Date" },
-    { value: () => { return new Date(); }, help: "a current date" }
+    { value: () : Date | null| undefined => { return undefined; }, help: "an undefined Date" },
+    { value: () : Date | null| undefined => { return null; }, help: "a null Date" },
+    { value: () : Date | null| undefined => { return new Date(); }, help: "a current date" }
   ],
 });
 
@@ -22,9 +22,9 @@ let counter = 0;
 generateSingletonSuite<number>({
   name: 'Singleton Promisor with number counter',
   validCases: [
-    { value: () => { return undefined; }, help: "an undefined number" },
-    { value: () => { return null; }, help: "a null number" },
-    { value: () => { return ++counter; }, help: "a current number" }
+    { value: () : number | null| undefined => { return undefined; }, help: "an undefined number" },
+    { value: () : number | null| undefined => { return null; }, help: "a null number" },
+    { value: () : number | null| undefined => { return ++counter; }, help: "a current number" }
   ],
 });
 
@@ -36,9 +36,9 @@ interface Person {
 generateSingletonSuite<Person>({
   name: 'Singleton Promisor with interface instance values',
   validCases: [
-    { value: () => { return undefined; }, help: "an undefined Person" },
-    { value: () => { return null; }, help: "a null Person" },
-    { value: () => { return { name: "Alice", age: 30 } }, help: "a Person object" }
+    { value: () : Person | null| undefined => { return undefined; }, help: "an undefined Person" },
+    { value: () : Person | null| undefined => { return null; }, help: "a null Person" },
+    { value: () : Person | null| undefined => { return { name: "Alice", age: 30 } }, help: "a Person object" }
   ],
   invalidCases: [
   ]
@@ -62,7 +62,7 @@ interface TestSuiteOptions<T> {
   invalidCases?: InvalidTestCase<T>[];
 }
 
-export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
+export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) : void {
   const { validCases, invalidCases } = options;
 
   describe(options.name + " valid cases", () => {

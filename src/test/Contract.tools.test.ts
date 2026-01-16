@@ -26,7 +26,7 @@ generateContractSuite({
   ]
 });
 
-export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
+export function generateContractSuite<T>(options: ContractSuiteOptions<T>) : void {
   const { contract, validCases, invalidCases } = options;
 
   describe(`Contract Suite for ${options.name}`, () => {

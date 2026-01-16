@@ -26,12 +26,12 @@ const VALID_CASES: PredicateCase[] = [
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-  { value: 0 },
-  { value: 43 },
-  { value: () => { }, help: "a simple function" },
+  { value: 0, help: "a zero number value" },
+  { value: 43, help: "a number value" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  { value: function () { }, help: "a traditional function" },
-  { value: async () => { }, help: "an async function" },
+  { value: function () : void { }, help: "a traditional function" },
+  { value: async () : Promise<void> => { }, help: "an async function" },
   { value: {}, help: "an object value" }
 ]
 
@@ -61,7 +61,7 @@ export interface PredicateSuiteOptions {
   invalidCases?: PredicateCase[];
 }
 
-export function generatePredicateSuite<T>(options: PredicateSuiteOptions) {
+export function generatePredicateSuite(options: PredicateSuiteOptions) : void {
   const { validCases, invalidCases } = options;
   describe(`Predicate Suite for ${options.name}`, () => {
     validCases?.forEach((testCase, index) => {

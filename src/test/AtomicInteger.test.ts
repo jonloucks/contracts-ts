@@ -74,9 +74,9 @@ describe('AtomicInteger', () => {
       const factoryLawyer = FACTORY_LAWYER;
       strictEqual(factoryLawyer.isDeliverable(null), true, "with null is true");
       strictEqual(factoryLawyer.isDeliverable(undefined), true, "with undefined is true");
-      strictEqual(factoryLawyer.isDeliverable(() => { return {}; }), false, "with function is false");
+      strictEqual(factoryLawyer.isDeliverable((): unknown => { return {}; }), false, "with function is false");
 
-      let duck = { create: () => { return {}; } };
+      let duck = { create: () : unknown=> { return {}; } };
       strictEqual(factoryLawyer.isDeliverable(duck), true, "with duck-type is true");
       strictEqual(factoryLawyer.isDeliverable("abc"), false, "with string is false");
       strictEqual(factoryLawyer.isDeliverable(123), false, "with number is false");

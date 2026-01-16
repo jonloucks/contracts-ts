@@ -1,6 +1,6 @@
 import { strictEqual, throws } from "node:assert";
 
-import { createContract, OptionalType } from "contracts-ts";
+import { createContract, isNotPresent, OptionalType } from "contracts-ts";
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { isRatifiedContract } from "contracts-ts/api/RatifiedContract";
 
@@ -98,11 +98,11 @@ describe('api/RatifiedContract.ts tests', () => {
         return typeof value === 'string';
       }
     });
-    class FakeRatifiedContract implements Contract<string> {
-      cast(value: OptionalType<unknown>): OptionalType<string> {
-        return value as OptionalType<string>;
+    class FakeRatifiedContract<T> implements Contract<T> {
+      cast(value: OptionalType<unknown>): OptionalType<T> {
+        return value as OptionalType<T>;
       }
-      test(value: OptionalType<unknown>): value is string {
+      test(value: OptionalType<unknown>): value is T {
         return true;
       }
       get name(): string {
@@ -114,7 +114,20 @@ describe('api/RatifiedContract.ts tests', () => {
       get replaceable(): boolean {
         return false;
       }
-      #secret: symbol = Symbol('ratifiedContractMarker');
+        static isRatifiedContract(instance: unknown): instance is FakeRatifiedContract<unknown> {
+          if (isNotPresent(instance)) {
+            return false;
+          }
+          try {
+            const candidate = instance as FakeRatifiedContract<unknown>;
+            return candidate.#secret === FakeRatifiedContract.#SECRET;
+          } catch {
+            return false;
+          }
+        }
+          static readonly #SECRET: symbol = Symbol("Contract");
+
+      #secret: symbol = FakeRatifiedContract.#SECRET;
     };
     const fakeRatified = new FakeRatifiedContract();
 
