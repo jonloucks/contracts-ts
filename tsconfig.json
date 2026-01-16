@@ -20,6 +20,6 @@
       "contracts-ts/*": ["*"] // Map subpaths if needed
     },
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

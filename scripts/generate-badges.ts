@@ -144,7 +144,7 @@ function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
   return defaultPath;
 }
 
-function isError(path: string, caught: any): caught is null {
+function isError(path: string, caught: NodeJS.ErrnoException | null): caught is null {
   if (caught) {
     if (caught.code === 'ENOENT') {
       console.warn(`File not found at path: ${path}`);
