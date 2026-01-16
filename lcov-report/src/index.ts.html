@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/9</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -77,32 +77,56 @@
 <a name='L12'></a><a href='#L12'>12</a>
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">147x</span>
-<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export { AutoClose } from "contracts-ts/api/AutoClose";
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export { VERSION } from "contracts-ts/version";
+&nbsp;
+export { AutoClose, AutoCloseType, AutoCloseMany, AutoCloseOne, typeToAutoClose } from "contracts-ts/api/AutoClose";
+export { AutoCloseFactory, CONTRACT as AUTO_CLOSE_FACTORY } from "contracts-ts/api/AutoCloseFactory";
 export { AutoOpen } from "contracts-ts/api/AutoOpen";
-export { hasFunctions, <span class="fstat-no" title="function not covered" >isNotPresent,</span> <span class="fstat-no" title="function not covered" >isNumber,</span> <span class="fstat-no" title="function not covered" >isPresent,</span> <span class="fstat-no" title="function not covered" >isString,</span> OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
-export { BindStrategy } from "contracts-ts/api/BindStrategy";
+export { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
+export { hasFunctions, isNotPresent, isNumber, isPresent, isString } from "contracts-ts/api/auxiliary/Types";
+export { BindStrategy, DEFAULT_BIND_STRATEGY } from "contracts-ts/api/BindStrategy";
 export { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 export { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
+export { ContractException } from "contracts-ts/api/ContractException";
+export { ContractsFactory } from "contracts-ts/api/ContractsFactory";  
 export { Promisor, typeToPromisor } from "contracts-ts/api/Promisor";
-export { CONTRACT as PROMISOR_FACTORY, PromisorFactory } from "contracts-ts/api/PromisorFactory";
+export { PromisorFactory, CONTRACT as PROMISOR_FACTORY } from "contracts-ts/api/PromisorFactory";
 export { Repository } from "contracts-ts/api/Repository";
+export { RepositoryFactory, CONTRACT as REPOSITORY_FACTORY } from "contracts-ts/api/RepositoryFactory";
+export { validateContracts } from "contracts-ts/api/auxiliary/Validate";
 &nbsp;
-export { createContract } from "contracts-ts/impl/ContractFactory.impl";
-export { createContracts } from "contracts-ts/impl/ContractsFactory.impl";
+export { createContract, create as createContractFactory } from "contracts-ts/impl/ContractFactory.impl";
+export { createContracts, create as createContractsFactory } from "contracts-ts/impl/ContractsFactory.impl";
 &nbsp;
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -112,7 +136,7 @@ export { createContracts } from "contracts-ts/impl/ContractsFactory.impl";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-16T10:56:06.027Z
+                at 2026-01-16T17:09:50.923Z
             </div>
         <script src="../prettify.js"></script>
         <script>
