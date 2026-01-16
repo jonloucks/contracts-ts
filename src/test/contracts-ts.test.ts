@@ -65,7 +65,7 @@ describe('createContract function', () => {
     const contract: Contract<number> = createContract(contractConfig);
 
     strictEqual(contract.name, 'TestContract', 'Contract name should match the provided config');
-    ok(contract.cast(123), 'Contract should cast a numbertype');
+    ok(contract.cast(123), 'Contract should cast a number type');
   });
 });
 
