@@ -1,5 +1,5 @@
-import { strictEqual, notStrictEqual, ok } from "node:assert";
-import { AutoClose, Contract, Contracts, createContract, createContracts, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "contracts-ts";
+import { AutoClose, Contract, CONTRACTS, createContract, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "@io.github.jonloucks/contracts-ts";
+import { notStrictEqual, strictEqual } from "node:assert";
 
 // Define a service interface, a Contract can be for any type.
 interface Logger {
@@ -19,17 +19,9 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 describe("Example Logger Service Contract", () => {
 
   // Create a Contracts container
-  const CONTRACTS: Contracts = createContracts();
   const DEBUG = false;
 
-  let closeContracts: AutoClose;
   let closeBinding: AutoClose;
-  it("Open Contracts", () => {
-    // Open the Contracts container
-    closeContracts = CONTRACTS.open();
-
-    ok(closeContracts, "Contracts container should be opened");
-  });
 
   it("Bind logging service contract to a Promisor", () => {
     // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create a Promisor
@@ -57,9 +49,8 @@ describe("Example Logger Service Contract", () => {
     logger.log("Using the service in the test.");
   });
 
-  it("Close Contracts", () => {
+  it("Close Contract Binding", () => {
     closeBinding.close(); // It will be closed by closeContracts, but we can close it earlier if desired
-    closeContracts.close();
   });
 });
 

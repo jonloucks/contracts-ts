@@ -1,5 +1,5 @@
-import { OptionalType, RequiredType } from "contracts-ts/api/auxiliary/Types";
-import { Config, Contract } from "contracts-ts/api/Contract";
+import { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Config, Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
 
 /**
  * A Contractsfactory to bootstrapping Global Contracts and provide

@@ -1,10 +1,10 @@
-import { Promisor, PromisorType, typeToPromisor } from "contracts-ts/api/Promisor";
-import { PromisorFactory } from "contracts-ts/api/PromisorFactory";
-import { OptionalType, RequiredType, Transform } from "contracts-ts/api/auxiliary/Types";
-import { create as createExtractor } from "contracts-ts/impl/ExtractorPromisor.impl";
-import { create as createLifeCycle } from "contracts-ts/impl/LifeCyclePromisor.impl";
-import { create as createSingleton } from "contracts-ts/impl/SingletonPromisor.impl";
-import { create as createValue } from "contracts-ts/impl/ValuePromisor.impl";
+import { Promisor, PromisorType, typeToPromisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { PromisorFactory } from "@io.github.jonloucks/contracts-ts/api/PromisorFactory";
+import { OptionalType, RequiredType, Transform } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { create as createExtractor } from "@io.github.jonloucks/contracts-ts/impl/ExtractorPromisor.impl";
+import { create as createLifeCycle } from "@io.github.jonloucks/contracts-ts/impl/LifeCyclePromisor.impl";
+import { create as createSingleton } from "@io.github.jonloucks/contracts-ts/impl/SingletonPromisor.impl";
+import { create as createValue } from "@io.github.jonloucks/contracts-ts/impl/ValuePromisor.impl";
 
 /**
  * Factory to create a PromisorFactory implementation

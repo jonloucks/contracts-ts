@@ -1,8 +1,8 @@
-import { createContract } from "contracts-ts";
-import { AutoClose } from "contracts-ts/api/AutoClose";
-import { ContractException } from "contracts-ts/api/ContractException";
-import { Promisor } from "contracts-ts/api/Promisor";
-import { Tools } from "contracts-ts/test/Test.tools.test";
+import { createContract } from "@io.github.jonloucks/contracts-ts";
+import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
+import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
+import { Promisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
 
 describe("Contracts Idempotent", () => {
   test("is idempotent", () => {

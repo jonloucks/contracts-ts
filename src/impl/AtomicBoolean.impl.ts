@@ -1,5 +1,5 @@
-import { AtomicBoolean } from "contracts-ts/api/auxiliary/AtomicBoolean";
-import { RequiredType } from "contracts-ts/api/auxiliary/Types";
+import { AtomicBoolean } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Factory to create an AtomicBoolean implementation

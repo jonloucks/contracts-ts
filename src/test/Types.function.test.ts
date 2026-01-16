@@ -1,5 +1,5 @@
-import { isFunction, isFunctionPresent } from "contracts-ts/api/auxiliary/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
+import { isFunction, isFunctionPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@io.github.jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   { value: () : void => { }, help: "a simple function" },

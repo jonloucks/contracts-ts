@@ -1,7 +1,7 @@
-import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
-import { Lawyer } from "contracts-ts/api/Lawyer";
-import { create as createContract } from "contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
+import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
+import { OptionalType, hasFunctions } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Responsibility: An atomic reference interface for thread-safe reference operations.

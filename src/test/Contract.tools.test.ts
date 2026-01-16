@@ -1,7 +1,7 @@
 import { strictEqual, throws } from "node:assert";
 
-import { createContract } from "contracts-ts";
-import { Contract } from "contracts-ts/api/Contract";
+import { createContract } from "@io.github.jonloucks/contracts-ts";
+import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
 
 export interface CastCase<T> {
   instance: unknown;

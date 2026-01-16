@@ -1,5 +1,5 @@
 {
-  "name": "contracts-ts",
+  "name": "@io.github.jonloucks/contracts-ts",
   "version": "0.1.0",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
     "dependency-injection",
     "dependency-inversion"
   ],
-  "author": "",
+  "author": "Jon Loucks",
   "license": "MIT",
   "repository": {
     "type": "git",
