@@ -24,7 +24,7 @@ describe('typeToPromisor tests', () => {
   it('with undefined returns Promisor that returns undefined', () => {
     const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(undefined);
     const instance: OptionalType<DummyClass> = promisor.demand();
-    strictEqual(instance, undefined, "with undefined type returns undefined" );
+    strictEqual(instance, undefined, "with undefined type returns undefined");
   });
   it('with constructor type returns Promisor', () => {
     const promisor: Promisor<DummyClass> = typeToPromisor<DummyClass>(DummyClass);
