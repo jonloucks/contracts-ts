@@ -1,22 +1,6 @@
-import { strictEqual, ok } from "node:assert";
+import { ok, strictEqual } from "node:assert";
 
-import { validateContracts, VERSION } from "contracts-ts";
-import { AutoClose, AutoCloseType, AutoCloseMany, AutoCloseOne, typeToAutoClose } from "contracts-ts";
-import { AutoCloseFactory, AUTO_CLOSE_FACTORY } from "contracts-ts";
-import { AutoOpen } from "contracts-ts";
-import { OptionalType, RequiredType } from "contracts-ts";
-import { hasFunctions, isNotPresent, isNumber, isPresent, isString } from "contracts-ts";
-import { BindStrategy, DEFAULT_BIND_STRATEGY } from "contracts-ts";
-import { Contract, ContractConfig } from "contracts-ts";
-import { Contracts, ContractsConfig } from "contracts-ts";
-import { ContractException } from "contracts-ts";
-import { ContractsFactory } from "contracts-ts";
-import { Promisor, typeToPromisor } from "contracts-ts";
-import { PromisorFactory, PROMISOR_FACTORY } from "contracts-ts";
-import { Repository } from "contracts-ts";
-import { RepositoryFactory, REPOSITORY_FACTORY } from "contracts-ts";
-import { createContract, createContractFactory } from "contracts-ts";
-import { createContracts, createContractsFactory } from "contracts-ts";
+import { AUTO_CLOSE_FACTORY, AutoClose, AutoCloseFactory, AutoCloseMany, AutoCloseOne, AutoCloseType, AutoOpen, BindStrategy, Contract, ContractConfig, ContractException, Contracts, CONTRACTS, ContractsConfig, ContractsFactory, createContract, createContractFactory, createContracts, createContractsFactory, DEFAULT_BIND_STRATEGY, hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, Promisor, PROMISOR_FACTORY, PromisorFactory, Repository, REPOSITORY_FACTORY, RepositoryFactory, RequiredType, typeToAutoClose, typeToPromisor, validateContracts, VERSION } from "contracts-ts";
 
 /** 
  * Tests for contracts-ts index and version exports
@@ -52,6 +36,7 @@ describe('Index exports', () => {
     ok(createContractFactory, 'createContractFactory should be exported');
     ok(createContracts, 'createContracts should be exported');
     ok(createContractsFactory, 'createContractsFactory should be exported');
+    ok(CONTRACTS, 'CONTRACTS should be exported');
   });
 });
 
@@ -66,6 +51,13 @@ describe('createContract function', () => {
 
     strictEqual(contract.name, 'TestContract', 'Contract name should match the provided config');
     ok(contract.cast(123), 'Contract should cast a number type');
+  });
+});
+
+describe('CONTRACTS instance', () => {
+  it('should be a valid Contracts instance', () => {
+    ok(CONTRACTS, 'CONTRACTS instance should be defined');
+    validateContracts(CONTRACTS);
   });
 });
 
@@ -174,7 +166,7 @@ describe('AutoCloseFactory interface', () => {
         return undefined as unknown as RequiredType<AutoCloseOne>;
       }
     };
-    
+
     ok(instance, 'AutoCloseFactory instance should be created');
   });
 });

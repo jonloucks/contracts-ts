@@ -6,6 +6,7 @@ import { OptionalType, RequiredType, isNotPresent, isPresent } from "contracts-t
 /**
  * A RatifiedContract is a Contract that has been verified to have either a test or cast function.
  * This ensures that the contract can actually perform some form of validation or transformation.
+ * A type guard is required to check to create a RatifiedContract.
  *
  * @param <T> the type of deliverable for this Contract
  * @param config the configuration for the RatifiedContract
