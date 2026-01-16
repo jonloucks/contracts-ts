@@ -171,7 +171,11 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,7 +186,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,7 +207,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,8 +219,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">176x</span>
-<span class="cline-any cline-yes">171x</span>
+<span class="cline-any cline-yes">175x</span>
+<span class="cline-any cline-yes">170x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,17 +267,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">306x</span>
-<span class="cline-any cline-yes">306x</span>
-<span class="cline-any cline-yes">306x</span>
-<span class="cline-any cline-yes">306x</span>
-<span class="cline-any cline-yes">306x</span>
-<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-yes">305x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,9 +330,9 @@ export class BasicContract&lt;T&gt; implements Contract&lt;T&gt; {
     * @return the checked value. Note: null is possible. The Promisor is allowed to return null
     * @throws ClassCastException iif the value can't be cast to the return type.
     */
-    public cast(value: unknown | null | undefined): OptionalType&lt;T&gt; {
+    public cast(value: unknown | null | undefined): DeliveryType&lt;T&gt; {
         if (this._tester(value)) {
-            return this._caster(value) as OptionalType&lt;T&gt;;
+            return this._caster(value) as DeliveryType&lt;T&gt;;
         } else {
             throw new ClassCastException(`${this.toString()} cast failed.`);
         }
@@ -375,8 +383,8 @@ export class BasicContract&lt;T&gt; implements Contract&lt;T&gt; {
         this._replaceable = candidateConfig?.replaceable ?? false;
         this._name = candidateConfig?.name ?? "";
         this._typeName = candidateConfig?.typeName ?? "";
-        this._tester = candidateConfig?.test ?? ((instance: unknown): instance is OptionalType&lt;T&gt; =&gt; true);
-        this._caster = candidateConfig?.cast ?? ((instance: unknown) =&gt; instance);
+        this._tester = candidateConfig?.test ?? ((instance: unknown): instance is DeliveryType&lt;T&gt; =&gt; true);
+        this._caster = candidateConfig?.cast ?? ((instance: unknown): DeliveryType&lt;T&gt; =&gt; instance as DeliveryType&lt;T&gt;);
     }
 &nbsp;
     private static ID_GENERATOR: number = 1;
@@ -384,17 +392,21 @@ export class BasicContract&lt;T&gt; implements Contract&lt;T&gt; {
     private readonly _id: number = BasicContract.ID_GENERATOR++;
     private readonly _name: string;
     private readonly _typeName: string;
-    private readonly _tester: (instance: unknown) =&gt; instance is OptionalType&lt;T&gt;;
-    private readonly _caster: (instance: unknown) =&gt; unknown;
+    private readonly _tester: TestType&lt;T&gt;;
+    private readonly _caster: CastType&lt;T&gt;;
     private readonly _replaceable: boolean;
-}</pre></td></tr></table></pre>
+}
+&nbsp;
+type DeliveryType&lt;T&gt; = OptionalType&lt;T&gt;;
+type CastType&lt;T&gt; = (instance: unknown) =&gt; DeliveryType&lt;T&gt;;
+type TestType&lt;T&gt; = (instance: unknown) =&gt; instance is DeliveryType&lt;T&gt;;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-15T23:08:58.065Z
+                at 2026-01-16T10:56:06.027Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
