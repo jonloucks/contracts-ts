@@ -8,7 +8,6 @@ const VALID_CASES: PredicateCase[] = [
 const INVALID_CASES: PredicateCase[] = [
   { value: () => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  // { value: function () { }, help: "a traditional function" }, 
   { value: async () => { }, help: "an async function" },
   { value: 42, help: "a number value" },
   { value: "abc", help: "a string value" },

@@ -1,4 +1,4 @@
-import assert, { AssertionError, AssertPredicate } from "node:assert";
+import { strictEqual, notStrictEqual, equal, AssertionError, AssertPredicate, ok, throws, doesNotThrow } from "node:assert";
 
 import { createContract, createContracts } from "contracts-ts";
 import { AutoClose } from "contracts-ts/api/AutoClose";
@@ -9,16 +9,16 @@ import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 
-describe('test utilities', () => {
+describe('all test files need one test, this is test utility class', () => {
   it('Dummy test', () => {
-    assert.strictEqual(true, !false);
+    strictEqual(true, !false, "Dummy test works");
   });
 });
 
 /**
  * Contracts testing tools.
  * These utilities are supported for public use.
- * They will follow the symantec versioning just like the production code
+ * They will follow the semantic versioning just like the production code
  */
 export class Tools {
   private constructor() {
@@ -36,19 +36,19 @@ export class Tools {
   }
 
   public static assertTrue(condition: boolean, message?: string) {
-    assert.strictEqual(condition, true, message);
+    strictEqual(condition, true, message);
   }
 
   public static assertFalse(condition: boolean, message?: string) {
-    assert.strictEqual(condition, false, message);
+    strictEqual(condition, false, message);
   }
 
   public static assertEquals(expected: unknown, actual: unknown, message?: string) {
-    assert.strictEqual(actual, expected, message);
+    strictEqual(actual, expected, message);
   }
 
   public static assertSame(expected: unknown, actual: unknown, message?: string) {
-    assert.equal(actual, expected, message);
+    equal(actual, expected, message);
   }
 
   public static isUpperCase(char: string): boolean {
@@ -56,16 +56,16 @@ export class Tools {
   }
 
   public static assertNotNull(value: unknown, message?: string) {
-    assert.ok(value, message); // Passes if truthy
-    assert.notStrictEqual(value, null, message);
+    ok(value, message); // Passes if truthy
+    notStrictEqual(value, null, message);
   }
 
   public static assertNull(value: unknown, message?: string) {
-    assert.strictEqual(value, null, message);
+    strictEqual(value, null, message);
   }
 
   public static assertUndefined(value: unknown, message?: string) {
-    assert.strictEqual(value, undefined, message);
+    strictEqual(value, undefined, message);
   }
 
   public static assertThrows<T extends Error | string>(predicate: AssertPredicate, executable: () => unknown, message?: string): RequiredType<T> {
@@ -73,7 +73,7 @@ export class Tools {
 
     let actual: unknown = null;
 
-    assert.throws(
+    throws(
       validExecutable,
       (thrown) => {
         actual = thrown;
@@ -128,12 +128,6 @@ export class Tools {
     Tools.assertNotNull(thrown.message, "Message must be present.");
   }
 
-  // public static assertFails(executable: () => unknown, message?: string) {
-  //     let validExecutable: (() => unknown) = nullCheck(executable, "Executable must be present.");
-
-  //     assert.throws(validExecutable, AssertionError, message ?? "Expected AssertionError to be thrown.");
-  // }
-
   /**
    * Assert that an object complies with basic expectations
    *
@@ -146,7 +140,7 @@ export class Tools {
       let object: object = instance as object;
       Tools.assertNotNull(object.toString(), "Object toString() was null.");
     }
-    assert.notStrictEqual(String(instance), 'undefined', message ?? "Object must be defined."); 
+    notStrictEqual(String(instance), 'undefined', message ?? "Object must be defined."); 
   }
 
   /**
@@ -337,7 +331,7 @@ export class Tools {
   public static assertIdempotent(autoClose: AutoClose): void {
     const validClose: AutoClose = presentCheck(autoClose, "AutoClose must be present.");
     for (let n = 0; n < 7; n++) {
-      assert.doesNotThrow(() => Tools.implicitClose(validClose), "AutoClose should be idempotent.");
+      doesNotThrow(() => Tools.implicitClose(validClose), "AutoClose should be idempotent.");
       Tools.assertObject(autoClose); // should not become a landmine
     }
   }

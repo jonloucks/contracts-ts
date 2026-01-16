@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual } from "node:assert";
 
 import { createContract } from "contracts-ts";
 import { Contract } from "contracts-ts/api/Contract";
@@ -88,7 +88,7 @@ function generateValueSuite<T>(options: TestSuiteOptions<T>) {
           using _usingPromisor = contracts.bind(contract, promisor);
 
           const delivered: OptionalType<T> = contracts.claim(contract);
-          assert.strictEqual(delivered, testCase.value, "promisor demand should match the value.");
+          strictEqual(delivered, testCase.value, "promisor demand should match the value.");
         });
       });
     });

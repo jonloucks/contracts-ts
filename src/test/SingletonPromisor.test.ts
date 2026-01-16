@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual, throws } from "node:assert";
 
 import { createContract } from "contracts-ts";
 import { Contract } from "contracts-ts/api/Contract";
@@ -78,7 +78,7 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
 
           const firstClaim: OptionalType<T> = contracts.claim(contract);
           const secondClaim: OptionalType<T> = contracts.claim(contract);
-          assert.strictEqual(firstClaim, secondClaim, "both claims should be the same instance.");
+          strictEqual(firstClaim, secondClaim, "both claims should be the same instance.");
         });
       });
     });
@@ -89,7 +89,7 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) {
       it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
         Tools.withContracts((contracts: Contracts) => {
           const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
-          assert.throws(() => {
+          throws(() => {
             promisorFactory.createSingleton<T>(null as unknown as Promisor<T>);
           }, {
             name: testCase.errorType,

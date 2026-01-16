@@ -1,5 +1,4 @@
-import assert from "node:assert";
-
+import { strictEqual } from "node:assert";
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 import { OptionalType } from "contracts-ts/api/auxiliary/Types";
 import { Tools } from "contracts-ts/test/Test.tools.test";
@@ -45,10 +44,10 @@ function assertEventTriggersShutdown(config: OptionalType<ContractsConfig>, even
   try {
     Tools.withConfiguredContracts(config, (contracts: Contracts) => {
       const contract = Tools.createStringContract();
-      using bindContract = contracts.bind<string>(contract, () => "test");
+      using _bindContract = contracts.bind<string>(contract, () => "test");
       process.emit(eventName);
       expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
-      assert.strictEqual(contracts.isBound(contract), false, 'Expected contract to be unbound after shutdown event');
+      strictEqual(contracts.isBound(contract), false, 'Expected contract to be unbound after shutdown event');
     });
   } finally {
     spyOn.mockRestore();

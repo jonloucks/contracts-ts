@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual, ok } from "node:assert";
 
 import { createContract } from "contracts-ts";
 import { ClassCastException } from "contracts-ts/api/auxiliary/ClassCastException";
@@ -16,9 +16,9 @@ describe('Create string contract', () => {
   });
 
   it('should have correct properties', () => {
-    assert.strictEqual(contract.name, "Test String Contract");
-    assert.strictEqual(contract.typeName, "string");
-    assert.strictEqual(contract.replaceable, false);
+    strictEqual(contract.name, "Test String Contract");
+    strictEqual(contract.typeName, "string");
+    strictEqual(contract.replaceable, false);
   });
 
   generateContractSuite({
@@ -53,5 +53,5 @@ test('contract_Config_Defaults', () => {
 test('contract_create_withNullConfig_Works', () => {
   const contract: Contract<string> = createContract<string>(null);
 
-  assert.ok(contract);
+  ok(contract);
 });

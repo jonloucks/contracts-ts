@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual } from "node:assert";
 
 import { OptionalType, RequiredType, isNotPresent } from "contracts-ts/api/auxiliary/Types";
 
@@ -69,7 +69,7 @@ export function generatePredicateSuite<T>(options: PredicateSuiteOptions) {
       const scenario: string = `case ${index} => (${help}) : should pass`;
       it(scenario, () => {
         const actual: boolean = options.function(testCase.value);
-        assert.strictEqual(actual, true, options.name + "(" + help + ") returned " + actual);
+        strictEqual(actual, true, options.name + "(" + help + ") returned " + actual);
       });
     });
     invalidCases?.forEach((testCase, index) => {
@@ -77,7 +77,7 @@ export function generatePredicateSuite<T>(options: PredicateSuiteOptions) {
       const scenario: string = `case ${index} => (${help}) : should fail`;
       it(scenario, () => {
         const actual: boolean = options.function(testCase.value);
-        assert.strictEqual(actual, false, options.name + "(" + help + ") returned " + actual);
+        strictEqual(actual, false, options.name + "(" + help + ") returned " + actual);
       });
     });
   });

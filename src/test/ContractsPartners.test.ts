@@ -29,7 +29,7 @@ describe('Contracts with partners', () => {
   it('when bound only in partner, primary should reflect partner binding', () => {
     const contract: Contract<string> = Tools.createStringContract();
     Tools.withPartnerContracts((primary: Contracts, partner: Contracts) => {
-      using usingPartnerBind: AutoClose = partner.bind(contract, () => "Partner");
+      using _usingPartnerBind: AutoClose = partner.bind(contract, () => "Partner");
 
       Tools.assertTrue(primary.isBound(contract));
       Tools.assertEquals("Partner", primary.claim(contract));
@@ -39,7 +39,7 @@ describe('Contracts with partners', () => {
   it('when bound only in primary, primary should reflect its own binding', () => {
     const contract: Contract<string> = Tools.createStringContract();
     Tools.withPartnerContracts((primary: Contracts, partner: Contracts) => {
-      using usingPrimaryBind: AutoClose = primary.bind(contract, () => "Primary");
+      using _usingPrimaryBind: AutoClose = primary.bind(contract, () => "Primary");
 
       Tools.assertTrue(primary.isBound(contract));
       Tools.assertEquals("Primary", primary.claim(contract));

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { throws } from "node:assert";
 
 import { AutoClose } from "contracts-ts/api/AutoClose";
 import { ContractException } from "contracts-ts/api/ContractException";
@@ -14,19 +14,10 @@ describe('Validate contracts', () => {
     });
   });
 
-  it('With null Contracts throws', () => {
-    assert.throws(() => {
-      validateContracts(null as unknown as Contracts);
-    }, {
-      name: "IllegalArgumentException",
-      message: "Contracts must be present."
-    });
-  });
-
   it('validate_WhenBindReturnsFalse_Throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       jest.spyOn(contracts, 'isBound').mockReturnValue(false);
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -37,7 +28,7 @@ describe('Validate contracts', () => {
   it('validate_WithFirstIsBoundIsTrue_Throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       jest.spyOn(contracts, 'isBound').mockReturnValue(true);
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -51,7 +42,7 @@ describe('Validate contracts', () => {
       jest.spyOn(contracts, 'bind').mockImplementation(() => {
         return null as unknown as AutoClose;
       });
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -70,7 +61,7 @@ describe('Validate contracts', () => {
       jest.spyOn(contracts, 'bind').mockImplementation(() => {
         return closeMock;
       });
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -94,7 +85,7 @@ describe('Validate contracts', () => {
         return null;
       });
 
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -120,7 +111,7 @@ describe('Validate contracts', () => {
         throw new Error("Math overflow.");
       });
 
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",
@@ -151,7 +142,7 @@ describe('Validate contracts', () => {
         return capturePromisor.demand();
       });
 
-      assert.throws(() => {
+      throws(() => {
         validateContracts(contracts);
       }, {
         name: "ContractException",

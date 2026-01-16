@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { throws } from "node:assert";
 
 import { ClassCastException } from "contracts-ts/api/auxiliary/ClassCastException";
 import { IllegalArgumentException } from "contracts-ts/api/auxiliary/IllegalArgumentException";
@@ -7,7 +7,7 @@ import { ContractException } from "contracts-ts/api/ContractException";
 
 describe('ContractException Tests', () => {
   it('without message throws IllegalArgumentException', () => {
-    assert.throws(() => {
+    throws(() => {
       new ContractException(null as unknown as string);
     }, {
       // name: 'IllegalArgumentException',
@@ -16,7 +16,7 @@ describe('ContractException Tests', () => {
   });
 
   it('with message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       throw new ContractException("Problem.");
     }, {
       name: 'ContractException',
@@ -26,7 +26,7 @@ describe('ContractException Tests', () => {
 
 
   it('rethrow with Error caught with message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       ContractException.rethrow(new Error("Inner problem."), "Outer Problem.");
     }, {
       name: 'ContractException',
@@ -35,7 +35,7 @@ describe('ContractException Tests', () => {
   });
 
   it('rethrow with Error caught without message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       ContractException.rethrow(new Error("Inner problem."));
     }, {
       name: 'ContractException',
@@ -44,7 +44,7 @@ describe('ContractException Tests', () => {
   });
 
   it('rethrow with null caught without message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       ContractException.rethrow(null);
     }, {
       name: 'ContractException',
@@ -53,7 +53,7 @@ describe('ContractException Tests', () => {
   });
 
   it('rethrow with null caught with message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       ContractException.rethrow(null, "Outer Problem.");
     }, {
       name: 'ContractException',
@@ -63,7 +63,7 @@ describe('ContractException Tests', () => {
 
 
   it('rethrow with ContractException caught with message, has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       ContractException.rethrow(new ContractException("Inner Problem."), "Outer Problem.");
     }, {
       name: 'ContractException',
@@ -74,7 +74,7 @@ describe('ContractException Tests', () => {
 
 describe('IllegalStateException Tests', () => {
   it('without message throws IllegalArgumentException', () => {
-    assert.throws(() => {
+    throws(() => {
       new IllegalStateException(null as unknown as string);
     }, {
       name: 'IllegalArgumentException',
@@ -82,7 +82,7 @@ describe('IllegalStateException Tests', () => {
     });
   });
   it('with message has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       throw new IllegalStateException("Problem.");
     }, {
       name: 'IllegalStateException',
@@ -93,7 +93,7 @@ describe('IllegalStateException Tests', () => {
 
 describe('IllegalArgumentException Tests', () => {
   it('without message throws IllegalArgumentException', () => {
-    assert.throws(() => {
+    throws(() => {
       new IllegalArgumentException(null as unknown as string);
     }, {
       name: 'IllegalArgumentException',
@@ -101,7 +101,7 @@ describe('IllegalArgumentException Tests', () => {
     });
   });
   it('with message has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       throw new IllegalArgumentException("Problem.");
     }, {
       name: 'IllegalArgumentException',
@@ -112,7 +112,7 @@ describe('IllegalArgumentException Tests', () => {
 
 describe('ClassCastException Tests', () => {
   it('without message throws IllegalArgumentException', () => {
-    assert.throws(() => {
+    throws(() => {
       new ClassCastException(null as unknown as string);
     }, {
       name: 'IllegalArgumentException',
@@ -120,7 +120,7 @@ describe('ClassCastException Tests', () => {
     });
   });
   it('with message has correct name and message', () => {
-    assert.throws(() => {
+    throws(() => {
       throw new ClassCastException("Problem.");
     }, {
       name: 'ClassCastException',

@@ -1,8 +1,8 @@
-import assert from "node:assert";
+import { strictEqual, throws } from "node:assert";
 
+import { createContract, OptionalType } from "contracts-ts";
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { isRatifiedContract } from "contracts-ts/api/RatifiedContract";
-import { createContract, OptionalType } from "contracts-ts";
 
 describe('api/RatifiedContract.ts tests', () => {
 
@@ -10,7 +10,7 @@ describe('api/RatifiedContract.ts tests', () => {
     const contractConfig: ContractConfig<string> = {
       ratified: true,
     };
-    assert.throws(() => {
+    throws(() => {
       createContract<string>(contractConfig);
     }, {
       name: 'ContractException',
@@ -29,7 +29,7 @@ describe('api/RatifiedContract.ts tests', () => {
     const maker: new (config?: OptionalType<ContractConfig<string>>) => Contract<string>
       = ratifiedContract.constructor as new () => Contract<string>;
 
-    assert.throws(() => {
+    throws(() => {
       new maker(null);
     }, {
       name: 'ContractException',
@@ -46,7 +46,7 @@ describe('api/RatifiedContract.ts tests', () => {
     };
 
     const contract: Contract<string> = createContract<string>(contractConfig);
-    assert.strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
+    strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
   });
 
   it('create with a Config.cast should work', () => {
@@ -61,19 +61,19 @@ describe('api/RatifiedContract.ts tests', () => {
     };
 
     const contract: Contract<string> = createContract<string>(contractConfig);
-    assert.strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
+    strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
   });
 });
 
 describe('api/RatifiedContract.ts tests', () => {
   it('isRatifiedContract with null or undefined should return false', () => {
-    assert.strictEqual(isRatifiedContract(null), false, 'with null returns false');
-    assert.strictEqual(isRatifiedContract(undefined), false, 'with undefined returns false');
+    strictEqual(isRatifiedContract(null), false, 'with null returns false');
+    strictEqual(isRatifiedContract(undefined), false, 'with undefined returns false');
   });
 
   it('isRatifiedContract with random types should return false ', () => {
-    assert.strictEqual(isRatifiedContract({}), false, 'with null empty object returns false');
-    assert.strictEqual(isRatifiedContract(() => { }), false, 'with function returns false');
+    strictEqual(isRatifiedContract({}), false, 'with null empty object returns false');
+    strictEqual(isRatifiedContract(() => { }), false, 'with function returns false');
   });
 
   it('isRatifiedContract with implementation of Contract should return false', () => {
@@ -88,7 +88,7 @@ describe('api/RatifiedContract.ts tests', () => {
         return undefined;
       },
     };
-    assert.strictEqual(isRatifiedContract(contractImpl), false, 'with contract implementation returns false');
+    strictEqual(isRatifiedContract(contractImpl), false, 'with contract implementation returns false');
   });
 
   it('Attempt to impersonate RatifiedContract fails', () => {
@@ -126,6 +126,6 @@ describe('api/RatifiedContract.ts tests', () => {
       fakeRatified[key] = value;
     }
 
-    assert.strictEqual(isRatifiedContract(fakeRatified), false, 'with impersonated RatifiedContract returns false');
+    strictEqual(isRatifiedContract(fakeRatified), false, 'with impersonated RatifiedContract returns false');
   });
 });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual, notStrictEqual, fail } from "node:assert";
 
 import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "contracts-ts/api/BindStrategy";
 import { RequiredType, isNotPresent } from "contracts-ts/api/auxiliary/Types";
@@ -39,17 +39,17 @@ export function generateBindStrategySuite(options: TestSuiteOptions) {
   describe("BindStategy valid values", () => {
     validCases?.forEach((testCase, index) => {
       it(`case ${index}: isBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
-        assert.strictEqual(isBindStrategy(testCase.value), true, "isBindStrategy should be true.");
+        strictEqual(isBindStrategy(testCase.value), true, "isBindStrategy should be true.");
       });
       it(`case ${index}: resolveBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
         if (isBindStrategy(testCase.value)) {
           const resolved: RequiredType<BindStrategy> = resolveBindStrategy(testCase.value);
-          assert.notStrictEqual(resolved, null, "resolved BindStrategy should not be null.");
+          notStrictEqual(resolved, null, "resolved BindStrategy should not be null.");
           if (isNotPresent(testCase.value)) {
-            assert.strictEqual(resolved, DEFAULT_BIND_STRATEGY, "resolved BindStrategy should be DEFAULT_BIND_STRATEGY.");
+            strictEqual(resolved, DEFAULT_BIND_STRATEGY, "resolved BindStrategy should be DEFAULT_BIND_STRATEGY.");
           }
         } else {
-          assert.fail("value is not a valid BindStrategy");
+          fail("value is not a valid BindStrategy");
         }
       });
     });
@@ -58,7 +58,7 @@ export function generateBindStrategySuite(options: TestSuiteOptions) {
   describe("BindStategy invalid values", () => {
     invalidCases?.forEach((testCase, index) => {
       it(`case ${index}: isBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
-        assert.strictEqual(isBindStrategy(testCase.value), false, "isBindStrategy should be false.");
+        strictEqual(isBindStrategy(testCase.value), false, "isBindStrategy should be false.");
       });
     });
   });
