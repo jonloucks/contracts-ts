@@ -1,33 +1,34 @@
-import assert from "node:assert";
+import { strictEqual, notStrictEqual } from "node:assert";
 
+import { AtomicBoolean, LAWYER } from "contracts-ts/api/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/auxiliary/AtomicBooleanFactory";
 import { Contracts } from "contracts-ts/api/Contracts";
-import { AtomicBoolean, LAWYER } from "contracts-ts/api/auxiliary/AtomicBoolean";
 import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "contracts-ts/test/Test.tools.test";
 
 describe('AtomicBoolean', () => {
 
   it('LAWYER.isDeliverable', () => {
-    assert.strictEqual(LAWYER.isDeliverable(null), true);
-    assert.strictEqual(LAWYER.isDeliverable(undefined), true);
-    assert.strictEqual(LAWYER.isDeliverable({}), false);
-    assert.strictEqual(LAWYER.isDeliverable({
+    const lawyer = LAWYER;
+    strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
+    strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
+    strictEqual(lawyer.isDeliverable({}), false, "empty object is not deliverable");
+    strictEqual(lawyer.isDeliverable({
       get: () => 0,
       set: (_value: boolean) => { },
       compareAndSet: (_expectedValue: boolean, _newValue: boolean) => true,
-    }), true);
-    assert.strictEqual(LAWYER.isDeliverable({
+    }), true, "object with get, set, and compareAndSet is deliverable");
+    strictEqual(lawyer.isDeliverable({
       get: () => 0,
       // set: (value: boolean) => { },
-    }), false);
+    }), false, "missing set is not deliverable");
   });
 
   it('AtomicBoolean FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
-      assert.strictEqual(contracts.isBound(FACTORY), true);
+      strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
-      assert.notStrictEqual(atomic, null);
+      notStrictEqual(atomic, null, "created AtomicBoolean is not null");
     });
   });
 
@@ -35,8 +36,8 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
 
-      assert.strictEqual(atomic.get(), false);
-      assert.strictEqual(atomic.toString(), "false");
+      strictEqual(atomic.get(), false, "default initial value is false");
+      strictEqual(atomic.toString(), "false", "toString of default false is 'false'");
     });
   });
 
@@ -44,8 +45,8 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(true);
 
-      assert.strictEqual(atomic.get(), true);
-      assert.strictEqual(atomic.toString(), "true");
+      strictEqual(atomic.get(), true, "initial value is true");
+      strictEqual(atomic.toString(), "true", "toString of true is 'true'");
     });
   });
 
@@ -53,15 +54,10 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(true);
 
-      const primitiveString = atomic[Symbol.toPrimitive]('string');
-      const primitiveNumber = atomic[Symbol.toPrimitive]('number');
-      const primitiveBoolean = atomic[Symbol.toPrimitive]('boolean');
-      const primitiveDefault = atomic[Symbol.toPrimitive]('default');
-
-      assert.strictEqual(primitiveString, "true");
-      assert.strictEqual(primitiveNumber, 1);
-      assert.strictEqual(primitiveBoolean, true);
-      assert.strictEqual(primitiveDefault, true);
+      strictEqual(atomic[Symbol.toPrimitive]('string'), "true", "toPrimitive with 'string' hint returns 'true'");
+      strictEqual(atomic[Symbol.toPrimitive]('number'), 1, "toPrimitive with 'number' hint returns 1");
+      strictEqual(atomic[Symbol.toPrimitive]('boolean'), true, "toPrimitive with 'boolean' hint returns true");
+      strictEqual(atomic[Symbol.toPrimitive]('default'), true, "toPrimitive with 'default' hint returns true");
     });
   });
 
@@ -69,8 +65,8 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(false);
 
-      assert.strictEqual(atomic.get(), false);
-      assert.strictEqual(atomic.toString(), "false");
+      strictEqual(atomic.get(), false, "initial value is false");
+      strictEqual(atomic.toString(), "false", "toString of false is 'false'");
     });
   });
 
@@ -78,30 +74,31 @@ describe('AtomicBoolean', () => {
     Tools.withContracts((contracts: Contracts) => {
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
 
-      assert.strictEqual(atomic.get(), false);
-      assert.strictEqual(atomic.toString(), "false");
+      strictEqual(atomic.get(), false, "default initial value is false");
+      strictEqual(atomic.toString(), "false", "toString of default false is 'false'");
 
       atomic.set(true);
-      assert.strictEqual(atomic.get(), true);
+      strictEqual(atomic.get(), true, "value after set to true is true");
 
       const updated = atomic.compareAndSet(true, false);
-      assert.strictEqual(updated, true);
-      assert.strictEqual(atomic.get(), false);
+      strictEqual(updated, true, "compareAndSet from true to false returns true");
+      strictEqual(atomic.get(), false, "value after compareAndSet to false is false");
     });
   });
 
   it('FACTORY_LAWYER.isDeliverable', () => {
+    const factoryLawyer = FACTORY_LAWYER;
     Tools.withContracts((contracts: Contracts) => {
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable(() => { return {}; }), false, "with function is false");
+      strictEqual(factoryLawyer.isDeliverable(() => { return {}; }), false, "with function is false");
 
-      let duck = { create: () => { return {}; } };
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable(duck), true, "with duck-type is true");
+      let duck = { create: () : unknown => { return {}; } };
+      strictEqual(factoryLawyer.isDeliverable(duck), true, "with duck-type is true");
 
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable("abc"), false, 'with string is false');
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable(123), false, 'with number is false');
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable({}), false, 'with empty object is false');
+      strictEqual(factoryLawyer.isDeliverable("abc"), false, 'with string is false');
+      strictEqual(factoryLawyer.isDeliverable(123), false, 'with number is false');
+      strictEqual(factoryLawyer.isDeliverable({}), false, 'with empty object is false');
       const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
-      assert.strictEqual(FACTORY_LAWYER.isDeliverable(atomic), false, 'with AtomicBoolean is false');
+      strictEqual(factoryLawyer.isDeliverable(atomic), false, 'with AtomicBoolean is false');
     });
   });
 
@@ -137,19 +134,19 @@ interface CompareAndSetSuiteOptions {
   validCases?: CompareAndSetCase[];
 }
 
-export function generateCompareAndSet(options: CompareAndSetSuiteOptions) {
+export function generateCompareAndSet(options: CompareAndSetSuiteOptions) : void {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicBoolean`, () => {
 
-    validCases?.forEach((testCase, _index) => {
-      it(`when currently ${testCase.current} compareAndSet( ${testCase.required} , ${testCase.requested} ) => ${testCase.updated} with final state ${testCase.final}`, () => {
+    validCases?.forEach((testCase, index) => {
+      it(`case #${index} when currently ${testCase.current} compareAndSet( ${testCase.required} , ${testCase.requested} ) => ${testCase.updated} with final state ${testCase.final}`, () => {
         Tools.withContracts((contracts: Contracts) => {
           const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(testCase.current);
 
           const actual = atomic.compareAndSet(testCase.required, testCase.requested);
-          assert.strictEqual(actual, testCase.updated);
-          assert.strictEqual(atomic.get(), testCase.final);
+          strictEqual(actual, testCase.updated);
+          strictEqual(atomic.get(), testCase.final);
         });
       });
     });

@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual, throws, deepStrictEqual, fail, ok } from "node:assert";
 
 import { ContractException } from "contracts-ts/api/ContractException";
 import { Internal } from "contracts-ts/impl/Internal.impl";
@@ -9,7 +9,7 @@ import { Internal } from "contracts-ts/impl/Internal.impl";
 describe("Internal mapForEachReversed", () => {
 
   it("with null map throws", () => {
-    assert.throws(() => {
+    throws(() => {
       Internal.mapForEachReversed(null as unknown as Map<unknown, unknown>, (_, __) => {
       })
     }, {
@@ -24,7 +24,7 @@ describe("Internal mapForEachReversed", () => {
     Internal.mapForEachReversed(testMap, (_, __) => {
       callCount++;
     });
-    assert.strictEqual(callCount, 0);
+    strictEqual(callCount, 0);
   });
 
   it("with multiple entries calls callback in reverse order", () => {
@@ -41,8 +41,8 @@ describe("Internal mapForEachReversed", () => {
       values.push(value);
     });
 
-    assert.deepStrictEqual(keys, ["three", "two", "one"]);
-    assert.deepStrictEqual(values, [3, 2, 1]);
+    deepStrictEqual(keys, ["three", "two", "one"]);
+    deepStrictEqual(values, [3, 2, 1]);
   });
 });
 
@@ -50,7 +50,7 @@ describe("Internal throwAggregateError", () => {
 
   it("with single error throws that error", () => {
     const singleError = new Error("Single error occurred.");
-    assert.throws(() => {
+    throws(() => {
       Internal.throwAggregateError("Aggregate error:", singleError);
     }, {
       name: 'Error',
@@ -65,15 +65,15 @@ describe("Internal throwAggregateError", () => {
 
     try {
       Internal.throwAggregateError("Multiple errors occurred:", error1, error2, error3);
-      assert.fail("Expected throwAggregateError to throw.");
+      fail("Expected throwAggregateError to throw.");
     } catch (e) {
-      assert.ok(e instanceof ContractException);
+      ok(e instanceof ContractException);
       const expectedMessage =
         "Multiple errors occurred:\n" +
         "- First error.\n" +
         "- Second error.\n" +
         "- Third error as string.";
-      assert.strictEqual(e.message, expectedMessage);
+      strictEqual(e.message, expectedMessage);
     }
   });
 });

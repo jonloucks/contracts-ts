@@ -44,7 +44,6 @@ describe("illegalCheck", () => {
   });
 
   it("should throw for valid types", () => {
-
     expect(() => illegalCheck<string>("test", false, null as unknown as string))
       .toThrow(new IllegalArgumentException("Message for illegal check must be present."));
   });

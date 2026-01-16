@@ -13,8 +13,8 @@ const INVALID_CASES: PredicateCase[] = [
   { value: Number.POSITIVE_INFINITY, help: "a positive infinity value" },
   { value: Number.NEGATIVE_INFINITY, help: "a negative infinity value" },
   { value: BigInt(42), help: "a bigint value" },
-  { value: () => { }, help: "a simple function" },
-  { value: async () => { }, help: "an async function" },
+  { value: () : void => { }, help: "a simple function" },
+  { value: async () : Promise<void> => { }, help: "an async function" },
   { value: "abc", help: "a string value" },
   { value: Symbol("test"), help: "a symbol value" },
 ]

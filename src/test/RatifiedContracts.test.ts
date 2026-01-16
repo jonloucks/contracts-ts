@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { throws } from "node:assert";
 
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 import { PromisorType } from "contracts-ts/api/Promisor";
@@ -12,7 +12,7 @@ describe('Contracts with ratified', () => {
     const contract = createContract<string>();
     const promisor: PromisorType<string> = () => "Hello World";
     Tools.withConfiguredContracts(contractsConfig, (contracts: Contracts) => {
-      assert.throws(() => {
+      throws(() => {
         contracts.bind(contract, promisor);
       }, {
         name: 'ContractException',
@@ -25,7 +25,7 @@ describe('Contracts with ratified', () => {
     const contractsConfig: ContractsConfig = { ratified: true };
     const contract = createContract<string>();
     Tools.withConfiguredContracts(contractsConfig, (contracts: Contracts) => {
-      assert.throws(() => {
+      throws(() => {
         contracts.isBound(contract);
       }, {
         name: 'ContractException',
@@ -38,7 +38,7 @@ describe('Contracts with ratified', () => {
     const contractsConfig: ContractsConfig = { ratified: true };
     const contract = createContract<string>();
     Tools.withConfiguredContracts(contractsConfig, (contracts: Contracts) => {
-      assert.throws(() => {
+      throws(() => {
         contracts.claim(contract);
       }, {
         name: 'ContractException',
@@ -51,7 +51,7 @@ describe('Contracts with ratified', () => {
     const contractsConfig: ContractsConfig = { ratified: true };
     const contract = createContract<string>();
     Tools.withConfiguredContracts(contractsConfig, (contracts: Contracts) => {
-      assert.throws(() => {
+      throws(() => {
         contracts.enforce(contract);
       }, {
         name: 'ContractException',

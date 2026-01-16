@@ -12,10 +12,9 @@ const VALID_CASES: PredicateCase[] = [
 const INVALID_CASES: PredicateCase[] = [
   { value: BigInt(42), help: "a bigint value" },
   { value: new Number(34.5), help: "a number object" },
-  { value: () => { }, help: "a simple function" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  // { value: function () { }, help: "a traditional function" }, 
-  { value: async () => { }, help: "an async function" },
+  { value: async () : Promise<void> => { }, help: "an async function" },
   { value: "abc", help: "a string value" },
   { value: {}, help: "an object value" }
 ]

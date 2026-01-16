@@ -1,4 +1,4 @@
-import assert from "node:assert";
+import { strictEqual, notStrictEqual } from "node:assert";
 
 import { createContract } from "contracts-ts";
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
@@ -21,25 +21,25 @@ const LAWYER: Lawyer<Date> = new class implements Lawyer<Date> {
 
 generateTestsForLawyer(LAWYER);
 
-export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) {
+export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) : void {
   describe(`Testing Lawyer: ${lawyer}`, () => {
 
     it('Lawyer created contract name', () => {
-      assert.notStrictEqual(lawyer.createContract().name, null);
-      assert.strictEqual(lawyer.createContract({ name: "abc" }).name, "abc");
-      assert.notStrictEqual(lawyer.createContract({ typeName: "xyz" }).name, "xyz");
-      assert.strictEqual(lawyer.createContract({ name: "abc", typeName: "xyz" }).name, "abc");
+      notStrictEqual(lawyer.createContract().name, null, "with no config, name is not null");
+      strictEqual(lawyer.createContract({ name: "abc" }).name, "abc", "with name in config, name is as given");
+      notStrictEqual(lawyer.createContract({ typeName: "xyz" }).name, "xyz", "with only typeName in config, name is not typeName");
+      strictEqual(lawyer.createContract({ name: "abc", typeName: "xyz" }).name, "abc", "with name and typeName in config, name is as given");
     });
 
     it('Lawyer created contract type name', () => {
-      assert.notStrictEqual(lawyer.createContract().typeName, null);
-      assert.notStrictEqual(lawyer.createContract({ name: "abc" }).typeName, "abc");
-      assert.strictEqual(lawyer.createContract({ typeName: "xyz" }).typeName, "xyz");
+      notStrictEqual(lawyer.createContract().typeName, null, "with no config, typeName is not null");
+      notStrictEqual(lawyer.createContract({ name: "abc" }).typeName, "abc", "with name in config, typeName is not name");
+      strictEqual(lawyer.createContract({ typeName: "xyz" }).typeName, "xyz", "with typeName in config, typeName is as given");
     });
 
     it('Lawyer created contract is replaceable', () => {
-      assert.strictEqual(lawyer.createContract({ replaceable: false }).replaceable, false);
-      assert.strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true);
+      strictEqual(lawyer.createContract({ replaceable: false }).replaceable, false, "with replaceable false in config, replaceable is false");
+      strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true, "with replaceable true in config, replaceable is true");
     });
   });
 }

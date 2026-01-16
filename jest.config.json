@@ -20,7 +20,8 @@
     "src/**/*.ts",
     "!src/test/**",
     "!src/**/*.test.ts",
-    "!src/**/__tests__/**"
+    "!src/**/__tests__/**",
+    "!src/utils/**"
   ],
   "coverageDirectory": "coverage",
   "coverageReporters": [

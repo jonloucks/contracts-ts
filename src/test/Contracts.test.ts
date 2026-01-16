@@ -13,7 +13,7 @@ describe("Contracts Idempotent", () => {
 });
 
 describe("Contracts toString", () => {
-  test("is not null", () => {
+  test("is not null or undefined", () => {
     Tools.withContracts((contracts) => {
       expect(String(contracts)).not.toBeNull();
       expect(String(contracts)).not.toBeUndefined();
@@ -22,7 +22,7 @@ describe("Contracts toString", () => {
 });
 
 describe("Bind same promisor", () => {
-  test("is not null", () => {
+  test("is not null or undefined", () => {
     Tools.withContracts((contracts) => {
       const promisor = new class implements Promisor<string> {
         incrementUsage(): number {

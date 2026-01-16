@@ -1,5 +1,5 @@
-import assert from "node:assert";
-import { createContract, createContracts, Contracts, Contract, PromisorFactory, PROMISOR_FACTORY, AutoClose, hasFunctions } from "contracts-ts";
+import { strictEqual, notStrictEqual, ok } from "node:assert";
+import { AutoClose, Contract, Contracts, createContract, createContracts, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "contracts-ts";
 
 // Define a service interface, a Contract can be for any type.
 interface Logger {
@@ -28,7 +28,7 @@ describe("Example Logger Service Contract", () => {
     // Open the Contracts container
     closeContracts = CONTRACTS.open();
 
-    assert.ok(closeContracts, "Contracts container should be opened");
+    ok(closeContracts, "Contracts container should be opened");
   });
 
   it("Bind logging service contract to a Promisor", () => {
@@ -38,7 +38,7 @@ describe("Example Logger Service Contract", () => {
     closeBinding = CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
       promisorFactory.createSingleton<Logger>(
         () => ({
-          log: (message: string) => {
+          log: (message: string) : void => {
             if (DEBUG) {
               console.log("LOG:", message);
             }
@@ -48,12 +48,12 @@ describe("Example Logger Service Contract", () => {
 
   it("Optional - Check if logging service is bound", () => {
     const isLoggerBound: boolean = CONTRACTS.isBound(LOGGER_CONTRACT);
-    assert.strictEqual(isLoggerBound, true, "Logger should be bound");
+    strictEqual(isLoggerBound, true, "Logger should be bound");
   });
 
   it("Use logging service", () => {
     const logger: Logger = CONTRACTS.enforce<Logger>(LOGGER_CONTRACT);
-    assert.notStrictEqual(logger, null, "Logger should be enforced and not null");
+    notStrictEqual(logger, null, "Logger should be enforced and not null");
     logger.log("Using the service in the test.");
   });
 

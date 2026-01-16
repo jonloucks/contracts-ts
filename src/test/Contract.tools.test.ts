@@ -1,7 +1,7 @@
-import assert from "node:assert";
+import { strictEqual, throws } from "node:assert";
 
-import { Contract } from "contracts-ts/api/Contract";
 import { createContract } from "contracts-ts";
+import { Contract } from "contracts-ts/api/Contract";
 
 export interface CastCase<T> {
   instance: unknown;
@@ -26,7 +26,7 @@ generateContractSuite({
   ]
 });
 
-export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
+export function generateContractSuite<T>(options: ContractSuiteOptions<T>) : void {
   const { contract, validCases, invalidCases } = options;
 
   describe(`Contract Suite for ${options.name}`, () => {
@@ -37,7 +37,7 @@ export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
 
       it(scenario, () => {
         const actual = contract.cast(testCase.instance);
-        assert.strictEqual(actual, expected);
+        strictEqual(actual, expected);
       });
     });
 
@@ -46,7 +46,7 @@ export function generateContractSuite<T>(options: ContractSuiteOptions<T>) {
       const scenario: string = `case ${index} => (${help}) : should throw ClassCastException`;
 
       it(scenario, () => {
-        assert.throws(() => {
+        throws(() => {
           contract.cast(testCase.instance);
         }, {
           name: 'ClassCastException'

@@ -1,7 +1,6 @@
-import assert from "node:assert";
+import { strictEqual, notStrictEqual, throws, doesNotThrow } from "node:assert";
 
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose, isAutoClose, isClose, unwrapAutoClose } from "contracts-ts/api/AutoClose";
-
 import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "contracts-ts/api/Contracts";
 import { generateTestsForLawyer } from "contracts-ts/test/Lawyer.tools.test";
@@ -9,14 +8,18 @@ import { Tools } from "contracts-ts/test/Test.tools.test";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
-  { value: { close: () => { }, [Symbol.dispose]: () => { } }, help: "an AutoClose value" },
+  {
+    value: {
+      close: (): void => { },
+      [Symbol.dispose]: (): void => { }
+    }, help: "an AutoClose value"
+  },
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-  { value: () => { }, help: "a simple function" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  // { value: function () { }, help: "a traditional function" }, 
-  { value: async () => { }, help: "an async function" },
+  { value: async (): Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
   { value: "abc", help: "a string value" },
   { value: {}, help: "an object value" }
@@ -31,7 +34,7 @@ generatePredicateSuite({
 
 describe('AutoClose tests', () => {
   it('AUTO_CLOSE_NONE works', () => {
-    assert.doesNotThrow(() => {
+    doesNotThrow(() => {
       AUTO_CLOSE_NONE.close();
       AUTO_CLOSE_NONE[Symbol.dispose]();
     });
@@ -43,49 +46,46 @@ describe('AutoClose tests', () => {
       closed = true;
     });
 
-    assert.strictEqual(isAutoClose(autoClose), true, "inlineAutoClose should produce AutoClose.");
-
-    assert.strictEqual(closed, false, "should not be closed yet.");
-
+    strictEqual(isAutoClose(autoClose), true, "inlineAutoClose should produce AutoClose.");
+    strictEqual(closed, false, "should not be closed yet.");
     autoClose.close();
-    assert.strictEqual(closed, true, "should be closed after close().");
-
+    strictEqual(closed, true, "should be closed after close().");
     closed = false;
     autoClose[Symbol.dispose]();
-    assert.strictEqual(closed, true, "should be closed after dispose().");
+    strictEqual(closed, true, "should be closed after dispose().");
   });
 
   it('isAutoClose works', () => {
-    assert.strictEqual(isAutoClose(null), true, "null is AutoClose");
-    assert.strictEqual(isAutoClose(undefined), true, "undefined is AutoClose");
-    assert.strictEqual(isAutoClose({}), false, "empty object is not AutoClose");
-    assert.strictEqual(isAutoClose({
-      close: () => { },
-      [Symbol.dispose]: () => { }
+    strictEqual(isAutoClose(null), true, "null is AutoClose");
+    strictEqual(isAutoClose(undefined), true, "undefined is AutoClose");
+    strictEqual(isAutoClose({}), false, "empty object is not AutoClose");
+    strictEqual(isAutoClose({
+      close: (): void => { },
+      [Symbol.dispose]: (): void => { }
     }), true, "object with close and dispose is AutoClose");
   });
 
   it('unwrapAutoClose works', () => {
-    const closeFunction = () => { };
+    const closeFunction = (): void => { };
     const wrapped = inlineAutoClose(closeFunction);
     const notWrapped = {
       close: closeFunction,
-      [Symbol.dispose]: () => { }
+      [Symbol.dispose]: (): void => { }
     };
 
-    assert.strictEqual(unwrapAutoClose(null), null, "unwrap null is null");
-    assert.strictEqual(unwrapAutoClose(undefined), undefined, "unwrap undefined is undefined");
-    assert.strictEqual(unwrapAutoClose(wrapped), closeFunction, "unwrap inlineAutoClose returns original function");
-    assert.strictEqual(unwrapAutoClose(notWrapped), notWrapped, "unwrap non-wrapped returns same instance");
+    strictEqual(unwrapAutoClose(null), null, "unwrap null is null");
+    strictEqual(unwrapAutoClose(undefined), undefined, "unwrap undefined is undefined");
+    strictEqual(unwrapAutoClose(wrapped), closeFunction, "unwrap inlineAutoClose returns original function");
+    strictEqual(unwrapAutoClose(notWrapped), notWrapped, "unwrap non-wrapped returns same instance");
   });
 });
 
 describe('AutoCloseFactory tests', () => {
   it('AutoCloseFactory.CONTRACT is bound and delivers', () => {
     Tools.withContracts((contracts: Contracts) => {
-      assert.strictEqual(contracts.isBound(FACTORY), true);
+      strictEqual(contracts.isBound(FACTORY), true, "AutoCloseFactory.CONTRACT is bound");
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-      assert.notStrictEqual(autoCloseFactory, null);
+      notStrictEqual(autoCloseFactory, null, "AutoCloseFactory is not null");
     });
   });
 });
@@ -94,7 +94,7 @@ describe('createAutoClose', () => {
   it('with null throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-      assert.throws(() => {
+      throws(() => {
         autoCloseFactory.createAutoClose(null as unknown as AutoClose);
       }, {
         name: 'IllegalArgumentException',
@@ -110,7 +110,7 @@ describe('createAutoClose', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       const autoClose: AutoClose = autoCloseFactory.createAutoClose(closeMock);
-      assert.strictEqual(autoClose, closeMock);
+      strictEqual(autoClose, closeMock, "with valid AutoClose returns same instance");
     });
   });
   it('with close-only instance returns AutoClose wrapping close', () => {
@@ -121,10 +121,10 @@ describe('createAutoClose', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       const autoClose: AutoClose = autoCloseFactory.createAutoClose({
-        close: () => closeMock.close()
+        close: () : void => closeMock.close()
       });
-      assert.notStrictEqual(autoClose, null);
-      assert.notStrictEqual(autoClose, closeMock);
+      notStrictEqual(autoClose, null, "with close-only instance returns AutoClose wrapping close");
+      notStrictEqual(autoClose, closeMock, "with close-only instance returns AutoClose wrapping close");
 
       autoClose.close();
       expect(closeMock.close).toHaveBeenCalledTimes(1);
@@ -138,13 +138,13 @@ describe('createAutoClose', () => {
       close: jest.fn(),
       [Symbol.dispose]: jest.fn()
     });
-    const closeFunction = () => closeMock.close();
+    const closeFunction = () : void => closeMock.close();
 
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       const autoClose: AutoClose = autoCloseFactory.createAutoClose(closeFunction);
-      assert.notStrictEqual(autoClose, null);
-      assert.notStrictEqual(autoClose, closeMock);
+      notStrictEqual(autoClose, null, "with function returns AutoClose wrapping function");
+      notStrictEqual(autoClose, closeMock, "with function returns AutoClose wrapping function");
 
       autoClose.close();
       expect(closeMock.close).toHaveBeenCalledTimes(1);
@@ -156,7 +156,7 @@ describe('createAutoClose', () => {
   it('with non-closeable throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-      assert.throws(() => {
+      throws(() => {
         autoCloseFactory.createAutoClose({} as unknown as AutoClose);
       }, {
         name: 'IllegalArgumentException',
@@ -178,7 +178,7 @@ describe('AutoCloseOne tests', () => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       using autoCloseOne = autoCloseFactory.createAutoCloseOne();
 
-      assert.doesNotThrow(() => {
+      doesNotThrow(() => {
         autoCloseOne.set(null);
       });
     });
@@ -192,8 +192,8 @@ describe('AutoCloseOne tests', () => {
         [Symbol.dispose]: jest.fn()
       });
 
-      assert.strictEqual(isClose(closeMock), true);
-      assert.strictEqual(isAutoClose(closeMock), true);
+      strictEqual(isClose(closeMock), true, "isClose should be true");
+      strictEqual(isAutoClose(closeMock), true, "isAutoClose should be true");
 
       {
         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
@@ -276,7 +276,7 @@ describe('AutoCloseMany tests', () => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
       using autoCloseMany = autoCloseFactory.createAutoCloseMany();
 
-      assert.throws(() => {
+      throws(() => {
         autoCloseMany.add(null as unknown as AutoClose);
       }, {
         name: 'IllegalArgumentException',
@@ -344,7 +344,7 @@ describe('AutoCloseMany tests', () => {
 
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-      assert.throws(() => {
+      throws(() => {
         {
           using autoCloseMany = autoCloseFactory.createAutoCloseMany();
           for (const mock of mockList) {

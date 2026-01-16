@@ -1,4 +1,4 @@
-import assert, { AssertionError, AssertPredicate } from "node:assert";
+import { strictEqual, notStrictEqual, equal, AssertionError, AssertPredicate, ok, throws, doesNotThrow } from "node:assert";
 
 import { createContract, createContracts } from "contracts-ts";
 import { AutoClose } from "contracts-ts/api/AutoClose";
@@ -9,16 +9,16 @@ import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "
 import { Contract, Config as ContractConfig } from "contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "contracts-ts/api/Contracts";
 
-describe('test utilities', () => {
+describe('all test files need one test, this is test utility class', () => {
   it('Dummy test', () => {
-    assert.strictEqual(true, !false);
+    strictEqual(true, !false, "Dummy test works");
   });
 });
 
 /**
  * Contracts testing tools.
  * These utilities are supported for public use.
- * They will follow the symantec versioning just like the production code
+ * They will follow the semantic versioning just like the production code
  */
 export class Tools {
   private constructor() {
@@ -35,37 +35,37 @@ export class Tools {
     }
   }
 
-  public static assertTrue(condition: boolean, message?: string) {
-    assert.strictEqual(condition, true, message);
+  public static assertTrue(condition: boolean, message?: string) : void {
+    strictEqual(condition, true, message);
   }
 
-  public static assertFalse(condition: boolean, message?: string) {
-    assert.strictEqual(condition, false, message);
+  public static assertFalse(condition: boolean, message?: string) : void {
+    strictEqual(condition, false, message);
   }
 
-  public static assertEquals(expected: unknown, actual: unknown, message?: string) {
-    assert.strictEqual(actual, expected, message);
+  public static assertEquals(expected: unknown, actual: unknown, message?: string) : void {
+    strictEqual(actual, expected, message);
   }
 
-  public static assertSame(expected: unknown, actual: unknown, message?: string) {
-    assert.equal(actual, expected, message);
+  public static assertSame(expected: unknown, actual: unknown, message?: string) : void {
+    equal(actual, expected, message);
   }
 
   public static isUpperCase(char: string): boolean {
     return char === char.toUpperCase() && char !== char.toLowerCase();
   }
 
-  public static assertNotNull(value: unknown, message?: string) {
-    assert.ok(value, message); // Passes if truthy
-    assert.notStrictEqual(value, null, message);
+  public static assertNotNull(value: unknown, message?: string) : void {
+    ok(value, message); // Passes if truthy
+    notStrictEqual(value, null, message);
   }
 
-  public static assertNull(value: unknown, message?: string) {
-    assert.strictEqual(value, null, message);
+  public static assertNull(value: unknown, message?: string) : void {
+    strictEqual(value, null, message);
   }
 
-  public static assertUndefined(value: unknown, message?: string) {
-    assert.strictEqual(value, undefined, message);
+  public static assertUndefined(value: unknown, message?: string) : void {
+    strictEqual(value, undefined, message);
   }
 
   public static assertThrows<T extends Error | string>(predicate: AssertPredicate, executable: () => unknown, message?: string): RequiredType<T> {
@@ -73,7 +73,7 @@ export class Tools {
 
     let actual: unknown = null;
 
-    assert.throws(
+    throws(
       validExecutable,
       (thrown) => {
         actual = thrown;
@@ -89,7 +89,7 @@ export class Tools {
     return actual as T;
   }
 
-  private static applyAssertPredicate(predicate: AssertPredicate, actual: Error) {
+  private static applyAssertPredicate(predicate: AssertPredicate, actual: Error) : void{
     if (!predicate) {
       return;
     } else if (isConstructorPresent(predicate)) {
@@ -121,32 +121,26 @@ export class Tools {
    *x
    * @param executable the test that is expected to fail
    */
-  public static assertFails(executable: () => unknown) {
+  public static assertFails(executable: () => unknown) : void {
     let validExecutable: (() => unknown) = presentCheck(executable, "Executable must be present.");
     let thrown: AssertionError = Tools.assertThrows(AssertionError, validExecutable, "Expected AssertionError to be thrown.");
     Tools.assertObject(thrown, "Thrown must be an object.");
     Tools.assertNotNull(thrown.message, "Message must be present.");
   }
 
-  // public static assertFails(executable: () => unknown, message?: string) {
-  //     let validExecutable: (() => unknown) = nullCheck(executable, "Executable must be present.");
-
-  //     assert.throws(validExecutable, AssertionError, message ?? "Expected AssertionError to be thrown.");
-  // }
-
   /**
    * Assert that an object complies with basic expectations
    *
    * @param instance the object to check
    */
-  public static assertObject(instance: unknown, message?: string) {
+  public static assertObject(instance: unknown, message?: string) : void {
     Tools.assertNotNull(instance, message ?? "Object must be present.");
 
     if (typeof instance === 'object') {
       let object: object = instance as object;
       Tools.assertNotNull(object.toString(), "Object toString() was null.");
     }
-    assert.notStrictEqual(String(instance), 'undefined', message ?? "Object must be defined."); 
+    notStrictEqual(String(instance), 'undefined', message ?? "Object must be defined."); 
   }
 
   /**
@@ -154,7 +148,7 @@ export class Tools {
    *
    * @param theClass the class to check
    */
-  public static assertInstantiateThrows(type: (new () => unknown)) {
+  public static assertInstantiateThrows(type: (new () => unknown)) : void {
     Tools.assertThrows<Error>(Error, () => {
       new type();
     });
@@ -172,7 +166,6 @@ export class Tools {
 
     Tools.assertAll(
       () => Tools.assertMessage(thrown.message),
-      // () => Tools.assertEquals(cause, thrown.cause, "The cause should match."),
       () => Tools.assertEquals(reason, thrown.message, "The reason should match."),
       () => Tools.assertNotNull(thrown.toString(), "The toString() should not be null.")
     );
@@ -254,7 +247,7 @@ export class Tools {
         if (sanitizer) {
           try {
             sanitizer();
-          } catch (ignored) {
+          } catch (_) {
           }
         }
       }
@@ -266,7 +259,7 @@ export class Tools {
    */
   public static clean(): void {
     Tools.sanitize(() => {
-      // init();
+      // place holder for future cleaning logic
     });
   }
 
@@ -275,8 +268,8 @@ export class Tools {
    *
    * @param duration how long to sleep
    */
-  public static async asyncsleep(duration: Duration) {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  public static async asyncsleep(duration: Duration) : Promise<void> {
+    const sleep = (ms: number) : Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
     await sleep(duration.milliseconds ? duration.milliseconds() : 4);
   }
@@ -337,7 +330,7 @@ export class Tools {
   public static assertIdempotent(autoClose: AutoClose): void {
     const validClose: AutoClose = presentCheck(autoClose, "AutoClose must be present.");
     for (let n = 0; n < 7; n++) {
-      assert.doesNotThrow(() => Tools.implicitClose(validClose), "AutoClose should be idempotent.");
+      doesNotThrow(() => Tools.implicitClose(validClose), "AutoClose should be idempotent.");
       Tools.assertObject(autoClose); // should not become a landmine
     }
   }

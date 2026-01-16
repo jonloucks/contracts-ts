@@ -1,11 +1,11 @@
-import assert from "node:assert";
+import { throws } from "node:assert";
 
 import { create as createEvents, Events, Config as EventsConfig } from "contracts-ts/impl/Events.impl";
 
 describe("Events", () => {
 
   test("with null config should throw error", () => {
-    assert.throws(() => {
+    throws(() => {
       createEvents(null as unknown as EventsConfig);
     }, {
       name: 'IllegalArgumentException',
@@ -14,7 +14,7 @@ describe("Events", () => {
   });
 
   test("with no callback present should throw error", () => {
-    assert.throws(() => {
+    throws(() => {
       createEvents({} as EventsConfig);
     }, {
       name: 'IllegalArgumentException',

@@ -1,11 +1,6 @@
 import { isBoolean, isBooleanPresent } from "contracts-ts/api/auxiliary/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "contracts-ts/test/Types.tools.test";
 
-// should we consider 0 and 1 as valid boolean values?
-// should we consider "true" and "false" as valid boolean values?
-// should we consider Boolean objects as valid boolean values?
-// also the whole truthy/falsy thing
-
 const VALID_CASES: PredicateCase[] = [
   { value: true, help: "a boolean value" },
   { value: false, help: "a boolean value" }
@@ -16,10 +11,10 @@ const INVALID_CASES: PredicateCase[] = [
   { value: new Boolean(false), help: "a Boolean false object" },
   { value: "false", help: "a Boolean true object" },
   { value: "true", help: "a Boolean false object" },
-  { value: () => { }, help: "a simple function" },
+  { value: () : void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  { value: function () { }, help: "a traditional function" },
-  { value: async () => { }, help: "an async function" },
+  { value: function () : void { }, help: "a traditional function" },
+  { value: async () : Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
   { value: 0, help: "a zero number value" },
   { value: 1, help: "a 1 number value" },
