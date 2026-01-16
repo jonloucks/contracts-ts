@@ -49,10 +49,10 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 ```
 </details>
 
-<details markdown="1"><summary>Creating a Contracts container</summary>
+<details markdown="1"><summary>Importing the Package</summary>
 
 ```typescript
-import { Contracts, createContracts, CONTRACTS } from '@io.github.jonloucks/contracts-ts';
+import { CONTRACTS, createContract, PromisorFactory, PROMISOR_FACTORY } from '@io.github.jonloucks/contracts-ts';
 ```
 
 </details>
@@ -60,10 +60,9 @@ import { Contracts, createContracts, CONTRACTS } from '@io.github.jonloucks/cont
 <details markdown="1"><summary>Binding a Contract</summary>
 
 ```typescript
-import { PromisorFactory, PROMISOR_FACTORY } from '@io.github.jonloucks/contracts-ts';
 
 // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create Promisors
-let promisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
+let promisorFactory : PromisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
 
 CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
     promisorFactory.createSingleton<Logger>(
