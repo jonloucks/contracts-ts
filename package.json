@@ -17,7 +17,7 @@
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx tsx ./scripts/generate-badges.ts"
+    "badges": "npx tsx ./src/utils/generate-badges.ts"
   },
   "keywords": [
     "typescript",
