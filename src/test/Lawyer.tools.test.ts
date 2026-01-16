@@ -25,7 +25,7 @@ export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) {
   describe(`Testing Lawyer: ${lawyer}`, () => {
 
     it('Lawyer created contract name', () => {
-      notStrictEqual(lawyer.createContract().name, null, "" + "with no config, name is not null");
+      notStrictEqual(lawyer.createContract().name, null, "with no config, name is not null");
       strictEqual(lawyer.createContract({ name: "abc" }).name, "abc", "with name in config, name is as given");
       notStrictEqual(lawyer.createContract({ typeName: "xyz" }).name, "xyz", "with only typeName in config, name is not typeName");
       strictEqual(lawyer.createContract({ name: "abc", typeName: "xyz" }).name, "abc", "with name and typeName in config, name is as given");
