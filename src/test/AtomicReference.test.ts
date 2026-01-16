@@ -44,7 +44,7 @@ describe('AtomicReference', () => {
       const now: Date = new Date();
       const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create(now);
 
-      strictEqual(atomic.get(), now, "initial value should be the provided date" );
+      strictEqual(atomic.get(), now, "initial value should be the provided date");
     });
   });
 
