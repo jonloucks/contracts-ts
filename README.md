@@ -212,7 +212,7 @@ The CI workflow runs on every push and pull request to `main` branch. It:
 
 The GitHub publishings workflows are run to make an official release.
 - If all scanning and tests pass it is published. There is no other way allowed.
-- Publishing uthentication is done using ([OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers))
+- Publishing authentication is done using ([OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers))
 
 To set up your own publishing:
 1. Publishing this project as is intentionally disabled
