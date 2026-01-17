@@ -185,7 +185,7 @@ contracts-ts
 │   ├── impl
 │   │   ├── *.ts
 │   │   ├── *.impl.ts
-│   │   ├── *.test.ts.    // internal implementation specific
+│   │   ├── *.test.ts    // internal implementation specific
 │   │   └── *.api.ts
 │   ├── test
 │   │   └── *.test.ts
