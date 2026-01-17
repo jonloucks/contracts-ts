@@ -175,7 +175,6 @@ contracts-ts
 ├── README.md
 ├── scripts
 │   ├── badge-template.svg.dat
-│   ├── generate-badges.ts
 │   └── tsconfig.json
 ├── SECURITY.md
 ├── src
@@ -186,9 +185,12 @@ contracts-ts
 │   ├── impl
 │   │   ├── *.ts
 │   │   ├── *.impl.ts
-│   │   ├── *.test.ts
-│   │   ├── *.api.ts
-│   └── test
+│   │   ├── *.test.ts.    // internal implementation specific
+│   │   └── *.api.ts
+│   ├── test
+│   │   └── *.test.ts
+│   └── utils             // non shippable development scripts
+│       ├── *.ts
 │       └── *.test.ts
 ├── tsconfig.json
 └── typedoc.json
@@ -208,14 +210,15 @@ The CI workflow runs on every push and pull request to `main` branch. It:
 
 ### Publish Workflow
 
-The publish workflow runs when a new release is created. It:
-- Builds the project
-- Runs tests
-- Publishes to npm (requires `NPM_TOKEN` secret)
+The GitHub publishings workflows are run to make an official release.
+- If all scanning and tests pass it is published. There is not other way allowed.
+- Publishing uthentication is done using ([OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers))
 
-To set up publishing:
-1. Create an npm account and generate an access token
-2. Add the token as a secret named `NPM_TOKEN` in your GitHub repository settings
+To set up your own publishing:
+1. Publishing this project as is intentially disabled
+2. You are welcome to fork this repository and publish where you want.
+3. npm pkg delete private
+4. change package.json to your package name
 
 ## License
 
