@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "paths": {
-
       "@jonloucks/contracts-ts": ["index.ts"],
       "@jonloucks/contracts-ts/*": ["*"]
     },

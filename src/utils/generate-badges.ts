@@ -9,88 +9,166 @@
  * - KIT_COVERAGE_SUMMARY_BADGE_PATH: Output path for the generated coverage badge SVG file. Default: './coverage/coverage-summary.svg'     
  *  * Template Placeholders:
  * - {{LABEL}}: Placeholder for the badge label (e.g., "coverage").
- * - {{PERCENT}}: Placeholder for the coverage percentage value.
+ * - {{VALUE}}: Placeholder for the coverage percentage value.
  * - {{COLOR}}: Placeholder for the badge background color.
  * Usage:   
- * npx tsx scripts/generate-code-coverage-badge.ts
+ * ```
+ * npm run badges
+ * ```
  */
-import { readFileSync, writeFileSync } from "fs";
-
-generateCoverageSummaryBadge();
-generateTypedocBadge();
+import { writeFile, readFile, mkdir } from "fs";
+import { join } from "path";
+import { VERSION } from "../version";
+import { isPresent } from "../api/auxiliary/Types";
 
 /**
- * Generates a code coverage summary badge based on the coverage summary JSON file.
- * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
+ * Interface for badge generator.
  */
-export function generateCoverageSummaryBadge(): void {
-  bestEffort("generate coverage summary badge", (): void => {
-    const inputPath: string = getCoverageSummaryFilePath();
-    const data: Buffer = readFileSync(inputPath);
-    processCoverageSummaryReport(data);
-  });
+interface Generator {
+  /**
+   * Generates a badge based on the provided options.
+   * @param options - The options for badge generation.
+   */
+  generate(options: GenerateOptions): Promise<void>;
 }
 
-export function generateTypedocBadge(): void {
-  bestEffort("generate typedoc badge", (): void => {
-    generateBadge({
-      name: "typedoc",
-      outputPath: getTypedocBadgePath(),
-      label: " typedoc ",
-      percent: 100
-    });
-  });
-}
-
-function processCoverageSummaryReport(data: Buffer): void {
-  generateBadge({
-    name: "coverage-summary",
-    outputPath: getCoverageSummaryBadgePath(),
-    label: "coverage",
-    percent: readPercentageFromCoverageSummary(data)
-  });
-}
-
-function bestEffort<T>(name: string, block: () => T): T {
-  try {
-    return block();
-  } catch (error) {
-    console.warn(`Best effort ${name} operation failed:`, error);
-    return undefined as unknown as T;
-  }
-}
-
+/**
+ * Options for generating a badge.
+ */
 interface GenerateOptions {
   name: string;
   templatePath?: string;
   outputPath: string;
   label: string;
-  percent: number;
+  value: string;
+  color: string;
+}
+
+const SUCCESS_COLOR: string = '#4bc124';
+
+const OUTPUT_FOLDER: string = join(__dirname, "../../", ".tmp", "badges");
+
+async function createFolder(path: string): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    mkdir(path, { recursive: true }, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+createFolder(OUTPUT_FOLDER).catch((_: unknown) => {
+  console.log("Unable to create output folder for badges");
+});
+
+const generator: Generator = new class implements Generator {
+  async generate(options: GenerateOptions): Promise<void> {
+    const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
+    const data: Buffer = await readDataFile(templatePath);
+    const generated: string = replaceKeywords(options, data.toString('utf8'));
+
+    return await writeDataFile(options.outputPath, generated).then(() => {
+      console.log(`Generated badge ${options.name} value ${options.value} at ${options.outputPath}`);
+    });
+  }
+}();
+
+// generator NPM badge
+generateNpmBadge().catch((_: unknown) => {
+  console.log("Unable to generate npm badge");
+});
+
+// generator coverage summary badge
+generateCoverageSummaryBadge().catch((_: unknown) => {
+  console.log("Unable to generate coverage summary badge");
+});
+
+// generator typedoc badge
+generateTypedocBadge().catch((_: unknown) => {
+  console.log("Unable to generate typedoc badge");
+});
+
+/**
+ * Generates an npm version badge based on the current package version.
+ * Reads the version from the VERSION constant, determines the badge color,
+ * and generates the SVG badge.
+ */
+export async function generateNpmBadge(): Promise<void> {
+  return await generator.generate({
+    name: "npm",
+    outputPath: getNpmBadgePath(),
+    label: "  npm  ",
+    value: VERSION,
+    color: SUCCESS_COLOR
+  });
 }
 
 /**
- * Asynchronously generates a badge file based on the provided options and template.
- * @param options 
+ * Generates a code coverage summary badge based on the coverage summary JSON file.
+ * Reads the coverage percentage, determines the badge color, and generates the SVG badge.
  */
-function generateBadge(options: GenerateOptions): void {
-  const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
-  console.log(`Generating badge ${options.name} at ${options.outputPath} using template ${templatePath}`);
-  const data: Buffer = readFileSync(templatePath);
-  const generated: string = replaceKeywords(options, data.toString('utf8'));
-  writeBadgeToFile(options, generated);
-  console.log(`Generated badge ${options.name} percent ${options.percent} at ${options.outputPath}`);
-};
+export async function generateCoverageSummaryBadge(): Promise<void> {
+  const inputPath: string = getCoverageSummaryFilePath();
+  await readFile(inputPath, async (_, data) => {
+    if (isPresent(data)) {
+      const percentage: number = readPercentageFromCoverageSummary(data);
+      await generator.generate({
+        name: "coverage-summary",
+        outputPath: getCoverageSummaryBadgePath(),
+        label: "coverage",
+        value: percentage + "%",
+        color: determineBackgroundColor(percentage)
+      });
+    }
+  });
+}
 
-function writeBadgeToFile(options: GenerateOptions, content: string): void {
-  writeFileSync(options.outputPath, content);
+/**
+ * Generates a TypeDoc documentation badge with a fixed value of 100%.
+ * The badge indicates that the documentation is complete.
+ */
+export async function generateTypedocBadge(): Promise<void> {
+  return await generator.generate({
+    name: "typedoc",
+    outputPath: getTypedocBadgePath(),
+    label: " typedoc ",
+    value: "100%",
+    color: SUCCESS_COLOR
+  });
+}
+
+async function readDataFile(filePath: string): Promise<Buffer> {
+  return new Promise<Buffer>((resolve, reject) => {
+    readFile(filePath, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
+async function writeDataFile(filePath: string, data: string): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    writeFile(filePath, data, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 function replaceKeywords(options: GenerateOptions, template: string): string {
-  const color: string = determineBackgroundColor(options.percent);
   const replacements = {
     LABEL: options.label,
-    PERCENT: options.percent,
-    COLOR: color
+    VALUE: options.value,
+    COLOR: options.color
   };
   // Use a regex with a replacement function to dynamically insert values
   const generatedContent: string = template.replace(/{{(.*?)}}/g, (match, key: string) => {
@@ -112,15 +190,19 @@ function getCoverageSummaryFilePath(): string {
 }
 
 function getTemplateBadgePath(): string {
-  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './scripts/badge-template.svg.dat');
+  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './src/data/badge-template.svg.dat');
 }
 
 function getCoverageSummaryBadgePath(): string {
-  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
+  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', join(OUTPUT_FOLDER, 'coverage-summary.svg'));
 }
 
 function getTypedocBadgePath(): string {
-  return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', './coverage/typedoc-badge.svg');
+  return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', join(OUTPUT_FOLDER, 'typedoc-badge.svg'));
+}
+
+function getNpmBadgePath(): string {
+  return getEnvPathOrDefault('KIT_NPM_BADGE_PATH', join(OUTPUT_FOLDER, 'npm-badge.svg'));
 }
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
@@ -132,8 +214,8 @@ function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {
 }
 
 function determineBackgroundColor(percent: number): string {
-  if (percent >= 90) {
-    return '#4bc124';
+  if (percent >= 95) {
+    return SUCCESS_COLOR;
   } else if (percent >= 75) {
     return 'yellowgreen';
   } else if (percent >= 60) {

@@ -1,10 +1,10 @@
 {
-  "extends": "../tsconfig.json", // Extends the main project config
+  "extends": ["../../tsconfig.json"], // Extends the main project config
   "compilerOptions": {
     "module": "NodeNext",      // Use Node.js native modules (CommonJS is also common)
     "target": "ES2022",        // Target a modern ECMAScript version compatible with your Node.js version
-    "outDir": "../dist-scripts", // Output compiled JS to a specific directory outside the scripts folder
-    "rootDir": "./",           // The root directory for source files is the current 'scripts' folder
+    "outDir": "../../dist-scripts", // Output compiled JS to a specific directory outside the scripts folder
+    // "rootDir": "./",           // The root directory for source files is the current 'scripts' folder
     "moduleResolution": "NodeNext", // Use Node.js module resolution strategy
     "noEmit": false,            // Ensure files are emitted (compiled to JS)
     "resolveJsonModule": true
@@ -13,6 +13,6 @@
     "./**/*.ts"                // Only include TypeScript files within the current 'scripts' folder
   ],
   "exclude": [
-    "../node_modules"          // Exclude the main node_modules directory
+    "../../node_modules"          // Exclude the main node_modules directory
   ]
 }

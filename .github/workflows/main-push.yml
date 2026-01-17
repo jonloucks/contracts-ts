@@ -78,6 +78,7 @@ jobs:
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
         KIT_TYPEDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-typedoc.svg
+        KIT_NPM_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-npm.svg
 
     - name: Upload Jest Code Coverage report
       uses: actions/upload-artifact@v4
