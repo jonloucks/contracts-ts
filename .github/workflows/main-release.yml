@@ -30,4 +30,4 @@ jobs:
       run: npm test
 
     - name: Publish to npm
-      run: npm publish
+      run: npm pkg delete private && npm publish
