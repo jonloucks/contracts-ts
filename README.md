@@ -211,7 +211,7 @@ The CI workflow runs on every push and pull request to `main` branch. It:
 ### Publish Workflow
 
 The GitHub publishings workflows are run to make an official release.
-- If all scanning and tests pass it is published. There is not other way allowed.
+- If all scanning and tests pass it is published. There is no other way allowed.
 - Publishing uthentication is done using ([OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers))
 
 To set up your own publishing:
