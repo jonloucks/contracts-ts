@@ -1,7 +1,7 @@
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
-import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Responsibility: An atomic integer interface for thread-safe integer operations.

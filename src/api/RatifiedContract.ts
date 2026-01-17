@@ -1,7 +1,7 @@
-import { BasicContract } from "@io.github.jonloucks/contracts-ts/api/BasicContract";
-import { Config, Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { OptionalType, RequiredType, isNotPresent, isPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { BasicContract } from "@jonloucks/contracts-ts/api/BasicContract";
+import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { OptionalType, RequiredType, isNotPresent, isPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * A RatifiedContract is a Contract that has been verified to have either a test or cast function.

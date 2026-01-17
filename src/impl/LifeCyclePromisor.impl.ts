@@ -1,17 +1,17 @@
-import { AutoCloseOne } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { isAutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
-import { AtomicBoolean } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
-import { AtomicInteger } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicInteger";
-import { AtomicReference } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { promisorCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { IllegalStateException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
-import { OptionalType, RequiredType, isPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Promisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
+import { isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicInteger } from "@jonloucks/contracts-ts/api/auxiliary/AtomicInteger";
+import { AtomicReference } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
+import { promisorCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { IllegalStateException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
+import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 
-import { create as createAtomicBoolean } from "@io.github.jonloucks/contracts-ts/impl/AtomicBoolean.impl";
-import { create as createAtomicInteger } from "@io.github.jonloucks/contracts-ts/impl/AtomicInteger.impl";
-import { create as createAtomicReference } from "@io.github.jonloucks/contracts-ts/impl/AtomicReference.impl";
-import { create as createAutoCloseOne } from "@io.github.jonloucks/contracts-ts/impl/AutoCloseOne.impl";
+import { create as createAtomicBoolean } from "@jonloucks/contracts-ts/impl/AtomicBoolean.impl";
+import { create as createAtomicInteger } from "@jonloucks/contracts-ts/impl/AtomicInteger.impl";
+import { create as createAtomicReference } from "@jonloucks/contracts-ts/impl/AtomicReference.impl";
+import { create as createAutoCloseOne } from "@jonloucks/contracts-ts/impl/AutoCloseOne.impl";
 
 /**
  * Factory to create an Life Cycle promisor implementation

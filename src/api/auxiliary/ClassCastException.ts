@@ -1,4 +1,4 @@
-import { messageCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
+import { messageCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
 
 /**
  * Exception thrown when a class cast fails.

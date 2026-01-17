@@ -1,5 +1,5 @@
-import { isObject, isObjectPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@io.github.jonloucks/contracts-ts/test/Types.tools.test";
+import { isObject, isObjectPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   { value: {}, help: "an object value" }, 

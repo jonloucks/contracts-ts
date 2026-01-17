@@ -1,5 +1,5 @@
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Responsibility: A Lawyer creates Contracts for a specific type T, including duck-typing checks.

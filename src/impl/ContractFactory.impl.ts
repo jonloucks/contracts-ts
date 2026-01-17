@@ -1,9 +1,9 @@
-import { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { create as createBasicContract } from "@io.github.jonloucks/contracts-ts/api/BasicContract";
-import { Config, Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { create as createRatifiedContract, isRatifiableConfig } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { create as createBasicContract } from "@jonloucks/contracts-ts/api/BasicContract";
+import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { create as createRatifiedContract, isRatifiableConfig } from "@jonloucks/contracts-ts/api/RatifiedContract";
 
-import { ContractFactory } from "@io.github.jonloucks/contracts-ts/api/ContractFactory";
+import { ContractFactory } from "@jonloucks/contracts-ts/api/ContractFactory";
 
 /**
  * Factory method to create a ContractFactory

@@ -1,11 +1,11 @@
 import { notStrictEqual, strictEqual } from "node:assert";
 
-import { AtomicReference, LAWYER } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
-import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { generateTestsForLawyer } from "@io.github.jonloucks/contracts-ts/test/Lawyer.tools.test";
-import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
+import { AtomicReference, LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
+import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('AtomicReference', () => {
   it('LAWYER.isDeliverable', () => {

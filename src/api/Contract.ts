@@ -1,4 +1,4 @@
-import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Configuration for a Contract

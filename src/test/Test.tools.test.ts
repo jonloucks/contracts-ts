@@ -1,13 +1,13 @@
 import { AssertionError, AssertPredicate, doesNotThrow, equal, notStrictEqual, ok, strictEqual, throws } from "node:assert";
 
-import { createContract, createContracts } from "@io.github.jonloucks/contracts-ts";
-import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { configCheck, presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { ClassCastException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/ClassCastException";
-import { IllegalStateException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
-import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { Contracts, Config as ContractsConfig } from "@io.github.jonloucks/contracts-ts/api/Contracts";
+import { createContract, createContracts } from "@jonloucks/contracts-ts";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { configCheck, presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { ClassCastException } from "@jonloucks/contracts-ts/api/auxiliary/ClassCastException";
+import { IllegalStateException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
+import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 
 describe('all test files need one test, this is test utility class', () => {
   it('Dummy test', () => {

@@ -1,4 +1,4 @@
-import { IllegalArgumentException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalArgumentException";
+import { IllegalArgumentException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalArgumentException";
 import { illegalCheck, nameCheck, typeCheck } from "../api/auxiliary/Checks";
 
 describe("typeCheck", () => {

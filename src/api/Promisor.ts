@@ -1,8 +1,8 @@
-import { presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
-import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
+import { presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 
 /**
  * Interface for providing a deliverable for a Contract
