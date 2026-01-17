@@ -19,7 +19,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import { VERSION } from "../version";
 
-const SUCCESS_COLOR : string = '#4bc124';
+const SUCCESS_COLOR: string = '#4bc124';
 
 generateNpmBadge();
 generateCoverageSummaryBadge();
