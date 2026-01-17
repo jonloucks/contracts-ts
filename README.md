@@ -2,7 +2,7 @@
 
 ## Badges
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
-[![npm version](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-npm.svg)]
+[![npm version](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-npm.svg)](https://www.npmjs.com/package/@jonloucks/contracts-ts)
 [![Coverage Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-coverage.svg)](https://jonloucks.github.io/contracts-ts/lcov-report/)
 [![Typedoc Badge](https://raw.githubusercontent.com/jonloucks/contracts-ts/refs/heads/badges/main-typedoc.svg)](https://jonloucks.github.io/contracts-ts/typedoc/)
 
