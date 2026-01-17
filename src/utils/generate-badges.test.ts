@@ -1,4 +1,4 @@
-import { generateCoverageSummaryBadge, generateTypedocBadge } from "./generate-badges";
+import { generateCoverageSummaryBadge, generateTypedocBadge, generateNpmBadge } from "./generate-badges";
 
 test('generateCoverageSummaryBadge test', async () => {
   const result = await generateCoverageSummaryBadge();
@@ -10,3 +10,7 @@ test('generateTypedocBadge test', async () => {
   expect(result).toBe(undefined);
 });
 
+test('generateNpmBadge test', async () => { 
+  const result = await generateNpmBadge();
+  expect(result).toBe(undefined);
+});
