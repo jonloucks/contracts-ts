@@ -1,16 +1,16 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { contractCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { BindStrategy, resolveBindStrategy } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
-import { Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { contractCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { BindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 
-import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Idempotent, create as createIdempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent.impl";
-import { StorageImpl } from "@io.github.jonloucks/contracts-ts/impl/Storage.impl";
+import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
+import { StorageImpl } from "@jonloucks/contracts-ts/impl/Storage.impl";
 
 /**
  * Factory method to create Repository instance.
@@ -25,8 +25,8 @@ export function create(contracts: Contracts): RequiredType<Repository> {
 // ---- Implementation details below ----
 
 /**
- * Implementation for {@link io.github.jonloucks.contracts.api.Repository}
- * @see io.github.jonloucks.contracts.api.Repository
+ * Implementation for {@link jonloucks.contracts.api.Repository}
+ * @see jonloucks.contracts.api.Repository
  */
 class RepositoryImpl implements Repository {
 

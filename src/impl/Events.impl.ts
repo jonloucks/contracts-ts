@@ -1,10 +1,10 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { configCheck, presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Config, Events } from "@io.github.jonloucks/contracts-ts/impl/Events";
-import { Idempotent, create as createIdempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent.impl";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { configCheck, presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Config, Events } from "@jonloucks/contracts-ts/impl/Events";
+import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
 
-export { Config, Events } from "@io.github.jonloucks/contracts-ts/impl/Events";
+export { Config, Events } from "@jonloucks/contracts-ts/impl/Events";
 
 /**
  *  Factory method to create Events instance.

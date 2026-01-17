@@ -1,13 +1,13 @@
 import { doesNotThrow, notStrictEqual, strictEqual } from "node:assert";
 
-import { createContract } from "@io.github.jonloucks/contracts-ts";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { LAWYER, Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
-import { CONTRACT as FACTORY, RepositoryFactory } from "@io.github.jonloucks/contracts-ts/api/RepositoryFactory";
-import { OptionalType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
+import { createContract } from "@jonloucks/contracts-ts";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { LAWYER, Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { CONTRACT as FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
+import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('RepositoryFactory tests', () => {
   it('Repository FACTORY works', () => {

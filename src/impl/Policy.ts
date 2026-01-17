@@ -1,6 +1,6 @@
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 
-export { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
+export { Contract } from "@jonloucks/contracts-ts/api/Contract";
 
 /**
  * Policy interface for checking contracts.

@@ -1,9 +1,9 @@
-import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
-import { BindStrategyType as BindType } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { PromisorType } from "@io.github.jonloucks/contracts-ts/api/Promisor";
-import { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { BindStrategyType as BindType } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * The Contracts configuration

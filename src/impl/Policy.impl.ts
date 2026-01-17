@@ -1,12 +1,12 @@
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { Config as ContractsConfig } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { isRatifiedContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
-import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { Policy } from "@io.github.jonloucks/contracts-ts/impl/Policy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { Policy } from "@jonloucks/contracts-ts/impl/Policy";
 
-export { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-export { Policy } from "@io.github.jonloucks/contracts-ts/impl/Policy";
+export { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+export { Policy } from "@jonloucks/contracts-ts/impl/Policy";
 
 /**
  * Factory method to create Policy instance.

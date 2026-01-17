@@ -1,8 +1,8 @@
 import { strictEqual, throws } from "node:assert";
 
-import { createContract, isNotPresent, OptionalType } from "@io.github.jonloucks/contracts-ts";
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { isRatifiedContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
+import { createContract, isNotPresent, OptionalType } from "@jonloucks/contracts-ts";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 
 describe('api/RatifiedContract.ts tests', () => {
 

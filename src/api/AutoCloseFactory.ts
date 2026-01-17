@@ -1,8 +1,8 @@
-import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { Contract, Config as ContractConfig } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@io.github.jonloucks/contracts-ts/api/Lawyer";
-import { create as createContract } from "@io.github.jonloucks/contracts-ts/api/RatifiedContract";
-import { hasFunctions, OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
+import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { hasFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Interface for a factory that creates AutoClose instances.
@@ -31,9 +31,9 @@ export interface AutoCloseFactory {
     createAutoCloseOne(): RequiredType<AutoCloseOne>;
 }
 
-export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-export { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-export { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
+export { Contract } from "@jonloucks/contracts-ts/api/Contract";
+export { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * For creating a Contract for AutoCloseFactory with duck-typing checks.

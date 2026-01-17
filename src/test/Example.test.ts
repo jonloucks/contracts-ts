@@ -1,4 +1,4 @@
-import { AutoClose, Contract, CONTRACTS, createContract, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "@io.github.jonloucks/contracts-ts";
+import { AutoClose, Contract, CONTRACTS, createContract, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "@jonloucks/contracts-ts";
 import { notStrictEqual, strictEqual } from "node:assert";
 
 // Define a service interface, a Contract can be for any type.

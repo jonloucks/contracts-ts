@@ -1,5 +1,5 @@
-import { presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
+import { presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 
 /**
  * Helper functions for internal implementations.

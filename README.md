@@ -1,6 +1,4 @@
-# contracts-ts
-
-> ⚠️ **PREPARING FOR INITIAL RELEASE, Feedback on API or documentation welcome**
+# @jonloucks/contracts-ts
 
 ## Badges
 [![CI](https://github.com/jonloucks/contracts-ts/workflows/CI/badge.svg)](https://github.com/jonloucks/contracts-ts/actions)
@@ -24,7 +22,7 @@ Typescript Dependency Contracts for dependency inversion
 ## Installation
 
 ```bash
-npm install @io.github.jonloucks/contracts-ts
+npm install @jonloucks/contracts-ts
 ```
 
 ## Usage - code fragments from Example.test.ts
@@ -32,7 +30,7 @@ npm install @io.github.jonloucks/contracts-ts
 <details markdown="1"><summary>Creating a Contract</summary>
 
 ```typescript
-import { createContract, Contract, CONTRACTS } from '@io.github.jonloucks/contracts-ts';
+import { createContract, Contract, CONTRACTS } from '@jonloucks/contracts-ts';
 
 // Define a service interface
 interface Logger {
@@ -52,7 +50,7 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 <details markdown="1"><summary>Importing the Package</summary>
 
 ```typescript
-import { CONTRACTS, createContract, PromisorFactory, PROMISOR_FACTORY } from '@io.github.jonloucks/contracts-ts';
+import { CONTRACTS, createContract, PromisorFactory, PROMISOR_FACTORY } from '@jonloucks/contracts-ts';
 ```
 
 </details>

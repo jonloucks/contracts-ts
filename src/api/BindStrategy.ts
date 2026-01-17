@@ -1,4 +1,4 @@
-import { OptionalType, RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
 /**
  * Binding strategy. Enumish type.

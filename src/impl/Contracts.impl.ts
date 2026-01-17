@@ -1,17 +1,17 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { configCheck, contractCheck, presentCheck } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Checks";
-import { OptionalType, RequiredType, isPresent } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@io.github.jonloucks/contracts-ts/api/BindStrategy";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { Config, Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "@io.github.jonloucks/contracts-ts/api/Promisor";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 
-import { AutoCloseMany, create as createAutoCloseMany } from "@io.github.jonloucks/contracts-ts/impl/AutoCloseMany.impl";
-import { Events, create as createEvents } from "@io.github.jonloucks/contracts-ts/impl/Events.impl";
-import { Idempotent, create as createIdempotent } from "@io.github.jonloucks/contracts-ts/impl/Idempotent.impl";
-import { Internal } from "@io.github.jonloucks/contracts-ts/impl/Internal.impl";
-import { Policy, create as createPolicy } from "@io.github.jonloucks/contracts-ts/impl/Policy.impl";
+import { AutoCloseMany, create as createAutoCloseMany } from "@jonloucks/contracts-ts/impl/AutoCloseMany.impl";
+import { Events, create as createEvents } from "@jonloucks/contracts-ts/impl/Events.impl";
+import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
+import { Internal } from "@jonloucks/contracts-ts/impl/Internal.impl";
+import { Policy, create as createPolicy } from "@jonloucks/contracts-ts/impl/Policy.impl";
 
 /**
  * Factory method to create Contracts instance.

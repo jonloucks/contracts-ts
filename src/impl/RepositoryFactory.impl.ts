@@ -1,8 +1,8 @@
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { Repository } from "@io.github.jonloucks/contracts-ts/api/Repository";
-import { RepositoryFactory } from "@io.github.jonloucks/contracts-ts/api/RepositoryFactory";
-import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
-import { create as createRepository } from "@io.github.jonloucks/contracts-ts/impl/Repository.impl";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
+import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { create as createRepository } from "@jonloucks/contracts-ts/impl/Repository.impl";
 
 /**
  * Factory method to create a RepositoryFactory

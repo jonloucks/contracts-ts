@@ -1,12 +1,12 @@
-import { createContract, Promisor, typeToPromisor } from "@io.github.jonloucks/contracts-ts";
-import { AUTO_CLOSE_NONE, AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen, isAutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
-import { ClassCastException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/ClassCastException";
-import { IllegalStateException } from "@io.github.jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@io.github.jonloucks/contracts-ts/api/PromisorFactory";
-import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
+import { createContract, Promisor, typeToPromisor } from "@jonloucks/contracts-ts";
+import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen, isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { ClassCastException } from "@jonloucks/contracts-ts/api/auxiliary/ClassCastException";
+import { IllegalStateException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('LifeCyclePromisor tests', () => {
   it("demand without incrementUsage throws", () => {

@@ -1,8 +1,8 @@
-import { AtomicBoolean } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
-import { AtomicBooleanFactory } from "@io.github.jonloucks/contracts-ts/api/auxiliary/AtomicBooleanFactory";
-import { RequiredType } from "@io.github.jonloucks/contracts-ts/api/auxiliary/Types";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicBooleanFactory } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBooleanFactory";
+import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 
-import { create as createAtomicBoolean } from "@io.github.jonloucks/contracts-ts/impl/AtomicBoolean.impl";
+import { create as createAtomicBoolean } from "@jonloucks/contracts-ts/impl/AtomicBoolean.impl";
 
 /**
  * Factory method to create an AtomicBooleanFactory

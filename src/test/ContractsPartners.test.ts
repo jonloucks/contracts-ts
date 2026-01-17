@@ -1,8 +1,8 @@
-import { AutoClose } from "@io.github.jonloucks/contracts-ts/api/AutoClose";
-import { Contract } from "@io.github.jonloucks/contracts-ts/api/Contract";
-import { ContractException } from "@io.github.jonloucks/contracts-ts/api/ContractException";
-import { Contracts } from "@io.github.jonloucks/contracts-ts/api/Contracts";
-import { Tools } from "@io.github.jonloucks/contracts-ts/test/Test.tools.test";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Contracts with partners', () => {
 

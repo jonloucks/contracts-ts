@@ -1,5 +1,5 @@
-import { AutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
-export { AutoOpen } from "@io.github.jonloucks/contracts-ts/api/AutoOpen";
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 
 /**
  * Configuration for Events implementation
