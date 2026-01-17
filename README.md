@@ -199,7 +199,7 @@ contracts-ts
 
 ## GitHub Workflows
 
-### CI Workflow
+<details markdown="1"><summary>CI Workflow</summary>
 
 The CI workflow runs on every push and pull request to `main` branch. It:
 - Tests against Node.js versions 18.x, 20.x, and 22.x
@@ -208,7 +208,9 @@ The CI workflow runs on every push and pull request to `main` branch. It:
 - Runs tests with coverage
 - Uploads coverage to Codecov (optional)
 
-### Publish Workflow
+</details>
+
+<details markdown="1"><summary>Publish Workflow</summary>
 
 The GitHub publishings workflows are run to make an official release.
 - If all scanning and tests pass it is published. There is no other way allowed.
@@ -219,6 +221,8 @@ To set up your own publishing:
 2. You are welcome to fork this repository and publish where you want.
 3. Run `npm pkg delete private` to remove the `private` flag from the package.
 4. Change the `name` field in `package.json` to your desired package name.
+
+</details>
 
 ## License
 
