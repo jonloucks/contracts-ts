@@ -215,7 +215,7 @@ The GitHub publishings workflows are run to make an official release.
 - Publishing uthentication is done using ([OIDC trusted publishing](https://docs.npmjs.com/trusted-publishers))
 
 To set up your own publishing:
-1. Publishing this project as is intentially disabled
+1. Publishing this project as is intentionally disabled
 2. You are welcome to fork this repository and publish where you want.
 3. Run `npm pkg delete private` to remove the `private` flag from the package.
 4. Change the `name` field in `package.json` to your desired package name.
