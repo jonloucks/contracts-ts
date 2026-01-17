@@ -16,7 +16,8 @@
  * npm run badges
  * ```
  */
-import { writeFile, readFile } from "fs";
+import { writeFile, readFile, mkdir } from "fs";
+import { join } from "path";
 import { VERSION } from "../version";
 
 /**
@@ -44,6 +45,24 @@ interface GenerateOptions {
 
 const SUCCESS_COLOR: string = '#4bc124';
 
+const OUTPUT_FOLDER : string = join(__dirname, "../../", ".tmp", "badges");
+
+async function createFolder(path: string): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    mkdir(path, {recursive: true}, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+createFolder(OUTPUT_FOLDER).catch((_: unknown) => {
+  console.log("Unable to create output folder for badges");
+});
+
 const generator : Generator =  new class implements Generator {
   async generate(options: GenerateOptions): Promise<void> {
     const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
@@ -56,18 +75,18 @@ const generator : Generator =  new class implements Generator {
 }();  
 
 // generator NPM badge
-generateNpmBadge().catch((error: unknown) => {
-  console.log("Unable to generating npm badge:", error);
+generateNpmBadge().catch((_: unknown) => {
+  console.log("Unable to generate npm badge");
 });
 
 // generator coverage summary badge
-generateCoverageSummaryBadge().catch((error: unknown) => {
-  console.log("Unable to generating coverage summary badge:", error);
+generateCoverageSummaryBadge().catch((_: unknown) => {
+  console.log("Unable to generate coverage summary badge");
 });
 
 // generator typedoc badge
-generateTypedocBadge().catch((error: unknown) => {
-  console.log("Unable to generating typedoc badge:", error);
+generateTypedocBadge().catch((_: unknown) => {
+  console.log("Unable to generate typedoc badge");
 });
 
 /**
@@ -170,15 +189,15 @@ function getTemplateBadgePath(): string {
 }
 
 function getCoverageSummaryBadgePath(): string {
-  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', './coverage/coverage-summary.svg');
+  return getEnvPathOrDefault('KIT_COVERAGE_SUMMARY_BADGE_PATH', join(OUTPUT_FOLDER, 'coverage-summary.svg'));
 }
 
 function getTypedocBadgePath(): string {
-  return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', './coverage/typedoc-badge.svg');
+  return getEnvPathOrDefault('KIT_TYPEDOC_BADGE_PATH', join(OUTPUT_FOLDER, 'typedoc-badge.svg'));
 }
 
 function getNpmBadgePath(): string {
-  return getEnvPathOrDefault('KIT_NPM_BADGE_PATH', './coverage/npm-badge.svg');
+  return getEnvPathOrDefault('KIT_NPM_BADGE_PATH', join(OUTPUT_FOLDER, 'npm-badge.svg'));
 }
 
 function getEnvPathOrDefault(envVarName: string, defaultPath: string): string {

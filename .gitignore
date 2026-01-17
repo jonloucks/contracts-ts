@@ -8,3 +8,4 @@ coverage/
 *.tgz
 docs/jsdoc/
 docs/typedoc/
+.tmp/
