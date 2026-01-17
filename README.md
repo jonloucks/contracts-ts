@@ -217,8 +217,8 @@ The GitHub publishings workflows are run to make an official release.
 To set up your own publishing:
 1. Publishing this project as is intentially disabled
 2. You are welcome to fork this repository and publish where you want.
-3. npm pkg delete private
-4. change package.json to your package name
+3. Run `npm pkg delete private` to remove the `private` flag from the package.
+4. Change the `name` field in `package.json` to your desired package name.
 
 ## License
 
