@@ -31,7 +31,7 @@ generateTypedocBadge();
  * and generates the SVG badge.
  */
 export async function generateNpmBadge(): Promise<void> {
-    bestEffort("generate npm badge", (): void => {
+  bestEffort("generate npm badge", (): void => {
     generateBadge({
       name: "npm",
       outputPath: getNpmBadgePath(),
