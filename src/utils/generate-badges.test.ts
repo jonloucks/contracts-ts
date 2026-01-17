@@ -10,7 +10,7 @@ test('generateTypedocBadge test', async () => {
   expect(result).toBe(undefined);
 });
 
-test('generateNpmBadge test', async () => { 
+test('generateNpmBadge test', async () => {
   const result = await generateNpmBadge();
   expect(result).toBe(undefined);
 });
