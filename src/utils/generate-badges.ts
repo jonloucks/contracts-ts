@@ -19,6 +19,7 @@
 import { writeFile, readFile, mkdir } from "fs";
 import { join } from "path";
 import { VERSION } from "../version";
+import { isPresent } from "../api/auxiliary/Types";
 
 /**
  * Interface for badge generator.
@@ -45,11 +46,11 @@ interface GenerateOptions {
 
 const SUCCESS_COLOR: string = '#4bc124';
 
-const OUTPUT_FOLDER : string = join(__dirname, "../../", ".tmp", "badges");
+const OUTPUT_FOLDER: string = join(__dirname, "../../", ".tmp", "badges");
 
 async function createFolder(path: string): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    mkdir(path, {recursive: true}, (err) => {
+    mkdir(path, { recursive: true }, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -63,16 +64,17 @@ createFolder(OUTPUT_FOLDER).catch((_: unknown) => {
   console.log("Unable to create output folder for badges");
 });
 
-const generator : Generator =  new class implements Generator {
+const generator: Generator = new class implements Generator {
   async generate(options: GenerateOptions): Promise<void> {
     const templatePath: string = options.templatePath ? options.templatePath : getTemplateBadgePath();
     const data: Buffer = await readDataFile(templatePath);
     const generated: string = replaceKeywords(options, data.toString('utf8'));
+
     return await writeDataFile(options.outputPath, generated).then(() => {
       console.log(`Generated badge ${options.name} value ${options.value} at ${options.outputPath}`);
     });
   }
-}();  
+}();
 
 // generator NPM badge
 generateNpmBadge().catch((_: unknown) => {
@@ -110,14 +112,17 @@ export async function generateNpmBadge(): Promise<void> {
  */
 export async function generateCoverageSummaryBadge(): Promise<void> {
   const inputPath: string = getCoverageSummaryFilePath();
-  const data: Buffer = await readDataFile(inputPath);
-  const percentage: number = readPercentageFromCoverageSummary(data);
-  return await generator.generate({
-    name: "coverage-summary",
-    outputPath: getCoverageSummaryBadgePath(),
-    label: "coverage",
-    value: percentage + "%",
-    color: determineBackgroundColor(percentage)
+  await readFile(inputPath, async (_, data) => {
+    if (isPresent(data)) {
+      const percentage: number = readPercentageFromCoverageSummary(data);
+      await generator.generate({
+        name: "coverage-summary",
+        outputPath: getCoverageSummaryBadgePath(),
+        label: "coverage",
+        value: percentage + "%",
+        color: determineBackgroundColor(percentage)
+      });
+    }
   });
 }
 
