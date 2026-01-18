@@ -14,9 +14,9 @@ Subpath exports
 
 ## ✨ Improvements
 
-*   Performance: 
-*   Compatibility: 
-*   Documentation: 
+*   Performance: None
+*   Compatibility: None
+*   Documentation: None
 
 ## 🐛 Bug Fixes
 
