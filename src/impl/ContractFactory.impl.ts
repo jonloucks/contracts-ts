@@ -1,7 +1,7 @@
-import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 import { create as createBasicContract } from "@jonloucks/contracts-ts/api/BasicContract";
 import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createRatifiedContract, isRatifiableConfig } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 import { ContractFactory } from "@jonloucks/contracts-ts/api/ContractFactory";
 

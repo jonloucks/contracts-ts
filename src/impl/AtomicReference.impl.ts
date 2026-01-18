@@ -1,5 +1,5 @@
-import { AtomicReference } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 
 /**
  * Factory method to create an AtomicReference

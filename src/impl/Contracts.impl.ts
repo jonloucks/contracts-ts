@@ -1,11 +1,11 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
-import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
+import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 import { AutoCloseMany, create as createAutoCloseMany } from "@jonloucks/contracts-ts/impl/AutoCloseMany.impl";
 import { Events, create as createEvents } from "@jonloucks/contracts-ts/impl/Events.impl";

@@ -3,7 +3,7 @@ import { notStrictEqual, strictEqual } from "node:assert";
 import { createContract } from "@jonloucks/contracts-ts";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
-import { OptionalType, RequiredType, isNotPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
 
 const LAWYER: Lawyer<Date> = new class implements Lawyer<Date> {
   createContract<X extends Date>(config?: ContractConfig<X> | undefined): RequiredType<Contract<X>> {

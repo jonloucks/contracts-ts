@@ -1,5 +1,5 @@
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
-import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { strictEqual } from "node:assert";
 

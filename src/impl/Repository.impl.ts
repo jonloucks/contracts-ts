@@ -1,14 +1,14 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { contractCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
-import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 import { BindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { contractCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
-import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
 import { StorageImpl } from "@jonloucks/contracts-ts/impl/Storage.impl";
 

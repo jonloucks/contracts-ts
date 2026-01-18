@@ -1,4 +1,4 @@
-import { generateCoverageSummaryBadge, generateTypedocBadge, generateNpmBadge } from "./generate-badges";
+import { generateCoverageSummaryBadge, generateTypedocBadge, generateNpmBadge } from "../never-publish/generate-badges";
 
 test('generateCoverageSummaryBadge test', async () => {
   const result = await generateCoverageSummaryBadge();

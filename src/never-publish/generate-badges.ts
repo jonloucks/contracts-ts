@@ -19,7 +19,7 @@
 import { writeFile, readFile, mkdir } from "fs";
 import { join } from "path";
 import { VERSION } from "../version";
-import { isPresent } from "../api/auxiliary/Types";
+import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Interface for badge generator.
@@ -190,7 +190,7 @@ function getCoverageSummaryFilePath(): string {
 }
 
 function getTemplateBadgePath(): string {
-  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './src/data/badge-template.svg.dat');
+  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './src/never-publish/badge-template.svg.dat');
 }
 
 function getCoverageSummaryBadgePath(): string {

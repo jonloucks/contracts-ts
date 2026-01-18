@@ -1,9 +1,9 @@
 import { notStrictEqual, strictEqual } from "node:assert";
 
-import { AtomicReference, LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
-import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
+import { AtomicReference, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 

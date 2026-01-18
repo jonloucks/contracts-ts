@@ -2,12 +2,12 @@ import { AssertionError, AssertPredicate, doesNotThrow, equal, notStrictEqual, o
 
 import { createContract, createContracts } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { configCheck, presentCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
-import { ClassCastException } from "@jonloucks/contracts-ts/api/auxiliary/ClassCastException";
-import { IllegalStateException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalStateException";
-import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
+import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
 describe('all test files need one test, this is test utility class', () => {
   it('Dummy test', () => {

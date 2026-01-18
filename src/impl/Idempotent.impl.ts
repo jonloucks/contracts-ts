@@ -1,4 +1,4 @@
-import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { create as createAtomicBoolean } from "@jonloucks/contracts-ts/impl/AtomicBoolean.impl";
 import { Idempotent } from "@jonloucks/contracts-ts/impl/Idempotent";
 

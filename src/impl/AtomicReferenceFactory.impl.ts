@@ -1,6 +1,6 @@
-import { AtomicReference } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { AtomicReferenceFactory } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
-import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { AtomicReferenceFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 
 import { create as createAtomicReference } from "@jonloucks/contracts-ts/impl/AtomicReference.impl";
 

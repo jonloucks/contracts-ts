@@ -1,4 +1,4 @@
-import { isConstructor, isConstructorPresent } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { isConstructor, isConstructorPresent } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [

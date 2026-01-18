@@ -6,7 +6,7 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { LAWYER, Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { CONTRACT as FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
-import { OptionalType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('RepositoryFactory tests', () => {

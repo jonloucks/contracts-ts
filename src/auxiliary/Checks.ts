@@ -1,5 +1,5 @@
-import { IllegalArgumentException } from "@jonloucks/contracts-ts/api/auxiliary/IllegalArgumentException";
-import { isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
 
 /**
  * Check if given Contract is not null or invalid

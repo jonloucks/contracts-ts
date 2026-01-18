@@ -1,4 +1,4 @@
-import { validateContracts } from "@jonloucks/contracts-ts/api/auxiliary/Validate";
+import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { createContracts } from "@jonloucks/contracts-ts/impl/ContractsFactory.impl";
 
@@ -7,8 +7,7 @@ export { VERSION } from "@jonloucks/contracts-ts/version";
 export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 export { CONTRACT as AUTO_CLOSE_FACTORY, AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-export { hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
-export { validateContracts } from "@jonloucks/contracts-ts/api/auxiliary/Validate";
+export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 export { BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
 export { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 export { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
@@ -18,6 +17,7 @@ export { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 export { CONTRACT as PROMISOR_FACTORY, PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 export { Repository } from "@jonloucks/contracts-ts/api/Repository";
 export { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
+export { hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 export { createContract, create as createContractFactory } from "@jonloucks/contracts-ts/impl/ContractFactory.impl";
 export { createContracts, create as createContractsFactory } from "@jonloucks/contracts-ts/impl/ContractsFactory.impl";

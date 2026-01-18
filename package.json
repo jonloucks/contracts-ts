@@ -5,8 +5,32 @@
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./api/*": {
+      "types": "./dist/api/*.d.ts",
+      "import": "./dist/api/*.js",
+      "require": "./dist/api/*.js",
+      "default": "./dist/api/*.js"
+    },
+    "./auxiliary/*": {
+      "types": "./dist/auxiliary/*.d.ts",
+      "import": "./dist/auxiliary/*.js",
+      "require": "./dist/auxiliary/*.js",
+      "default": "./dist/auxiliary/*.js"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "!dist/utils/**/*",
+    "!dist/never-publish/**/*",
+    "!**/*.test.*",
+    "!**/*.spec.*"
   ],
   "scripts": {
     "build": "tsc",
@@ -19,7 +43,7 @@
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx tsx ./src/utils/generate-badges.ts"
+    "badges": "npx tsx ./src/never-publish/generate-badges.ts"
   },
   "keywords": [
     "typescript",

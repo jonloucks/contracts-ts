@@ -5,7 +5,7 @@ import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/
 import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * A repository for multiple contract promisors
