@@ -190,7 +190,7 @@ function getCoverageSummaryFilePath(): string {
 }
 
 function getTemplateBadgePath(): string {
-  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './src/data/badge-template.svg.dat');
+  return getEnvPathOrDefault('KIT_TEMPLATE_BADGE_PATH', './src/never-publish/badge-template.svg.dat');
 }
 
 function getCoverageSummaryBadgePath(): string {

@@ -5,8 +5,32 @@
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./api/*": {
+      "types": "./dist/api/*.d.ts",
+      "import": "./dist/api/*.js",
+      "require": "./dist/api/*.js",
+      "default": "./dist/api/*.js"
+    },
+    "./auxiliary/*": {
+      "types": "./dist/api/auxiliary/*.d.ts",
+      "import": "./dist/api/auxiliary/*.js",
+      "require": "./dist/api/auxiliary/*.js",
+      "default": "./dist/api/auxiliary/*.js"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "!dist/utils/**/*",
+    "!dist/never-publish/**/*",
+    "!**/*.test.*",
+    "!**/*.spec.*"
   ],
   "scripts": {
     "build": "tsc",

@@ -17,7 +17,15 @@
     "baseUrl": "./src",
     "paths": {
       "@jonloucks/contracts-ts": ["index.ts"],
-      "@jonloucks/contracts-ts/*": ["*"]
+      "@jonloucks/contracts-ts/root": ["*"],
+      "@jonloucks/contracts-ts/version": ["version.ts"],
+      "@jonloucks/contracts-ts/wonka/*": ["api/*"],
+      "@jonloucks/contracts-ts/tonka/*": ["api/auxiliary/*"],
+      "@jonloucks/contracts-ts/api/auxiliary/*": ["api/auxiliary/*"],
+      "@jonloucks/contracts-ts/auxiliary/*": ["api/auxiliary/*"],
+      "@jonloucks/contracts-ts/api/*": ["api/*"],
+      "@jonloucks/contracts-ts/test/*": ["test/*"],
+      "@jonloucks/contracts-ts/impl/*": ["impl/*"]
     },
   },
   "include": ["src/**/*"],

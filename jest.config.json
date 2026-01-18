@@ -3,7 +3,12 @@
   "testEnvironment": "node",
   "moduleNameMapper": {
     "^@jonloucks/contracts-ts$": "<rootDir>/src/index.ts",
-    "^@jonloucks/contracts-ts/(.*)$": "<rootDir>/src/$1"
+    "^@jonloucks/contracts-ts/version$": "<rootDir>/src/version",
+    "^@jonloucks/contracts-ts/api/(.*)$": "<rootDir>/src/api/$1",
+    "^@jonloucks/contracts-ts/api/auxiliary/(.*)$": "<rootDir>/src/api/auxiliary/$1",
+    "^@jonloucks/contracts-ts/auxiliary/(.*)$": "<rootDir>/src/api/auxiliary/$1",
+    "^@jonloucks/contracts-ts/test/(.*)$": "<rootDir>/src/test/$1",
+    "^@jonloucks/contracts-ts/impl/(.*)$": "<rootDir>/src/impl/$1"
   },
   "transform": {
     "^.+\\.(ts|tsx)$": "ts-jest"
