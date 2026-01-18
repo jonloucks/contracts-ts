@@ -1,13 +1,13 @@
 import { CONTRACT as AUTO_CLOSE_FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
-import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBooleanFactory";
-import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@jonloucks/contracts-ts/api/auxiliary/AtomicIntegerFactory";
-import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReferenceFactory";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { ContractsFactory } from "@jonloucks/contracts-ts/api/ContractsFactory";
 import { CONTRACT as PROMISOR_FACTORY } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
+import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 
 import { create as createAtomicBooleanFactoryImpl } from "@jonloucks/contracts-ts/impl/AtomicBooleanFactory.impl";
 import { create as createAtomicIntegerFactoryImpl } from "@jonloucks/contracts-ts/impl/AtomicIntegerFactory.impl";

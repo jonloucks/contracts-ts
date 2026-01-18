@@ -1,4 +1,4 @@
-import { messageCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { messageCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /**
  * Runtime exception thrown for Contract related problems.

@@ -1,4 +1,4 @@
-import { validateContracts } from "@jonloucks/contracts-ts/api/auxiliary/Validate";
+import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { createContracts } from "@jonloucks/contracts-ts/impl/ContractsFactory.impl";
 
@@ -7,7 +7,7 @@ export { VERSION } from "@jonloucks/contracts-ts/version";
 export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 export { CONTRACT as AUTO_CLOSE_FACTORY, AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-export { validateContracts } from "@jonloucks/contracts-ts/api/auxiliary/Validate";
+export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 export { BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
 export { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 export { ContractException } from "@jonloucks/contracts-ts/api/ContractException";

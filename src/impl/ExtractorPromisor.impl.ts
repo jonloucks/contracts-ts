@@ -1,4 +1,4 @@
-import { presentCheck, promisorCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { presentCheck, promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 

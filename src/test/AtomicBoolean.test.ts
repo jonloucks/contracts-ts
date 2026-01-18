@@ -1,8 +1,8 @@
 import { notStrictEqual, strictEqual } from "node:assert";
 
-import { AtomicBoolean, LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBooleanFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { AtomicBoolean, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 

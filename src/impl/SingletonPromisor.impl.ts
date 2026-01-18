@@ -1,6 +1,6 @@
-import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
-import { AtomicReference } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { promisorCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 

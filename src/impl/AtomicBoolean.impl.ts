@@ -1,4 +1,4 @@
-import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**

@@ -1,10 +1,10 @@
 import { createContract, Promisor, typeToPromisor } from "@jonloucks/contracts-ts";
 import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen, isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-import { ClassCastException } from "@jonloucks/contracts-ts/api/auxiliary/ClassCastException";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
+import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 

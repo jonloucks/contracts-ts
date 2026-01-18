@@ -1,4 +1,3 @@
-
 /**
  * Types and type guards for API
  */

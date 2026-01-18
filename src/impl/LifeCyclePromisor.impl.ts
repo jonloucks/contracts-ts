@@ -1,9 +1,9 @@
 import { AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
 import { isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-import { AtomicBoolean } from "@jonloucks/contracts-ts/api/auxiliary/AtomicBoolean";
-import { AtomicInteger } from "@jonloucks/contracts-ts/api/auxiliary/AtomicInteger";
-import { AtomicReference } from "@jonloucks/contracts-ts/api/auxiliary/AtomicReference";
-import { promisorCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";

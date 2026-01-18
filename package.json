@@ -19,10 +19,10 @@
       "default": "./dist/api/*.js"
     },
     "./auxiliary/*": {
-      "types": "./dist/api/auxiliary/*.d.ts",
-      "import": "./dist/api/auxiliary/*.js",
-      "require": "./dist/api/auxiliary/*.js",
-      "default": "./dist/api/auxiliary/*.js"
+      "types": "./dist/auxiliary/*.d.ts",
+      "import": "./dist/auxiliary/*.js",
+      "require": "./dist/auxiliary/*.js",
+      "default": "./dist/auxiliary/*.js"
     }
   },
   "files": [
@@ -43,7 +43,7 @@
     "prepublishOnly": "npm run build",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx tsx ./src/utils/generate-badges.ts"
+    "badges": "npx tsx ./src/never-publish/generate-badges.ts"
   },
   "keywords": [
     "typescript",

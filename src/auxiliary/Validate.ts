@@ -1,9 +1,9 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { contractsCheck } from "@jonloucks/contracts-ts/api/auxiliary/Checks";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { contractsCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /**
 * A simple runtime validation of deployed implementation
