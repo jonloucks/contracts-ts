@@ -19,7 +19,7 @@
 import { writeFile, readFile, mkdir } from "fs";
 import { join } from "path";
 import { VERSION } from "../version";
-import { isPresent } from "../api/auxiliary/Types";
+import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Interface for badge generator.

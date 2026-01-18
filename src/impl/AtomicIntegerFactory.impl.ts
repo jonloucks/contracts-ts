@@ -1,6 +1,6 @@
 import { AtomicInteger } from "@jonloucks/contracts-ts/api/auxiliary/AtomicInteger";
 import { AtomicIntegerFactory } from "@jonloucks/contracts-ts/api/auxiliary/AtomicIntegerFactory";
-import { RequiredType } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 import { create as createAtomicInteger } from "@jonloucks/contracts-ts/impl/AtomicInteger.impl";
 

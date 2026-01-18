@@ -2,8 +2,8 @@ import { ok, strictEqual } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
 import { ClassCastException } from "@jonloucks/contracts-ts/api/auxiliary/ClassCastException";
-import { isString } from "@jonloucks/contracts-ts/tonka/Types";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { isString } from "@jonloucks/contracts-ts/api/Types";
 import { generateContractSuite } from "@jonloucks/contracts-ts/test/Contract.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 

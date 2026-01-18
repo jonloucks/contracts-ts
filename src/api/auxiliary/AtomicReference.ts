@@ -1,7 +1,7 @@
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Responsibility: An atomic reference interface for thread-safe reference operations.

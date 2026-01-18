@@ -2,7 +2,7 @@ import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/
 import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
-import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Factory interface for creating Repository instances.

@@ -5,7 +5,7 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/auxiliary/Types";
+import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Extract Promisor tests', () => {
