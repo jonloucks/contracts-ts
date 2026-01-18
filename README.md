@@ -179,9 +179,15 @@ contracts-ts
 ├── SECURITY.md
 ├── src
 │   ├── index.ts
+│   ├── version.ts
 │   ├── api
 │   │   ├── *.ts
 │   │   ├── *.api.ts
+│   ├── auxiliary
+│   │   ├── *.ts
+│   │   ├── *.impl.ts
+│   │   ├── *.test.ts    // internal implementation specific
+│   │   └── *.api.ts
 │   ├── impl
 │   │   ├── *.ts
 │   │   ├── *.impl.ts
@@ -189,8 +195,9 @@ contracts-ts
 │   │   └── *.api.ts
 │   ├── test
 │   │   └── *.test.ts
-│   └── utils             // non shippable development scripts
+│   └── never-publish             // non shippable development scripts
 │       ├── *.ts
+│       ├── *.*.                  // data files etc
 │       └── *.test.ts
 ├── tsconfig.json
 └── typedoc.json
