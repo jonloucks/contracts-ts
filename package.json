@@ -3,32 +3,31 @@
   "version": "0.2.0",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "import": "./index.js",
+      "default": "./index.js"
     },
     "./api/*": {
-      "types": "./dist/api/*.d.ts",
-      "import": "./dist/api/*.js",
-      "require": "./dist/api/*.js",
-      "default": "./dist/api/*.js"
+      "types": "./api/*.d.ts",
+      "require": "./api/*.js",
+      "import": "./api/*.js",
+      "default": "./api/*.js"
     },
     "./auxiliary/*": {
-      "types": "./dist/auxiliary/*.d.ts",
-      "import": "./dist/auxiliary/*.js",
-      "require": "./dist/auxiliary/*.js",
-      "default": "./dist/auxiliary/*.js"
+      "types": "./auxiliary/*.d.ts",
+      "require": "./auxiliary/*.js",
+      "import": "./auxiliary/*.js",
+      "default": "./auxiliary/*.js"
     }
   },
   "files": [
-    "dist",
-    "!dist/utils/**/*",
-    "!dist/never-publish/**/*",
+    "*",
+    "!never-publish/**/*",
     "!**/*.test.*",
     "!**/*.spec.*"
   ],
@@ -41,9 +40,14 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prepublishOnly": "npm run build",
+    "before:publish": "npm run clean && npm run compile && cp package.json dist && cp README.md dist && cd dist && npm pkg set private=false",
+    "after:publish": "npm run clean",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx tsx ./src/never-publish/generate-badges.ts"
+    "badges": "npx tsx ./src/never-publish/generate-badges.ts",
+    "clean": "rm -rf dist",
+    "compile": "tsc",
+    "pack-package": "npm run before:publish && cd dist && npm pack && npm run after:publish"
   },
   "keywords": [
     "typescript",
