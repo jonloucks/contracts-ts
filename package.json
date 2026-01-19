@@ -5,6 +5,26 @@
   "private": true,
   "main": "index.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
+    "./api/*": {
+      "types": "./api/*.d.ts",
+      "require": "./api/*.js",
+      "import": "./api/*.js",
+      "default": "./api/*.js"
+    },
+    "./auxiliary/*": {
+      "types": "./auxiliary/*.d.ts",
+      "require": "./auxiliary/*.js",
+      "import": "./auxiliary/*.js",
+      "default": "./auxiliary/*.js"
+    }
+  },
   "files": [
     "*",
     "!never-publish/**/*",
