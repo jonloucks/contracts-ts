@@ -39,6 +39,7 @@
     "test:diagnostics": "jest --detectOpenHandles",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
+    "prepublishOnly": "npm run build",
     "before:publish": "npm run clean && npm run compile && cp package.json dist && cp README.md dist && cd dist && npm pkg set private=false",
     "after:publish": "npm run clean",
     "prepare": "npm run build",
