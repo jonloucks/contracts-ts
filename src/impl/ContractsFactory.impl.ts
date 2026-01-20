@@ -9,14 +9,14 @@ import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxi
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 
-import { create as createAtomicBooleanFactoryImpl } from "@jonloucks/contracts-ts/impl/AtomicBooleanFactory.impl";
-import { create as createAtomicIntegerFactoryImpl } from "@jonloucks/contracts-ts/impl/AtomicIntegerFactory.impl";
-import { create as createAtomicReferenceFactoryImpl } from "@jonloucks/contracts-ts/impl/AtomicReferenceFactory.impl";
-import { create as createAutoCloseFactoryImpl } from "@jonloucks/contracts-ts/impl/AutoCloseFactory.impl";
-import { create as createContractsImpl } from "@jonloucks/contracts-ts/impl/Contracts.impl";
-import { wrap as wrapContracts } from "@jonloucks/contracts-ts/impl/ContractsWrapper.impl";
-import { create as createPromisorFactoryImpl } from "@jonloucks/contracts-ts/impl/PromisorFactory.impl";
-import { create as createRepositoryFactoryImpl } from "@jonloucks/contracts-ts/impl/RepositoryFactory.impl";
+import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl";
+import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory.impl";
+import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl";
+import { create as createAutoCloseFactoryImpl } from "./AutoCloseFactory.impl";
+import { create as createContractsImpl } from "./Contracts.impl";
+import { wrap as wrapContracts } from "./ContractsWrapper.impl";
+import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
+import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
 
 /**
  * Factory method to create a ContractsFactory

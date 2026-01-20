@@ -7,11 +7,11 @@ import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
-import { AutoCloseMany, create as createAutoCloseMany } from "@jonloucks/contracts-ts/impl/AutoCloseMany.impl";
-import { Events, create as createEvents } from "@jonloucks/contracts-ts/impl/Events.impl";
-import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
-import { Internal } from "@jonloucks/contracts-ts/impl/Internal.impl";
-import { Policy, create as createPolicy } from "@jonloucks/contracts-ts/impl/Policy.impl";
+import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { Events, create as createEvents } from "./Events.impl";
+import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
+import { Internal } from "./Internal.impl";
+import { Policy, create as createPolicy } from "./Policy.impl";
 
 /**
  * Factory method to create Contracts instance.
