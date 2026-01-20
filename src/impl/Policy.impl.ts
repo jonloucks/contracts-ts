@@ -3,10 +3,10 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { Policy } from "@jonloucks/contracts-ts/impl/Policy";
+import { Policy } from "./Policy";
 
 export { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-export { Policy } from "@jonloucks/contracts-ts/impl/Policy";
+export { Policy } from "./Policy";
 
 /**
  * Factory method to create Policy instance.

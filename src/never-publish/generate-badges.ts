@@ -4,9 +4,12 @@
  * and generates an SVG badge using a template file with placeholders.
  * 
  * Environment Variables:
- * - KIT_COVERAGE_SUMMARY_PATH: Path to the coverage summary JSON file. Default: './coverage/coverage-summary.json'
- * - KIT_TEMPLATE_BADGE_PATH: Path to the SVG badge template file. Default: './scripts/code-coverage.svg.dat'
- * - KIT_COVERAGE_SUMMARY_BADGE_PATH: Output path for the generated coverage badge SVG file. Default: './coverage/coverage-summary.svg'     
+ * - KIT_TEMPLATE_BADGE_PATH: Input path to the SVG badge template file. Default: './src/never-publish/badge-template.svg.dat'
+ * - KIT_COVERAGE_SUMMARY_PATH: Input path coverage summary JSON file. Default: './coverage/coverage-summary.json'
+ * - KIT_COVERAGE_SUMMARY_BADGE_PATH: Output path for the generated coverage badge SVG file. Default: './.tmp/badges/coverage-summary.svg'     
+ * - KIT_TYPEDOC_BADGE_PATH: Output path for the generated typedoc badge SVG file. Default: './.tmp/badges/typedoc.svg'     
+ * - KIT_NPM_BADGE_PATH: Output path for the generated npm badge SVG file. Default: './.tmp/badges/npm.svg'     
+
  *  * Template Placeholders:
  * - {{LABEL}}: Placeholder for the badge label (e.g., "coverage").
  * - {{VALUE}}: Placeholder for the coverage percentage value.
@@ -18,7 +21,7 @@
  */
 import { writeFile, readFile, mkdir } from "fs";
 import { join } from "path";
-import { VERSION } from "../version";
+import { VERSION } from "@jonloucks/contracts-ts";
 import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 
 /**
