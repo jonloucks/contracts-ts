@@ -1,17 +1,17 @@
 import { AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
 import { isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
-import { create as createAtomicBoolean } from "@jonloucks/contracts-ts/impl/AtomicBoolean.impl";
-import { create as createAtomicInteger } from "@jonloucks/contracts-ts/impl/AtomicInteger.impl";
-import { create as createAtomicReference } from "@jonloucks/contracts-ts/impl/AtomicReference.impl";
-import { create as createAutoCloseOne } from "@jonloucks/contracts-ts/impl/AutoCloseOne.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
 
 /**
  * Factory to create an Life Cycle promisor implementation

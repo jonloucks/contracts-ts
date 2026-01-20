@@ -2,7 +2,7 @@ import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { AtomicBooleanFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 
-import { create as createAtomicBoolean } from "@jonloucks/contracts-ts/impl/AtomicBoolean.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
 
 /**
  * Factory method to create an AtomicBooleanFactory

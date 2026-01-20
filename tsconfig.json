@@ -20,9 +20,7 @@
       "@jonloucks/contracts-ts/version": ["version.ts"],
       "@jonloucks/contracts-ts/auxiliary/*": ["auxiliary/*"],
       "@jonloucks/contracts-ts/api/*": ["api/*"],
-      "@jonloucks/contracts-ts/test/*": ["test/*"],
-      "@jonloucks/contracts-ts/impl/*": ["impl/*"],
-      "@jonloucks/contracts-ts/never-publish/*": ["never-publish/*"],
+      "@jonloucks/contracts-ts/test/*": ["test/*"]
     },
   },
   "include": ["src/**/*"],

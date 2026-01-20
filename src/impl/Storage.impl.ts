@@ -4,7 +4,7 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 
-import { create as createAutoCloseOne } from "@jonloucks/contracts-ts/impl/AutoCloseOne.impl";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
 
 // ---- Implementation details below ----
 
