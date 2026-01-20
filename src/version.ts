@@ -1,8 +1,14 @@
 import { readFileSync } from "fs";
-import { join } from "path";
+import { resolve } from "path";
 
-// Read package.json at runtime
-const packageJsonPath = join(__dirname, "..", "package.json");
-const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+export const VERSION: string = ((): string => {
+  try {
+    const packageJsonPath = resolve(__dirname, 'package.json'); 
+    const parsedJson : unknown = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+    const { version } = parsedJson as { version?: string };
+    return version ?? "unknown";
+  } catch (_error) {
+    return "unknown";
+  }
+})();
 
-export const VERSION: string = packageJson.version;

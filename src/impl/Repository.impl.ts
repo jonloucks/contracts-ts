@@ -9,8 +9,8 @@ import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { contractCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Idempotent, create as createIdempotent } from "@jonloucks/contracts-ts/impl/Idempotent.impl";
-import { StorageImpl } from "@jonloucks/contracts-ts/impl/Storage.impl";
+import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
+import { StorageImpl } from "./Storage.impl";
 
 /**
  * Factory method to create Repository instance.

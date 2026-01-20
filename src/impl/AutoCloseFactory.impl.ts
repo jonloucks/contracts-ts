@@ -1,8 +1,8 @@
 import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { create as createAutoCloseMany } from "@jonloucks/contracts-ts/impl/AutoCloseMany.impl";
-import { create as createAutoCloseOne } from "@jonloucks/contracts-ts/impl/AutoCloseOne.impl";
+import { create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
 
 export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
 export { AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
