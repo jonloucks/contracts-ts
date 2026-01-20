@@ -7,7 +7,7 @@ export const VERSION: string = ((): string => {
     const parsedJson : unknown = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
     const { version } = parsedJson as { version?: string };
     return version ?? "unknown";
-  } catch (error) {
+  } catch (_error) {
     return "unknown";
   }
 })();
