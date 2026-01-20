@@ -3,7 +3,7 @@
 Runtime implementation resolution
 
 ## Customer impact
-*  All previous releases were broken. update required
+*  All previous releases were broken. Update required
 
 ## Forked Repositories Impact
 * None
