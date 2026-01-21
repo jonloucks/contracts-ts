@@ -13,7 +13,6 @@ describe('guard tests', () => {
   });
 });
 
-
 describe('AutoCloseFactory exports', () => {
   /** @deprecated test*/
   it('isAutoCloseFactory export works', () => {
