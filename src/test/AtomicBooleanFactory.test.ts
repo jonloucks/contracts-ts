@@ -24,5 +24,3 @@ describe('AtomicBooleanFactory exports', () => {
 assertContract(CONTRACT, "AtomicBooleanFactory");
 assertGuard(guard, "create");
 generateTestsForLawyer(LAWYER);
-
-
