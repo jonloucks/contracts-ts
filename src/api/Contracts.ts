@@ -93,4 +93,4 @@ export interface Contracts extends AutoOpen {
  */
 export function guard(value: unknown): value is Contracts {
   return hasFunctions(value, 'claim', 'enforce', 'isBound', 'bind') && autoOpenGuard(value);
-} 
+}
