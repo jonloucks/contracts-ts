@@ -63,6 +63,6 @@ export function guard(instance: unknown): instance is OptionalType<BindStrategy>
 
 /** @deprecated use guard instead
  */
-export { guard as isBindStrategy }; 
+export { guard as isBindStrategy };
 
 
