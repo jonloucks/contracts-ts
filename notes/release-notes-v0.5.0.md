@@ -1,6 +1,6 @@
 # @jonloucks/contracts-ts v0.5.0
 
-Deprecated Lawyer interface to be slated for removal in v1.0.0
+Lawyer interface is deprecated and slated for removal in v1.0.0
 
 ## Customer impact
 *  None
