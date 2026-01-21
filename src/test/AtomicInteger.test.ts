@@ -1,10 +1,11 @@
 import { notStrictEqual, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { AtomicInteger, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { AtomicInteger, isAtomicInteger, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe('AtomicInteger', () => {
 
@@ -87,6 +88,15 @@ describe('AtomicInteger', () => {
     });
   });
 });
+
+assertGuard(isAtomicInteger, 
+  "get", 
+  "set", 
+  "compareAndSet", 
+  "incrementAndGet", 
+  "decrementAndGet"
+);
+
 generateTestsForLawyer(LAWYER);
 
 

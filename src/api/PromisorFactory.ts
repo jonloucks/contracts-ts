@@ -53,7 +53,18 @@ export interface PromisorFactory {
 }
 
 /**
+ * Type guard for PromisorFactory
+ * 
+ * @param value the value to check
+ * @return true if value is PromisorFactory, false otherwise
+ */
+export function guard(instance: unknown): instance is PromisorFactory {
+  return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
+}
+
+/**
  * For creating a Contract for PromisorFactory with duck-typing checks.
+ * @deprecated use createContract directly
  */
 export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<PromisorFactory> {
 
@@ -61,7 +72,7 @@ export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<Promi
    * Lawyer.isDeliverable override
    */
   isDeliverable<X extends PromisorFactory>(instance: unknown): instance is OptionalType<X> {
-    return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
+    return guard(instance);
   }
 
   /** 
@@ -80,5 +91,8 @@ export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<Promi
 /**
  * The Contract for PromisorFactory implementation.
  */
-export const CONTRACT: Contract<PromisorFactory> = LAWYER.createContract();
+export const CONTRACT: Contract<PromisorFactory> = createContract({
+  test: guard,
+  name: "PromisorFactory"
+});
 

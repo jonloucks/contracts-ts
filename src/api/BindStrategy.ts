@@ -48,7 +48,7 @@ export function resolveBindStrategy(bindStrategy: OptionalType<BindStrategy>): R
  * @param instance the value to check
  * @returns true if value is a BindStrategy or null/undefined
  */
-export function isBindStrategy(instance: unknown): instance is OptionalType<BindStrategy> {
+export function guard(instance: unknown): instance is OptionalType<BindStrategy> {
     switch (instance) {
         case undefined:
         case null:
@@ -60,5 +60,9 @@ export function isBindStrategy(instance: unknown): instance is OptionalType<Bind
             return false;
     }
 }
+
+/** @deprecated use guard instead
+ */
+export { guard as isBindStrategy }; 
 
 

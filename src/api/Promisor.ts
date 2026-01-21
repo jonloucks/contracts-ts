@@ -42,12 +42,17 @@ export interface Promisor<T> {
  * @param instance the instance to check
  * @returns true if the instance is a Promisor, false otherwise
  */
-export function isPromisor<T>(instance: unknown): instance is Promisor<T> {
+export function guard<T>(instance: unknown): instance is Promisor<T> {
   return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
 }
 
+/** @deprecated use guard instead
+ */
+export { guard as isPromisor };
+
 /**
  * For creating a Contract for Promisor with duck-typing checks.
+ * @deprecated use createContract with guard instead
  */
 export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Promisor<unknown>> {
 
@@ -55,7 +60,7 @@ export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Pro
    * Lawyer.isDeliverable override
    */
   isDeliverable<X extends Promisor<unknown>>(instance: unknown): instance is OptionalType<X> {
-    return isPromisor<X>(instance);
+    return guard<X>(instance);
   }
 
   /** 
@@ -87,7 +92,7 @@ export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<
     return wrapPromisor<T>(type, () => type); // supplier of null or undefined
   } else if (isConstructorPresent<T>(type)) {
     return wrapPromisor<T>(type, () => new type()); // supplier of new instance
-  } else if (isPromisor(type)) {
+  } else if (guard(type)) {
     return type; // already a Promisor
   } else if (typeof type === 'function') {
     return wrapPromisor<T>(type, type as () => T); 

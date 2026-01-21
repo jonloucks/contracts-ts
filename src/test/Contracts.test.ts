@@ -1,8 +1,10 @@
 import { createContract } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe("Contracts Idempotent", () => {
   test("is idempotent", () => {
@@ -121,3 +123,5 @@ describe("Contracts enforce", () => {
     })
   });
 });
+
+assertGuard(guard, "claim", "enforce", "isBound", "bind", "open");

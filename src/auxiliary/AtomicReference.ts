@@ -30,7 +30,22 @@ export interface AtomicReference<T> {
 }
 
 /**
+ * Type guard for AtomicReference interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AtomicReference
+ */
+export function guard<T>(instance: unknown): instance is OptionalType<AtomicReference<T>> {
+    return hasFunctions(instance, "compareAndSet", "get", "set");
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAtomicReference }
+
+/**
  * For creating a Contract for AtomicReference with duck-typing checks.
+ * @deprecated create a contract using typeGuard directly
  */
 export const LAWYER: Lawyer<AtomicReference<unknown>> = new class implements Lawyer<AtomicReference<unknown>> {
 
@@ -38,7 +53,7 @@ export const LAWYER: Lawyer<AtomicReference<unknown>> = new class implements Law
      * Lawyer.isDeliverable override 
      */
     isDeliverable<X extends AtomicReference<unknown>>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, "compareAndSet", "get", "set");
+        return guard(instance);
     }
 
     /** 

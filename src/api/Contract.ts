@@ -1,4 +1,4 @@
-import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
+import { hasFunctions, OptionalType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Configuration for a Contract
@@ -92,6 +92,17 @@ export interface Contract<T> {
    */
   get replaceable(): boolean;
 }
+
+/**
+ * Duck-typing check for Contract interface.
+ *
+ * @param instance the instance to check
+ * @returns true if the instance implements Contract, false otherwise
+ */
+export function guard<T>(instance: unknown): instance is Contract<T> {
+  return hasFunctions(instance, 'cast', 'name', 'typeName', 'replaceable');
+}
+
 
 
 

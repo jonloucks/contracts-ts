@@ -1,11 +1,12 @@
 import { ok, strictEqual } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
-import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { Contract, guard } from "@jonloucks/contracts-ts/api/Contract";
 import { isString } from "@jonloucks/contracts-ts/api/Types";
 import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
 import { generateContractSuite } from "@jonloucks/contracts-ts/test/Contract.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe('Create string contract', () => {
   const contract: Contract<string> = createContract<string>({
@@ -55,3 +56,5 @@ test('contract_create_withNullConfig_Works', () => {
 
   ok(contract);
 });
+
+assertGuard(guard, 'cast', 'name', 'typeName', 'replaceable');

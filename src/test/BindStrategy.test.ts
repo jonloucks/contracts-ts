@@ -1,6 +1,6 @@
 import { fail, notStrictEqual, strictEqual } from "node:assert";
 
-import { BindStrategy, DEFAULT_BIND_STRATEGY, isBindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { BindStrategy, DEFAULT_BIND_STRATEGY, guard, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { RequiredType, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
 
 generateBindStrategySuite({
@@ -38,11 +38,11 @@ export function generateBindStrategySuite(options: TestSuiteOptions) : void {
 
   describe("BindStategy valid values", () => {
     validCases?.forEach((testCase, index) => {
-      it(`case ${index}: isBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
-        strictEqual(isBindStrategy(testCase.value), true, "isBindStrategy should be true.");
+      it(`case ${index}: guard when value is ${testCase?.help ?? testCase.value}`, () => {
+        strictEqual(guard(testCase.value), true, "guard should be true.");
       });
       it(`case ${index}: resolveBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
-        if (isBindStrategy(testCase.value)) {
+        if (guard (testCase.value)) {
           const resolved: RequiredType<BindStrategy> = resolveBindStrategy(testCase.value);
           notStrictEqual(resolved, null, "resolved BindStrategy should not be null.");
           if (isNotPresent(testCase.value)) {
@@ -57,8 +57,8 @@ export function generateBindStrategySuite(options: TestSuiteOptions) : void {
 
   describe("BindStategy invalid values", () => {
     invalidCases?.forEach((testCase, index) => {
-      it(`case ${index}: isBindStrategy when value is ${testCase?.help ?? testCase.value}`, () => {
-        strictEqual(isBindStrategy(testCase.value), false, "isBindStrategy should be false.");
+      it(`case ${index}: guard when value is ${testCase?.help ?? testCase.value}`, () => {
+        strictEqual(guard(testCase.value), false, "guard should be false.");
       });
     });
   });

@@ -26,7 +26,7 @@ export class ContractException extends Error {
    * @param message the optional message to use if caught is not an ContractException
    */
   static rethrow(caught: unknown, message?: string): never {
-    if (caught instanceof ContractException) {
+    if (guard(caught)) {
       throw caught;
     } else if (caught instanceof Error) {
       throw new ContractException(message ?? caught.message, caught);
@@ -34,5 +34,15 @@ export class ContractException extends Error {
       throw new ContractException(message ?? "Unknown type of caught value.");
     }
   }
+}
+
+/**
+ * Type guard for ContractException
+ *
+ * @param value the value to check
+ * @return true if value is ContractException, false otherwise
+ */
+export function guard(value: unknown): value is ContractException {
+  return value instanceof ContractException;
 }
 

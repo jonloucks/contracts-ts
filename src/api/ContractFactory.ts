@@ -1,5 +1,5 @@
 import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
-import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { hasFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * A Contractsfactory to bootstrapping Global Contracts and provide
@@ -16,4 +16,14 @@ export interface ContractFactory {
    * @return the new Contract
    */
   create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>>;
+}
+
+/**
+ * Type guard for ContractFactory
+ * 
+ * @param value the value to check
+ * @return true if value is ContractFactory, false otherwise
+ */
+export function guard(value: unknown): value is ContractFactory {
+  return hasFunctions(value, 'create');
 }
