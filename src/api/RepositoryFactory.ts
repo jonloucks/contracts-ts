@@ -16,7 +16,18 @@ export interface RepositoryFactory {
 }
 
 /**
+ * Type guard for RepositoryFactory
+ * 
+ * @param value the value to check
+ * @return true if value is RepositoryFactory, false otherwise
+ */
+export function guard(value: unknown): value is RepositoryFactory {
+  return hasFunctions(value, "create");
+}
+
+/**
  * For creating a Contract for RepositoryFactory with duck-typing checks.
+ * @deprecated use createContract with guard instead
  */
 export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<RepositoryFactory> {
 
@@ -24,7 +35,7 @@ export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<Rep
    * Lawyer.isDeliverable override
    */
   isDeliverable<X extends RepositoryFactory>(instance: unknown): instance is OptionalType<X> {
-    return hasFunctions(instance, "create");
+    return guard(instance);
   }
 
   /** 
@@ -43,4 +54,7 @@ export const LAWYER: Lawyer<RepositoryFactory> = new class implements Lawyer<Rep
 /**
  * The factory Contract for creating new Repository instances.
  */
-export const CONTRACT: Contract<RequiredType<RepositoryFactory>> = LAWYER.createContract();
+export const CONTRACT: Contract<RequiredType<RepositoryFactory>> = createContract({
+  test: guard,
+  name: "RepositoryFactory"
+});

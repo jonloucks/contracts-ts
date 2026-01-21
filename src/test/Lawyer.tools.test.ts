@@ -21,7 +21,7 @@ const LAWYER: Lawyer<Date> = new class implements Lawyer<Date> {
 
 generateTestsForLawyer(LAWYER);
 
-export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) : void {
+export function generateTestsForLawyer<T>(lawyer: Lawyer<T>): void {
   describe(`Testing Lawyer: ${lawyer}`, () => {
 
     it('Lawyer created contract name', () => {
@@ -40,6 +40,11 @@ export function generateTestsForLawyer<T>(lawyer: Lawyer<T>) : void {
     it('Lawyer created contract is replaceable', () => {
       strictEqual(lawyer.createContract({ replaceable: false }).replaceable, false, "with replaceable false in config, replaceable is false");
       strictEqual(lawyer.createContract({ replaceable: true }).replaceable, true, "with replaceable true in config, replaceable is true");
+    });
+
+    it('Lawyer isDeliverable works', () => {
+      strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
+      strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
     });
   });
 }

@@ -1,5 +1,5 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
@@ -57,7 +57,18 @@ export interface Repository extends AutoOpen {
 }
 
 /**
+ * Type guard for Repository
+ * 
+ * @param value the value to check
+ * @return true if value is Repository, false otherwise
+ */
+export function guard(value: unknown): value is Repository {
+  return hasFunctions(value, 'store', 'keep', 'check', 'require') && autoOpenGuard(value);
+}
+
+/**
  * For creating a Contract for Repository with duck-typing checks.
+ * @deprecated use createContract with guard instead
  */
 export const LAWYER: Lawyer<Repository> = new class implements Lawyer<Repository> {
 
@@ -65,7 +76,7 @@ export const LAWYER: Lawyer<Repository> = new class implements Lawyer<Repository
    * Lawyer.isDeliverable override
    */
   isDeliverable<X extends Repository>(instance: unknown): instance is OptionalType<X> {
-    return hasFunctions(instance, 'store', 'keep', 'check', 'require', 'open');
+    return guard(instance);
   }
 
   /** 

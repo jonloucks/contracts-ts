@@ -17,7 +17,21 @@ export interface AtomicReferenceFactory {
 }
 
 /**
+ * Type guard for AtomicReferenceFactory interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AtomicReferenceFactory
+ */
+export function guard(instance: unknown): instance is OptionalType<AtomicReferenceFactory> {
+    return hasFunctions(instance, "create");
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAtomicReferenceFactory }
+/**
  * For creating a Contract for AtomicReferenceFactory with duck-typing checks.
+ * @deprecated use createContract with guard instead
  */
 export const LAWYER: Lawyer<AtomicReferenceFactory> = new class implements Lawyer<AtomicReferenceFactory> {
 
@@ -25,7 +39,7 @@ export const LAWYER: Lawyer<AtomicReferenceFactory> = new class implements Lawye
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AtomicReferenceFactory>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, "create");
+        return guard(instance);
     }
 
     /**
@@ -44,4 +58,7 @@ export const LAWYER: Lawyer<AtomicReferenceFactory> = new class implements Lawye
 /**
  * The factory Contract for creating new AtomicReference instances.
  */
-export const CONTRACT: Contract<AtomicReferenceFactory> = LAWYER.createContract();
+export const CONTRACT: Contract<AtomicReferenceFactory> = createContract({
+    test: guard,
+    name: "AtomicReferenceFactory"
+});

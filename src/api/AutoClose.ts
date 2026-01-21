@@ -124,9 +124,12 @@ export function unwrapAutoClose(autoClose: OptionalType<AutoClose>): OptionalTyp
  * @param instance the instance to check
  * @returns true if the instance implements AutoClose, false otherwise
  */
-export function isAutoClose(instance: unknown): instance is OptionalType<AutoClose> {
+export function guard(instance: unknown): instance is OptionalType<AutoClose> {
     return hasFunctions(instance, 'close', Symbol.dispose);
 }
+
+/** @deprecated use guard instead*/
+export { guard as isAutoClose };
 
 /**
  * Duck-typing check for object with close() method.
@@ -145,7 +148,7 @@ export function isClose(instance: unknown): instance is OptionalType<AutoClose> 
  */
 export function typeToAutoClose(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
     const presentType = presentCheck(type, "AutoClose type must be present.");
-    if (isAutoClose(presentType)) {
+    if (guard(presentType)) {
         return presentType;
     } else if (isClose(presentType)) {
         return inlineAutoClose(() => presentType.close());

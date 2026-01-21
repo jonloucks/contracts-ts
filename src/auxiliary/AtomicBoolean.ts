@@ -36,7 +36,22 @@ export interface AtomicBoolean {
 }
 
 /**
+ * Type guard for AtomicBoolean interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AtomicBoolean
+ */
+export function guard(instance: unknown): instance is OptionalType<AtomicBoolean> {
+    return hasFunctions(instance, "compareAndSet", "get", "set");
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAtomicBoolean }
+
+/**
  * For creating a Contract for AtomicBoolean with duck-typing checks.
+ * @deprecated create a contract using typeGuard directly
  */
 export const LAWYER: Lawyer<AtomicBoolean> = new class implements Lawyer<AtomicBoolean> {
 
@@ -44,7 +59,7 @@ export const LAWYER: Lawyer<AtomicBoolean> = new class implements Lawyer<AtomicB
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AtomicBoolean>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, "compareAndSet", "get", "set");
+        return guard(instance);
     }
 
     /** 

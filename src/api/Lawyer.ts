@@ -3,6 +3,7 @@ import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Responsibility: A Lawyer creates Contracts for a specific type T, including duck-typing checks.
+ * @deprecated create your own Contract and duck-typing checks instead
  */
 export interface Lawyer<T> {
 

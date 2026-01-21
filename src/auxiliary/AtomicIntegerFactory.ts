@@ -17,7 +17,22 @@ export interface AtomicIntegerFactory {
 }
 
 /**
+ * Type guard for AtomicIntegerFactory interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AtomicIntegerFactory
+ */
+export function guard(instance: unknown): instance is OptionalType<AtomicIntegerFactory> {
+    return hasFunctions(instance, 'create');
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAtomicIntegerFactory }
+
+/**
  * For creating a Contract for AtomicInteger with duck-typing checks.
+ * @deprecated use createContract instead with guard
  */
 export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<AtomicIntegerFactory> {
 
@@ -25,7 +40,7 @@ export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AtomicIntegerFactory>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, 'create');
+        return guard(instance);
     }
 
     /** 
@@ -44,4 +59,7 @@ export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<
 /**
  * The factory Contract for creating new AtomicInteger instances.
  */
-export const CONTRACT: Contract<AtomicIntegerFactory> = LAWYER.createContract();
+export const CONTRACT: Contract<AtomicIntegerFactory> = createContract({
+    test: guard,
+    name: "AtomicIntegerFactory"
+});

@@ -6,6 +6,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
+import { assertGuard } from "./helper.test";
 
 const VALID_CASES: PredicateCase[] = [
   {
@@ -31,6 +32,8 @@ generatePredicateSuite({
   validCases: [...VALID_CASES, ...OPTIONAL_CASES],
   invalidCases: INVALID_CASES
 });
+
+assertGuard(isAutoClose, "close", Symbol.dispose);
 
 describe('AutoClose tests', () => {
   it('AUTO_CLOSE_NONE works', () => {
@@ -360,4 +363,7 @@ describe('AutoCloseMany tests', () => {
   });
 });
 
+/**
+ * @deprecated use CONTRACT instead
+ */
 generateTestsForLawyer(FACTORY_LAWYER);

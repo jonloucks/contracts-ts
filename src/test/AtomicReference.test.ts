@@ -2,10 +2,11 @@ import { notStrictEqual, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { AtomicReference, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { AtomicReference, guard, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe('AtomicReference', () => {
   it('LAWYER.isDeliverable', () => {
@@ -103,6 +104,8 @@ generateCompareAndSet<string>({
     { current: "green", required: null, requested: "blue", updated: false, final: "green" },
   ]
 });
+
+assertGuard(guard, "compareAndSet", "get", "set");
 
 generateTestsForLawyer(LAWYER);
 

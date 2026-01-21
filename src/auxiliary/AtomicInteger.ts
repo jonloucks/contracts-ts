@@ -47,7 +47,22 @@ export interface AtomicInteger {
 }
 
 /**
+ * Type guard for AtomicInteger interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AtomicInteger
+ */
+export function guard(instance: unknown): instance is OptionalType<AtomicInteger> {
+    return hasFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAtomicInteger }
+
+/**
  * For creating a Contract for AtomicInteger with duck-typing checks.
+ * @deprecated create a contract using guard directly
  */
 export const LAWYER: Lawyer<AtomicInteger> = new class implements Lawyer<AtomicInteger> {
  
@@ -55,7 +70,7 @@ export const LAWYER: Lawyer<AtomicInteger> = new class implements Lawyer<AtomicI
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AtomicInteger>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
+        return guard(instance);
     }
 
     /** 

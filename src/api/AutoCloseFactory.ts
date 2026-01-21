@@ -36,7 +36,23 @@ export { Contract } from "@jonloucks/contracts-ts/api/Contract";
 export { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
+ * Type guard for AutoCloseFactory interface.
+ * 
+ * @param instance the instance to check
+ * @returns true if the instance implements AutoCloseFactory
+ */
+export function guard(instance: unknown): instance is OptionalType<AutoCloseFactory> {
+    return hasFunctions(instance, 'createAutoClose', 'createAutoCloseMany', 'createAutoCloseOne');
+}
+
+/** @deprecated use guard instead
+ */
+export { guard as isAutoCloseFactory }
+
+
+/**
  * For creating a Contract for AutoCloseFactory with duck-typing checks.
+ * @deprecated use CONTRACT instead
  */
 export const LAWYER: Lawyer<AutoCloseFactory> = new class implements Lawyer<AutoCloseFactory> {
 
@@ -44,7 +60,7 @@ export const LAWYER: Lawyer<AutoCloseFactory> = new class implements Lawyer<Auto
      * Lawyer.isDeliverable override
      */
     isDeliverable<X extends AutoCloseFactory>(instance: unknown): instance is OptionalType<X> {
-        return hasFunctions(instance, 'createAutoClose', 'createAutoCloseMany', 'createAutoCloseOne');
+        return guard(instance);
     }
 
     /** 
@@ -63,5 +79,8 @@ export const LAWYER: Lawyer<AutoCloseFactory> = new class implements Lawyer<Auto
 /**
  * The Contract for AutoCloseFactory implementation.
  */
-export const CONTRACT: Contract<AutoCloseFactory> = LAWYER.createContract();
+export const CONTRACT: Contract<AutoCloseFactory> = createContract({
+    test: guard,
+    name: "AutoCloseFactory"
+});
 

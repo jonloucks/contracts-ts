@@ -1,10 +1,12 @@
-import { notStrictEqual, strictEqual } from "node:assert";
+import { mock } from "jest-mock-extended";
+import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { AtomicBoolean, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicBoolean, guard, isAtomicBoolean, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe('AtomicBoolean', () => {
 
@@ -12,16 +14,6 @@ describe('AtomicBoolean', () => {
     const lawyer = LAWYER;
     strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
     strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
-    strictEqual(lawyer.isDeliverable({}), false, "empty object is not deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      set: (_value: boolean) => { },
-      compareAndSet: (_expectedValue: boolean, _newValue: boolean) => true,
-    }), true, "object with get, set, and compareAndSet is deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      // set: (value: boolean) => { },
-    }), false, "missing set is not deliverable");
   });
 
   it('AtomicBoolean FACTORY works', () => {
@@ -104,6 +96,13 @@ describe('AtomicBoolean', () => {
 
 });
 
+describe('AtomicBoolean exports', () => {
+  it('isAtomicBoolean export works', () => {
+    const func = isAtomicBoolean;
+    strictEqual(func !== undefined, true, "isAtomicBoolean is defined");
+  });
+});
+
 generateCompareAndSet({
   validCases: [
     // when current state is false
@@ -118,6 +117,15 @@ generateCompareAndSet({
     { current: true, required: false, requested: false, updated: false, final: true },
   ]
 });
+
+describe('guard tests', () => {
+  it('guard should return true for AtomicBoolean', () => {
+    const atomicBoolean: AtomicBoolean = mock<AtomicBoolean>();
+    ok(guard(atomicBoolean), 'AtomicBoolean should return true');
+  });
+});
+
+assertGuard(guard, "compareAndSet", "get", "set")
 
 generateTestsForLawyer(LAWYER);
 
@@ -152,4 +160,3 @@ export function generateCompareAndSet(options: CompareAndSetSuiteOptions) : void
     });
   });
 }
-
