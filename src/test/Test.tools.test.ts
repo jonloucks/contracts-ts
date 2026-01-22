@@ -6,7 +6,6 @@ import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { isConstructor, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
 describe('all test files need one test, this is test utility class', () => {
