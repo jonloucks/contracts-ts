@@ -41,7 +41,7 @@ class ContractsImpl implements Contracts, AutoOpen {
   /**
    * Open.open override.
    */
-  open() : AutoClose {
+  open(): AutoClose {
     if (this.idempotent.transitionToOpen()) {
       return this.firstOpen();
     }
