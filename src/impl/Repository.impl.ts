@@ -42,7 +42,7 @@ class RepositoryImpl implements Repository, AutoOpen {
    * Open.open
    */
   open(): AutoClose {
-   if (this.idempotent.transitionToOpen()) {
+    if (this.idempotent.transitionToOpen()) {
       return this.firstOpen();
     }
     return AUTO_CLOSE_NONE;
