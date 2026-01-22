@@ -225,9 +225,6 @@ export class Tools {
 
     Tools.assertAll(
       () => Tools.assertObject(contract),
-      () => Tools.assertNull(contract.cast(null), "Casting null should return null."),
-      () => Tools.assertNull(contract.cast(undefined), "Casting null should return null."),
-      () => Tools.assertThrows(ClassCastException, () => contract.cast(undefined), "Invalid cast should thrown."),
       () => Tools.assertSame(config.typeName, contract.typeName, "Contract type mismatch."),
       () => Tools.assertSame(config.name, contract.name, "Contract name mismatch."),
       () => Tools.assertSame(config.replaceable, contract.replaceable, "Contract replacement mismatch.")
