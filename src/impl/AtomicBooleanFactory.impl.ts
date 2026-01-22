@@ -21,7 +21,7 @@ export function create(): RequiredType<AtomicBooleanFactory> {
 class AtomicBooleanFactoryImpl implements AtomicBooleanFactory {
 
   /**
-   * AutomicBooleanFactory.create override
+   * AtomicBooleanFactory.createAtomicBoolean override
    */
   createAtomicBoolean(initialValue?: boolean): RequiredType<AtomicBoolean> {
     return createAtomicBoolean(initialValue);
