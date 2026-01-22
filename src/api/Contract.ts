@@ -64,7 +64,7 @@ export interface Contract<T> {
   *
   * @param value the value to cast
   * @return the checked value. Note: null is possible. The Promisor is allowed to return null
-  * @throws ClassCastException iif the value can't be cast to the return type.
+  * @throws ContractException if the value can't be cast to the return type.
   */
   cast(value: OptionalType<unknown>): OptionalType<T>;
 
