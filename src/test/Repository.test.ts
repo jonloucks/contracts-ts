@@ -4,10 +4,11 @@ import { createContract } from "@jonloucks/contracts-ts";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { LAWYER, Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { Repository, guard } from "@jonloucks/contracts-ts/api/Repository";
 import { CONTRACT as FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "./helper.test";
 
 describe('RepositoryFactory tests', () => {
   it('Repository FACTORY works', () => {
@@ -30,24 +31,15 @@ describe('RepositoryFactory tests', () => {
 
 //--- Repository Tests ---
 
+assertGuard(guard, 
+  'store', 'keep', 'check', 'require', 'open'
+);
+
 test('repository_Factory', () => {
   Tools.withContracts((contracts: Contracts) => {
     const repositoryFactory: RepositoryFactory = contracts.enforce(FACTORY);
 
     Tools.assertObject(repositoryFactory);
-  });
-});
-
-test('repository_contract', () => {
-  Tools.withContracts((contracts: Contracts) => {
-    const contract = LAWYER.createContract({});
-    const repository = contracts.enforce(FACTORY).create();
-
-    using _usingBind = contracts.bind(contract, () => repository);
-
-    const enforcedRepository = contracts.enforce(contract);
-
-    strictEqual(enforcedRepository, repository, "enforced repository should match original repository");
   });
 });
 

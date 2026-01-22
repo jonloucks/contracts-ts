@@ -1,6 +1,6 @@
 import { createContract, Promisor, typeToPromisor } from "@jonloucks/contracts-ts";
 import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen, isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { AutoOpen, guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";

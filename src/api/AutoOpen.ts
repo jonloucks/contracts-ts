@@ -27,7 +27,4 @@ export function guard(instance: unknown): instance is AutoOpen {
     return hasFunctions(instance, 'open');
 }
 
-/** @deprecated use guard instead
- */
-export { guard as isAutoOpen };
 

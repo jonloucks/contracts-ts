@@ -1,5 +1,4 @@
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
@@ -25,36 +24,6 @@ export interface AtomicIntegerFactory {
 export function guard(instance: unknown): instance is OptionalType<AtomicIntegerFactory> {
     return hasFunctions(instance, 'create');
 }
-
-/** @deprecated use guard instead
- */
-export { guard as isAtomicIntegerFactory }
-
-/**
- * For creating a Contract for AtomicInteger with duck-typing checks.
- * @deprecated use createContract instead with guard
- */
-export const LAWYER: Lawyer<AtomicIntegerFactory> = new class implements Lawyer<AtomicIntegerFactory> {
-
-    /** 
-     * Lawyer.isDeliverable override
-     */
-    isDeliverable<X extends AtomicIntegerFactory>(instance: unknown): instance is OptionalType<X> {
-        return guard(instance);
-    }
-
-    /** 
-     * Lawyer.createContract override
-     */
-    createContract<X extends AtomicIntegerFactory>(config?: ContractConfig<X>): Contract<X> {
-        const copy: ContractConfig<X> = { ...config ?? {} };
-
-        copy.test ??= this.isDeliverable;
-        copy.typeName ??= "AtomicIntegerFactory";
-
-        return createContract<X>(copy);
-    }
-};
 
 /**
  * The factory Contract for creating new AtomicInteger instances.

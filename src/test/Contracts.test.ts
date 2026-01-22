@@ -9,7 +9,6 @@ import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
 
-
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {
     const instance: Contracts = mock<Contracts>();

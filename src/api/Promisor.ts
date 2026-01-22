@@ -1,6 +1,3 @@
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
-import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
 import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
@@ -44,36 +41,6 @@ export interface Promisor<T> {
  */
 export function guard<T>(instance: unknown): instance is Promisor<T> {
   return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
-}
-
-/** @deprecated use guard instead
- */
-export { guard as isPromisor };
-
-/**
- * For creating a Contract for Promisor with duck-typing checks.
- * @deprecated use createContract with guard instead
- */
-export const LAWYER: Lawyer<Promisor<unknown>> = new class implements Lawyer<Promisor<unknown>> {
-
-  /**
-   * Lawyer.isDeliverable override
-   */
-  isDeliverable<X extends Promisor<unknown>>(instance: unknown): instance is OptionalType<X> {
-    return guard<X>(instance);
-  }
-
-  /** 
-   * Lawyer.createContract override
-   */
-  createContract<X extends Promisor<unknown>>(config?: ContractConfig<X>): Contract<X> {
-    const copy: ContractConfig<X> = { ...config ?? {} };
-
-    copy.test ??= this.isDeliverable;
-    copy.typeName ??= "Promisor";
-
-    return createContract<X>(copy);
-  }
 }
 
 /**

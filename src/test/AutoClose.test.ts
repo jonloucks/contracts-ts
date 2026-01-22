@@ -1,9 +1,8 @@
 import { doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
 
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose, isAutoClose, isClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoCloseFactory, CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
+import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoCloseFactory, CONTRACT as FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 import { assertGuard } from "./helper.test";
@@ -28,12 +27,12 @@ const INVALID_CASES: PredicateCase[] = [
 
 generatePredicateSuite({
   name: 'isAutoClose',
-  function: isAutoClose,
+  function: guard,
   validCases: [...VALID_CASES, ...OPTIONAL_CASES],
   invalidCases: INVALID_CASES
 });
 
-assertGuard(isAutoClose, "close", Symbol.dispose);
+assertGuard(guard, "close", Symbol.dispose);
 
 describe('AutoClose tests', () => {
   it('AUTO_CLOSE_NONE works', () => {
@@ -49,7 +48,7 @@ describe('AutoClose tests', () => {
       closed = true;
     });
 
-    strictEqual(isAutoClose(autoClose), true, "inlineAutoClose should produce AutoClose.");
+    strictEqual(guard(autoClose), true, "inlineAutoClose should produce AutoClose.");
     strictEqual(closed, false, "should not be closed yet.");
     autoClose.close();
     strictEqual(closed, true, "should be closed after close().");
@@ -58,11 +57,11 @@ describe('AutoClose tests', () => {
     strictEqual(closed, true, "should be closed after dispose().");
   });
 
-  it('isAutoClose works', () => {
-    strictEqual(isAutoClose(null), true, "null is AutoClose");
-    strictEqual(isAutoClose(undefined), true, "undefined is AutoClose");
-    strictEqual(isAutoClose({}), false, "empty object is not AutoClose");
-    strictEqual(isAutoClose({
+  it('guard works', () => {
+    strictEqual(guard(null), true, "null is AutoClose");
+    strictEqual(guard(undefined), true, "undefined is AutoClose");
+    strictEqual(guard({}), false, "empty object is not AutoClose");
+    strictEqual(guard({
       close: (): void => { },
       [Symbol.dispose]: (): void => { }
     }), true, "object with close and dispose is AutoClose");
@@ -196,7 +195,7 @@ describe('AutoCloseOne tests', () => {
       });
 
       strictEqual(isClose(closeMock), true, "isClose should be true");
-      strictEqual(isAutoClose(closeMock), true, "isAutoClose should be true");
+      strictEqual(guard(closeMock), true, "guard should be true");
 
       {
         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
@@ -363,7 +362,3 @@ describe('AutoCloseMany tests', () => {
   });
 });
 
-/**
- * @deprecated use CONTRACT instead
- */
-generateTestsForLawyer(FACTORY_LAWYER);

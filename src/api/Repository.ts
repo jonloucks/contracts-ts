@@ -1,11 +1,9 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
-import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * A repository for multiple contract promisors
@@ -65,29 +63,3 @@ export interface Repository extends AutoOpen {
 export function guard(value: unknown): value is Repository {
   return hasFunctions(value, 'store', 'keep', 'check', 'require') && autoOpenGuard(value);
 }
-
-/**
- * For creating a Contract for Repository with duck-typing checks.
- * @deprecated use createContract with guard instead
- */
-export const LAWYER: Lawyer<Repository> = new class implements Lawyer<Repository> {
-
-  /**
-   * Lawyer.isDeliverable override
-   */
-  isDeliverable<X extends Repository>(instance: unknown): instance is OptionalType<X> {
-    return guard(instance);
-  }
-
-  /** 
-   * Lawyer.createContract override
-   */
-  createContract<X extends Repository>(config?: ContractConfig<X> | undefined): Contract<X> {
-    const copy: ContractConfig<X> = { ...config }
-
-    copy.typeName ??= "Repository";
-    copy.test ??= this.isDeliverable;
-
-    return createContract<X>(copy);
-  }
-};

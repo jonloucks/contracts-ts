@@ -1,5 +1,4 @@
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { OptionalType, RequiredType, Transform, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
@@ -61,32 +60,6 @@ export interface PromisorFactory {
 export function guard(instance: unknown): instance is PromisorFactory {
   return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
 }
-
-/**
- * For creating a Contract for PromisorFactory with duck-typing checks.
- * @deprecated use createContract directly
- */
-export const LAWYER: Lawyer<PromisorFactory> = new class implements Lawyer<PromisorFactory> {
-
-  /**
-   * Lawyer.isDeliverable override
-   */
-  isDeliverable<X extends PromisorFactory>(instance: unknown): instance is OptionalType<X> {
-    return guard(instance);
-  }
-
-  /** 
-   * Lawyer.createContract override
-   */
-  createContract<X extends PromisorFactory>(config?: ContractConfig<X>): Contract<X> {
-    const copy: ContractConfig<X> = { ...config ?? {} };
-
-    copy.test ??= this.isDeliverable;
-    copy.typeName ??= "PromisorFactory";
-
-    return createContract<X>(copy);
-  }
-};
 
 /**
  * The Contract for PromisorFactory implementation.

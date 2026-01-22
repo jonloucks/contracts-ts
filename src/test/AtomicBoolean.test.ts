@@ -2,19 +2,12 @@ import { mock } from "jest-mock-extended";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { AtomicBoolean, guard, isAtomicBoolean, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
 
 describe('AtomicBoolean', () => {
-
-  it('LAWYER.isDeliverable', () => {
-    const lawyer = LAWYER;
-    strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
-    strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
-  });
 
   it('AtomicBoolean FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
@@ -77,30 +70,6 @@ describe('AtomicBoolean', () => {
       strictEqual(atomic.get(), false, "value after compareAndSet to false is false");
     });
   });
-
-  it('FACTORY_LAWYER.isDeliverable', () => {
-    const factoryLawyer = FACTORY_LAWYER;
-    Tools.withContracts((contracts: Contracts) => {
-      strictEqual(factoryLawyer.isDeliverable(() => { return {}; }), false, "with function is false");
-
-      let duck = { create: () : unknown => { return {}; } };
-      strictEqual(factoryLawyer.isDeliverable(duck), true, "with duck-type is true");
-
-      strictEqual(factoryLawyer.isDeliverable("abc"), false, 'with string is false');
-      strictEqual(factoryLawyer.isDeliverable(123), false, 'with number is false');
-      strictEqual(factoryLawyer.isDeliverable({}), false, 'with empty object is false');
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
-      strictEqual(factoryLawyer.isDeliverable(atomic), false, 'with AtomicBoolean is false');
-    });
-  });
-
-});
-
-describe('AtomicBoolean exports', () => {
-  it('isAtomicBoolean export works', () => {
-    const func = isAtomicBoolean;
-    strictEqual(func !== undefined, true, "isAtomicBoolean is defined");
-  });
 });
 
 generateCompareAndSet({
@@ -126,8 +95,6 @@ describe('guard tests', () => {
 });
 
 assertGuard(guard, "compareAndSet", "get", "set")
-
-generateTestsForLawyer(LAWYER);
 
 interface CompareAndSetCase {
   current: boolean

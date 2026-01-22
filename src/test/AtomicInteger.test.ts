@@ -1,35 +1,12 @@
 import { notStrictEqual, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { AtomicInteger, isAtomicInteger, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
-import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { AtomicInteger, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
 
 describe('AtomicInteger', () => {
-
-  it('LAWYER.isDeliverable', () => {
-    const lawyer = LAWYER;
-    strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
-    strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
-    strictEqual(lawyer.isDeliverable({}), false, "empty object is not deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      set: (_value: number) => { },
-      compareAndSet: (_expectedValue: number, _newValue: number) => true,
-      incrementAndGet: () => 1,
-      decrementAndGet: () => -1
-    }), true, "object with get, set, compareAndSet, incrementAndGet, and decrementAndGet is deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      set: (_value: number) => { },
-      // compareAndSet: (expectedValue: number, newValue: number) => true,
-      incrementAndGet: () => 1,
-      decrementAndGet: () => -1
-    }), false, "object missing compareAndSet is not deliverable");
-  });
-
   it('AtomicInteger FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
@@ -69,34 +46,14 @@ describe('AtomicInteger', () => {
       strictEqual(atomic[Symbol.toPrimitive]('default'), 3, "toPrimitive with 'default' hint returns 3");
     });
   });
-
-  it('FACTORY_LAWYER.isDeliverable', () => {
-    Tools.withContracts((contracts: Contracts) => {
-      const factoryLawyer = FACTORY_LAWYER;
-      strictEqual(factoryLawyer.isDeliverable(null), true, "with null is true");
-      strictEqual(factoryLawyer.isDeliverable(undefined), true, "with undefined is true");
-      strictEqual(factoryLawyer.isDeliverable((): unknown => { return {}; }), false, "with function is false");
-
-      let duck = { create: () : unknown=> { return {}; } };
-      strictEqual(factoryLawyer.isDeliverable(duck), true, "with duck-type is true");
-      strictEqual(factoryLawyer.isDeliverable("abc"), false, "with string is false");
-      strictEqual(factoryLawyer.isDeliverable(123), false, "with number is false");
-      strictEqual(factoryLawyer.isDeliverable({}), false, "with empty object is false");
-
-      const atomic: AtomicInteger = contracts.enforce(FACTORY).create();
-      strictEqual(factoryLawyer.isDeliverable(atomic), false, 'with AtomicInteger is false');
-    });
-  });
 });
 
-assertGuard(isAtomicInteger, 
+assertGuard(guard, 
   "get", 
   "set", 
   "compareAndSet", 
   "incrementAndGet", 
   "decrementAndGet"
 );
-
-generateTestsForLawyer(LAWYER);
 
 

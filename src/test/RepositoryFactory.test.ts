@@ -1,10 +1,9 @@
 import { mock } from "jest-mock-extended";
 import { ok } from "node:assert";
 
-import { RepositoryFactory, guard, CONTRACT, LAWYER } 
+import { RepositoryFactory, guard, CONTRACT } 
   from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { assertContract, assertGuard } from "./helper.test";
-import { generateTestsForLawyer } from "./Lawyer.tools.test";
 
 describe('guard tests', () => {
   it('guard should return true for RepositoryFactory', () => {
@@ -15,4 +14,3 @@ describe('guard tests', () => {
 
 assertContract(CONTRACT, "RepositoryFactory");
 assertGuard(guard, "create");
-generateTestsForLawyer(LAWYER);
