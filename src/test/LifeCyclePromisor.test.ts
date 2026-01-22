@@ -21,14 +21,14 @@ describe('LifeCyclePromisor tests', () => {
   it("open is called during demand", () => {
     Tools.withContracts((contracts: Contracts) => {
       const openMock: AutoOpen = jest.mocked<AutoOpen>({
-        open: jest.fn(),
+        autoOpen: jest.fn(),
       });
       const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
       const sourcePromisor: Promisor<unknown> = promisorFactory.createValue(openMock);
       const promisor: Promisor<unknown> = promisorFactory.createLifeCycle(sourcePromisor);
       promisor.incrementUsage();
       promisor.demand();
-      expect(openMock.open).toHaveBeenCalledTimes(1);
+      expect(openMock.autoOpen).toHaveBeenCalledTimes(1);
     });
   });
   it("when open throws is rethrown", () => {
@@ -54,7 +54,7 @@ describe('LifeCyclePromisor tests', () => {
         replaceable: false
       });
       class ReentrancyPromisor implements AutoOpen {
-        open(): AutoClose {
+        autoOpen(): AutoClose {
           if (++openCounter > 1) {
             throw new Error("Reentrancy failure: Issue #69");
           }
@@ -73,7 +73,7 @@ class ThrowsOnOpen implements AutoOpen {
   constructor(error: unknown) {
     this.error = error;
   }
-  open(): AutoClose {
+  autoOpen(): AutoClose {
     throw this.error;
   }
 

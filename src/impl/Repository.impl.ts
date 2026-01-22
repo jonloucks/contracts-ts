@@ -11,6 +11,7 @@ import { contractCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { StorageImpl } from "./Storage.impl";
+import { AutoOpen } from "./Events";
 
 /**
  * Factory method to create Repository instance.
@@ -28,10 +29,17 @@ export function create(contracts: Contracts): RequiredType<Repository> {
  * Implementation for {@link jonloucks.contracts.api.Repository}
  * @see jonloucks.contracts.api.Repository
  */
-class RepositoryImpl implements Repository {
+class RepositoryImpl implements Repository, AutoOpen {
 
   /**
-   * AutoOpen.open override.
+   * AutoOpen.autoOpen override.
+   */
+  autoOpen(): AutoClose {
+    return this.open();
+  }
+
+  /**
+   * Open.open
    */
   open(): AutoClose {
     if (this.idempotent.transitionToOpen()) {

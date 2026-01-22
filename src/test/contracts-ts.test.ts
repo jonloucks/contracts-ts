@@ -163,14 +163,14 @@ describe('ContractsFactory works', () => {
 describe('AutoOpen interface', () => {
   it('can implement the interface', () => {
     const instance: AutoOpen = {
-      open(): RequiredType<AutoClose> {
+      autoOpen(): RequiredType<AutoClose> {
         return typeToAutoClose((): void => { });
       },
     };
 
     ok(instance, 'AutoOpen instance should be created');
-    using usingIt = instance.open();
-    ok(usingIt, 'AutoClose instance should be created from open() method');
+    using usingIt = instance.autoOpen();
+    ok(usingIt, 'AutoClose instance should be created from autoOpen() method');
   });
 });
 

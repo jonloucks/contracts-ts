@@ -1,5 +1,5 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { Open, guard as openGuard } from "@jonloucks/contracts-ts/api/Open";
 import { BindStrategyType as BindType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
@@ -34,7 +34,7 @@ export interface Config {
  * It does know how to load the default from contracts-impl.
  * However, the design is open to have it replaced with an alternative implementation.
  */
-export interface Contracts extends AutoOpen {
+export interface Contracts extends Open {
 
   /**
    * Claim the deliverable from a bound contract.
@@ -92,5 +92,5 @@ export interface Contracts extends AutoOpen {
  * @return true if value is Contracts, false otherwise
  */
 export function guard(value: unknown): value is RequiredType<Contracts> {
-  return guardFunctions(value, 'claim', 'enforce', 'isBound', 'bind') && autoOpenGuard(value);
+  return guardFunctions(value, 'claim', 'enforce', 'isBound', 'bind') && openGuard(value);
 }
