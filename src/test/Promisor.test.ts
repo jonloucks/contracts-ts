@@ -1,19 +1,7 @@
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
-import { LAWYER, Promisor, typeToPromisor, unwrapPromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { Promisor, typeToPromisor, unwrapPromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { generateTestsForLawyer } from "./Lawyer.tools.test";
-
-describe('api/Promisor.ts tests', () => {
-  it('LAWYER.isDeliverable tests', () => {
-    strictEqual(LAWYER.isDeliverable(null), true, 'with null instance returns true');
-    strictEqual(LAWYER.isDeliverable(undefined), true, 'with undefined instance returns true');
-    strictEqual(LAWYER.isDeliverable("abc"), false, 'with string instance returns false');
-    strictEqual(LAWYER.isDeliverable({ demand: () => null }), false, 'with instance with demand returns false');
-    strictEqual(LAWYER.isDeliverable({ demand: () => null, incrementUsage: () => 1, decrementUsage: () => 1 }), true,
-      'with instance with all properties returns true');
-  });
-});
 
 describe('typeToPromisor tests', () => {
   it('with null returns Promisor that returns null', () => {
@@ -108,8 +96,6 @@ describe('unwrapPromisorType tests', () => {
     strictEqual(unwrappedType, promisor, "with custom instance returns same instance");
   });
 });
-
-generateTestsForLawyer(LAWYER);
 
 class DummyClass {
   value: number;

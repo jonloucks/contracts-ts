@@ -1,5 +1,4 @@
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
@@ -25,36 +24,6 @@ export interface AtomicBooleanFactory {
 export function guard(instance: unknown): instance is OptionalType<AtomicBooleanFactory> {
   return hasFunctions(instance, "create");
 }
-
-/** @deprecated use guard instead
- */
-export { guard as isAtomicBooleanFactory }
-
-/**
- * For creating a Contract for AtomicBoolean with duck-typing checks.
- * @deprecated use CONTRACT instead
- */
-export const LAWYER: Lawyer<AtomicBooleanFactory> = new class implements Lawyer<AtomicBooleanFactory> {
-
-  /** 
-   * Lawyer.isDeliverable override
-   */
-  isDeliverable<X extends AtomicBooleanFactory>(instance: unknown): instance is OptionalType<X> {
-    return guard(instance);
-  }
-
-  /** 
-   * Lawyer.createContract override
-   */
-  createContract<X extends AtomicBooleanFactory>(config?: ContractConfig<X>): Contract<X> {
-    const copy: ContractConfig<X> = { ...config ?? {} };
-
-    copy.test ??= this.isDeliverable;
-    copy.typeName ??= "AtomicBooleanFactory";
-
-    return createContract<X>(copy);
-  }
-};
 
 /**
  * The factory Contract for creating new AtomicBoolean instances.

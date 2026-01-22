@@ -1,9 +1,8 @@
 import { mock } from "jest-mock-extended";
 import { ok } from "node:assert";
 
-import { AtomicReferenceFactory, guard, CONTRACT, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
+import { AtomicReferenceFactory, guard, CONTRACT } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { assertContract, assertGuard } from "./helper.test";
-import { generateTestsForLawyer } from "./Lawyer.tools.test";
 
 describe('guard tests', () => {
   it('guard should return true for AtomicReferenceFactory', () => {
@@ -14,4 +13,3 @@ describe('guard tests', () => {
 
 assertContract(CONTRACT, "AtomicReferenceFactory");
 assertGuard(guard, "create");
-generateTestsForLawyer(LAWYER);

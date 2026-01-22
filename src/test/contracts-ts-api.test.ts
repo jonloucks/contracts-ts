@@ -10,7 +10,6 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { ContractFactory } from "@jonloucks/contracts-ts/api/ContractFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { ContractsFactory } from "@jonloucks/contracts-ts/api/ContractsFactory";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
@@ -37,7 +36,6 @@ describe('contracts-ts/api Index exports', () => {
     assertNothing(null as OptionalType<ContractFactory>);
     assertNothing(null as OptionalType<Contracts>);
     assertNothing(null as OptionalType<ContractsFactory>);
-    assertNothing(null as OptionalType<Lawyer<string>>);
     assertNothing(null as OptionalType<Promisor<string>>);
     assertNothing(null as OptionalType<PromisorFactory>);
     assertNothing(null as OptionalType<Repository>);

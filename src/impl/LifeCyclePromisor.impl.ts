@@ -1,5 +1,5 @@
 import { AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
-import { isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";

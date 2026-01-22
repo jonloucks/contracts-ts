@@ -2,29 +2,12 @@ import { notStrictEqual, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { AtomicReference, guard, LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
-import { CONTRACT as FACTORY, LAWYER as FACTORY_LAWYER } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { generateTestsForLawyer } from "@jonloucks/contracts-ts/test/Lawyer.tools.test";
+import { AtomicReference, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
 
 describe('AtomicReference', () => {
-  it('LAWYER.isDeliverable', () => {
-    const lawyer = LAWYER;
-    strictEqual(lawyer.isDeliverable(null), true, "null is deliverable");
-    strictEqual(lawyer.isDeliverable(undefined), true, "undefined is deliverable");
-    strictEqual(lawyer.isDeliverable({}), false, "empty object is not deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      set: (_value: Date) => { },
-      compareAndSet: (_expectedValue: Date, _newValue: Date) => true,
-    }), true, "object with get, set, and compareAndSet is deliverable");
-    strictEqual(lawyer.isDeliverable({
-      get: () => 0,
-      // set: (value: boolean) => { },
-    }), false, "object missing set is not deliverable");
-  });
-
   it('AtomicReference FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
@@ -75,19 +58,6 @@ describe('AtomicReference', () => {
       notStrictEqual(atomic.toString(), undefined, "toString with undefined should not be undefined");
     });
   });
-
-  it('FACTORY_LAWYER.isDeliverable', () => {
-    Tools.withContracts((contracts: Contracts) => {
-      strictEqual(FACTORY_LAWYER.isDeliverable(() : unknown => { return {}; }), false, "with function is false");
-      let duck = { create: () : unknown => { return {}; } };
-      strictEqual(FACTORY_LAWYER.isDeliverable(duck), true, "with duck-type is true");
-      strictEqual(FACTORY_LAWYER.isDeliverable("abc"), false, 'with string is false');
-      strictEqual(FACTORY_LAWYER.isDeliverable(123), false, 'with number is false');
-      strictEqual(FACTORY_LAWYER.isDeliverable({}), false, 'with empty object is false');
-      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
-      strictEqual(FACTORY_LAWYER.isDeliverable(atomic), false, 'with AtomicReference is false');
-    });
-  });
 });
 
 generateCompareAndSet<string>({
@@ -106,8 +76,6 @@ generateCompareAndSet<string>({
 });
 
 assertGuard(guard, "compareAndSet", "get", "set");
-
-generateTestsForLawyer(LAWYER);
 
 interface CompareAndSetCase<T> {
   current: OptionalType<T>;

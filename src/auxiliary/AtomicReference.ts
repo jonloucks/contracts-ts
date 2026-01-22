@@ -1,6 +1,3 @@
-import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-import { Lawyer } from "@jonloucks/contracts-ts/api/Lawyer";
-import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
@@ -37,34 +34,4 @@ export interface AtomicReference<T> {
  */
 export function guard<T>(instance: unknown): instance is OptionalType<AtomicReference<T>> {
     return hasFunctions(instance, "compareAndSet", "get", "set");
-}
-
-/** @deprecated use guard instead
- */
-export { guard as isAtomicReference }
-
-/**
- * For creating a Contract for AtomicReference with duck-typing checks.
- * @deprecated create a contract using typeGuard directly
- */
-export const LAWYER: Lawyer<AtomicReference<unknown>> = new class implements Lawyer<AtomicReference<unknown>> {
-
-    /** 
-     * Lawyer.isDeliverable override 
-     */
-    isDeliverable<X extends AtomicReference<unknown>>(instance: unknown): instance is OptionalType<X> {
-        return guard(instance);
-    }
-
-    /** 
-     * Lawyer.createContract override 
-     */
-    createContract<X extends AtomicReference<unknown>>(config?: ContractConfig<X>): Contract<X> {
-        const copy: ContractConfig<X> = { ...config ?? {} };
-
-        copy.test ??= this.isDeliverable;
-        copy.typeName ??= "AtomicReference";
-
-        return createContract<X>(copy);
-    }
 }

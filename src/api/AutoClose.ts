@@ -128,9 +128,6 @@ export function guard(instance: unknown): instance is OptionalType<AutoClose> {
     return hasFunctions(instance, 'close', Symbol.dispose);
 }
 
-/** @deprecated use guard instead*/
-export { guard as isAutoClose };
-
 /**
  * Duck-typing check for object with close() method.
  * 
