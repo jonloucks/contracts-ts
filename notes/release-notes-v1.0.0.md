@@ -38,7 +38,7 @@ First major release - stable API, production ready
 - Added subpath exports for `api` and `auxiliary` modules
 
 ### v0.1.1
-- First automated release from GitHub Actions
+- First release from GitHub Actions
 
 ## ⬇️ Download
 
