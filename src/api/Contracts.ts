@@ -3,7 +3,7 @@ import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/Au
 import { BindStrategyType as BindType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
-import { hasFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * The Contracts configuration
@@ -53,7 +53,7 @@ export interface Contracts extends AutoOpen {
    *
    * @param contract the contract to claim
    * @param <T>      type of value returned
-   * @return the value returned by the bound Promisor, but never null
+   * @return the value returned by the bound Promisor, but never null or undefined
    * @throws ContractException if Promisor binding does not exist for the contract, or the deliverable is null
    * @throws SecurityException if permission is denied
    * @throws IllegalArgumentException may throw when an argument is null
@@ -91,6 +91,6 @@ export interface Contracts extends AutoOpen {
  * @param value the value to check
  * @return true if value is Contracts, false otherwise
  */
-export function guard(value: unknown): value is Contracts {
-  return hasFunctions(value, 'claim', 'enforce', 'isBound', 'bind') && autoOpenGuard(value);
+export function guard(value: unknown): value is RequiredType<Contracts> {
+  return guardFunctions(value, 'claim', 'enforce', 'isBound', 'bind') && autoOpenGuard(value);
 }

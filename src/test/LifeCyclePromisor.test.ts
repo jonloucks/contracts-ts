@@ -4,7 +4,6 @@ import { AutoOpen, guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoO
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
@@ -51,12 +50,7 @@ describe('LifeCyclePromisor tests', () => {
       const contract: Contract<AutoOpen> = createContract<AutoOpen>({
         name: "ReentrancyPromisor",
         typeName: "AutoOpen",
-        cast: (obj: unknown): AutoOpen => {
-          if (isAutoOpen(obj)) {
-            return obj as AutoOpen;
-          }
-          throw new ClassCastException("Cannot cast to AutoOpen.");
-        },
+        test: isAutoOpen,
         replaceable: false
       });
       class ReentrancyPromisor implements AutoOpen {

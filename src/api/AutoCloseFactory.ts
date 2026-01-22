@@ -1,7 +1,7 @@
 import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { hasFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Interface for a factory that creates AutoClose instances.
@@ -40,8 +40,8 @@ export { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
  * @param instance the instance to check
  * @returns true if the instance implements AutoCloseFactory
  */
-export function guard(instance: unknown): instance is OptionalType<AutoCloseFactory> {
-    return hasFunctions(instance, 'createAutoClose', 'createAutoCloseMany', 'createAutoCloseOne');
+export function guard(instance: unknown): instance is RequiredType<AutoCloseFactory> {
+    return guardFunctions(instance, 'createAutoClose', 'createAutoCloseMany', 'createAutoCloseOne');
 }
 
 /**
@@ -49,6 +49,7 @@ export function guard(instance: unknown): instance is OptionalType<AutoCloseFact
  */
 export const CONTRACT: Contract<AutoCloseFactory> = createContract({
     test: guard,
-    name: "AutoCloseFactory"
+    name: "AutoCloseFactory",
+    typeName: "AutoCloseFactory"
 });
 

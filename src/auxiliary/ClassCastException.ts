@@ -13,5 +13,3 @@ export class ClassCastException extends Error {
         Object.setPrototypeOf(this, ClassCastException.prototype)
     }
 }
-
-

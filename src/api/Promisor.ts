@@ -1,4 +1,4 @@
-import { OptionalType, RequiredType, hasFunctions, isConstructorPresent, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, guardFunctions, isConstructor, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
 import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /**
@@ -39,8 +39,8 @@ export interface Promisor<T> {
  * @param instance the instance to check
  * @returns true if the instance is a Promisor, false otherwise
  */
-export function guard<T>(instance: unknown): instance is Promisor<T> {
-  return hasFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
+export function guard<T>(instance: unknown): instance is RequiredType<Promisor<T>> {
+  return guardFunctions(instance, 'demand', 'incrementUsage', 'decrementUsage');
 }
 
 /**
@@ -57,7 +57,7 @@ export type PromisorType<T> = (new () => T) | Promisor<T> | (() => OptionalType<
 export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<T>> {
   if (isNotPresent(type)) {
     return wrapPromisor<T>(type, () => type); // supplier of null or undefined
-  } else if (isConstructorPresent<T>(type)) {
+  } else if (isConstructor<T>(type)) {
     return wrapPromisor<T>(type, () => new type()); // supplier of new instance
   } else if (guard(type)) {
     return type; // already a Promisor

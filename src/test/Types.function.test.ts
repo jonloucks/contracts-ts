@@ -1,4 +1,4 @@
-import { isFunction, isFunctionPresent } from "@jonloucks/contracts-ts/api/Types";
+import { isFunction } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
@@ -16,13 +16,6 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isFunction',
   function: isFunction,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
-});
-
-generatePredicateSuite({
-  name: 'isFunctionPresent',
-  function: isFunctionPresent,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

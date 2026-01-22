@@ -1,6 +1,6 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
 /**
@@ -21,8 +21,8 @@ export interface AtomicBooleanFactory {
  * @param instance the instance to check
  * @returns true if the instance implements AtomicBooleanFactory
  */
-export function guard(instance: unknown): instance is OptionalType<AtomicBooleanFactory> {
-  return hasFunctions(instance, "create");
+export function guard(instance: unknown): instance is RequiredType<AtomicBooleanFactory> {
+  return guardFunctions(instance, "create");
 }
 
 /**

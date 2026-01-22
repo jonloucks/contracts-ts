@@ -48,21 +48,6 @@ describe('api/RatifiedContract.ts tests', () => {
     const contract: Contract<string> = createContract<string>(contractConfig);
     strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
   });
-
-  it('create with a Config.cast should work', () => {
-    const contractConfig: ContractConfig<string> = {
-      ratified: true,
-      cast: (value: OptionalType<unknown>): OptionalType<string> => {
-        if (typeof value === 'string') {
-          return value;
-        }
-        return undefined;
-      }
-    };
-
-    const contract: Contract<string> = createContract<string>(contractConfig);
-    strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
-  });
 });
 
 describe('api/RatifiedContract.ts tests', () => {
@@ -87,6 +72,7 @@ describe('api/RatifiedContract.ts tests', () => {
         }
         return undefined;
       },
+      guarded: true
     };
     strictEqual(isRatifiedContract(contractImpl), false, 'with contract implementation returns false');
   });
@@ -99,6 +85,9 @@ describe('api/RatifiedContract.ts tests', () => {
       }
     });
     class FakeRatifiedContract<T> implements Contract<T> {
+      get guarded(): boolean {
+        return true;
+      }
       cast(value: OptionalType<unknown>): OptionalType<T> {
         return value as OptionalType<T>;
       }

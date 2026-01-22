@@ -1,4 +1,4 @@
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Responsibility: An atomic integer interface for thread-safe integer operations.
@@ -49,6 +49,6 @@ export interface AtomicInteger {
  * @param instance the instance to check
  * @returns true if the instance implements AtomicInteger
  */
-export function guard(instance: unknown): instance is OptionalType<AtomicInteger> {
-    return hasFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
+export function guard(instance: unknown): instance is RequiredType<AtomicInteger> {
+    return guardFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
 }

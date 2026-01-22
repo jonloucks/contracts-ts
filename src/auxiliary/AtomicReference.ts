@@ -1,4 +1,4 @@
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Responsibility: An atomic reference interface for thread-safe reference operations.
@@ -32,6 +32,6 @@ export interface AtomicReference<T> {
  * @param instance the instance to check
  * @returns true if the instance implements AtomicReference
  */
-export function guard<T>(instance: unknown): instance is OptionalType<AtomicReference<T>> {
-    return hasFunctions(instance, "compareAndSet", "get", "set");
+export function guard<T>(instance: unknown): instance is RequiredType<AtomicReference<T>> {
+    return guardFunctions(instance, "compareAndSet", "get", "set");
 }

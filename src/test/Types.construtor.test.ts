@@ -1,4 +1,4 @@
-import { isConstructor, isConstructorPresent } from "@jonloucks/contracts-ts/api/Types";
+import { isConstructor } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
@@ -17,13 +17,6 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isConstructor',
   function: isConstructor,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
-});
-
-generatePredicateSuite({
-  name: 'isConstructorPresent',
-  function: isConstructorPresent,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

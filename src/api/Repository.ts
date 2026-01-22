@@ -3,7 +3,7 @@ import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/Au
 import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
-import { hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * A repository for multiple contract promisors
@@ -60,6 +60,6 @@ export interface Repository extends AutoOpen {
  * @param value the value to check
  * @return true if value is Repository, false otherwise
  */
-export function guard(value: unknown): value is Repository {
-  return hasFunctions(value, 'store', 'keep', 'check', 'require') && autoOpenGuard(value);
+export function guard(value: unknown): value is RequiredType<Repository> {
+  return guardFunctions(value, 'store', 'keep', 'check', 'require') && autoOpenGuard(value);
 }

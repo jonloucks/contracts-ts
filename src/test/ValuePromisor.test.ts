@@ -11,8 +11,6 @@ import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 generateValueSuite<string>({
   name: 'Value Promisor with primitive string values',
   validCases: [
-    { value: undefined, help: "an undefined string" },
-    { value: null, help: "a null string" },
     { value: "hello", help: "a simple string" },
     { value: "", help: "an empty string" },
     { value: " ", help: "a space string" },
@@ -22,8 +20,6 @@ generateValueSuite<string>({
 generateValueSuite<boolean>({
   name: 'Value Promisor with primitive boolean values',
   validCases: [
-    { value: undefined, help: "an undefined boolean" },
-    { value: null, help: "a null boolean" },
     { value: true, help: "a true boolean" },
     { value: false, help: "a false boolean" },
   ],
@@ -32,8 +28,6 @@ generateValueSuite<boolean>({
 generateValueSuite<number>({
   name: 'Value Promisor with primitive number values',
   validCases: [
-    { value: undefined, help: "an undefined number" },
-    { value: null, help: "a null number" },
     { value: 0, help: "a zero number" },
     { value: 42, help: "a positive number" }
   ],
@@ -42,8 +36,6 @@ generateValueSuite<number>({
 generateValueSuite<Date>({
   name: 'Value Promisor with Date values',
   validCases: [
-    { value: undefined, help: "an undefined date" },
-    { value: null, help: "a null date" },
     { value: new Date(0), help: "a zero date" },
     { value: new Date(), help: "a current date" }
   ],
@@ -57,8 +49,6 @@ interface Person {
 generateValueSuite<Person>({
   name: 'Value Promisor with interface instance values',
   validCases: [
-    { value: undefined, help: "an undefined Person" },
-    { value: null, help: "a null Person" },
     { value: { name: "Alice", age: 30 }, help: "a Person object" }
   ],
 });

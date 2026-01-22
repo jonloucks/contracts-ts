@@ -1,5 +1,5 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Opt-in interface to be called once after creation, although implementations should
@@ -23,8 +23,8 @@ export interface AutoOpen {
  * @param instance the instance to check
  * @returns true if the instance implements AutoOpen, false otherwise
  */
-export function guard(instance: unknown): instance is AutoOpen {
-    return hasFunctions(instance, 'open');
+export function guard(instance: unknown): instance is RequiredType<AutoOpen> {
+    return guardFunctions(instance, 'open');
 }
 
 

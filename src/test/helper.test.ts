@@ -14,8 +14,10 @@ export function assertContract<T>(contract: Contract<T>, name: string): void {
     it(`${name} CONTRACT should be ratified with a name`, () => {
       ok(isRatifiedContract(contract), `${name} isRatifiedContract should return true`);
       ok(contract.name == name, `CONTRACT name should be ${name}`);
-      ok(contract.cast(null) === null, `${name} CONTRACT.cast(null) should return null`);
-      ok(contract.cast(undefined) === undefined, `${name} CONTRACT.cast(undefined) should return undefined`);
+      if (contract.guarded == false) {
+        ok(contract.cast(null) === null, `${name} CONTRACT.cast(null) should return null`);
+        ok(contract.cast(undefined) === undefined, `${name} CONTRACT.cast(undefined) should return undefined`);
+      }
     });
   });
 }
@@ -51,9 +53,9 @@ export function assertGuard<T>(guard: Guard<T>, ...propertyNames: (string | symb
     const emptyObj: Record<string | symbol, unknown> = {};
     ok(!guard(emptyObj), `Empty object should not be recognized as duck type`);
   });
-  it(`Guard should return true for null and undefined`, () => {
-    ok(guard(null), 'null should be recognized as duck type');
-    ok(guard(undefined), 'undefined should be recognized as duck type');
+  it(`Guard should return false for null and undefined`, () => {
+    ok(!guard(null), 'guard should never return null');
+    ok(!guard(undefined), 'guard should never return undefined');
   });
 };
 

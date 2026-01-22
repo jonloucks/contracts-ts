@@ -1,6 +1,6 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 
 /**
@@ -21,8 +21,8 @@ export interface AtomicReferenceFactory {
  * @param instance the instance to check
  * @returns true if the instance implements AtomicReferenceFactory
  */
-export function guard(instance: unknown): instance is OptionalType<AtomicReferenceFactory> {
-    return hasFunctions(instance, "create");
+export function guard(instance: unknown): instance is RequiredType<AtomicReferenceFactory> {
+    return guardFunctions(instance, "create");
 }
 
 /**
