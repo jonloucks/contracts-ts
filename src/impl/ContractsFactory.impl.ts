@@ -45,7 +45,7 @@ export function createContracts(config?: ContractsConfig): RequiredType<Contract
 class ContractsFactoryImpl implements ContractsFactory {
 
   /**
-   * ContractsFactory.create override
+   * ContractsFactory.createContracts override
    */
   createContracts(config?: ContractsConfig): RequiredType<Contracts> {
     const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
