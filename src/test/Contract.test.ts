@@ -32,8 +32,6 @@ describe('Create string contract', () => {
       { instance: true, help: 'boolean' }
     ],
     validCases: [
-      { instance: null, help: 'null' },
-      { instance: undefined, help: 'undefined' },
       { instance: "hello", expected: "hello", help: 'string' },
       { instance: "", expected: "", help: 'empty string' }
     ]

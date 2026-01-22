@@ -1,4 +1,4 @@
-import { isNumber, isNumberPresent } from "@jonloucks/contracts-ts/api/Types";
+import { isNumber } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
@@ -22,13 +22,6 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isNumber',
   function: isNumber,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
-});
-
-generatePredicateSuite({
-  name: 'isNumberPresent',
-  function: isNumberPresent,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

@@ -48,21 +48,6 @@ describe('api/RatifiedContract.ts tests', () => {
     const contract: Contract<string> = createContract<string>(contractConfig);
     strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
   });
-
-  it('create with a Config.cast should work', () => {
-    const contractConfig: ContractConfig<string> = {
-      ratified: true,
-      cast: (value: OptionalType<unknown>): OptionalType<string> => {
-        if (typeof value === 'string') {
-          return value;
-        }
-        return undefined;
-      }
-    };
-
-    const contract: Contract<string> = createContract<string>(contractConfig);
-    strictEqual(isRatifiedContract(contract), true, 'created contract is RatifiedContract');
-  });
 });
 
 describe('api/RatifiedContract.ts tests', () => {

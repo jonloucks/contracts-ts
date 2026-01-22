@@ -28,8 +28,8 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isAutoClose',
   function: guard,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
+  validCases: [...VALID_CASES],
+  invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES ]
 });
 
 assertGuard(guard, "close", Symbol.dispose);
@@ -55,16 +55,6 @@ describe('AutoClose tests', () => {
     closed = false;
     autoClose[Symbol.dispose]();
     strictEqual(closed, true, "should be closed after dispose().");
-  });
-
-  it('guard works', () => {
-    strictEqual(guard(null), true, "null is AutoClose");
-    strictEqual(guard(undefined), true, "undefined is AutoClose");
-    strictEqual(guard({}), false, "empty object is not AutoClose");
-    strictEqual(guard({
-      close: (): void => { },
-      [Symbol.dispose]: (): void => { }
-    }), true, "object with close and dispose is AutoClose");
   });
 
   it('unwrapAutoClose works', () => {

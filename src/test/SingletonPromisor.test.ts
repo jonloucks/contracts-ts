@@ -36,8 +36,6 @@ interface Person {
 generateSingletonSuite<Person>({
   name: 'Singleton Promisor with interface instance values',
   validCases: [
-    { value: () : Person | null| undefined => { return undefined; }, help: "an undefined Person" },
-    { value: () : Person | null| undefined => { return null; }, help: "a null Person" },
     { value: () : Person | null| undefined => { return { name: "Alice", age: 30 } }, help: "a Person object" }
   ],
   invalidCases: [
@@ -70,7 +68,7 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) : void {
       it(`case ${index}: when value is ${testCase?.help ?? testCase.value}`, () => {
         Tools.withContracts((contracts: Contracts) => {
           const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
-          const contract: Contract<T> = createContract<T>();
+          const contract: Contract<T> = createContract<T>({guarded: false});
           const valuePromisor: Promisor<T> = typeToPromisor<T>(testCase.value);
           const promisor: Promisor<T> = promisorFactory.createSingleton<T>(valuePromisor)
 

@@ -1,4 +1,4 @@
-import { hasFunctions, OptionalType } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Configuration for a Contract
@@ -8,20 +8,11 @@ import { hasFunctions, OptionalType } from "@jonloucks/contracts-ts/api/Types";
 export interface Config<T> {
 
   /**
-   * Ensure an instance is of type T (or descendant)
-   *
-   * @param instance the value to cast to type T
-   * @return the value, null is allowed
-   * @throws ClassCastException when type of instance is not correct
-   */
-  cast?: (instance: unknown) => OptionalType<T>;
-
-  /**
    * the predefine test to check if instance is of type T
    * @param instance the instance to check
-   * @returns 
+   * @returns true if the instance is of type T, false otherwise
    */
-  test?: (instance: unknown) => instance is OptionalType<T>;
+  test?: (instance: unknown) => instance is RequiredType<T>;
 
   /**
    * User defined name for this contract.
@@ -52,6 +43,12 @@ export interface Config<T> {
    * and must comply with RatifiedContract rules.
    */
   ratified?: boolean;
+
+  /**   
+   * When guarded is true the Contract throws exception if deliverable is null or undefined
+   * The default is true.
+   */
+  guarded?: boolean;
 }
 
 /**
@@ -99,8 +96,8 @@ export interface Contract<T> {
  * @param instance the instance to check
  * @returns true if the instance implements Contract, false otherwise
  */
-export function guard<T>(instance: unknown): instance is Contract<T> {
-  return hasFunctions(instance, 'cast', 'name', 'typeName', 'replaceable');
+export function guard<T>(instance: unknown): instance is RequiredType<Contract<T>> {
+  return guardFunctions(instance, 'cast', 'name', 'typeName', 'replaceable');
 }
 
 

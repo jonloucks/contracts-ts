@@ -1,4 +1,4 @@
-import { isSymbol, isSymbolPresent } from "@jonloucks/contracts-ts/api/Types";
+import { isSymbol } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
@@ -17,13 +17,6 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isSymbol',
   function: isSymbol,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
-});
-
-generatePredicateSuite({
-  name: 'isSymbolPresent',
-  function: isSymbolPresent,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

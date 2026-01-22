@@ -1,4 +1,4 @@
-import { isBigInt, isBigIntPresent } from "@jonloucks/contracts-ts/api/Types";
+import { isBigInt } from "@jonloucks/contracts-ts/api/Types";
 import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
@@ -17,13 +17,6 @@ const INVALID_CASES: PredicateCase[] = [
 generatePredicateSuite({
   name: 'isBigInt',
   function: isBigInt,
-  validCases: [...VALID_CASES, ...OPTIONAL_CASES],
-  invalidCases: INVALID_CASES
-});
-
-generatePredicateSuite({
-  name: 'isBigIntPresent',
-  function: isBigIntPresent,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

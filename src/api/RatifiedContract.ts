@@ -12,7 +12,7 @@ import { OptionalType, RequiredType, isNotPresent, isPresent } from "@jonloucks/
  * @param config the configuration for the RatifiedContract
  * @returns the created RatifiedContract
  */
-export function create<T>(config?: Config<T> | null): Contract<T> {
+export function create<T>(config?: Config<T> | undefined): Contract<T> {
   return RatifiedContract.create<T>(config);
 }
 
@@ -32,10 +32,7 @@ export function isRatifiedContract(instance: unknown): instance is RatifiedContr
  * @returns true if the configuration is ratifiable, false otherwise
  */
 export function isRatifiableConfig<T>(config?: OptionalType<Config<T>>): config is RequiredType<Config<T>> {
-  if (isNotPresent(config)) {
-    return false;
-  }
-  return isPresent(config.test) || isPresent(config.cast);
+  return isPresent(config) && isPresent(config.test);
 }
 
 /**
@@ -53,7 +50,7 @@ class RatifiedContract<T> extends BasicContract<T> {
     * @param <T>    the type of deliverable for this Contract
     * @return the new Contract
     */
-  static create<T>(config?: Config<T> | null): Contract<T> {
+  static create<T>(config?: Config<T> | undefined): Contract<T> {
     return new RatifiedContract<T>(config);
   }
 

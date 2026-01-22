@@ -16,7 +16,9 @@ export interface ContractSuiteOptions<T> {
   invalidCases?: CastCase<T>[];
 }
 
-const someContract: Contract<string> = createContract<string>();
+const someContract: Contract<string> = createContract<string>({
+  guarded: false
+});
 
 generateContractSuite({
   name: 'SomeContract',

@@ -1,7 +1,7 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, Transform, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, Transform, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
@@ -57,8 +57,8 @@ export interface PromisorFactory {
  * @param value the value to check
  * @return true if value is PromisorFactory, false otherwise
  */
-export function guard(instance: unknown): instance is PromisorFactory {
-  return hasFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
+export function guard(instance: unknown): instance is RequiredType<PromisorFactory> {
+  return guardFunctions(instance, 'createExtractor', 'createLifeCycle', 'createSingleton', 'createValue');
 }
 
 /**
@@ -66,6 +66,7 @@ export function guard(instance: unknown): instance is PromisorFactory {
  */
 export const CONTRACT: Contract<PromisorFactory> = createContract({
   test: guard,
-  name: "PromisorFactory"
+  name: "PromisorFactory",
+  typeName: "PromisorFactory"
 });
 

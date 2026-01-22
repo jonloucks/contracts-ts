@@ -1,4 +1,4 @@
-import { OptionalType, hasFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Responsibility: An atomic boolean interface for thread-safe boolean operations.
@@ -38,8 +38,8 @@ export interface AtomicBoolean {
  * @param instance the instance to check
  * @returns true if the instance implements AtomicBoolean
  */
-export function guard(instance: unknown): instance is OptionalType<AtomicBoolean> {
-    return hasFunctions(instance, "compareAndSet", "get", "set");
+export function guard(instance: unknown): instance is RequiredType<AtomicBoolean> {
+    return guardFunctions(instance, "compareAndSet", "get", "set");
 }
 
 

@@ -1,4 +1,4 @@
-import { hasFunctions, hasFunctionsPresent } from "@jonloucks/contracts-ts/api/Types";
+import { guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 describe("hasFunctions", () => {
   it("should return true when all functions are present", () => {
@@ -7,7 +7,7 @@ describe("hasFunctions", () => {
       func2: async () : Promise<void> => { },
     };
 
-    expect(hasFunctions(obj, "func1", "func2")).toBe(true);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(true);
   });
 
   it("should return false when any function is missing", () => {
@@ -15,7 +15,7 @@ describe("hasFunctions", () => {
       func1: () : void => { },
     };
 
-    expect(hasFunctions(obj, "func1", "func2")).toBe(false);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
   });
 
   it("should return false when any function is not a function", () => {
@@ -24,7 +24,7 @@ describe("hasFunctions", () => {
       func2: "not a function",
     };
 
-    expect(hasFunctions(obj, "func1", "func2")).toBe(false);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
   });
 });
 
@@ -35,7 +35,7 @@ describe("hasFunctionsPresent", () => {
       func2: async () : Promise<void> => { },
     };
 
-    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(true);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(true);
   });
 
   it("should return false when any function is missing", () => {
@@ -43,7 +43,7 @@ describe("hasFunctionsPresent", () => {
       func1: () : void => { },
     };
 
-    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(false);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
   });
 
   it("should return false when any function is not a function", () => {
@@ -52,6 +52,6 @@ describe("hasFunctionsPresent", () => {
       func2: "not a function",
     };
 
-    expect(hasFunctionsPresent(obj, "func1", "func2")).toBe(false);
+    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
   });
 });

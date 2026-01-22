@@ -1,10 +1,10 @@
-import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
+import { createContracts } from "./impl/ContractsFactory.impl";
 
 export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 export { CONTRACT as AUTO_CLOSE_FACTORY, AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 export { BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
 export { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 export { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
@@ -14,13 +14,13 @@ export { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 export { CONTRACT as PROMISOR_FACTORY, PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 export { Repository } from "@jonloucks/contracts-ts/api/Repository";
 export { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
-export { hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 //  no qualified paths for things not exposed publicly
-export { VERSION } from "./version";
-import { createContracts } from "./impl/ContractsFactory.impl";
 export { createContract, create as createContractFactory } from "./impl/ContractFactory.impl";
 export { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl";
+export { VERSION } from "./version";
 
 /**
  * A shared global Contracts instance.

@@ -4,7 +4,7 @@ import { createContract, createContracts } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
-import { isConstructorPresent, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { isConstructor, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
@@ -92,7 +92,7 @@ export class Tools {
   private static applyAssertPredicate(predicate: AssertPredicate, actual: Error) : void{
     if (!predicate) {
       return;
-    } else if (isConstructorPresent(predicate)) {
+    } else if (isConstructor(predicate)) {
       const expectedType = predicate as new () => object;
       if (!(actual instanceof expectedType)) {
         throw new AssertionError({ message: `Error was not instance of expected type ${expectedType.name}.` });
@@ -220,12 +220,11 @@ export class Tools {
    * @param valid  a valid value
    * @param <T> the type of deliverable
    */
-  public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, valid: T): void {
+  public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, _valid: T): void {
     Tools.assertNotNull(contract, "Contract must not be null.");
 
     Tools.assertAll(
       () => Tools.assertObject(contract),
-      () => Tools.assertSame(config.cast?.(valid), contract.cast(valid), "Casting a valid value should work."),
       () => Tools.assertNull(contract.cast(null), "Casting null should return null."),
       () => Tools.assertNull(contract.cast(undefined), "Casting null should return null."),
       () => Tools.assertThrows(ClassCastException, () => contract.cast(undefined), "Invalid cast should thrown."),
@@ -350,6 +349,7 @@ export class Tools {
       },
       typeName: "string",
       name: "String Contract",
+      guarded: false, // for now
       replaceable: false
     });
   }
