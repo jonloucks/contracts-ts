@@ -88,6 +88,12 @@ export interface Contract<T> {
    * @return true if replaceable
    */
   get replaceable(): boolean;
+
+  /**
+   * When guarded is true the Contract throws exception if deliverable is null or undefined
+   * The default is true.
+   */
+  get guarded(): boolean;
 }
 
 /**
