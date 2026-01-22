@@ -37,7 +37,7 @@ describe('contracts-ts/api Index exports', () => {
     assertNothing(null as OptionalType<ContractFactory>);
     assertNothing(null as OptionalType<Contracts>);
     assertNothing(null as OptionalType<ContractsFactory>);
-    assertNothing(null as OptionalType<Open>)
+    assertNothing(null as OptionalType<Open>);
     assertNothing(null as OptionalType<Promisor<string>>);
     assertNothing(null as OptionalType<PromisorFactory>);
     assertNothing(null as OptionalType<Repository>);
