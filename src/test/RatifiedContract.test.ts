@@ -72,6 +72,7 @@ describe('api/RatifiedContract.ts tests', () => {
         }
         return undefined;
       },
+      guarded: true
     };
     strictEqual(isRatifiedContract(contractImpl), false, 'with contract implementation returns false');
   });
@@ -84,6 +85,9 @@ describe('api/RatifiedContract.ts tests', () => {
       }
     });
     class FakeRatifiedContract<T> implements Contract<T> {
+      get guarded(): boolean {
+        return true;
+      }
       cast(value: OptionalType<unknown>): OptionalType<T> {
         return value as OptionalType<T>;
       }
