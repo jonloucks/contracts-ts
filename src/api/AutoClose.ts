@@ -85,8 +85,17 @@ export interface AutoCloseWrapper extends AutoClose {
   /**
    * Unwrap to get the original AutoCloseType.
    */
-  unwrap(): RequiredType<AutoCloseType>;
+  unwrapAutoCloseType(): RequiredType<AutoCloseType>;
 }
+
+/**
+ * Check if an instance is an AutoCloseWrapper
+ * @param instance the instance to check
+ * @returns true if the instance is an AutoCloseWrapper, false otherwise
+ */
+function guardAutoCloseWrapper(instance: unknown): instance is RequiredType<AutoCloseWrapper> {
+  return guardFunctions(instance, 'unwrapAutoCloseType');
+} 
 
 /**
  * Convert a simple runnable into an AutoClose with dispose
@@ -98,7 +107,7 @@ export function inlineAutoClose(action: () => void): RequiredType<AutoCloseWrapp
   return {
     close: action,
     [Symbol.dispose]: action,
-    unwrap: () => action
+    unwrapAutoCloseType: () => action
   };
 }
 
@@ -112,8 +121,8 @@ export function unwrapAutoClose(autoClose: OptionalType<AutoClose>): OptionalTyp
   if (isNotPresent(autoClose)) {
     return autoClose;
   }
-  if ('unwrap' in autoClose && typeof autoClose.unwrap === 'function') {
-    return autoClose.unwrap();
+  if (guardAutoCloseWrapper(autoClose)) {
+    return autoClose.unwrapAutoCloseType();
   }
   return autoClose;
 }
