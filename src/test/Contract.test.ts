@@ -45,7 +45,9 @@ test('contract_Config_Defaults', () => {
     () => Tools.assertEquals("", defaults.name, "Default for name."),
     () => Tools.assertEquals("", defaults.typeName, "Default for typeName."),
     () => Tools.assertSame("abc", defaults.cast("abc"), "Cast should work."),
-    () => Tools.assertThrows(ContractException, () => defaults.cast(12), "Cast should fail on wrong type")
+    () => Tools.assertThrows(ContractException, () => defaults.cast(12), "Cast should fail on wrong type"),
+    () => Tools.assertThrows(ContractException, () => defaults.cast(null), "Cast null should fail on wrong type"),
+    () => Tools.assertThrows(ContractException, () => defaults.cast(undefined), "Cast undefined should fail on wrong type")
   );
 });
 

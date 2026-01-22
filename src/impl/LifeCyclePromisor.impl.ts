@@ -1,5 +1,5 @@
 import { AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
-import { guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { AutoOpen, guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
@@ -104,9 +104,9 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
 
   private openDeliverable(deliverable: OptionalType<T>): void {
     if (isPresent(deliverable) && isAutoOpen(deliverable)) {
-      const autoOpen = deliverable;
+      const autoOpen : AutoOpen = deliverable;
       try {
-        this.closer.set(autoOpen.open());
+        this.closer.set(autoOpen.autoOpen());
       } catch (thrown) {
         this.openException.set(thrown);
         this.isDeliverableAcquired.set(false);

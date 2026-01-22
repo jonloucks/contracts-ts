@@ -11,4 +11,4 @@ describe('guard tests', () => {
   });
 });
 
-assertGuard(guard, "open");
+assertGuard(guard, "autoOpen");

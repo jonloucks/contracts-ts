@@ -1,11 +1,11 @@
 import { AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { Open } from "../api/Open";
 
 /**
  * Wrapper method to create a Contracts wrapper which is responsible for managing
@@ -48,11 +48,15 @@ class ContractsWrapper implements Contracts {
     return this.contracts.bind(contract, promisor, bindStrategy);
   }
 
+  autoOpen(): AutoClose {
+    return this.open();
+  }
+
   open(): AutoClose {
     const closeContracts: AutoClose = this.contracts.open();
     const thisRepository = this.repository;
 
-    let opener: AutoOpen = {
+    let opener: Open = {
       open() {
         try {
           return thisRepository.open();

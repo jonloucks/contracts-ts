@@ -1,4 +1,5 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
@@ -28,12 +29,19 @@ export function create(config: Config): RequiredType<Contracts> {
 /**
  * Contracts implementation.
  */
-class ContractsImpl implements Contracts {
+class ContractsImpl implements Contracts, AutoOpen {
 
   /**
-   * AutoOpen.open override.
+   * AutoOpen.autoOpen override.
    */
-  open(): AutoClose {
+  autoOpen(): AutoClose {
+    return this.open();
+  }
+
+  /**
+   * Open.open override.
+   */
+  open() : AutoClose {
     if (this.idempotent.transitionToOpen()) {
       return this.firstOpen();
     }
