@@ -15,7 +15,7 @@ export interface ContractFactory {
    * @param config the Contract configuration
    * @return the new Contract
    */
-  create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>>;
+  createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>>;
 }
 
 /**
@@ -25,5 +25,5 @@ export interface ContractFactory {
  * @return true if value is ContractFactory, false otherwise
  */
 export function guard(value: unknown): value is RequiredType<ContractFactory> {
-  return guardFunctions(value, 'create');
+  return guardFunctions(value, 'createContract');
 }

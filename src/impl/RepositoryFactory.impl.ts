@@ -21,7 +21,7 @@ export function create(contracts: Contracts): RequiredType<RepositoryFactory> {
  */
 class RepositoryFactoryImpl implements RepositoryFactory {
 
-  create(): RequiredType<Repository> {
+  createRepository(): RequiredType<Repository> {
     return createRepository(this.contracts);
   }
 

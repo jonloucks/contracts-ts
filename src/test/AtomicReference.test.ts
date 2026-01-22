@@ -11,14 +11,14 @@ describe('AtomicReference', () => {
   it('AtomicReference FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
-      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
+      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).createAtomicReference();
       notStrictEqual(atomic, null, "created AtomicReference is not null");
     });
   });
 
   it('AtomicReference with defaults', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create();
+      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).createAtomicReference();
       strictEqual(atomic.get(), undefined, "default initial value is undefined");
     });
   });
@@ -26,7 +26,7 @@ describe('AtomicReference', () => {
   it('AtomicReference with true initial value', () => {
     Tools.withContracts((contracts: Contracts) => {
       const now: Date = new Date();
-      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).create(now);
+      const atomic: AtomicReference<Date> = contracts.enforce(FACTORY).createAtomicReference(now);
 
       strictEqual(atomic.get(), now, "initial value should be the provided date");
     });
@@ -34,7 +34,7 @@ describe('AtomicReference', () => {
 
   it('AtomicReference methods work', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicReference<number> = contracts.enforce(FACTORY).create();
+      const atomic: AtomicReference<number> = contracts.enforce(FACTORY).createAtomicReference();
 
       strictEqual(atomic.get(), undefined, "initial value should be undefined");
 
@@ -97,7 +97,7 @@ export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) 
     validCases?.forEach((testCase, index) => {
       it(`case ${index}: when ${testCase.current}, compareAndSet( ${testCase.required} , ${testCase.requested} ) => ${testCase.updated}, is ${testCase.final}`, () => {
         Tools.withContracts((contracts: Contracts) => {
-          const atomic: AtomicReference<T> = contracts.enforce(FACTORY).create(testCase.current);
+          const atomic: AtomicReference<T> = contracts.enforce(FACTORY).createAtomicReference(testCase.current);
 
           const wasUpdated = atomic.compareAndSet(testCase.required, testCase.requested);
           strictEqual(wasUpdated, testCase.updated, testCase.updated ? `Expected update` : `Expected no update`);

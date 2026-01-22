@@ -12,14 +12,14 @@ describe('AtomicBoolean', () => {
   it('AtomicBoolean FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean();
       notStrictEqual(atomic, null, "created AtomicBoolean is not null");
     });
   });
 
   it('AtomicBoolean with defaults', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean();
 
       strictEqual(atomic.get(), false, "default initial value is false");
       strictEqual(atomic.toString(), "false", "toString of default false is 'false'");
@@ -28,7 +28,7 @@ describe('AtomicBoolean', () => {
 
   it('AtomicBoolean with true initial value', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(true);
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean(true);
 
       strictEqual(atomic.get(), true, "initial value is true");
       strictEqual(atomic.toString(), "true", "toString of true is 'true'");
@@ -37,7 +37,7 @@ describe('AtomicBoolean', () => {
 
   it('AtomicBoolean Symbol.toPrimitive', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(true);
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean(true);
 
       strictEqual(atomic[Symbol.toPrimitive]('string'), "true", "toPrimitive with 'string' hint returns 'true'");
       strictEqual(atomic[Symbol.toPrimitive]('number'), 1, "toPrimitive with 'number' hint returns 1");
@@ -48,7 +48,7 @@ describe('AtomicBoolean', () => {
 
   it('AtomicBoolean with false initial value', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(false);
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean(false);
 
       strictEqual(atomic.get(), false, "initial value is false");
       strictEqual(atomic.toString(), "false", "toString of false is 'false'");
@@ -57,7 +57,7 @@ describe('AtomicBoolean', () => {
 
   it('AtomicBoolean methods work', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicBoolean = contracts.enforce(FACTORY).create();
+      const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean();
 
       strictEqual(atomic.get(), false, "default initial value is false");
       strictEqual(atomic.toString(), "false", "toString of default false is 'false'");
@@ -117,7 +117,7 @@ export function generateCompareAndSet(options: CompareAndSetSuiteOptions) : void
     validCases?.forEach((testCase, index) => {
       it(`case #${index} when currently ${testCase.current} compareAndSet( ${testCase.required} , ${testCase.requested} ) => ${testCase.updated} with final state ${testCase.final}`, () => {
         Tools.withContracts((contracts: Contracts) => {
-          const atomic: AtomicBoolean = contracts.enforce(FACTORY).create(testCase.current);
+          const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean(testCase.current);
 
           const actual = atomic.compareAndSet(testCase.required, testCase.requested);
           strictEqual(actual, testCase.updated);

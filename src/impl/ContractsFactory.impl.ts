@@ -34,7 +34,7 @@ export function create(): RequiredType<ContractsFactory> {
  * @returns the Contracts implementation
  */
 export function createContracts(config?: ContractsConfig): RequiredType<Contracts> {
-  return create().create(config);
+  return create().createContracts(config);
 }
 
 // ---- Implementation details below ----
@@ -45,9 +45,9 @@ export function createContracts(config?: ContractsConfig): RequiredType<Contract
 class ContractsFactoryImpl implements ContractsFactory {
 
   /**
-   * ContractsFactory.create override
+   * ContractsFactory.createContracts override
    */
-  create(config?: ContractsConfig): RequiredType<Contracts> {
+  createContracts(config?: ContractsConfig): RequiredType<Contracts> {
     const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
     const contracts: RequiredType<Contracts> = createContractsImpl(actualConfig);
     const repository: RequiredType<Repository> = this.createKernelRepository(contracts);
@@ -61,7 +61,7 @@ class ContractsFactoryImpl implements ContractsFactory {
 
   private createKernelRepository(contracts: Contracts): RequiredType<Repository> {
     const repositoryFactory: RequiredType<RepositoryFactory> = createRepositoryFactoryImpl(contracts);
-    const repository: RequiredType<Repository> = repositoryFactory.create();
+    const repository: RequiredType<Repository> = repositoryFactory.createRepository();
 
     repository.keep(PROMISOR_FACTORY, createPromisorFactoryImpl);
     repository.keep(REPOSITORY_FACTORY, () => repositoryFactory);

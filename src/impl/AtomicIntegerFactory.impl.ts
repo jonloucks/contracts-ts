@@ -21,9 +21,9 @@ export function create(): RequiredType<AtomicIntegerFactory> {
 class AtomicIntegerFactoryImpl implements AtomicIntegerFactory {
 
   /**
-   * AtomicIntegerFactory.create override
+   * AtomicIntegerFactory.createAtomicInteger override
    */
-  create(initialValue?: number): RequiredType<AtomicInteger> {
+  createAtomicInteger(initialValue?: number): RequiredType<AtomicInteger> {
     return createAtomicInteger(initialValue);
   }
 

@@ -12,4 +12,4 @@ describe('guard tests', () => {
 });
 
 assertContract(CONTRACT, "AtomicReferenceFactory");
-assertGuard(guard, "create");
+assertGuard(guard, "createAtomicReference");

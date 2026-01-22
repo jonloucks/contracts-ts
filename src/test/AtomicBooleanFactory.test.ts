@@ -12,4 +12,4 @@ describe('guard tests', () => {
 });
 
 assertContract(CONTRACT, "AtomicBooleanFactory");
-assertGuard(guard, "create");
+assertGuard(guard, "createAtomicBoolean");

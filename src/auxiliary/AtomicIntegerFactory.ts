@@ -12,7 +12,7 @@ export interface AtomicIntegerFactory {
      * Create a new AtomicInteger instance.    
      * @param initialValue the initial value of the AtomicInteger
      */
-    create(initialValue?: number): RequiredType<AtomicInteger>;
+    createAtomicInteger(initialValue?: number): RequiredType<AtomicInteger>;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface AtomicIntegerFactory {
  * @returns true if the instance implements AtomicIntegerFactory
  */
 export function guard(instance: unknown): instance is RequiredType<AtomicIntegerFactory> {
-    return guardFunctions(instance, 'create');
+    return guardFunctions(instance, 'createAtomicInteger');
 }
 
 /**

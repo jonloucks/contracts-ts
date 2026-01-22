@@ -21,9 +21,9 @@ export function create(): RequiredType<AtomicReferenceFactory> {
 class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
 
   /**
-   * AtomicReferenceFactory.create override
+   * AtomicReferenceFactory.createAtomicReference override
    */
-  create<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>> {
+  createAtomicReference<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>> {
     return createAtomicReference(initialValue);
   }
 
