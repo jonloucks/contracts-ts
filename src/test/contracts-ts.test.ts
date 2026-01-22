@@ -170,7 +170,7 @@ describe('AutoOpen interface', () => {
 
     ok(instance, 'AutoOpen instance should be created');
     using usingIt = instance.autoOpen();
-    ok(usingIt, 'AutoClose instance should be created from open() method');
+    ok(usingIt, 'AutoClose instance should be created from autoOpen() method');
   });
 });
 
