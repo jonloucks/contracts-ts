@@ -1,5 +1,5 @@
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { AutoOpen, guard as autoOpenGuard } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { Open, guard as openGuard } from "@jonloucks/contracts-ts/api/Open";
 import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
@@ -11,7 +11,7 @@ import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types"
  * 1. Optional feature to register required contracts.
  * 2. Optional feature to manage multiple contract bindings.
  */
-export interface Repository extends AutoOpen {
+export interface Repository extends Open {
 
   /**
    * Store the binding.
@@ -61,5 +61,5 @@ export interface Repository extends AutoOpen {
  * @return true if value is Repository, false otherwise
  */
 export function guard(value: unknown): value is RequiredType<Repository> {
-  return guardFunctions(value, 'store', 'keep', 'check', 'require') && autoOpenGuard(value);
+  return guardFunctions(value, 'store', 'keep', 'check', 'require') && openGuard(value);
 }

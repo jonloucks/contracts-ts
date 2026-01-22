@@ -8,13 +8,13 @@ import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types"
  * Features like {@link Promisors#createLifeCycle(Promisor)}
  * will automatically call this method once if the deliverable implements this method.
  */
-export interface AutoOpen {
+export interface AutoOpen { // Intentionally does not extend the Open interface
 
     /**
      * AutoOpen this instance
      * @return the mechanism to shut down
      */
-    open(): AutoClose;
+    autoOpen(): AutoClose;
 }
 
 /**
@@ -24,7 +24,7 @@ export interface AutoOpen {
  * @returns true if the instance implements AutoOpen, false otherwise
  */
 export function guard(instance: unknown): instance is RequiredType<AutoOpen> {
-    return guardFunctions(instance, 'open');
+    return guardFunctions(instance, 'autoOpen');
 }
 
 

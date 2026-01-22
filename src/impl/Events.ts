@@ -1,4 +1,4 @@
-import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { Open } from "../api/Open";
 export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 
 /**
@@ -16,7 +16,7 @@ export interface Config {
  * Implementations manage the open/close lifecycle for registering and
  * deregistering listeners on the Node.js process object.
  */
-export interface Events extends AutoOpen {
+export interface Events extends Open {
 
   /**
    * Check if the event listeners are currently open.
