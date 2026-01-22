@@ -4,8 +4,8 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { Open } from "@jonloucks/contracts-ts/api/Open";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { Open } from "../api/Open";
 
 /**
  * Wrapper method to create a Contracts wrapper which is responsible for managing
