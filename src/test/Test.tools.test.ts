@@ -217,7 +217,7 @@ export class Tools {
    *
    * @param contract the contract to check
    * @param config the expected configuration
-   * @param valid  a valid value
+   * @param _valid  a valid value
    * @param <T> the type of deliverable
    */
   public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, _valid: T): void {
