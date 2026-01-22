@@ -62,6 +62,10 @@ export class BasicContract<T> implements Contract<T> {
     return this._name;
   }
 
+  /**
+   * When guarded is true the Contract throws exception if deliverable is null or undefined
+   * The default is true.
+   */
   public get guarded(): boolean {
     return this._guarded;
   }
@@ -92,7 +96,15 @@ export class BasicContract<T> implements Contract<T> {
    * @returns a string representation of the contract
    */
   public toString(): string {
-    return `Contract(id=${this._id}, name=${this.name}, type=${this.typeName})`;
+    let text = `Contract(id=${this._id}`;
+    if (this.name.length > 0) {
+      text += `, name=${this.name}`;
+    }
+    if (this.typeName.length > 0) {
+      text += `, type=${this.typeName}`;
+    }
+    text += `)`;
+    return text;
   }
 
   /**
@@ -109,17 +121,8 @@ export class BasicContract<T> implements Contract<T> {
   }
 
   private throwCastException(): never {
-    const type : string = BasicContract.determineType(this.typeName, this.name);
-    throw new ClassCastException(`Casting error. Unable to cast to type '${type}'.`);
-  }
-
-  private static determineType(...values: (string | null | undefined)[]): string {
-    for (const value of values) {
-      if (value && value.length > 0) {
-        return value;
-      }
-    }
-    return "unknown";
+    // Note: message intentionally does not include the instance value
+    throw new ClassCastException(`Casting error. Unable to cast '${this.toString()}'.`);
   }
 
   private static ID_GENERATOR: number = 1;
