@@ -50,7 +50,7 @@ export function isNotPresent(value: unknown): value is null | undefined {
  * @returns true if value is a function and is not null or undefined
  */
 export function isFunction<T extends UnknownFunction>(value: unknown): value is RequiredType<T> {
-  return isPresent(value) && typeof value === "function"
+  return isPresent(value) && typeof value === "function";
 }
 
 /**
