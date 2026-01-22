@@ -95,7 +95,7 @@ export interface AutoCloseWrapper extends AutoClose {
  */
 function guardAutoCloseWrapper(instance: unknown): instance is RequiredType<AutoCloseWrapper> {
   return guardFunctions(instance, 'unwrapAutoCloseType');
-} 
+}
 
 /**
  * Convert a simple runnable into an AutoClose with dispose
