@@ -13,4 +13,4 @@ describe('guard tests', () => {
 });
 
 assertContract(CONTRACT, "RepositoryFactory");
-assertGuard(guard, "create");
+assertGuard(guard, "createRepository");

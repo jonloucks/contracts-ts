@@ -12,7 +12,7 @@ export interface AtomicReferenceFactory {
      * Create a new AtomicReference instance.    
      * @param initialValue the initial value of the AtomicReference
      */
-    create<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>>;
+    createAtomicReference<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>>;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface AtomicReferenceFactory {
  * @returns true if the instance implements AtomicReferenceFactory
  */
 export function guard(instance: unknown): instance is RequiredType<AtomicReferenceFactory> {
-    return guardFunctions(instance, "create");
+    return guardFunctions(instance, "createAtomicReference");
 }
 
 /**

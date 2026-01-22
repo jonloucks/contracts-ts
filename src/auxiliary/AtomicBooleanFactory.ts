@@ -12,7 +12,7 @@ export interface AtomicBooleanFactory {
    * Create a new AtomicBoolean instance.    
    * @param initialValue the initial value of the AtomicBoolean
    */
-  create(initialValue?: boolean): RequiredType<AtomicBoolean>;
+  createAtomicBoolean(initialValue?: boolean): RequiredType<AtomicBoolean>;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface AtomicBooleanFactory {
  * @returns true if the instance implements AtomicBooleanFactory
  */
 export function guard(instance: unknown): instance is RequiredType<AtomicBooleanFactory> {
-  return guardFunctions(instance, "create");
+  return guardFunctions(instance, "createAtomicBoolean");
 }
 
 /**

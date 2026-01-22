@@ -10,14 +10,14 @@ describe('AtomicInteger', () => {
   it('AtomicInteger FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "FACTORY is bound");
-      const atomic: AtomicInteger = contracts.enforce(FACTORY).create();
+      const atomic: AtomicInteger = contracts.enforce(FACTORY).createAtomicInteger();
       notStrictEqual(atomic, null, "created AtomicInteger is not null");
     });
   });
 
   it('AtomicInteger methods work', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicInteger = contracts.enforce(FACTORY).create();
+      const atomic: AtomicInteger = contracts.enforce(FACTORY).createAtomicInteger();
       strictEqual(atomic.get(), 0, "default initial value is 0");
       strictEqual(atomic.toString(), "0", "toString of default 0 is '0'");
       atomic.set(5);
@@ -38,7 +38,7 @@ describe('AtomicInteger', () => {
 
   it('AtomicInteger Symbol.toPrimitive', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const atomic: AtomicInteger = contracts.enforce(FACTORY).create(3);
+      const atomic: AtomicInteger = contracts.enforce(FACTORY).createAtomicInteger(3);
 
       strictEqual(atomic[Symbol.toPrimitive]('string'), "3", "toPrimitive with 'string' hint returns '3'");
       strictEqual(atomic[Symbol.toPrimitive]('number'), 3, "toPrimitive with 'number' hint returns 3");

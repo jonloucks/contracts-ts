@@ -14,14 +14,14 @@ describe('RepositoryFactory tests', () => {
   it('Repository FACTORY works', () => {
     Tools.withContracts((contracts: Contracts) => {
       strictEqual(contracts.isBound(FACTORY), true, "Repository FACTORY is bound");
-      const repository: OptionalType<Repository> = contracts.enforce(FACTORY).create();
+      const repository: OptionalType<Repository> = contracts.enforce(FACTORY).createRepository();
       notStrictEqual(repository, null, "Repository created is not null");
     });
   });
 
   it('Repository methods work', () => {
     Tools.withContracts((contracts: Contracts) => {
-      const repository: OptionalType<Repository> = contracts.enforce(FACTORY).create();
+      const repository: OptionalType<Repository> = contracts.enforce(FACTORY).createRepository();
       doesNotThrow(() => {
       repository!.check(); // should not throw
       }, "Repository.check() should not throw when no requirements are set");
@@ -224,7 +224,7 @@ interface ScenarioConfig {
 
 function runWithScenario(block: ScenarioConfig): void {
   Tools.withContracts((contracts: Contracts) => {
-    const repository: Repository = contracts.enforce(FACTORY).create();
+    const repository: Repository = contracts.enforce(FACTORY).createRepository();
     block.beforeRepositoryOpen?.(repository);
 
     using _closeRepository = repository.open();

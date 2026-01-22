@@ -23,7 +23,7 @@ class AtomicReferenceFactoryImpl implements AtomicReferenceFactory {
   /**
    * AtomicReferenceFactory.create override
    */
-  create<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>> {
+  createAtomicReference<T>(initialValue?: OptionalType<T>): RequiredType<AtomicReference<T>> {
     return createAtomicReference(initialValue);
   }
 

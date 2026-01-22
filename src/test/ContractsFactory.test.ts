@@ -11,4 +11,4 @@ describe('guard tests', () => {
   });
 });
 
-assertGuard(guard, "create");
+assertGuard(guard, "createContracts");

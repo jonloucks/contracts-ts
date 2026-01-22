@@ -11,7 +11,7 @@ export interface RepositoryFactory {
   /**
    * Create a new Repository instance.    
    */
-  create(): RequiredType<Repository>;
+  createRepository(): RequiredType<Repository>;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface RepositoryFactory {
  * @return true if value is RepositoryFactory, false otherwise
  */
 export function guard(value: unknown): value is RequiredType<RepositoryFactory> {
-  return guardFunctions(value, "create");
+  return guardFunctions(value, "createRepository");
 }
 
 /**

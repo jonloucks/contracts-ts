@@ -12,4 +12,4 @@ describe('guard tests', () => {
 });
 
 assertContract(CONTRACT, "AtomicIntegerFactory");
-assertGuard(guard, "create");
+assertGuard(guard, "createAtomicInteger");

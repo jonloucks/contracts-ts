@@ -152,7 +152,7 @@ describe('ContractsFactory works', () => {
   it('can create Contracts instances', () => {
     const factory: ContractsFactory = createContractsFactory();
     const config: ContractsConfig = {};
-    const contracts: Contracts = factory.create(config);
+    const contracts: Contracts = factory.createContracts(config);
     using _usingContracts: AutoClose = contracts.open();
 
     ok(contracts, 'Contracts instance should be created by ContractsFactory');

@@ -20,7 +20,7 @@ export function create(): RequiredType<ContractFactory> {
  * @returns the new Contract implementation
  */
 export function createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
-  return create().create<T>(config);
+  return create().createContract<T>(config);
 }
 
 // ---- Implementation details below ----
@@ -29,7 +29,7 @@ export function createContract<T>(config?: OptionalType<Config<T>>): RequiredTyp
  * An implementation of ContractFactory
  */
 class ContractFactoryImpl implements ContractFactory {
-  create<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
+  createContract<T>(config?: OptionalType<Config<T>>): RequiredType<Contract<T>> {
     if (config?.ratified === true || isRatifiableConfig<T>(config)) {
       return createRatifiedContract<T>(config);
     } else {
