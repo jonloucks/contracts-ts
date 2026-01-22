@@ -320,10 +320,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">2634x</span>
+<span class="cline-any cline-yes">2430x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">951x</span>
+<span class="cline-any cline-yes">879x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,11 +334,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1924x</span>
-<span class="cline-any cline-yes">962x</span>
+<span class="cline-any cline-yes">1780x</span>
+<span class="cline-any cline-yes">890x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">962x</span>
-<span class="cline-any cline-yes">951x</span>
+<span class="cline-any cline-yes">890x</span>
+<span class="cline-any cline-yes">879x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,7 +350,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1154x</span>
+<span class="cline-any cline-yes">1066x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,9 +369,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">1134x</span>
-<span class="cline-any cline-yes">1132x</span>
-<span class="cline-any cline-yes">1127x</span>
+<span class="cline-any cline-yes">1050x</span>
+<span class="cline-any cline-yes">1048x</span>
+<span class="cline-any cline-yes">1043x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -383,9 +383,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { OptionalType, RequiredType, hasFunctions, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
-import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { OptionalType, RequiredType, guardFunctions, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
 import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
 &nbsp;
 /**
  * Type alias for AutoClose or a simple close function.
@@ -396,10 +396,10 @@ export type AutoCloseType = AutoClose | Close | (() =&gt; unknown);
  * Interface for a closeable resource.
  */
 export interface Close {
-    /**
-     * Close this instance.
-     */
-    close(): void;
+  /**
+   * Close this instance.
+   */
+  close(): void;
 }
 &nbsp;
 /**
@@ -409,10 +409,10 @@ export interface Close {
  * will automatically call this method once if the deliverable implements this method.
  */
 export interface AutoClose extends Close {
-    /**
-     * Dispose this instance.
-     */
-    [Symbol.dispose](): void;
+  /**
+   * Dispose this instance.
+   */
+  [Symbol.dispose](): void;
 }
 &nbsp;
 /**
@@ -420,13 +420,13 @@ export interface AutoClose extends Close {
  */
 export interface AutoCloseMany extends AutoClose {
 &nbsp;
-    /**
-     * Add a closeable resource to the list.
-     * Note: there are no guards against adding the same resource multiple times.
-     * 
-     * @param closeable the closeable resource to add
-     */
-    add(closeable: RequiredType&lt;AutoCloseType&gt;): void;
+  /**
+   * Add a closeable resource to the list.
+   * Note: there are no guards against adding the same resource multiple times.
+   * 
+   * @param closeable the closeable resource to add
+   */
+  add(closeable: RequiredType&lt;AutoCloseType&gt;): void;
 }
 &nbsp;
 /**
@@ -434,12 +434,12 @@ export interface AutoCloseMany extends AutoClose {
  */
 export interface AutoCloseOne extends AutoClose {
 &nbsp;
-    /**
-     * Add a closeable resource to the list.
-     * 
-     * @param closeable the closeable resource to add or null to clear
-     */
-    set(closeable: OptionalType&lt;AutoCloseType&gt;): void;
+  /**
+   * Add a closeable resource to the list.
+   * 
+   * @param closeable the closeable resource to add or null to clear
+   */
+  set(closeable: OptionalType&lt;AutoCloseType&gt;): void;
 }
 &nbsp;
 /**
@@ -447,19 +447,19 @@ export interface AutoCloseOne extends AutoClose {
  */
 export const AUTO_CLOSE_NONE: AutoClose = {
 &nbsp;
-    /**
-     * AutoClose.close override
-     */
-    close: () =&gt; {
-        // no-op
-    },
+  /**
+   * AutoClose.close override
+   */
+  close: () =&gt; {
+    // no-op
+  },
 &nbsp;
-    /**
-     * AutoClose[Symbol.dispose] override
-     */
-    [Symbol.dispose]: () =&gt; {
-        // no-op
-    }
+  /**
+   * AutoClose[Symbol.dispose] override
+   */
+  [Symbol.dispose]: () =&gt; {
+    // no-op
+  }
 };
 &nbsp;
 /**
@@ -467,10 +467,10 @@ export const AUTO_CLOSE_NONE: AutoClose = {
  */
 export interface AutoCloseWrapper extends AutoClose {
 &nbsp;
-    /**
-     * Unwrap to get the original AutoCloseType.
-     */
-    unwrap(): RequiredType&lt;AutoCloseType&gt;;
+  /**
+   * Unwrap to get the original AutoCloseType.
+   */
+  unwrap(): RequiredType&lt;AutoCloseType&gt;;
 }
 &nbsp;
 /**
@@ -480,11 +480,11 @@ export interface AutoCloseWrapper extends AutoClose {
  * @returns the AutoClose instance
  */
 export function inlineAutoClose(action: () =&gt; void): RequiredType&lt;AutoCloseWrapper&gt; {
-    return {
-        close: action,
-        [Symbol.dispose]: action,
-        unwrap: () =&gt; action
-    };
+  return {
+    close: action,
+    [Symbol.dispose]: action,
+    unwrap: () =&gt; action
+  };
 }
 &nbsp;
 /**
@@ -494,13 +494,13 @@ export function inlineAutoClose(action: () =&gt; void): RequiredType&lt;AutoClos
  * @returns the original AutoCloseType
  */
 export function unwrapAutoClose(autoClose: OptionalType&lt;AutoClose&gt;): OptionalType&lt;AutoCloseType&gt; {
-    if (isNotPresent(autoClose)) {
-        return autoClose;
-    }
-    if ('unwrap' in autoClose &amp;&amp; typeof autoClose.unwrap === 'function') {
-        return autoClose.unwrap();
-    }
+  if (isNotPresent(autoClose)) {
     return autoClose;
+  }
+  if ('unwrap' in autoClose &amp;&amp; typeof autoClose.unwrap === 'function') {
+    return autoClose.unwrap();
+  }
+  return autoClose;
 }
 &nbsp;
 /**
@@ -509,8 +509,8 @@ export function unwrapAutoClose(autoClose: OptionalType&lt;AutoClose&gt;): Optio
  * @param instance the instance to check
  * @returns true if the instance implements AutoClose, false otherwise
  */
-export function guard(instance: unknown): instance is OptionalType&lt;AutoClose&gt; {
-    return hasFunctions(instance, 'close', Symbol.dispose);
+export function guard(instance: unknown): instance is RequiredType&lt;AutoClose&gt; {
+  return guardFunctions(instance, 'close', Symbol.dispose);
 }
 &nbsp;
 /**
@@ -519,8 +519,8 @@ export function guard(instance: unknown): instance is OptionalType&lt;AutoClose&
  * @param instance the instance to check
  * @returns true if the instance implements AutoClose, false otherwise
  */
-export function isClose(instance: unknown): instance is OptionalType&lt;AutoClose&gt; {
-    return hasFunctions(instance, 'close');
+export function isClose(instance: unknown): instance is RequiredType&lt;AutoClose&gt; {
+  return guardFunctions(instance, 'close');
 }
 &nbsp;
 /**
@@ -529,16 +529,16 @@ export function isClose(instance: unknown): instance is OptionalType&lt;AutoClos
  * @returns the AutoClose
  */
 export function typeToAutoClose(type: RequiredType&lt;AutoCloseType&gt;): RequiredType&lt;AutoClose&gt; {
-    const presentType = presentCheck(type, "AutoClose type must be present.");
-    if (guard(presentType)) {
-        return presentType;
-    } else if (isClose(presentType)) {
-        return inlineAutoClose(() =&gt; presentType.close());
-    } else if (typeof presentType === 'function') {
-        return inlineAutoClose(presentType as () =&gt; unknown);
-    } else {
-        throw new IllegalArgumentException("Invalid AutoClose type.");
-    }
+  const presentType = presentCheck(type, "AutoClose type must be present.");
+  if (guard(presentType)) {
+    return presentType;
+  } else if (isClose(presentType)) {
+    return inlineAutoClose(() =&gt; presentType.close());
+  } else if (typeof presentType === 'function') {
+    return inlineAutoClose(presentType as () =&gt; unknown);
+  } else {
+    throw new IllegalArgumentException("Invalid AutoClose type.");
+  }
 }
 &nbsp;
 &nbsp;
@@ -550,7 +550,7 @@ export function typeToAutoClose(type: RequiredType&lt;AutoCloseType&gt;): Requir
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-22T00:34:42.367Z
+                at 2026-01-22T13:49:54.389Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
