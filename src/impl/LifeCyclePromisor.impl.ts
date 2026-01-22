@@ -104,7 +104,7 @@ class LifeCyclePromisorImpl<T> implements Promisor<T> {
 
   private openDeliverable(deliverable: OptionalType<T>): void {
     if (isPresent(deliverable) && isAutoOpen(deliverable)) {
-      const autoOpen : AutoOpen = deliverable;
+      const autoOpen: AutoOpen = deliverable;
       try {
         this.closer.set(autoOpen.autoOpen());
       } catch (thrown) {
