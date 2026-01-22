@@ -45,13 +45,13 @@ export function generateContractSuite<T>(options: ContractSuiteOptions<T>) : voi
 
     invalidCases?.forEach((testCase, index) => {
       const help = testCase?.help ?? String(testCase.instance);
-      const scenario: string = `case ${index} => (${help}) : should throw ClassCastException`;
+      const scenario: string = `case ${index} => (${help}) : should throw ContractException`;
 
       it(scenario, () => {
         throws(() => {
           contract.cast(testCase.instance);
         }, {
-          name: 'ClassCastException'
+          name: 'ContractException'
         });
       });
     });

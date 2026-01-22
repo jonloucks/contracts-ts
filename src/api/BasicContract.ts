@@ -1,6 +1,6 @@
 import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 
 /**
  * Create a basic Contract
@@ -39,7 +39,7 @@ export class BasicContract<T> implements Contract<T> {
   *
   * @param value the value to cast
   * @return the checked value. Note: null is possible. The Promisor is allowed to return null
-  * @throws ClassCastException iif the value can't be cast to the return type.
+  * @throws ContractException if the value can't be cast to the return type.
   */
   public cast(value: unknown | null | undefined): DeliveryType<T> {
     if (isNotPresent(value)) {
@@ -122,7 +122,7 @@ export class BasicContract<T> implements Contract<T> {
 
   private throwCastException(): never {
     // Note: message intentionally does not include the instance value
-    throw new ClassCastException(`Casting error. Unable to cast '${this.toString()}'.`);
+    throw new ContractException(`Casting error. Unable to cast '${this.toString()}'.`);
   }
 
   private static ID_GENERATOR: number = 1;

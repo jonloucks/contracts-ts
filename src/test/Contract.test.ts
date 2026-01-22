@@ -3,7 +3,7 @@ import { ok, strictEqual } from "node:assert";
 import { createContract } from "@jonloucks/contracts-ts";
 import { Contract, guard } from "@jonloucks/contracts-ts/api/Contract";
 import { isString } from "@jonloucks/contracts-ts/api/Types";
-import { ClassCastException } from "@jonloucks/contracts-ts/auxiliary/ClassCastException";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { generateContractSuite } from "@jonloucks/contracts-ts/test/Contract.tools.test";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
@@ -45,7 +45,7 @@ test('contract_Config_Defaults', () => {
     () => Tools.assertEquals("", defaults.name, "Default for name."),
     () => Tools.assertEquals("", defaults.typeName, "Default for typeName."),
     () => Tools.assertSame("abc", defaults.cast("abc"), "Cast should work."),
-    () => Tools.assertThrows(ClassCastException, () => defaults.cast(12), "Cast should fail on wrong type")
+    () => Tools.assertThrows(ContractException, () => defaults.cast(12), "Cast should fail on wrong type")
   );
 });
 
