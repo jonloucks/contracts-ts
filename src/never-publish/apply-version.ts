@@ -9,8 +9,8 @@ export function applyVersion(): void {
       const escapedVersion = JSON.stringify(String(version));
       writeFileSync(resolve('src', 'version.ts'), `export const VERSION: string = ${escapedVersion};\n`);
     }
-  } catch (_error) {
-    // ignore errors
+  } catch (error) {
+     throw new Error(`Failed to apply version: ${(error as Error).message}`);
   }
 }
 
