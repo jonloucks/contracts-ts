@@ -51,7 +51,7 @@ describe('Extractor with referent demand returning null', () => {
   it("Referent returns null", () => {
     const referent: Promisor<Date | null> = typeToPromisor<Date | null>(null);
     const transform: Transform<Date | null, string | null> = {
-      transform: (date: RequiredType<Date | null>): string | null => {
+      transform: (date: Date | null): string | null => {
         return date === null ? null : date.toString();
       }
     };
