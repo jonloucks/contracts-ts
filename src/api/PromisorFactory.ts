@@ -1,7 +1,7 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, Transform, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, TransformType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
@@ -48,7 +48,7 @@ export interface PromisorFactory {
    * @param <T> the type of deliverable
    * @param <R> the new Promisor deliverable type
    */
-  createExtractor<T, R>(promisor: PromisorType<T>, extractor: Transform<T, R>): RequiredType<Promisor<R>>;
+  createExtractor<T, R>(promisor: PromisorType<T>, extractor: TransformType<T, R>): RequiredType<Promisor<R>>;
 }
 
 /**

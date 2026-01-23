@@ -1,6 +1,6 @@
 import { presentCheck, promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
+import { isNotPresent, OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Factory method to create an ExtractPromisorImpl which is extraction promisor
@@ -28,7 +28,12 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
    * Promisor.demand override.
    */
   demand(): OptionalType<R> {
-    return this.transform.transform(this.referent.demand());
+    const referentValue = this.referent.demand();
+    if (isNotPresent(referentValue)) {
+      return referentValue;
+    } else {
+      return this.transform.transform(referentValue);
+    }
   }
 
   /**
