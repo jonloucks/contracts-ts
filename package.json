@@ -1,6 +1,6 @@
 {
   "name": "@jonloucks/contracts-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
   "main": "index.js",
@@ -47,6 +47,8 @@
     "badges": "npx tsx ./src/never-publish/generate-badges.ts",
     "clean": "rm -rf dist",
     "compile": "tsc",
+    "postversion": "npm run applyversion",
+    "applyversion": "npx tsx ./src/never-publish/apply-version.ts",
     "pack-package": "npm run before:publish && cd dist && npm pack && npm run after:publish"
   },
   "keywords": [
