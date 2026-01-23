@@ -33,7 +33,7 @@ export interface Transform<I, O> {
 export type TransformFunction<I, O> = (input: I) => O;
 
 /**
- * A transformation type that can be a Transform or a function form type I to type O
+ * A transformation type that can be a Transform or a function from type I to type O
  */
 export type TransformType<I, O> = Transform<I, O> | TransformFunction<I, O>;
 
