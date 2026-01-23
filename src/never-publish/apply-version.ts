@@ -6,7 +6,8 @@ export function applyVersion(): void {
     const parsedJson: unknown = JSON.parse(readFileSync('package.json', 'utf8'));
     const { version } = parsedJson as { version?: string };
     if (version !== undefined && version !== null) {
-      writeFileSync(resolve('src', 'version.ts'), `export const VERSION: string = "${version}";\n`);
+      const escapedVersion = JSON.stringify(String(version));
+      writeFileSync(resolve('src', 'version.ts'), `export const VERSION: string = ${escapedVersion};\n`);
     }
   } catch (_error) {
     // continue to next path
