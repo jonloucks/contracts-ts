@@ -10,7 +10,7 @@ export function applyVersion(): void {
       writeFileSync(resolve('src', 'version.ts'), `export const VERSION: string = ${escapedVersion};\n`);
     }
   } catch (_error) {
-    // continue to next path
+    // ignore errors
   }
 }
 
