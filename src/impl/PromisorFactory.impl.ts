@@ -1,6 +1,6 @@
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType, TransformType, typeToTransform } from "@jonloucks/contracts-ts/api/Types";
 import { create as createExtractor } from "./ExtractorPromisor.impl";
 import { create as createLifeCycle } from "./LifeCyclePromisor.impl";
 import { create as createSingleton } from "./SingletonPromisor.impl";
@@ -46,8 +46,8 @@ class PromisorsImpl implements PromisorFactory {
   /**
    * PromisorFactory.createExtractor override.
    */
-  createExtractor<T, R>(promisor: PromisorType<T>, extractor: Transform<T, R>): RequiredType<Promisor<R>> {
-    return createExtractor<T, R>(typeToPromisor(promisor), extractor);
+  createExtractor<T, R>(promisor: PromisorType<T>, extractor: TransformType<T, R>): RequiredType<Promisor<R>> {
+    return createExtractor<T, R>(typeToPromisor(promisor), typeToTransform(extractor));
   }
 
   static internalCreate(): RequiredType<PromisorFactory> {

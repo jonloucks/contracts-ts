@@ -10,7 +10,7 @@ import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Extract Promisor tests', () => {
 
-  it("", () => {
+  it("Primary use case", () => {
     const referent: CurrentDatePromisor = new CurrentDatePromisor();
     const converted: RequiredType<Promisor<Date>> = typeToPromisor<Date>(referent);
     strictEqual(converted, referent, "Converted promisor should be the same as the original referent.");
@@ -43,6 +43,30 @@ describe('Extract Promisor tests', () => {
     });
     strictEqual(referent.usageCount, 0, "Referent usage count should be zero after use.");
     strictEqual(referent.demandCount, 2, "Referent demand count should be two after use.");
+  });
+});
+
+describe('Extractor with referent demand returning null', () => {
+
+  it("Referent returns null", () => {
+    const referent: Promisor<Date | null> = typeToPromisor<Date | null>(null);
+    const transform: Transform<Date | null, string | null> = {
+      transform: (date: RequiredType<Date | null>): string | null => {
+        return date === null ? null : date.toString();
+      }
+    };
+
+    Tools.withContracts((contracts: Contracts) => {
+      const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
+      const contract: Contract<string | null> = createContract<string | null>({ guarded: false });
+      const promisor: Promisor<string | null> = promisorFactory.createExtractor<Date | null, string | null>(referent, transform);
+
+      using _usingPromisor = contracts.bind(contract, promisor);
+
+      const claimedValue: OptionalType<string | null> = contracts.claim(contract);
+
+      strictEqual(claimedValue, null, "Claimed value should be null when referent returns null.");
+    });
   });
 });
 
