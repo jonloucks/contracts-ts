@@ -168,7 +168,7 @@ function guardTransform<I, O>(transform: unknown): transform is Transform<I, O> 
 
 function guardTransformFunction<I, O>(transform: unknown): transform is TransformFunction<I, O> {
   return isFunctionWithArity(transform, 1);
-} 
+}
 
 /**
  * Convert a TransformType to a Transform
@@ -181,9 +181,8 @@ export function typeToTransform<I, O>(transform: TransformType<I, O>): RequiredT
   if (guardTransform<I, O>(validTransformType)) {
     return validTransformType;
   } else if (guardTransformFunction<I, O>(validTransformType)) {
-    return { transform: validTransformType };  
+    return { transform: validTransformType };
   } else {
     throw new IllegalArgumentException("TransformType must be a Transform or a function taking one argument.");
   }
 }
-
