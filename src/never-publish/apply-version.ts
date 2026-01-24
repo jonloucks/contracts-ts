@@ -59,8 +59,7 @@ function createReleaseNotesFromTemplate(name: string, version: string, repositor
     const releaseNotesContent : string = templateContent
       .replace(/{{\s*NAME\s*}}/g, name)
       .replace(/{{\s*VERSION\s*}}/g, version)
-      .replace(/{{\s*REPOSITORY\s*}}/g, repository)
-      .replace(/{{\s*DATE\s*}}/g, new Date().toISOString().split('T')[0]);
+      .replace(/{{\s*REPOSITORY\s*}}/g, repository);
     writeFileSync(outputPath, releaseNotesContent, 'utf8');
     console.log(`Created release notes at ${outputPath}`);
   } else {
