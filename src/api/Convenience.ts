@@ -64,7 +64,7 @@ export function isBound<T>(contract: RequiredType<Contract<T>>): boolean {
 /**
  * Creates a Promisor that returns the given value every time it is claimed.
  *
- * @param deliverable the value to
+ * @param deliverable the value to return from the Promisor
  * @return The new Promisor
  * @param <T> the type of deliverable
  */
