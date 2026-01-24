@@ -54,6 +54,11 @@ function fileDoesNotExist(path: string): boolean {
 function createReleaseNotesFromTemplate(name: string, version: string, repository: string): void {
   const templatePath : string = resolve('notes/release-notes-template.md');
   const outputPath : string = resolve('notes', `release-notes-v${version}.md`);
+  if (fileDoesNotExist(templatePath)) {
+    const message = `Release notes template not found at ${templatePath}`;
+    console.error(message);
+    throw new Error(message);
+  }
   if (fileDoesNotExist(outputPath)) {
     const templateContent : string = readFileSync(templatePath, 'utf8');
     const releaseNotesContent : string = templateContent
