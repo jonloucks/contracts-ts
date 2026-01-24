@@ -31,7 +31,7 @@ export { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
  * @param initialValue the initial boolean value
  * @returns the AtomicBoolean instance
  */
-export function createAtomicBoolean(initialValue: boolean): RequiredType<AtomicBoolean> {
+export function createAtomicBoolean(initialValue?: boolean): RequiredType<AtomicBoolean> {
   return CONTRACTS.enforce(BOOLEAN_FACTORY).createAtomicBoolean(initialValue);
 }
 
@@ -41,7 +41,7 @@ export function createAtomicBoolean(initialValue: boolean): RequiredType<AtomicB
  * @param initialValue the initial reference value
  * @returns the AtomicReference instance
  */
-export function createAtomicReference<T>(initialValue: T): RequiredType<AtomicReference<T>> {
+export function createAtomicReference<T>(initialValue?: T): RequiredType<AtomicReference<T>> {
   return CONTRACTS.enforce(REFERENCE_FACTORY).createAtomicReference(initialValue);
 }
 
@@ -51,6 +51,6 @@ export function createAtomicReference<T>(initialValue: T): RequiredType<AtomicRe
  * @param initialValue the initial integer value
  * @returns the AtomicInteger instance
  */
-export function createAtomicInteger(initialValue: number): RequiredType<AtomicInteger> {
+export function createAtomicInteger(initialValue?: number): RequiredType<AtomicInteger> {
   return CONTRACTS.enforce(INTEGER_FACTORY).createAtomicInteger(initialValue);
 }
