@@ -5,7 +5,7 @@ import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "./helper.test";
+import { assertGuard } from "../helper.test";
 
 describe('AtomicReference', () => {
   it('AtomicReference FACTORY works', () => {

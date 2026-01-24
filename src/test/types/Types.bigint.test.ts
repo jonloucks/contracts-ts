@@ -1,10 +1,8 @@
-
-import { isString } from "@jonloucks/contracts-ts/api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
+import { isBigInt } from "@jonloucks/contracts-ts/api/Types";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
-  { value: "", help: "a empty string value" },
-  { value: "abc", help: "a string value" }
+  { value: BigInt(42), help: "a bigint value" }
 ];
 
 const INVALID_CASES: PredicateCase[] = [
@@ -12,12 +10,13 @@ const INVALID_CASES: PredicateCase[] = [
   { value: Symbol("test"), help: "a symbol value" },
   { value: async () : Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
+  { value: "abc", help: "a string value" },
   { value: {}, help: "an object value" }
 ]
 
 generatePredicateSuite({
-  name: 'isString',
-  function: isString,
+  name: 'isBigInt',
+  function: isBigInt,
   validCases: VALID_CASES,
   invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });

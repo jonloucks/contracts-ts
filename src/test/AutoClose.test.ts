@@ -4,7 +4,7 @@ import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrapAuto
 import { AutoCloseFactory, CONTRACT as FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/Types.tools.test";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
 import { assertGuard } from "./helper.test";
 
 const VALID_CASES: PredicateCase[] = [

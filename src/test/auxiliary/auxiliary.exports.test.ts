@@ -13,14 +13,13 @@ import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/Illegal
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 /** 
- * Tests for @jonloucks/contracts-ts/auxiliary index 
+ * Tests for @jonloucks/contracts-ts/auxiliary exports
  * All exported functions and constants must already have been tested in their respective test files
  * These tests ensure that the index exports are correctly set up and accessible
  * If this file fails to compile, it indicates a possible breaking for deployment consumers
- * @module @jonloucks/contracts-ts/tests/contracts-ts-auxiliary.test.ts
  */
 
-describe('contracts-ts/auxiliary Index exports', () => {
+describe('auxiliary exports', () => {
   it('should export all expected members', () => {
     strictEqual(presentCheck("green", "not easy being green"), "green");
     assertNothing(null as OptionalType<AtomicBoolean>);
