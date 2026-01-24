@@ -5,7 +5,7 @@ import { isNotPresent } from "../api/Types";
 interface PackageJson {
   name: string;
   version: string;
-  repository?:{ url: string };
+  repository?: { url: string };
 }
 
 export function applyVersion(): void {
