@@ -25,7 +25,7 @@ export function applyVersion(): void {
     }
   } catch (error) {
     console.error("Error applying version:", error);
-     throw new Error(`Failed to apply version: ${(error as Error).message}`);
+    throw new Error(`Failed to apply version: ${(error as Error).message}`);
   }
 }
 
