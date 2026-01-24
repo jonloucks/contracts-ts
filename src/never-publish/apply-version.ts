@@ -40,7 +40,7 @@ function normalizeRepository(repository?: string): string {
   if (repository.startsWith('git+')) {
     repository = repository.slice(4);
   }
-  return repository.trim()
+  return repository.trim();
 }
 
 function isNonEmptyString(value: unknown): value is string {
