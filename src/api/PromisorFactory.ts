@@ -39,7 +39,7 @@ export interface PromisorFactory {
   createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>>;
 
   /**
-   * Extract
+   * Extract values from the deliverable of a source Promisor.
    * Note: increment and decrementUsage are relayed to the source promisor.
    *
    * @param promisor the source promisor

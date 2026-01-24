@@ -5,7 +5,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "./helper.test";
+import { assertGuard } from "../helper.test";
 
 describe('AtomicBoolean', () => {
 

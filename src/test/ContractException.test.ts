@@ -1,8 +1,6 @@
 import { throws } from "node:assert";
 
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
-import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
-import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
 describe('ContractException Tests', () => {
   it('without message throws IllegalArgumentException', () => {
@@ -70,42 +68,3 @@ describe('ContractException Tests', () => {
     });
   });
 });
-
-describe('IllegalStateException Tests', () => {
-  it('without message throws IllegalArgumentException', () => {
-    throws(() => {
-      new IllegalStateException(null as unknown as string);
-    }, {
-      name: 'IllegalArgumentException',
-      message: 'Message must be present.'
-    });
-  });
-  it('with message has correct name and message', () => {
-    throws(() => {
-      throw new IllegalStateException("Problem.");
-    }, {
-      name: 'IllegalStateException',
-      message: "Problem."
-    });
-  });
-});
-
-describe('IllegalArgumentException Tests', () => {
-  it('without message throws IllegalArgumentException', () => {
-    throws(() => {
-      new IllegalArgumentException(null as unknown as string);
-    }, {
-      name: 'IllegalArgumentException',
-      message: 'Message must be present.'
-    });
-  });
-  it('with message has correct name and message', () => {
-    throws(() => {
-      throw new IllegalArgumentException("Problem.");
-    }, {
-      name: 'IllegalArgumentException',
-      message: "Problem."
-    });
-  });
-});
-
