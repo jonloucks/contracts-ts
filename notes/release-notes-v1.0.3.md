@@ -3,7 +3,7 @@
 npm install @jonloucks/contracts-ts@1.0.3
 ```
 
-Convenience allowing undefined initial value
+Convenience allowing undefined initial value for atomics
 
 ## Customer impact
 *  None
@@ -13,7 +13,7 @@ Convenience allowing undefined initial value
 
 ## 🚀 New Features
 
-*  None
+*  Convenience allowing undefined initial value for atomics
 
 ## ✨ Improvements
 
