@@ -37,7 +37,10 @@ describe('Convenience Tests', () => {
     const extractorContract: Contract<number> = createNumberContract();
 
     let nextId = 1;
-    const customerFactory = (): Customer => ({ id: nextId++, name: "customer-"+nextId });
+    const customerFactory = (): Customer => {
+      const id = nextId++;
+      return { id, name: "customer-" + id };
+    };
     const firstCustomer: Customer = customerFactory();
     const singletonPromisor: Promisor<Customer> = createSingleton<Customer>(customerFactory);
     const lifecyclePromisor: Promisor<Customer> = createLifeCycle<Customer>(customerFactory);
