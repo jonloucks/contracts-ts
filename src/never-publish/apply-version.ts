@@ -35,7 +35,7 @@ function normalizeRepository(repository?: string): string {
   }
   repository = repository.trim();
   if (repository.endsWith('.git')) {
-    repository =repository.slice(0, -4);
+    repository = repository.slice(0, -4);
   }
   if (repository.startsWith('git+')) {
     repository = repository.slice(4);
