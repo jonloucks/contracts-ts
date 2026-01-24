@@ -16,7 +16,7 @@ export function applyVersion(): void {
     if (isNonEmptyString(packageJson.name) && isNonEmptyString(packageJson.version)) {
       const name : string = packageJson.name.trim();
       const version : string = packageJson.version.trim();
-      const repository : string = normalizeRepository(packageJson.repository?.url)  ;
+      const repository : string = normalizeRepository(packageJson.repository?.url);
       createVersionTs(name, version);
       createReleaseNotesFromTemplate(name, version, repository);
       console.log(`Applied version ${version} for package ${name}`);
