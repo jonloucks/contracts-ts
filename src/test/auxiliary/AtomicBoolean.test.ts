@@ -89,10 +89,10 @@ generateCompareAndSet({
 
 generateGetAndSet({
   validCases: [
-    { current: false, requested: true, updated: false, help: "from false to true" },
-    { current: false, requested: false, updated: false, help: "from false to false" },
-    { current: true, requested: false, updated: true, help: "from true to false" },
-    { current: true, requested: true, updated: true, help: "from true to true" },
+    { current: false, requested: true, help: "from false to true" },
+    { current: false, requested: false, help: "from false to false" },
+    { current: true, requested: false, help: "from true to false" },
+    { current: true, requested: true, help: "from true to true" },
   ]
 });
 
@@ -108,7 +108,6 @@ assertGuard(guard, "compareAndSet", "get", "set", "getAndSet");
 interface GetAndSetCase {
   current: boolean
   requested: boolean;
-  updated: boolean;
   help?: string;
 }
 
