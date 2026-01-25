@@ -33,6 +33,9 @@ describe('AtomicInteger', () => {
       const decremented = atomic.decrementAndGet();
       strictEqual(decremented, 10, "value after decrementAndGet is 10");
       strictEqual(atomic.toString(), "10", "toString after decrementAndGet is '10'");
+      const previousValue = atomic.getAndSet(20);
+      strictEqual(previousValue, 10, "getAndSet previous value is 10");
+      strictEqual(atomic.get(), 20, "value after getAndSet to 20 is 20");
     });
   });
 
@@ -48,11 +51,12 @@ describe('AtomicInteger', () => {
   });
 });
 
-assertGuard(guard, 
-  "get", 
-  "set", 
-  "compareAndSet", 
-  "incrementAndGet", 
+assertGuard(guard,
+  "getAndSet",
+  "get",
+  "set",
+  "compareAndSet",
+  "incrementAndGet",
   "decrementAndGet"
 );
 

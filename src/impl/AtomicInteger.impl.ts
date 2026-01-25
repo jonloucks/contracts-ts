@@ -54,6 +54,13 @@ class AtomicIntegerImpl implements AtomicInteger {
     return current === expectedValue;
   }
 
+  /**
+   * AtomicInteger.getAndSet override
+   */
+  getAndSet(newValue: number): number {
+    return Atomics.exchange(this.array, 0, newValue);
+  }
+
   /** 
    * Object.toString override
    */

@@ -36,6 +36,14 @@ export interface AtomicInteger {
      */
     decrementAndGet(): number;
 
+    /**     
+     * Atomically sets to the given value and returns the previous value.
+     * 
+     * @param newValue the new value
+     * @return the previous value
+     */
+    getAndSet(newValue: number): number;
+
     /**
      * Helpful method for converting to primitive types.
      * @param hint primitive hint
@@ -50,5 +58,5 @@ export interface AtomicInteger {
  * @returns true if the instance implements AtomicInteger
  */
 export function guard(instance: unknown): instance is RequiredType<AtomicInteger> {
-    return guardFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "get", "set");
+    return guardFunctions(instance, "compareAndSet", "incrementAndGet", "decrementAndGet", "getAndSet", "get", "set");
 }

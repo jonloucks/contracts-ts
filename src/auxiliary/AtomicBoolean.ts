@@ -25,6 +25,14 @@ export interface AtomicBoolean {
      */
     compareAndSet(expectedValue: boolean, newValue: boolean): boolean;
 
+    /**     
+     * Atomically sets to the given value and returns the previous value.
+     * 
+     * @param newValue the new value
+     * @return the previous value
+     */
+    getAndSet(newValue: boolean): boolean;
+
     /**
      * Helpful method for converting to primitive types.
      * @param hint 
@@ -39,7 +47,7 @@ export interface AtomicBoolean {
  * @returns true if the instance implements AtomicBoolean
  */
 export function guard(instance: unknown): instance is RequiredType<AtomicBoolean> {
-    return guardFunctions(instance, "compareAndSet", "get", "set");
+    return guardFunctions(instance, "compareAndSet", "get", "set", "getAndSet");
 }
 
 

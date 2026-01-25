@@ -45,6 +45,15 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
   }
 
   /** 
+   * AtomicReference.getAndSet override
+   */
+  getAndSet(newValue: OptionalType<T>): OptionalType<T> {
+    const previousValue = this.value;
+    this.value = newValue;
+    return previousValue;
+  }
+
+  /** 
    * Object.toString override
    */
   toString(): string {
