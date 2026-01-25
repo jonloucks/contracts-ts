@@ -86,8 +86,8 @@ generateGetAndSet<string>({
     { current: undefined, requested: undefined, help: "from undefined to undefined" },
     { current: null, requested: undefined, help: "from null to undefined" },
     { current: null, requested: null, help: "from null to null" },
-    { current: "epsilon", requested: null, help: "from 'epsilon' to null" },  
-    { current: "epsilon", requested: undefined, help: "from 'epsilon' to undefined" },  
+    { current: "epsilon", requested: null, help: "from 'epsilon' to null" },
+    { current: "epsilon", requested: undefined, help: "from 'epsilon' to undefined" },
   ]
 });
 
