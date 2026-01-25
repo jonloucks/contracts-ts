@@ -24,6 +24,14 @@ export interface AtomicReference<T> {
      * @return true if successful. False return indicates that the actual value was not equal to the expected value.
      */
     compareAndSet(expectedValue: OptionalType<T>, newValue: OptionalType<T>): boolean;
+
+    /**
+     * Atomically sets to the given value and returns the previous value.
+     * 
+     * @param newValue the new value
+     * @return the previous value
+     */
+    getAndSet(newValue: OptionalType<T>): OptionalType<T>;
 }
 
 /**
@@ -33,5 +41,5 @@ export interface AtomicReference<T> {
  * @returns true if the instance implements AtomicReference
  */
 export function guard<T>(instance: unknown): instance is RequiredType<AtomicReference<T>> {
-    return guardFunctions(instance, "compareAndSet", "get", "set");
+    return guardFunctions(instance, "compareAndSet", "getAndSet", "get", "set");
 }

@@ -87,6 +87,15 @@ generateCompareAndSet({
   ]
 });
 
+generateGetAndSet({
+  validCases: [
+    { current: false, requested: true, updated: false, help: "from false to true" },
+    { current: false, requested: false, updated: false, help: "from false to false" },
+    { current: true, requested: false, updated: true, help: "from true to false" },
+    { current: true, requested: true, updated: true, help: "from true to true" },
+  ]
+});
+
 describe('guard tests', () => {
   it('guard should return true for AtomicBoolean', () => {
     const atomicBoolean: AtomicBoolean = mock<AtomicBoolean>();
@@ -94,7 +103,37 @@ describe('guard tests', () => {
   });
 });
 
-assertGuard(guard, "compareAndSet", "get", "set")
+assertGuard(guard, "compareAndSet", "get", "set", "getAndSet");
+
+interface GetAndSetCase {
+  current: boolean
+  requested: boolean;
+  updated: boolean;
+  help?: string;
+}
+
+interface GetAndSetSuiteOptions {
+  validCases?: GetAndSetCase[];
+}
+
+export function generateGetAndSet(options: GetAndSetSuiteOptions) : void {
+  const { validCases } = options;
+
+  describe(`GetAndSet Suite for AtomicBoolean`, () => {
+
+    validCases?.forEach((testCase, index) => {
+      it(`case #${index} when currently ${testCase.current} getAndSet( ${testCase.requested} ) => ${testCase.current} with final state ${testCase.requested}`, () => {
+        Tools.withContracts((contracts: Contracts) => {
+          const atomic: AtomicBoolean = contracts.enforce(FACTORY).createAtomicBoolean(testCase.current);
+
+          const actual = atomic.getAndSet(testCase.requested);
+          strictEqual(actual, testCase.current);
+          strictEqual(atomic.get(), testCase.requested);
+        });
+      });
+    });
+  });
+}
 
 interface CompareAndSetCase {
   current: boolean

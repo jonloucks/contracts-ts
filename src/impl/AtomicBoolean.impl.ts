@@ -52,6 +52,15 @@ class AtomicBooleanImpl implements AtomicBoolean {
     return Atomics.compareExchange(this.array, 0, expectedVal, newTargetVal) === expectedVal;
   }
 
+  /**
+   * AtomicBoolean.getAndSet override
+   */
+  getAndSet(newValue: boolean): boolean {
+    const newTargetVal: number = booleanToNumber(newValue);
+    const previousVal: number = Atomics.exchange(this.array, 0, newTargetVal);
+    return previousVal === TRUE_AS_NUMBER;  
+  }
+
   /** 
    * [Symbol.toPrimitive] override
    */
