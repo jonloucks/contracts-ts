@@ -1,6 +1,14 @@
 import { OptionalType, RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
+ * @module auxiliary/AtomicReference
+ * @description
+ * 
+ * AtomicReference is not truly atomic in this implementation due to JavaScript/TypeScript limitations.
+ * However, it provides a thread-safe interface for reference operations using standard object equality.
+ */
+
+/**
  * Responsibility: An atomic reference interface for thread-safe reference operations.
  * Note: typescript limitations prevent full atomicity guarantees.
  */
