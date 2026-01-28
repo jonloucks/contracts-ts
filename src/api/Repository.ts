@@ -4,6 +4,23 @@ import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { Contracts } from "./Contracts";
+
+/**
+ * Configuration for Repository
+ */ 
+export interface Config {
+
+  /**
+   * Optional Contracts container for the Repository
+   */
+  contracts? : Contracts;
+
+  /**
+   * Optional required contracts for the Repository
+   */
+  requiredContracts?: Contract<unknown>[];
+}
 
 /**
  * A repository for multiple contract promisors

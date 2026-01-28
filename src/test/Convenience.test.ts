@@ -1,8 +1,28 @@
+import {
+  AutoClose,
+  bind,
+  claim,
+  Contract,
+  CONTRACTS,
+  createExtractor,
+  createLifeCycle,
+  createRepository,
+  createSingleton,
+  createValue,
+  createContract,
+  enforce,
+  inlineAutoClose,
+  isBoolean,
+  isBound,
+  isFunction,
+  isNumber,
+  isObject,
+  isString,
+  Promisor,
+  Repository,
+  RequiredType
+} from "@jonloucks/contracts-ts/api/Convenience";
 import { ok } from "node:assert";
-import { Contract, createContract, RequiredType } from "@jonloucks/contracts-ts";
-import { isNumber, isObject } from "@jonloucks/contracts-ts/api/Types";
-import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { claim, bind, isBound, enforce, createExtractor, createLifeCycle, createSingleton, createValue } from "@jonloucks/contracts-ts/api/Convenience";
 
 // Convenience tests, all exports are simple inlines to fully tested functionality.
 
@@ -29,12 +49,35 @@ function createNumberContract(): Contract<number> {
   })
 };
 
-describe('Convenience Tests', () => {
+describe('Convenience Exports', () => {
+  it('all expected exports are present', () => {
+    ok(typeof bind === 'function', 'bind is exported');
+    ok(typeof claim === 'function', 'claim is exported');
+    ok(typeof createExtractor === 'function', 'createExtractor is exported');
+    ok(typeof createLifeCycle === 'function', 'createLifeCycle is exported');
+    ok(typeof createRepository === 'function', 'createRepository is exported');
+    ok(typeof createSingleton === 'function', 'createSingleton is exported');
+    ok(typeof createValue === 'function', 'createValue is exported');
+    ok(typeof enforce === 'function', 'enforce is exported');
+    ok(typeof CONTRACTS === 'object', 'CONTRACTS is exported');
+    ok(typeof isBound === 'function', 'isBound is exported');
+    ok(typeof createContract === 'function', 'createContract is exported');
+    ok(typeof isNumber === 'function', 'isNumber is exported');
+    ok(typeof isObject === 'function', 'isObject is exported');
+    ok(typeof isString === 'function', 'isString is exported');
+    ok(typeof inlineAutoClose === 'function', 'inlineAutoClose is exported');
+    ok(typeof isBoolean === 'function', 'isBoolean is exported');
+    ok(typeof isFunction === 'function', 'isFunction is exported');
+  });
+});
+describe('Convenience Functionality', () => {
   it('Swath test', () => {
     const singletonContract: Contract<Customer> = createCustomerContract();
     const lifecycleContract: Contract<Customer> = createCustomerContract();
     const valueContract: Contract<Customer> = createCustomerContract();
     const extractorContract: Contract<number> = createNumberContract();
+
+    const repository: Repository = createRepository();
 
     let nextId = 1;
     const customerFactory = (): Customer => {
@@ -48,10 +91,12 @@ describe('Convenience Tests', () => {
     const extractorPromisor: Promisor<number> = createExtractor<Customer, number>(
       lifecyclePromisor, (p: Customer) => p.id);
 
-    using _usingSingleton = bind(singletonContract, singletonPromisor);
-    using _usingLifecycle = bind(lifecycleContract, lifecyclePromisor);
-    using _usingValue = bind(valueContract, valuePromisor);
-    using _usingExtractor = bind(extractorContract, extractorPromisor);
+    repository.keep(singletonContract, singletonPromisor);
+    repository.keep(lifecycleContract, lifecyclePromisor);
+    repository.keep(valueContract, valuePromisor);
+    repository.keep(extractorContract, extractorPromisor);
+
+    using _usingRepository: AutoClose= repository.open();
 
     ok(isBound(singletonContract), 'singleton is bound');
     ok(isBound(lifecycleContract), 'lifecycle is bound');

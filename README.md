@@ -27,11 +27,39 @@ npm install @jonloucks/contracts-ts
 
 ## Usage - code fragments from Example.test.ts
 
+<details markdown="1"><summary>Importing the Package</summary>
+
+```typescript
+import { CONTRACTS, createContract } from '@jonloucks/contracts-ts';
+```
+
+</details>
+
+<details markdown="1"><summary>Importing the Convenience Package</summary>
+
+```typescript
+import {
+  AutoClose,
+  bind,
+  claim,
+  Contract,
+  createExtractor,
+  createLifeCycle,
+  createRepository,
+  createSingleton,
+  createValue,
+  createContract,
+  enforce,
+  guardFunctions,
+  isBound
+} from "@jonloucks/contracts-ts/api/Convenience";
+```
+
+</details>
+
 <details markdown="1"><summary>Creating a Contract</summary>
 
 ```typescript
-import { createContract, Contract, CONTRACTS } from '@jonloucks/contracts-ts';
-
 // Define a service interface
 interface Logger {
     log(message: string): void;
@@ -40,30 +68,19 @@ interface Logger {
 // Create a contract for the service
 const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
     name: "Logger",
-    test: (obj: any): obj is Logger => { // example of duck-typing check
-        return typeof obj.log === "function";
+    test: (obj: unknown): obj is Logger => { // example of duck-typing check
+    return guardFunctions(obj, 'log'); // example of using guardFunctions helper
     }
 });
 ```
-</details>
-
-<details markdown="1"><summary>Importing the Package</summary>
-
-```typescript
-import { CONTRACTS, createContract, PromisorFactory, PROMISOR_FACTORY } from '@jonloucks/contracts-ts';
-```
-
 </details>
 
 <details markdown="1"><summary>Binding a Contract</summary>
 
 ```typescript
 
-// Optional - PromisorFactory is not required, but provides trivial and advanced ways to create Promisors
-let promisorFactory : PromisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
-
-CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
-    promisorFactory.createSingleton<Logger>(
+bind<Logger>(LOGGER_CONTRACT,
+    createSingleton<Logger>(
         () => ({
             log: (message: string) => {
                 console.log("LOG:", message);
@@ -75,7 +92,7 @@ CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
 <details markdown="1"><summary>Using the Contract</summary>
 
 ```typescript
-const logger : Logger = CONTRACTS.enforce<Logger>(LOGGER_CONTRACT);
+const logger : Logger = enforce<Logger>(LOGGER_CONTRACT);
 logger.log("Using the service in the test.");
 ```
 </details>

@@ -1,5 +1,5 @@
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { Config, Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { create as createRepository } from "./Repository.impl";
@@ -21,8 +21,14 @@ export function create(contracts: Contracts): RequiredType<RepositoryFactory> {
  */
 class RepositoryFactoryImpl implements RepositoryFactory {
 
-  createRepository(): RequiredType<Repository> {
-    return createRepository(this.contracts);
+  createRepository(config?: Config): RequiredType<Repository> {
+    const validConfig: Config =  {...(config ?? {})};
+
+    if (!validConfig.contracts) {
+      validConfig.contracts = this.contracts;
+    }
+
+    return createRepository(validConfig);
   }
 
   static internalCreate(contracts: Contracts): RequiredType<RepositoryFactory> {
