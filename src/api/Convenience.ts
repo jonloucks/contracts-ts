@@ -1,9 +1,35 @@
-import { AutoClose, Contract, CONTRACTS, OptionalType, RequiredType } from "@jonloucks/contracts-ts";
-import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { Contract, ContractConfig, CONTRACTS, createContract } from "@jonloucks/contracts-ts";
+import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { CONTRACT as PROMISOR_FACTORY } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { TransformType } from "@jonloucks/contracts-ts/api/Types";
+import { CONTRACT as REPOSITORY_FACTORY } from "@jonloucks/contracts-ts/api/RepositoryFactory";
+import { Repository, Config as RepositoryConfig } from "@jonloucks/contracts-ts/api/Repository";
+import { OptionalType, RequiredType, Transform, TransformType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+
+export {
+  AutoClose,
+  BindStrategyType,
+  Contract,
+  ContractConfig,
+  CONTRACTS,
+  createContract,
+  guardFunctions,
+  inlineAutoClose,
+  isBoolean,
+  isFunction,
+  isNumber,
+  isObject,
+  isString,
+  OptionalType,
+  Promisor,
+  PromisorType,
+  Repository,
+  RepositoryConfig,
+  RequiredType,
+  Transform,
+  TransformType,
+};
 
 /**
  * @module Convenience
@@ -109,5 +135,15 @@ export function createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Prom
  */
 export function createExtractor<T, R>(promisor: PromisorType<T>, extractor: TransformType<T, R>): RequiredType<Promisor<R>> {
   return enforce(PROMISOR_FACTORY).createExtractor(promisor, extractor);
+}
+
+/**
+ * Factory method to create a Repository via the shared global REPOSITORY_FACTORY instance.
+ * 
+ * @param config optional configuration for the Repository
+ * @returns the Repository implementation
+ */
+export function createRepository(config?: RepositoryConfig): RequiredType<Repository> {
+  return enforce(REPOSITORY_FACTORY).createRepository(config);
 }
 

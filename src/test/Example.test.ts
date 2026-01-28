@@ -1,4 +1,15 @@
-import { AutoClose, Contract, CONTRACTS, createContract, hasFunctions, PROMISOR_FACTORY, PromisorFactory } from "@jonloucks/contracts-ts";
+import {
+  AutoClose,
+  bind,
+  claim,
+  Contract,
+  createSingleton,
+  createContract,
+  enforce,
+  guardFunctions,
+  isBound
+} from "@jonloucks/contracts-ts/api/Convenience";
+
 import { notStrictEqual, strictEqual } from "node:assert";
 
 // Define a service interface, a Contract can be for any type.
@@ -12,7 +23,7 @@ const LOGGER_CONTRACT: Contract<Logger> = createContract<Logger>({
 
   // Define how to test if an object satisfies the Logger interface
   test: (obj: unknown): obj is Logger => {
-    return hasFunctions(obj, 'log'); // Example of using hasFunctions utility
+    return guardFunctions(obj, 'log'); // example of using guardFunctions helper
   }
 });
 
@@ -24,11 +35,9 @@ describe("Example Logger Service Contract", () => {
   let closeBinding: AutoClose;
 
   it("Bind logging service contract to a Promisor", () => {
-    // Optional - PromisorFactory is not required, but provides trivial and advanced ways to create a Promisor
-    let promisorFactory = CONTRACTS.enforce<PromisorFactory>(PROMISOR_FACTORY);
 
-    closeBinding = CONTRACTS.bind<Logger>(LOGGER_CONTRACT,
-      promisorFactory.createSingleton<Logger>(
+    closeBinding = bind<Logger>(LOGGER_CONTRACT,
+      createSingleton<Logger>(
         () => ({
           log: (message: string) : void => {
             if (DEBUG) {
@@ -39,13 +48,14 @@ describe("Example Logger Service Contract", () => {
   });
 
   it("Optional - Check if logging service is bound", () => {
-    const isLoggerBound: boolean = CONTRACTS.isBound(LOGGER_CONTRACT);
+    const isLoggerBound: boolean = isBound(LOGGER_CONTRACT);
     strictEqual(isLoggerBound, true, "Logger should be bound");
   });
 
   it("Use logging service", () => {
-    const logger: Logger = CONTRACTS.enforce<Logger>(LOGGER_CONTRACT);
+    const logger: Logger = enforce<Logger>(LOGGER_CONTRACT);
     notStrictEqual(logger, null, "Logger should be enforced and not null");
+    strictEqual(claim<Logger>(LOGGER_CONTRACT), logger, "Claimed logger should be the same instance");
     logger.log("Using the service in the test.");
   });
 

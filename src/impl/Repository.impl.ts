@@ -1,17 +1,17 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { Repository, Config } from "@jonloucks/contracts-ts/api/Repository";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { contractCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { contractCheck, contractsCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { StorageImpl } from "./Storage.impl";
-import { AutoOpen } from "./Events";
 
 /**
  * Factory method to create Repository instance.
@@ -19,8 +19,8 @@ import { AutoOpen } from "./Events";
  * @param contracts the Contracts instance to be used by the Repository
  * @returns the Repository implementation
  */
-export function create(contracts: Contracts): RequiredType<Repository> {
-  return RepositoryImpl.internalCreate(contracts);
+export function create(config?: Config): RequiredType<Repository> {
+  return RepositoryImpl.internalCreate(config);
 }
 
 // ---- Implementation details below ----
@@ -110,8 +110,12 @@ class RepositoryImpl implements Repository, AutoOpen {
     return `Repository(id=${this.id}, size=${this.#storedContracts.size})`;
   }
 
-  private constructor(contracts: Contracts) {
-    this.contracts = contracts;
+  private constructor(config?: Config) {
+    const validConfig : Config = config ?? {};
+    this.contracts = contractsCheck(validConfig.contracts);
+    if (validConfig.requiredContracts) {
+      validConfig.requiredContracts.forEach((contract) => this.require(contract));
+    }
   }
 
   private firstOpen(): AutoClose {
@@ -142,8 +146,8 @@ class RepositoryImpl implements Repository, AutoOpen {
     }
   }
 
-  static internalCreate(contracts: Contracts): RequiredType<Repository> {
-    return new RepositoryImpl(contracts);
+  static internalCreate(config?: Config): RequiredType<Repository> {
+    return new RepositoryImpl(config);
   }
 
   private static ID_GENERATOR: number = 1;

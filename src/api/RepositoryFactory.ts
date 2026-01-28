@@ -1,6 +1,6 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { Repository } from "@jonloucks/contracts-ts/api/Repository";
+import { Repository, Config } from "@jonloucks/contracts-ts/api/Repository";
 import { RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
@@ -11,7 +11,7 @@ export interface RepositoryFactory {
   /**
    * Create a new Repository instance.    
    */
-  createRepository(): RequiredType<Repository>;
+  createRepository(config?: Config): RequiredType<Repository>;
 }
 
 /**
