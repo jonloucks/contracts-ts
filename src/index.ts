@@ -1,6 +1,5 @@
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
-import { createContracts } from "./impl/ContractsFactory.impl";
 
 export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 export { CONTRACT as AUTO_CLOSE_FACTORY, AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
@@ -18,9 +17,12 @@ export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isSt
 export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 //  no qualified paths for things not exposed publicly
+import { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl";
 export { createContract, create as createContractFactory } from "./impl/ContractFactory.impl";
-export { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl";
 export { VERSION } from "./version";
+
+export { createContracts, createContractsFactory };
+
 
 /**
  * A shared global Contracts instance.
