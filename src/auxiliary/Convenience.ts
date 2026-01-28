@@ -7,9 +7,7 @@ import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 
-export { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
-export { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
-export { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+export { AtomicBoolean , AtomicReference, AtomicInteger, RequiredType };
 
 /**
  * @module Convenience
