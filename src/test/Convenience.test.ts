@@ -96,7 +96,7 @@ describe('Convenience Functionality', () => {
     repository.keep(valueContract, valuePromisor);
     repository.keep(extractorContract, extractorPromisor);
 
-    using _usingRepository: AutoClose= repository.open();
+    using _usingRepository: AutoClose = repository.open();
 
     ok(isBound(singletonContract), 'singleton is bound');
     ok(isBound(lifecycleContract), 'lifecycle is bound');
