@@ -154,11 +154,12 @@ export function guardFunctions(value: unknown, ...propertyNames: (string | symbo
     return false;
   }
 
+  const record = value as Record<string | symbol, unknown>;
+  
   for (const propertyName of propertyNames) {
     if (propertyName in value === false) {
       return false;
     }
-    const record = value as Record<string | symbol, unknown>;
     if (isFunction(record[propertyName]) === false) {
       return false;
     }
