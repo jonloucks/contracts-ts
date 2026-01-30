@@ -33,7 +33,6 @@ type Guard<T> = (o: unknown) => o is T;
  * @param mocked the mocked instance
  * @param propertyNames the names of methods to be auto created
  */
-//mock<AtomicBooleanFactory, _MockProxy<AtomicBooleanFactory>
 export function mockGuardFix<T>(mocked: MockProxy<T> , ...propertyNames: (string | symbol)[]): void {
   const lookup = mocked as Record<string | symbol, unknown>;
   
