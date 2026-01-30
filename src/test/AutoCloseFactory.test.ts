@@ -1,4 +1,4 @@
-import { mock, MockProxy} from "jest-mock-extended";
+import { mock, MockProxy } from "jest-mock-extended";
 import { ok } from "node:assert";
 
 import { AutoCloseFactory, guard, CONTRACT } 
