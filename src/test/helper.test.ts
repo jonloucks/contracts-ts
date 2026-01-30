@@ -2,7 +2,7 @@ import { ok } from "node:assert";
 
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { _MockProxy, MockProxy } from "jest-mock-extended/lib/Mock";
+import { MockProxy } from "jest-mock-extended/lib/Mock";
 
 describe('Helper Tests', () => {
   it('should run a place holder test', () => {
