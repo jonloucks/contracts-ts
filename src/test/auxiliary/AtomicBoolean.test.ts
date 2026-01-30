@@ -1,11 +1,11 @@
-import { mock } from "jest-mock-extended";
+import { mock, MockProxy } from "jest-mock-extended";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "../helper.test";
+import { assertGuard, mockGuardFix } from "../helper.test";
 
 describe('AtomicBoolean', () => {
 
@@ -98,7 +98,8 @@ generateGetAndSet({
 
 describe('guard tests', () => {
   it('guard should return true for AtomicBoolean', () => {
-    const atomicBoolean: AtomicBoolean = mock<AtomicBoolean>();
+    const atomicBoolean: MockProxy<AtomicBoolean> = mock<AtomicBoolean>();
+    mockGuardFix(atomicBoolean, "compareAndSet", "get", "set", "getAndSet");
     ok(guard(atomicBoolean), 'AtomicBoolean should return true');
   });
 });

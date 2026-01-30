@@ -1,5 +1,5 @@
 import { ok } from "assert/strict";
-import { mock } from "jest-mock-extended";
+import { mock, MockProxy } from "jest-mock-extended";
 
 import { createContract } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
@@ -7,11 +7,12 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "./helper.test";
+import { assertGuard, mockGuardFix } from "./helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {
-    const instance: Contracts = mock<Contracts>();
+    const instance: MockProxy<Contracts> = mock<Contracts>();
+    mockGuardFix(instance, 'claim', 'enforce', 'isBound', 'bind', 'open');
     ok(guard(instance), 'Contracts should return true');
   });
 });

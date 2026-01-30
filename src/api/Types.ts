@@ -150,12 +150,16 @@ export function isConstructor<T>(value: unknown): value is RequiredType<(new () 
  * @returns true if property is defined
  */
 export function guardFunctions(value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType<UnknownFunction> {
-  if (isNotPresent(value)) {
+  if (isObject(value) === false) {
     return false;
   }
-  const record = value as Record<string | symbol, unknown>;
+
   for (const propertyName of propertyNames) {
-    if (!isFunction(record[propertyName])) {
+    if ( propertyName in value === false ) {
+      return false;
+    }
+    const record = value as Record<string | symbol, unknown>;
+    if (isFunction(record[propertyName]) === false) {
       return false;
     }
   }
