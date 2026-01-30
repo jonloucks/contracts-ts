@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>43/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>31/31</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>43/43</span>
             </div>
         
             
@@ -250,7 +250,12 @@
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,7 +301,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">16458x</span>
+<span class="cline-any cline-yes">19803x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,7 +311,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">20714x</span>
+<span class="cline-any cline-yes">16882x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,7 +320,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">9397x</span>
+<span class="cline-any cline-yes">8908x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,7 +340,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">3853x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,16 +407,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
-<span class="cline-any cline-yes">3832x</span>
-<span class="cline-any cline-yes">36x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3796x</span>
-<span class="cline-any cline-yes">3796x</span>
-<span class="cline-any cline-yes">7302x</span>
-<span class="cline-any cline-yes">493x</span>
+<span class="cline-any cline-yes">3834x</span>
+<span class="cline-any cline-yes">287x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3303x</span>
+<span class="cline-any cline-yes">3547x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3547x</span>
+<span class="cline-any cline-yes">7054x</span>
+<span class="cline-any cline-yes">241x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6813x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3304x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -589,12 +599,17 @@ export function isConstructor&lt;T&gt;(value: unknown): value is RequiredType&lt
  * @returns true if property is defined
  */
 export function guardFunctions(value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType&lt;UnknownFunction&gt; {
-  if (isNotPresent(value)) {
+  if (isObject(value) === false) {
     return false;
   }
+&nbsp;
   const record = value as Record&lt;string | symbol, unknown&gt;;
+  
   for (const propertyName of propertyNames) {
-    if (!isFunction(record[propertyName])) {
+    if (propertyName in value === false) {
+      return false;
+    }
+    if (isFunction(record[propertyName]) === false) {
       return false;
     }
   }
@@ -631,7 +646,7 @@ export function typeToTransform&lt;I, O&gt;(transform: TransformType&lt;I, O&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-01-29T13:03:11.218Z
+                at 2026-01-30T15:24:18.378Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
