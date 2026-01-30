@@ -155,7 +155,7 @@ export function guardFunctions(value: unknown, ...propertyNames: (string | symbo
   }
 
   for (const propertyName of propertyNames) {
-    if ( propertyName in value === false ) {
+    if (propertyName in value === false) {
       return false;
     }
     const record = value as Record<string | symbol, unknown>;
