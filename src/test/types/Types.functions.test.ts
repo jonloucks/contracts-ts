@@ -63,5 +63,5 @@ describe("guardFunctions", () => {
 
     expect(guardFunctions(mocked, "func1" )).toBe(true);
     expect(guardFunctions(mocked, "func1", "func2")).toBe(false);
-  }); 
+  });
 });
