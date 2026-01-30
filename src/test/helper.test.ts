@@ -35,7 +35,6 @@ type Guard<T> = (o: unknown) => o is T;
  */
 export function mockGuardFix<T>(mocked: MockProxy<T> , ...propertyNames: (string | symbol)[]): void {
   const lookup = mocked as Record<string | symbol, unknown>;
-  
   for (const propertyName of propertyNames) {
     // Access the property to force jest-mock-extended to create the method
     const _ = lookup[propertyName];
