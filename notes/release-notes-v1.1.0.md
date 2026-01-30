@@ -23,7 +23,7 @@ npm install @jonloucks/contracts-ts@1.1.0
 *   Exports: [Exports simplified](https://github.com/jonloucks/contracts-ts/pull/92)
 
 ## 🐛 Bug Fixes
-*  [Bug Fix #95 guardFunctions enhancement](https://github.com/jonloucks/contracts-ts/issues/95) - `hasFunctions()` now correctly validates that properties exist before checking if they are functions, preventing false positives with Jest mock objects 
+*  [Bug Fix #95 guardFunctions enhancement](https://github.com/jonloucks/contracts-ts/issues/95) - `hasFunctions()` now correctly validates that properties exist before checking if they are functions, preventing false positives with Jest mock objects
 
 ## ⬇️ Download
 
