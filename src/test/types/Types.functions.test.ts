@@ -1,6 +1,9 @@
+import { mock, MockProxy } from "jest-mock-extended";
+
 import { guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { mockGuardFix } from "../helper.test";
 
-describe("hasFunctions", () => {
+describe("guardFunctions", () => {
   it("should return true when all functions are present", () => {
     const obj = {
       func1: () : void => { },
@@ -26,9 +29,7 @@ describe("hasFunctions", () => {
 
     expect(guardFunctions(obj, "func1", "func2")).toBe(false);
   });
-});
 
-describe("hasFunctionsPresent", () => {
   it("should return true when all functions are present", () => {
     const obj = {
       func1: () : void => { },
@@ -53,5 +54,14 @@ describe("hasFunctionsPresent", () => {
     };
 
     expect(guardFunctions(obj, "func1", "func2")).toBe(false);
+  });
+
+  it("mock example should not return true for missing functions", () => {
+    const mocked : MockProxy<{ func1: () => void }> = mock<{ func1: () => void }>();
+
+    mockGuardFix(mocked, "func1");
+
+    expect(guardFunctions(mocked, "func1" )).toBe(true);
+    expect(guardFunctions(mocked, "func1", "func2")).toBe(false);
   });
 });

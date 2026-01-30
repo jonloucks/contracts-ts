@@ -2,6 +2,7 @@ import { ok } from "node:assert";
 
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { MockProxy } from "jest-mock-extended/lib/Mock";
 
 describe('Helper Tests', () => {
   it('should run a place holder test', () => {
@@ -23,6 +24,22 @@ export function assertContract<T>(contract: Contract<T>, name: string): void {
 }
 
 type Guard<T> = (o: unknown) => o is T;
+
+/**
+ * It breaks duck typing in jest-mock-extended mocks unless we access the properties.
+ * Production code now avoids calls that would trigger mock to create any method or property.
+ * This behavior would cause ALL guard checks to pass incorrectly.
+ * 
+ * @param mocked the mocked instance
+ * @param propertyNames the names of methods to be auto created
+ */
+export function mockGuardFix<T>(mocked: MockProxy<T> , ...propertyNames: (string | symbol)[]): void {
+  const lookup = mocked as Record<string | symbol, unknown>;
+  for (const propertyName of propertyNames) {
+    // Access the property to force jest-mock-extended to create the method
+    const _ = lookup[propertyName];
+  }
+}
 
 export function assertGuard<T>(guard: Guard<T>, ...propertyNames: (string | symbol)[]): void {
   if (propertyNames.length === 0) {
