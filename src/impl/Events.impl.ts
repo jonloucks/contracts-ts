@@ -1,10 +1,12 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
+import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+
+import { create as createIdempotent } from "./Idempotent.impl";
 import { AutoOpen, Config, Events } from "./Events";
 
-export { Config, Events } from "./Events";
+export { Config, Events };
 
 /**
  *  Factory method to create Events instance.
@@ -28,11 +30,7 @@ class EventsImpl implements Events, AutoOpen {
   }
 
   open(): AutoClose {
-    if (this.idempotent.transitionToOpen()) {
-      return this.firstOpen();
-    } else {
-      return AUTO_CLOSE_NONE
-    }
+    return this.idempotent.open();
   }
 
   isOpen(): boolean {
@@ -43,22 +41,16 @@ class EventsImpl implements Events, AutoOpen {
     return new EventsImpl(config);
   }
 
-  private firstOpen(): AutoClose {
+  private firstOpen(): AutoCloseType {
     this.names.forEach(name => {
       process.on(name, this.callback);
     });
 
-    return inlineAutoClose(() => {
-      this.closeFirstOpen()
-    });
-  }
-
-  private closeFirstOpen(): void {
-    if (this.idempotent.transitionToClosed()) {
+    return () => {
       this.names.forEach(name => {
         process.off(name, this.callback);
       });
-    }
+    };
   }
 
   private constructor(config?: Config) {
@@ -69,6 +61,6 @@ class EventsImpl implements Events, AutoOpen {
 
   private readonly names: string[];
   private readonly callback: (...args: unknown[]) => void;
-  private readonly idempotent: Idempotent = createIdempotent();
+  private readonly idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen()});
 }
 

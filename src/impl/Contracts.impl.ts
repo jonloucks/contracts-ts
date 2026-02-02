@@ -1,4 +1,4 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AUTO_CLOSE_NONE, AutoClose, AutoCloseType, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
@@ -7,9 +7,12 @@ import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
-import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
+import { create as createIdempotent } from "./Idempotent.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
 import { Events, create as createEvents } from "./Events.impl";
 import { Internal } from "./Internal.impl";
 import { Policy, create as createPolicy } from "./Policy.impl";
@@ -42,10 +45,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    * Open.open override.
    */
   open(): AutoClose {
-    if (this.idempotent.transitionToOpen()) {
-      return this.firstOpen();
-    }
-    return AUTO_CLOSE_NONE;
+    return this.idempotent.open();
   }
 
   /**
@@ -107,19 +107,21 @@ class ContractsImpl implements Contracts, AutoOpen {
     return new ContractsImpl(config);
   }
 
-  private firstOpen(): AutoClose {
+  private firstOpen(): AutoCloseType {
     this.closeMany.add(this.events.open());
-    return inlineAutoClose(() => this.closeFirstOpen());
+    return () => this.closeFirstOpen();
   }
 
   private closeFirstOpen(): void {
-    if (this.idempotent.transitionToClosed()) {
-      try {
-        this.attemptToCloseBindings();
-      } finally {
-        this.closeMany.close();
-      }
+    try {
+      this.attemptToCloseBindings();
+    } finally {
+      this.closeMany.close();
     }
+  }
+
+  private shutdown(): void {
+    this.closeFirstOpen();
   }
 
   private attemptToCloseBindings(): void {
@@ -186,10 +188,9 @@ class ContractsImpl implements Contracts, AutoOpen {
     if (isPresent(previousPromisor)) {
       previousPromisor.decrementUsage();
     }
-    const breakBindingOnce: Idempotent = createIdempotent();
-    breakBindingOnce.transitionToOpen();
+    const breakBindingOnce: AtomicBoolean = createAtomicBoolean(true);
     return inlineAutoClose(() => {
-      if (breakBindingOnce.transitionToClosed()) {
+      if (breakBindingOnce.compareAndSet(true, false)) {
         this.breakBinding(contract, promisor);
       }
     });
@@ -264,7 +265,7 @@ class ContractsImpl implements Contracts, AutoOpen {
     this.policy = createPolicy(validConfig);
     this.events = createEvents({
       names: validConfig?.shutdownEvents ?? [],
-      callback: () => this.closeFirstOpen()
+      callback: () => this.shutdown()
     });
 
     if (isPresent(validPartners)) {
@@ -273,7 +274,7 @@ class ContractsImpl implements Contracts, AutoOpen {
   }
 
   private readonly closeMany: AutoCloseMany = createAutoCloseMany();
-  private readonly idempotent: Idempotent = createIdempotent();
+  private readonly idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen() });
   readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
   private readonly partners: Contracts[] = [];
   private readonly policy: Policy;

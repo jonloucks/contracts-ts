@@ -1,4 +1,4 @@
-import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseType, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
@@ -6,11 +6,11 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Config, Repository } from "@jonloucks/contracts-ts/api/Repository";
-import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { RequiredType, OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { contractCheck, contractsCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
-import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
+import { create as createIdempotent } from "./Idempotent.impl";
 import { StorageImpl } from "./Storage.impl";
 
 /**
@@ -42,10 +42,7 @@ class RepositoryImpl implements Repository, AutoOpen {
    * Open.open
    */
   open(): AutoClose {
-    if (this.idempotent.transitionToOpen()) {
-      return this.firstOpen();
-    }
-    return AUTO_CLOSE_NONE;
+    return this.idempotent.open();
   }
 
   /**
@@ -118,16 +115,12 @@ class RepositoryImpl implements Repository, AutoOpen {
     }
   }
 
-  private firstOpen(): AutoClose {
+  private firstOpen(): AutoCloseType {
     for (const storage of this.#storedContracts.values()) {
       storage.bind();
     }
     this.check();
-    return inlineAutoClose(() => this.closeFirstOpen());
-  }
-
-  private closeFirstOpen(): void {
-    if (this.idempotent.transitionToClosed()) {
+    return () => {
       this.reverseCloseStorage();
     }
   }
@@ -155,7 +148,9 @@ class RepositoryImpl implements Repository, AutoOpen {
   private readonly id: number = RepositoryImpl.ID_GENERATOR++;
   readonly #storedContracts = new Map<Contract<unknown>, StorageImpl<unknown>>();
   private readonly contracts: Contracts;
-  private readonly idempotent: Idempotent = createIdempotent();
+  private readonly idempotent: Idempotent = createIdempotent({
+    open: () => this.firstOpen()
+  });
   readonly #requiredContracts: Set<Contract<unknown>> = new Set<Contract<unknown>>();
 }
 

@@ -1,4 +1,3 @@
-import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { Idempotent, Config } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { IdempotentState } from "@jonloucks/contracts-ts/auxiliary/IdempotenState";
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
@@ -41,7 +40,7 @@ class IdempotentImpl implements Idempotent {
 
   // Idempotent.isOpen
   isOpen(): boolean {
-    return this._state.get() === IS_OPEN;
+    return this._flag.get() === IS_OPEN;
   }
 
   static internalCreate(config: Config): Idempotent {
@@ -54,6 +53,7 @@ class IdempotentImpl implements Idempotent {
       this._closeDelegate = this.openDelegate();
       this._idempotentState = "OPENED";
     } catch (thrown) {
+      this._flag.set(IS_CLOSED);
       this._idempotentState = "OPENABLE"; // maybe "DESTROYED"
       throw thrown;
     }
@@ -65,11 +65,11 @@ class IdempotentImpl implements Idempotent {
   }
 
   private transitionToOpen(): boolean {
-    return this._state.compareAndSet(IS_CLOSED, IS_OPEN);
+    return this._flag.compareAndSet(IS_CLOSED, IS_OPEN);
   }
 
   private transitionToClosed(): boolean {
-    return this._state.compareAndSet(IS_OPEN, IS_CLOSED);
+    return this._flag.compareAndSet(IS_OPEN, IS_CLOSED);
   }
 
   private constructor(config: Config) {
@@ -78,11 +78,9 @@ class IdempotentImpl implements Idempotent {
       if (this.transitionToClosed()) {
         this._idempotentState = "CLOSING";
         try {
-          if (isPresent(this._closeDelegate)) {
-            this._closeDelegate.close();
-          }
+             this._closeDelegate?.close();
         } finally {
-          this._closeDelegate = null;
+          this._closeDelegate = undefined;
           this._idempotentState = "CLOSED";
         }
       }
@@ -91,7 +89,7 @@ class IdempotentImpl implements Idempotent {
 
   private readonly _delegate: Open;
   private readonly _firstClose: AutoClose;
-  private readonly _state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
-  private _closeDelegate: AutoClose | null = null;
+  private readonly _flag: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
+  private _closeDelegate: AutoClose | undefined = undefined;
   private _idempotentState: IdempotentState = "OPENABLE";
 }

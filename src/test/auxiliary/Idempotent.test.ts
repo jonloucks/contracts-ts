@@ -1,11 +1,11 @@
-import { ok, strictEqual, throws } from "node:assert";
 import { MockProxy } from "jest-mock-extended";
+import { ok, strictEqual, throws } from "node:assert";
 
-import { Idempotent, guard as isIdempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
-import { AutoOpen, AutoClose, CONTRACTS, isPresent, Contracts, createContracts } from "@jonloucks/contracts-ts";
+import { AutoClose, AutoOpen, CONTRACTS, Contracts, createContracts, isPresent } from "@jonloucks/contracts-ts";
 import { Open } from "@jonloucks/contracts-ts/api/Open";
 import { IdempotentState } from "@jonloucks/contracts-ts/auxiliary/IdempotenState";
-import { IdempotentFactory, CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
+import { Idempotent, Config as IdempotentConfig, guard as isIdempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+import { CONTRACT as IDEMPOTENT_FACTORY, IdempotentFactory } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 
 import { assertGuard, mockDuck } from "../helper.test";
 
@@ -42,7 +42,7 @@ assertGuard(isIdempotent, ...FUNCTION_NAMES);
 
 describe('Idempotent Suite', () => {
   let contracts: Contracts;
-  let closeContracts : AutoClose;
+  let closeContracts: AutoClose;
 
   const createIdempotent = (config: IdempotentConfig): Idempotent => {
     const factory: IdempotentFactory = contracts.enforce(IDEMPOTENT_FACTORY);
@@ -416,6 +416,23 @@ describe('Idempotent Suite', () => {
       // Close and check state
       autoClose.close();
       ok(idempotent.getState() === 'CLOSED', 'State should be CLOSED after close');
+    });
+
+    it('when open throws', () => {
+      const problem : Error = new Error('Open failed');
+
+      const idempotent = createIdempotent({
+        open: () => { throw problem; }
+      });
+
+      throws(() => {
+        idempotent.open();
+      }, (err: Error) => {
+        strictEqual(err, problem, 'Thrown error should match problem');
+        return true;
+      });
+
+      ok(idempotent.getState() === 'OPENABLE', 'After open error should be OPENABLE');
     });
 
     it('should properly manage AutoCloseMany internally', () => {

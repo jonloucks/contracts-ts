@@ -1,5 +1,6 @@
 import { ok } from "node:assert";
-import { createAtomicBoolean, createAtomicInteger, createAtomicReference } from "@jonloucks/contracts-ts/auxiliary/Convenience";
+import { createAtomicBoolean, createAtomicInteger, createAtomicReference, createIdempotent } from "@jonloucks/contracts-ts/auxiliary/Convenience";
+import { AutoCloseType } from "@jonloucks/contracts-ts";
 
 // Convenience tests, all exports are simple inlines to fully tested functionality.
 
@@ -18,5 +19,12 @@ describe('Convenience Tests', () => {
     const obj = { value: "test" };
     const atomicReference = createAtomicReference(obj);
     ok(atomicReference.get() === obj, 'AtomicReference should be initialized to the provided object');
+  });
+
+  it('createIdempotent works', () => {
+    const idempotent = createIdempotent({
+      open: (): AutoCloseType => () => {}
+    });
+    ok(idempotent.isOpen() === false, 'Idempotent should be initially closed');
   });
 });
