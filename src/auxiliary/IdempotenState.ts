@@ -1,7 +1,7 @@
 /**
  * The possible states of an Idempotent
  */
-export const STATES: string[] = ['OPENABLE', 'OPENING', 'OPENED', 'CLOSING', 'CLOSED', 'DESTROYED'] as const;
+export const STATES = ['OPENABLE', 'OPENING', 'OPENED', 'CLOSING', 'CLOSED', 'DESTROYED'] as const;
 
 /** The possible states of an Idempotent */
 export type State = typeof STATES[number];
