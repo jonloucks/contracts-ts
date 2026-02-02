@@ -4,7 +4,6 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
-import { Open } from "@jonloucks/contracts-ts/api/Open";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
@@ -15,7 +14,7 @@ import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
  * @param repository the underlying Repository instance
  * @returns the Contracts implementation
  */
-export function wrap(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) : Contracts {
+export function wrap(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>): Contracts {
   return ContractsWrapper.internalCreate(contracts, repository);
 }
 
@@ -33,19 +32,19 @@ class ContractsWrapper implements Contracts {
   }
 
   claim<T>(contract: Contract<T>): OptionalType<T> {
-    return this.contracts.claim(contract);
+    return this._contracts.claim(contract);
   }
 
   enforce<T>(contract: Contract<T>): RequiredType<T> {
-    return this.contracts.enforce(contract);
+    return this._contracts.enforce(contract);
   }
 
   isBound<T>(contract: Contract<T>): boolean {
-    return this.contracts.isBound(contract);
+    return this._contracts.isBound(contract);
   }
 
   bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
-    return this.contracts.bind(contract, promisor, bindStrategy);
+    return this._contracts.bind(contract, promisor, bindStrategy);
   }
 
   autoOpen(): AutoClose {
@@ -53,39 +52,31 @@ class ContractsWrapper implements Contracts {
   }
 
   open(): AutoClose {
-    const closeContracts: AutoClose = this.contracts.open();
-    const thisRepository = this.repository;
-
-    let opener: Open = {
-      open() {
+    const closeRepository: AutoClose = this._repository.open();
+    try {
+      const closeConcurrency: AutoClose = this._contracts.open();
+      return inlineAutoClose(() => {
         try {
-          return thisRepository.open();
-        } catch (error) {
-          closeContracts.close(); // if the repository fails to open, close the contracts
-          throw error;
+          closeConcurrency.close();
+        } finally {
+          closeRepository.close(); // ensure repository is closed
         }
-      }
-    };
-
-    const closeRepository: AutoClose = opener.open();
-    return inlineAutoClose(() => {
-      try {
-        closeRepository.close();
-      } finally {
-        closeContracts.close(); // ensure contracts are closed even if repository close fails
-      }
-    });
+      });
+    } catch (thrown) {
+      closeRepository.close();
+      throw thrown
+    }
   }
 
   toString(): string {
-    return this.contracts.toString();
+    return this._contracts.toString();
   }
 
   private constructor(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) {
-    this.contracts = contracts;
-    this.repository = repository;
+    this._contracts = contracts;
+    this._repository = repository;
   }
 
-  private readonly contracts: RequiredType<Contracts>;
-  private readonly repository: RequiredType<Repository>;
+  private readonly _contracts: RequiredType<Contracts>;
+  private readonly _repository: RequiredType<Repository>;
 };

@@ -34,7 +34,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "test:watch": "jest --watch --watchAll --verbose",
+    "test:watch": "jest --watch --watchAll",
     "test:coverage": "jest --coverage",
     "test:diagnostics": "jest --detectOpenHandles",
     "lint": "eslint . --ext .ts",

@@ -8,6 +8,7 @@ import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { CONTRACT as ATOMIC_BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
+import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 
 import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl";
 import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory.impl";
@@ -17,6 +18,7 @@ import { create as createContractsImpl } from "./Contracts.impl";
 import { wrap as wrapContracts } from "./ContractsWrapper.impl";
 import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
 import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
+import { create as createIdempotentFactoryImpl } from "./IdempotentFactory.impl";
 
 /**
  * Factory method to create a ContractsFactory
@@ -63,6 +65,7 @@ class ContractsFactoryImpl implements ContractsFactory {
     const repositoryFactory: RequiredType<RepositoryFactory> = createRepositoryFactoryImpl(contracts);
     const repository: RequiredType<Repository> = repositoryFactory.createRepository();
 
+    repository.keep(IDEMPOTENT_FACTORY, createIdempotentFactoryImpl);
     repository.keep(PROMISOR_FACTORY, createPromisorFactoryImpl);
     repository.keep(REPOSITORY_FACTORY, () => repositoryFactory);
     repository.keep(ATOMIC_BOOLEAN_FACTORY, createAtomicBooleanFactoryImpl);

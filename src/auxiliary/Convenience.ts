@@ -3,11 +3,13 @@ import { CONTRACTS } from "@jonloucks/contracts-ts";
 import { CONTRACT as BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { CONTRACT as REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { CONTRACT as INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
-export { AtomicBoolean , AtomicReference, AtomicInteger, RequiredType };
+export { AtomicBoolean , AtomicReference, AtomicInteger, RequiredType, Idempotent, IdempotentConfig };
 
 /**
  * @module Convenience
@@ -51,4 +53,14 @@ export function createAtomicReference<T>(initialValue?: T): RequiredType<AtomicR
  */
 export function createAtomicInteger(initialValue?: number): RequiredType<AtomicInteger> {
   return CONTRACTS.enforce(INTEGER_FACTORY).createAtomicInteger(initialValue);
+}
+
+/**
+ * Create an Idempotent via the shared global CONTRACTS instance.
+ * 
+ * @param config the idempotent configuration
+ * @returns the Idempotent instance
+ */
+export function createIdempotent(config: IdempotentConfig): RequiredType<Idempotent> {
+  return CONTRACTS.enforce(IDEMPOTENT_FACTORY).createIdempotent(config);
 }
