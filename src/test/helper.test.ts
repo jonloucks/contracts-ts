@@ -1,8 +1,9 @@
-import { ok } from "node:assert";
+import assert, { ok } from "node:assert";
 
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { MockProxy } from "jest-mock-extended/lib/Mock";
+import { mock } from "jest-mock-extended";
 
 describe('Helper Tests', () => {
   it('should run a place holder test', () => {
@@ -14,8 +15,8 @@ export function assertContract<T>(contract: Contract<T>, name: string): void {
   describe(`${name} CONTRACT test`, () => {
     it(`${name} CONTRACT should be ratified with a name`, () => {
       ok(isRatifiedContract(contract), `${name} isRatifiedContract should return true`);
-      ok(contract.name == name, `CONTRACT name should be ${name}`);
-      if (contract.guarded == false) {
+      ok(contract.name === name, `CONTRACT name should be ${name}`);
+      if (contract.guarded === false) {
         ok(contract.cast(null) === null, `${name} CONTRACT.cast(null) should return null`);
         ok(contract.cast(undefined) === undefined, `${name} CONTRACT.cast(undefined) should return undefined`);
       }
@@ -26,19 +27,31 @@ export function assertContract<T>(contract: Contract<T>, name: string): void {
 type Guard<T> = (o: unknown) => o is T;
 
 /**
+  * @deprecated use mockDuck instead
+ */
+export function mockGuardFix<T>(mocked: MockProxy<T>, ...propertyNames: (string | symbol)[]): void {
+  const lookup = mocked as Record<string | symbol, unknown>;
+  for (const propertyName of propertyNames) {
+    // Access the property to force jest-mock-extended to create the method
+    assert(lookup[propertyName]);
+  }
+}
+
+/**
  * It breaks duck typing in jest-mock-extended mocks unless we access the properties.
  * Production code now avoids calls that would trigger mock to create any method or property.
  * This behavior would cause ALL guard checks to pass incorrectly.
  * 
- * @param mocked the mocked instance
  * @param propertyNames the names of methods to be auto created
  */
-export function mockGuardFix<T>(mocked: MockProxy<T> , ...propertyNames: (string | symbol)[]): void {
+export function mockDuck<T>(...propertyNames: (string | symbol)[]): MockProxy<T> {
+  const mocked: MockProxy<T> = mock<T>();
   const lookup = mocked as Record<string | symbol, unknown>;
   for (const propertyName of propertyNames) {
     // Access the property to force jest-mock-extended to create the method
-    const _ = lookup[propertyName];
+    assert(lookup[propertyName]);
   }
+  return mocked;
 }
 
 export function assertGuard<T>(guard: Guard<T>, ...propertyNames: (string | symbol)[]): void {

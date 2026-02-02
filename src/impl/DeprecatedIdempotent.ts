@@ -3,7 +3,7 @@
  *
  * Implementations manage idempotent transitions between open and closed states.
  */
-export interface Idempotent {
+export interface DeprecatedIdempotent {
   /**
    * Transition to open state.
    *

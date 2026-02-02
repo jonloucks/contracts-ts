@@ -9,8 +9,8 @@ import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/a
 import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
 import { Events, create as createEvents } from "./Events.impl";
-import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 import { Internal } from "./Internal.impl";
 import { Policy, create as createPolicy } from "./Policy.impl";
 

@@ -1,16 +1,21 @@
+import { isPresent } from "@jonloucks/contracts-ts/api/Types";
+import { Idempotent, Config } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+import { IdempotentState } from "@jonloucks/contracts-ts/auxiliary/IdempotenState";
+import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { Open, typeToOpen } from "@jonloucks/contracts-ts/api/Open";
+import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { Idempotent } from "./Idempotent";
 
-export { Idempotent } from "./Idempotent";
-
-/**
- * Factory to create an Idempotent implementation
- * 
- * @returns the new Idempotent implementation
+/** 
+ * Create a new Idempotent
+ *
+ * @param config the idempotent configuration
+ * @return the new Idempotent
  */
-export function create(): Idempotent {
-  return IdempotentImpl.internalCreate();
+export function create(config: Config): Idempotent {
+  return IdempotentImpl.internalCreate(config);
 }
 
 // ---- Implementation details below ----
@@ -18,31 +23,75 @@ export function create(): Idempotent {
 const IS_CLOSED: boolean = false;
 const IS_OPEN: boolean = true;
 
-/**
- * The Idempotent implementation
- */
 class IdempotentImpl implements Idempotent {
 
-  transitionToOpen(): boolean {
-    return this.state.compareAndSet(IS_CLOSED, IS_OPEN);
+  // Idempotent.getState
+  getState(): IdempotentState {
+    return this._idempotentState;
   }
 
-  transitionToClosed(): boolean {
-    return this.state.compareAndSet(IS_OPEN, IS_CLOSED);
+  // Idempotent.open
+  open(): AutoClose {
+    if (this.transitionToOpen()) {
+      return this.firstOpen();
+    } else {
+      return AUTO_CLOSE_NONE;
+    }
   }
 
+  // Idempotent.isOpen
   isOpen(): boolean {
-    return this.state.get() === IS_OPEN;
+    return this._state.get() === IS_OPEN;
   }
 
-  static internalCreate(): Idempotent {
-    return new IdempotentImpl();
+  static internalCreate(config: Config): Idempotent {
+    return new IdempotentImpl(config);
   }
 
-  private constructor() {
-    this.state.set(IS_CLOSED);
+  private firstOpen(): AutoClose {
+    this._idempotentState = "OPENING";
+    try {
+      this._closeDelegate = this.openDelegate();
+      this._idempotentState = "OPENED";
+    } catch (thrown) {
+      this._idempotentState = "OPENABLE"; // maybe "DESTROYED"
+      throw thrown;
+    }
+    return this._firstClose;
   }
 
-  private readonly state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
+  private openDelegate(): AutoClose {
+    return presentCheck(this._delegate.open(), "Close must be present.");
+  }
+
+  private transitionToOpen(): boolean {
+    return this._state.compareAndSet(IS_CLOSED, IS_OPEN);
+  }
+
+  private transitionToClosed(): boolean {
+    return this._state.compareAndSet(IS_OPEN, IS_CLOSED);
+  }
+
+  private constructor(config: Config) {
+    this._delegate = typeToOpen(config.open);
+    this._firstClose = inlineAutoClose(() => {
+      if (this.transitionToClosed()) {
+        this._idempotentState = "CLOSING";
+        try {
+          if (isPresent(this._closeDelegate)) {
+            this._closeDelegate.close();
+          }
+        } finally {
+          this._closeDelegate = null;
+          this._idempotentState = "CLOSED";
+        }
+      }
+    });
+  }
+
+  private readonly _delegate: Open;
+  private readonly _firstClose: AutoClose;
+  private readonly _state: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
+  private _closeDelegate: AutoClose | null = null;
+  private _idempotentState: IdempotentState = "OPENABLE";
 }
-

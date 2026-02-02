@@ -5,12 +5,12 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { Repository, Config } from "@jonloucks/contracts-ts/api/Repository";
+import { Config, Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { contractCheck, contractsCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
+import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
 import { StorageImpl } from "./Storage.impl";
 
 /**
@@ -111,7 +111,7 @@ class RepositoryImpl implements Repository, AutoOpen {
   }
 
   private constructor(config?: Config) {
-    const validConfig : Config = config ?? {};
+    const validConfig: Config = config ?? {};
     this.contracts = contractsCheck(validConfig.contracts);
     if (validConfig.requiredContracts) {
       validConfig.requiredContracts.forEach((contract) => this.require(contract));

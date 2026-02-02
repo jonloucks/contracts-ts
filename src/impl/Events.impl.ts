@@ -1,8 +1,8 @@
 import { AUTO_CLOSE_NONE, AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Idempotent, create as createIdempotent } from "./DeprecatedIdempotent.impl";
 import { AutoOpen, Config, Events } from "./Events";
-import { Idempotent, create as createIdempotent } from "./Idempotent.impl";
 
 export { Config, Events } from "./Events";
 
