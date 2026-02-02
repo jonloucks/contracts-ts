@@ -12,7 +12,7 @@ export interface Open {
    * Open this instance.
    * @return the mechanism to close
    */
-  open(): AutoClose; // Review changing to union type AutoCloseType
+  open(): AutoClose;
 }
 
 /**
