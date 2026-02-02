@@ -54,7 +54,7 @@ class IdempotentImpl implements Idempotent {
       this._idempotentState = "OPENED";
     } catch (thrown) {
       this._flag.set(IS_CLOSED);
-      this._idempotentState = "OPENABLE"; // maybe "DESTROYED"
+      this._idempotentState = "OPENABLE";
       throw thrown;
     }
     return this._firstClose;
