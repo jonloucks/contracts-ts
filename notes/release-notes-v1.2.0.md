@@ -20,7 +20,7 @@ npm install @jonloucks/contracts-ts@1.2.0
 *   Documentation: Comprehensive test coverage added for `Idempotent` implementation
 
 ## 🐛 Bug Fixes
-*  [Issue #98](https://github.com/jonloucks/contracts-ts/issues/98) - Fixed via [PR #99](https://github.com/jonloucks/contracts-ts/pull/99) 
+*  [Issue #98](https://github.com/jonloucks/contracts-ts/issues/98) - Fixed via [PR #99](https://github.com/jonloucks/contracts-ts/pull/99)
 
 ## ⬇️ Download
 
