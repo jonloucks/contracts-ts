@@ -6,7 +6,7 @@ We take security seriously and appreciate prompt reports of vulnerabilities. If 
 
 **How to report:**
 
-*   **Create Advisory:** https://github.com/jonloucks/contracts/security/advisories/new
+*   **Create Advisory:** https://github.com/jonloucks/contracts-ts/security/advisories/new
 
 **Please do not disclose the vulnerability publicly until we have had a chance to address it.**
 

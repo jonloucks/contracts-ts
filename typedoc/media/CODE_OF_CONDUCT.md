@@ -1,4 +1,4 @@
-# Contracts Code of Conduct
+# Code of Conduct
 
 * Based on [GitHub's Code of Conduct](https://docs.github.com/en/site-policy/github-terms/github-community-code-of-conduct)
 
