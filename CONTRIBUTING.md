@@ -1,6 +1,6 @@
-# Contracts Contributing Guidance
+# Contributing Guidance
 
-Thank you for your interest in contributing to Contracts! We welcome and value all contributions, from new features to bug fixes and documentation improvements. This guide will help you navigate the process.
+Thank you for your interest in contributing! We welcome and value all contributions, from new features to bug fixes and documentation improvements. This guide will help you navigate the process.
 
 Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
@@ -11,12 +11,12 @@ Please note that this project is governed by our [Code of Conduct](CODE_OF_CONDU
 4.  [Submitting a Pull Request](#4-submitting-a-pull-request)
 5.  [Improving the Documentation](#5-improving-the-documentation)
 6.  [Commit Message Styleguide](#6-commit-message-styleguide)
-7.  [Still Need Help?](#7-still-need-help) [Ask For Help](https://github.com/jonloucks/contracts/discussions/new?category=q-a)
+7.  [Still Need Help?](#7-still-need-help) [Ask For Help](https://github.com/jonloucks/contracts-ts/discussions/new?category=q-a)
 
 ## 1. Reporting Bugs
-We use [GitHub Issues](https://github.com/jonloucks/contracts/issues) to track bugs. Before creating a new issue, please check the existing issues to ensure the bug has not already been reported.
+We use [GitHub Issues](https://github.com/jonloucks/contracts-ts/issues) to track bugs. Before creating a new issue, please check the existing issues to ensure the bug has not already been reported.
 
-When submitting a [bug report](https://github.com/jonloucks/contracts/issues/new), please provide the following information:
+When submitting a [bug report](https://github.com/jonloucks/contracts-ts/issues/new), please provide the following information:
 -   **Clear and concise title:** A brief summary of the issue.
 -   **Steps to reproduce:** Explain the steps to reproduce the behavior.
 -   **Expected behavior:** Describe what you expected to happen.
@@ -24,7 +24,7 @@ When submitting a [bug report](https://github.com/jonloucks/contracts/issues/new
 -   **Context:** Include your operating system, software version, and any relevant logs or screenshots.
 
 ## 2. Suggesting Enhancements
-For suggesting enhancements or new features, please [open a GitHub Issue](https://github.com/jonloucks/contracts/issues/new) and follow these guidelines:
+For suggesting enhancements or new features, please [open a GitHub Issue](https://github.com/jonloucks/contracts-ts/issues/new) and follow these guidelines:
 -   **Use a descriptive title:** Identify the suggestion clearly.
 -   **Describe the enhancement:** Explain the feature in as much detail as possible, including its use case and why it would be valuable.
 -   **Check existing suggestions:** Search for similar ideas in the existing issues. If a similar suggestion exists, add your support or additional context there.
@@ -34,20 +34,20 @@ To get started with local development:
 1.  **Fork the repository** to your own GitHub account.
 2.  **Clone your forked repository** to your local machine:
     ```sh
-    git clone https://github.com/jonloucks/contracts.git
+    git clone https://github.com/jonloucks/contracts-ts.git
     ```
 3.  **Install dependencies**:
     ```sh
-    # To build a JDK it is recommended ot use at least 17
-    javac --version
+    npm install
     ```
 4.  **Run tests** to ensure everything is working correctly:
     ```sh
-    ./gradlew test
+    npm run test
+    npm run lint
     ```
 5. **Code Coverage Verification** to ensure coverage:
     ```sh
-    ./gradlew jacocoTestCoverageVerification
+    npm run test:overage
     ```
 ## 4. Submitting a Pull Request
 Before submitting a pull request (PR), please follow these steps:
@@ -77,5 +77,5 @@ We use a conventional commit style for our commit messages to maintain a readabl
    Breaking Changes (Optional): Clearly indicate any breaking changes, often by starting a new section in the body or footer with "BREAKING CHANGE:".
 
 ## 7. Still Need Help?
-*   [Ask For Help](https://github.com/jonloucks/contracts/discussions/new?category=q-a)
+*   [Ask For Help](https://github.com/jonloucks/contracts-ts/discussions/new?category=q-a)
 
