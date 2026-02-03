@@ -339,8 +339,8 @@ export class Tools {
    *
    * @param ignored not used or is it?
    */
-  public static ignore(ignore: unknown): void {
-    used(ignore);
+  public static ignore(ignored: unknown): void {
+    used(ignored);
   }
 
   public static createStringContract(): Contract<string> {
