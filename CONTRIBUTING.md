@@ -47,7 +47,7 @@ To get started with local development:
     ```
 5. **Code Coverage Verification** to ensure coverage:
     ```sh
-    npm run test:overage
+    npm run test:coverage
     ```
 ## 4. Submitting a Pull Request
 Before submitting a pull request (PR), please follow these steps:
