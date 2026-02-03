@@ -22,14 +22,14 @@ export function create(): RequiredType<AutoCloseMany> {
 class AutoCloseManyImpl implements AutoCloseMany {
 
   add(closeable: RequiredType<AutoCloseType>): void {
-    this.closeables.push(typeToAutoClose(closeable));
+    this.#closeables.push(typeToAutoClose(closeable));
   }
 
   close(): void {
     const errorList: unknown[] = [];
-    while (this.closeables.length > 0) {
+    while (this.#closeables.length > 0) {
       try {
-        this.closeables.pop()?.close();
+        this.#closeables.pop()?.close();
       } catch (error) {
         errorList.push(error);
       }
@@ -51,5 +51,5 @@ class AutoCloseManyImpl implements AutoCloseMany {
   }
 
 
-  private closeables: RequiredType<AutoClose>[] = [];
+  readonly #closeables: RequiredType<AutoClose>[] = [];
 };

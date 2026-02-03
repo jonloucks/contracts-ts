@@ -9,6 +9,7 @@ import { CONTRACT as FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test";
+import { used } from "../auxiliary/Checks";
 
 describe('RepositoryFactory tests', () => {
   it('Repository FACTORY works', () => {
@@ -45,7 +46,8 @@ test('repository_Factory', () => {
 
 test('repository_check_WithNoRequirements', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       notStrictEqual(repository.toString(), null, "toString should work");
     }
   });
@@ -53,7 +55,8 @@ test('repository_check_WithNoRequirements', () => {
 
 test('repository_check_WithNoRequirements', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       doesNotThrow(() => repository.check(), "repository.check() should not throw with no requirements");
     }
   });
@@ -61,7 +64,8 @@ test('repository_check_WithNoRequirements', () => {
 
 test('repository_check_WithOneMissingRequirement_Throws', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       const contract: Contract<number> = createContract<number>();
       repository.require(contract);
 
@@ -77,8 +81,8 @@ test('repository_check_WithFulfilledRequirements', () => {
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<number> = createContract<number>();
       repository.require(contract);
-      using _useBinding = contracts.bind(contract, () => 42);
-
+      using useBinding = contracts.bind(contract, () => 42);
+      used(useBinding);
       doesNotThrow(() => repository.check(), "repository.check() should not throw with fulfilled requirements");
     }
   });
@@ -89,7 +93,8 @@ test('void repository_store_isBound', () => {
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
       {
-        using _useBinding = repository.store(contract, () => "x");
+        using useBinding = repository.store(contract, () => "x");
+        used(useBinding);
         Tools.assertTrue(contracts.isBound(contract), "Contract should have been bound");
       }
       Tools.assertFalse(contracts.isBound(contract), "Contract should not be bound");
@@ -102,7 +107,8 @@ test('repository_store_Works', () => {
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
       {
-        using _useBinding = repository.store(contract, () => "x");
+        using useBinding = repository.store(contract, () => "x");
+        used(useBinding);
         const text: string = contracts.enforce(contract);
         Tools.assertEquals("x", text, "contract deliverable should match");
       }
@@ -112,7 +118,8 @@ test('repository_store_Works', () => {
 
 test('repository_store_WhenClosedTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       const contract: Contract<number> = createContract<number>();
       using useBinding = repository.store(contract, () => 7);
       Tools.assertIdempotent(useBinding)
@@ -122,7 +129,8 @@ test('repository_store_WhenClosedTwice_DoesNothing', () => {
 
 test('repository_store_WhenClosedTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       const contract: Contract<string> = createContract<string>();
       using closeStore = repository.store(contract, () => "x");
       Tools.assertIdempotent(closeStore);
@@ -134,8 +142,10 @@ test('repository_open_WhenCalledTwice_DoesNothing', () => {
   runWithScenario({
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
-      using _useBinding = repository.store(contract, () => "y");
-      using _usingSecondOpen = repository.open();
+      using useBinding = repository.store(contract, () => "y");
+      used(useBinding);
+      using usingSecondOpen = repository.open();
+      used(usingSecondOpen);
       Tools.assertEquals("y", contracts.enforce(contract), "contract deliverable should not change");
     }
   });
@@ -143,8 +153,8 @@ test('repository_open_WhenCalledTwice_DoesNothing', () => {
 
 test('repository_close_WhenCalledTwice_DoesNothing', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
-
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       using usingSecond = repository.open();
       Tools.assertIdempotent(usingSecond);
     }
@@ -153,11 +163,13 @@ test('repository_close_WhenCalledTwice_DoesNothing', () => {
 
 test('repository_keep_ReplaceWhenOpen_Throws', () => {
   runWithScenario({
-    accept: function (_contracts: Contracts, repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(contracts);
       const contract: Contract<string> = createContract<string>();
       repository.keep(contract, () => "x");
 
-      using _closeRepository = repository.open();
+      using closeRepository = repository.open();
+      used(closeRepository);
       Tools.assertThrowsCompliantError(ContractException, () => repository.keep(contract, () => "y"));
     }
   });
@@ -171,7 +183,8 @@ test('repository_keep_ReplaceBeforeOpen_Works', () => {
       repository.keep(contract, () => "x");
       repository.keep(contract, () => "y");
     },
-    accept: function (contracts: Contracts, _repository: Repository): void {
+    accept: function (contracts: Contracts, repository: Repository): void {
+      used(repository);
       Tools.assertEquals("y", contracts.enforce(contract), "Changing bindings before should be allowed.");
     }
   });
@@ -181,7 +194,8 @@ test('repository_keep_Replace_Works', () => {
   runWithScenario({
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>({ replaceable: true });
-      using _closeFirstBinding = contracts.bind(contract, () => "x");
+      using closeFirstBinding = contracts.bind(contract, () => "x");
+      used(closeFirstBinding);
       repository.keep(contract, () => "y");
       const text: string = contracts.enforce(contract);
       Tools.assertEquals("y", text, "contract deliverable replace should match");
@@ -193,7 +207,8 @@ test('repository_keep_WhenNotReplaceableAndBound_IsIgnored', () => {
   runWithScenario({
     accept: function (contracts: Contracts, repository: Repository): void {
       const contract: Contract<string> = createContract<string>();
-      using _closeFirstBinding = contracts.bind(contract, () => "x");
+      using closeFirstBinding = contracts.bind(contract, () => "x");
+      used(closeFirstBinding);
       repository.keep(contract, () => "y");
       const text: string = contracts.enforce(contract);
       Tools.assertEquals("x", text, "contract deliverable should not change");
@@ -208,8 +223,8 @@ test('repository_keep_WhenNotReplaceableAndBoundAnd_BIND_ALWAYS_Throws', () => {
         replaceable: false
       });
 
-      using _usingBinding = contracts.bind(contract, () => "x");
-
+      using usingBinding = contracts.bind(contract, () => "x");
+      used(usingBinding);
       Tools.assertThrows(ContractException, () => {
         repository.keep(contract, () => "y", "ALWAYS");
       });
@@ -227,7 +242,8 @@ function runWithScenario(block: ScenarioConfig): void {
     const repository: Repository = contracts.enforce(FACTORY).createRepository();
     block.beforeRepositoryOpen?.(repository);
 
-    using _closeRepository = repository.open();
+    using closeRepository = repository.open();
+    used(closeRepository);
     block.accept(contracts, repository);
   });
 }

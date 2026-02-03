@@ -4,6 +4,7 @@ import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 import { create as createIdempotentImpl } from "./Idempotent.impl";
+import { used } from "../auxiliary/Checks";
 
 export interface Config {
   contracts?: Contracts;
@@ -30,6 +31,7 @@ class IdempotentFactoryImpl implements IdempotentFactory {
     return new IdempotentFactoryImpl(config);
   }
 
-  private constructor(_config?: Config) {
+  private constructor(config?: Config) {
+    used(config);
   }
 };

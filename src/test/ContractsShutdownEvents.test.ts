@@ -2,6 +2,7 @@ import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/ap
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { strictEqual } from "node:assert";
+import { used } from "../auxiliary/Checks";
 
 describe('Contracts with shutdown events', () => {
 
@@ -27,7 +28,8 @@ function assertListeningForEvent(config: OptionalType<ContractsConfig>, eventNam
   const spyOn = jest.spyOn(process, 'on');
   const spyOff = jest.spyOn(process, 'off');
   try {
-    Tools.withConfiguredContracts(config, (_contracts: Contracts) => {
+    Tools.withConfiguredContracts(config, (contracts: Contracts) => {
+      used(contracts);
       expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
     });
     expect(spyOff).toHaveBeenCalledWith(eventName, expect.any(Function));
@@ -44,7 +46,8 @@ function assertEventTriggersShutdown(config: OptionalType<ContractsConfig>, even
   try {
     Tools.withConfiguredContracts(config, (contracts: Contracts) => {
       const contract = Tools.createStringContract();
-      using _bindContract = contracts.bind<string>(contract, () => "test");
+      using bindContract = contracts.bind<string>(contract, () => "test");
+      used(bindContract);
       process.emit(eventName);
       expect(spyOn).toHaveBeenCalledWith(eventName, expect.any(Function));
       strictEqual(contracts.isBound(contract), false, 'Expected contract to be unbound after shutdown event');

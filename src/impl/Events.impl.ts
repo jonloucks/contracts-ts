@@ -30,11 +30,11 @@ class EventsImpl implements Events, AutoOpen {
   }
 
   open(): AutoClose {
-    return this.idempotent.open();
+    return this.#idempotent.open();
   }
 
   isOpen(): boolean {
-    return this.idempotent.isOpen();
+    return this.#idempotent.isOpen();
   }
 
   static internalCreate(config?: Config): RequiredType<Events> {
@@ -42,25 +42,25 @@ class EventsImpl implements Events, AutoOpen {
   }
 
   private firstOpen(): AutoCloseType {
-    this.names.forEach(name => {
-      process.on(name, this.callback);
+    this.#names.forEach(name => {
+      process.on(name, this.#callback);
     });
 
     return () => {
-      this.names.forEach(name => {
-        process.off(name, this.callback);
+      this.#names.forEach(name => {
+        process.off(name, this.#callback);
       });
     };
   }
 
   private constructor(config?: Config) {
     const validConfig = configCheck(config);
-    this.names = validConfig?.names ?? [];
-    this.callback = presentCheck(validConfig?.callback, "Callback must be present.")
+    this.#names = validConfig?.names ?? [];
+    this.#callback = presentCheck(validConfig?.callback, "Callback must be present.")
   }
 
-  private readonly names: string[];
-  private readonly callback: (...args: unknown[]) => void;
-  private readonly idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen()});
+  readonly #names: string[];
+  readonly #callback: (...args: unknown[]) => void;
+  readonly #idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen()});
 }
 

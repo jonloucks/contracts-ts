@@ -7,6 +7,7 @@ import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { used } from "../auxiliary/Checks";
 
 describe('Extract Promisor tests', () => {
 
@@ -29,7 +30,8 @@ describe('Extract Promisor tests', () => {
       const contract: Contract<string> = createContract<string>();
       const promisor: Promisor<string> = promisorFactory.createExtractor<Date, string>(referent, transform);
 
-      using _usingPromisor = contracts.bind(contract, promisor);
+      using usingPromisor = contracts.bind(contract, promisor);
+      used(usingPromisor);
 
       const firstClaim: OptionalType<string> = contracts.claim(contract);
       const secondClaim: OptionalType<string> = contracts.claim(contract);
@@ -61,7 +63,8 @@ describe('Extractor with referent demand returning null', () => {
       const contract: Contract<string | null> = createContract<string | null>({ guarded: false });
       const promisor: Promisor<string | null> = promisorFactory.createExtractor<Date | null, string | null>(referent, transform);
 
-      using _usingPromisor = contracts.bind(contract, promisor);
+      using usingPromisor = contracts.bind(contract, promisor);
+      used(usingPromisor);
 
       const claimedValue: OptionalType<string | null> = contracts.claim(contract);
 

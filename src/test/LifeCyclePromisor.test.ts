@@ -6,6 +6,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { used } from "../auxiliary/Checks";
 
 describe('LifeCyclePromisor tests', () => {
   it("demand without incrementUsage throws", () => {
@@ -63,7 +64,8 @@ describe('LifeCyclePromisor tests', () => {
         }
       };
 
-      using _usingPromisor = contracts.bind(contract, promisorFactory.createLifeCycle(ReentrancyPromisor));
+      using usingPromisor = contracts.bind(contract, promisorFactory.createLifeCycle(ReentrancyPromisor));
+      used(usingPromisor);
       contracts.enforce(contract);
     });
   });

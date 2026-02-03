@@ -45,7 +45,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    * Open.open override.
    */
   open(): AutoClose {
-    return this.idempotent.open();
+    return this.#idempotent.open();
   }
 
   /**
@@ -53,7 +53,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   claim<T>(contract: Contract<T>): OptionalType<T> {
     const validContract: Contract<T> = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const promisor: OptionalType<Promisor<T>> = this.getFromPromisorMap(validContract);
 
     if (isPresent(promisor)) {
@@ -79,7 +79,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   isBound<T>(contract: Contract<T>): boolean {
     const validContract: Contract<T> = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const promisor: OptionalType<Promisor<T>> = this.getFromPromisorMap(validContract);
     return isPresent(promisor) || this.isAnyPartnerBound(contract);
   }
@@ -89,7 +89,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
     const validContract: Contract<T> = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const validPromisor: Promisor<T> = typeToPromisor<T>(promisor);
     const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 
@@ -108,7 +108,7 @@ class ContractsImpl implements Contracts, AutoOpen {
   }
 
   private firstOpen(): AutoCloseType {
-    this.closeMany.add(this.events.open());
+    this.#closeMany.add(this.#events.open());
     return () => this.closeFirstOpen();
   }
 
@@ -116,7 +116,7 @@ class ContractsImpl implements Contracts, AutoOpen {
     try {
       this.attemptToCloseBindings();
     } finally {
-      this.closeMany.close();
+      this.#closeMany.close();
     }
   }
 
@@ -229,12 +229,12 @@ class ContractsImpl implements Contracts, AutoOpen {
   }
 
   private hasPartners(): boolean {
-    return this.partners.length > 0;
+    return this.#partners.length > 0;
   }
 
   private claimFromPartners<T>(contract: Contract<T>): OptionalType<T> {
     if (this.hasPartners()) {
-      for (const partner of this.partners) {
+      for (const partner of this.#partners) {
         if (partner.isBound(contract)) {
           return partner.claim(contract);
         }
@@ -245,7 +245,7 @@ class ContractsImpl implements Contracts, AutoOpen {
 
   private isAnyPartnerBound<T>(contract: Contract<T>): boolean {
     if (this.hasPartners()) {
-      return this.partners.some(partner => partner.isBound(contract));
+      return this.#partners.some(partner => partner.isBound(contract));
     }
     return false;
   }
@@ -262,23 +262,23 @@ class ContractsImpl implements Contracts, AutoOpen {
     const validConfig = configCheck(config);
     const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
 
-    this.policy = createPolicy(validConfig);
-    this.events = createEvents({
+    this.#policy = createPolicy(validConfig);
+    this.#events = createEvents({
       names: validConfig?.shutdownEvents ?? [],
       callback: () => this.shutdown()
     });
 
     if (isPresent(validPartners)) {
-      this.partners.push(...validPartners);
+      this.#partners.push(...validPartners);
     }
   }
 
-  private readonly closeMany: AutoCloseMany = createAutoCloseMany();
-  private readonly idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen() });
+  readonly #closeMany: AutoCloseMany = createAutoCloseMany();
+  readonly #idempotent: Idempotent = createIdempotent({ open: () => this.firstOpen() });
   readonly #promisorMap = new Map<Contract<unknown>, Promisor<unknown>>();
-  private readonly partners: Contracts[] = [];
-  private readonly policy: Policy;
-  private readonly events: Events;
+  readonly #partners: Contracts[] = [];
+  readonly #policy: Policy;
+  readonly #events: Events;
 }
 
 

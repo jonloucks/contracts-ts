@@ -18,8 +18,8 @@ export function create(): RequiredType<AutoCloseOne> {
  */
 class AutoCloseOneImpl implements AutoCloseOne {
   close(): void {
-    let autoClose = this.reference.get();
-    if (isPresent(autoClose) && this.reference.compareAndSet(autoClose, null)) {
+    let autoClose = this.#reference.get();
+    if (isPresent(autoClose) && this.#reference.compareAndSet(autoClose, null)) {
       autoClose.close();
     }
   }
@@ -29,7 +29,7 @@ class AutoCloseOneImpl implements AutoCloseOne {
   }
 
   set(newClose: OptionalType<AutoCloseType>): void {
-    const current = this.reference.get();
+    const current = this.#reference.get();
     const validNewClose = isPresent(newClose) ? typeToAutoClose(newClose) : newClose;
 
     if (unwrapAutoClose(current) === unwrapAutoClose(validNewClose)) {
@@ -39,7 +39,7 @@ class AutoCloseOneImpl implements AutoCloseOne {
     try {
       this.close(); // close current value if present
     } finally {
-      this.reference.set(validNewClose);
+      this.#reference.set(validNewClose);
     }
   }
 
@@ -51,7 +51,7 @@ class AutoCloseOneImpl implements AutoCloseOne {
     // empty
   }
 
-  private readonly reference: AtomicReference<AutoClose> = createAtomicReference<AutoClose>();
+  readonly #reference: AtomicReference<AutoClose> = createAtomicReference<AutoClose>();
 }
 
 

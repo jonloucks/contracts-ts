@@ -22,22 +22,22 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
    * AtomicReference.get override
    */
   get(): OptionalType<T> {
-    return this.value;
+    return this.#value;
   }
 
   /** 
    * AtomicReference.set override
    */
   set(newValue: OptionalType<T>): void {
-    this.value = newValue;
+    this.#value = newValue;
   }
 
   /** 
    * AtomicReference.compareAndSet override
    */
   compareAndSet(expectedValue: OptionalType<T>, newValue: OptionalType<T>): boolean {
-    if (this.value === expectedValue) {
-      this.value = newValue;
+    if (this.#value === expectedValue) {
+      this.#value = newValue;
       return true;
     } else {
       return false;
@@ -48,8 +48,8 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
    * AtomicReference.getAndSet override
    */
   getAndSet(newValue: OptionalType<T>): OptionalType<T> {
-    const previousValue = this.value;
-    this.value = newValue;
+    const previousValue = this.#value;
+    this.#value = newValue;
     return previousValue;
   }
 
@@ -65,10 +65,10 @@ export class AtomicReferenceImpl<T> implements AtomicReference<T> {
   }
 
   private constructor(initialValue?: OptionalType<T>) {
-    this.value = initialValue;
+    this.#value = initialValue;
   }
 
-  private value: OptionalType<T>;
+  #value: OptionalType<T>;
 }
 
 

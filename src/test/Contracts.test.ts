@@ -8,6 +8,7 @@ import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard, mockGuardFix } from "./helper.test";
+import { used } from "../auxiliary/Checks";
 
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {
@@ -50,8 +51,10 @@ describe("Bind same promisor", () => {
       };
 
       const contract = Tools.createStringContract();
-      using _: AutoClose = contracts.bind(contract, promisor);
-      using __: AutoClose = contracts.bind(contract, promisor);
+      using closeBind1: AutoClose = contracts.bind(contract, promisor);
+      used(closeBind1);
+      using closeBind2: AutoClose = contracts.bind(contract, promisor);
+      used(closeBind2);
 
       expect(contracts.enforce(contract)).toEqual("test");
     })
@@ -64,8 +67,10 @@ describe("Bind with existing promisor", () => {
       const contract = createContract<string>({
         replaceable: true
       });
-      using _: AutoClose = contracts.bind(contract, () => "original value");
-      using __: AutoClose = contracts.bind(contract, () => "new value");
+      using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
+      used(closeBind1);
+      using closeBind2: AutoClose = contracts.bind(contract, () => "new value");
+      used(closeBind2);
       expect(contracts.enforce(contract)).toEqual("new value");
     })
   });
@@ -74,8 +79,10 @@ describe("Bind with existing promisor", () => {
       const contract = createContract<string>({
         replaceable: false
       });
-      using _: AutoClose = contracts.bind(contract, () => "original value");
-      using __: AutoClose = contracts.bind(contract, () => "new value");
+      using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
+      used(closeBind1);
+      using closeBind2: AutoClose = contracts.bind(contract, () => "new value");
+      used(closeBind2);
       expect(contracts.enforce(contract)).toEqual("original value");
     })
   });
@@ -84,7 +91,8 @@ describe("Bind with existing promisor", () => {
       const contract = createContract<string>({
         replaceable: false
       });
-      using _: AutoClose = contracts.bind(contract, () => "original value");
+      using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
+      used(closeBind1);
 
       expect(() => {
         contracts.bind(contract, () => "new value", "ALWAYS");
@@ -96,8 +104,10 @@ describe("Bind with existing promisor", () => {
       const contract = createContract<string>({
         replaceable: true
       });
-      using _: AutoClose = contracts.bind(contract, () => "original value");
-      using __: AutoClose = contracts.bind(contract, () => "new value", "ALWAYS");
+      using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
+      used(closeBind1);
+      using closeBind2: AutoClose = contracts.bind(contract, () => "new value", "ALWAYS");
+      used(closeBind2);
       expect(contracts.enforce(contract)).toEqual("new value");
     })
   });
@@ -106,8 +116,10 @@ describe("Bind with existing promisor", () => {
       const contract = createContract<string>({
         replaceable: true
       });
-      using _: AutoClose = contracts.bind(contract, () => "original value");
-      using __: AutoClose = contracts.bind(contract, () => "new value", "IF_NOT_BOUND");
+      using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
+      used(closeBind1);
+      using closeBind2: AutoClose = contracts.bind(contract, () => "new value", "IF_NOT_BOUND");
+      used(closeBind2);
       expect(contracts.enforce(contract)).toEqual("original value");
     })
   });
@@ -117,7 +129,8 @@ describe("Contracts enforce", () => {
   test("with Promisor returning null", () => {
     Tools.withContracts((contracts) => {
       const contract = Tools.createStringContract();
-      using _: AutoClose = contracts.bind(contract, () => null);
+      using closeBind: AutoClose = contracts.bind(contract, () => null);
+      used(closeBind);
 
       expect(() => contracts.enforce(contract))
         .toThrow(ContractException);
@@ -127,7 +140,8 @@ describe("Contracts enforce", () => {
   test("with Promisor returning undefined", () => {
     Tools.withContracts((contracts) => {
       const contract = Tools.createStringContract();
-      using _: AutoClose = contracts.bind(contract, () => undefined);
+      using closeBind: AutoClose = contracts.bind(contract, () => undefined);
+      used(closeBind);
 
       expect(() => contracts.enforce(contract))
         .toThrow(ContractException);

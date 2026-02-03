@@ -7,6 +7,7 @@ import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { used } from "../auxiliary/Checks";
 
 generateSingletonSuite<Date>({
   name: 'Singleton Promisor with current Date',
@@ -72,7 +73,8 @@ export function generateSingletonSuite<T>(options: TestSuiteOptions<T>) : void {
           const valuePromisor: Promisor<T> = typeToPromisor<T>(testCase.value);
           const promisor: Promisor<T> = promisorFactory.createSingleton<T>(valuePromisor)
 
-          using _usingPromisor = contracts.bind(contract, promisor);
+          using usingPromisor = contracts.bind(contract, promisor);
+          used(usingPromisor);
 
           const firstClaim: OptionalType<T> = contracts.claim(contract);
           const secondClaim: OptionalType<T> = contracts.claim(contract);

@@ -30,7 +30,7 @@ class AtomicBooleanImpl implements AtomicBoolean {
    */
   get(): boolean {
     // Atomics.load ensures thread-safe reading
-    return Atomics.load(this.array, 0) === TRUE_AS_NUMBER;
+    return Atomics.load(this.#array, 0) === TRUE_AS_NUMBER;
   }
 
   /** 
@@ -38,7 +38,7 @@ class AtomicBooleanImpl implements AtomicBoolean {
    */
   set(value: boolean): void {
     // Atomics.store ensures thread-safe writing
-    Atomics.store(this.array, 0, value ? TRUE_AS_NUMBER : FALSE_AS_NUMBER);
+    Atomics.store(this.#array, 0, value ? TRUE_AS_NUMBER : FALSE_AS_NUMBER);
   }
 
   /**
@@ -49,7 +49,7 @@ class AtomicBooleanImpl implements AtomicBoolean {
     const newTargetVal: number = booleanToNumber(newValue);
 
     // Atomics.compareExchange checks value and sets it if it matches expectation
-    return Atomics.compareExchange(this.array, 0, expectedVal, newTargetVal) === expectedVal;
+    return Atomics.compareExchange(this.#array, 0, expectedVal, newTargetVal) === expectedVal;
   }
 
   /**
@@ -57,7 +57,7 @@ class AtomicBooleanImpl implements AtomicBoolean {
    */
   getAndSet(newValue: boolean): boolean {
     const newTargetVal: number = booleanToNumber(newValue);
-    const previousVal: number = Atomics.exchange(this.array, 0, newTargetVal);
+    const previousVal: number = Atomics.exchange(this.#array, 0, newTargetVal);
     return previousVal === TRUE_AS_NUMBER;  
   }
 
@@ -91,7 +91,7 @@ class AtomicBooleanImpl implements AtomicBoolean {
     this.set(initialValue);
   }
 
-  private readonly buffer: SharedArrayBuffer = new SharedArrayBuffer(4);
-  private readonly array: Int32Array = new Int32Array(this.buffer);
+  readonly #buffer: SharedArrayBuffer = new SharedArrayBuffer(4);
+  readonly #array: Int32Array = new Int32Array(this.#buffer);
 }
 

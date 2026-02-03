@@ -43,12 +43,12 @@ export class BasicContract<T> implements Contract<T> {
   */
   public cast(value: unknown | null | undefined): DeliveryType<T> {
     if (isNotPresent(value)) {
-      if (this._guarded) {
+      if (this.#guarded) {
         this.throwCastException();
       } else {
         return value as DeliveryType<T>;
       }
-    } if (this._tester(value)) {
+    } if (this.#tester(value)) {
       return value;
     } else {
         this.throwCastException();
@@ -59,7 +59,7 @@ export class BasicContract<T> implements Contract<T> {
    * @return the contract name
    */
   public get name(): string {
-    return this._name;
+    return this.#name;
   }
 
   /**
@@ -67,7 +67,7 @@ export class BasicContract<T> implements Contract<T> {
    * The default is true.
    */
   public get guarded(): boolean {
-    return this._guarded;
+    return this.#guarded;
   }
 
   /**
@@ -77,7 +77,7 @@ export class BasicContract<T> implements Contract<T> {
    * @return the type of deliverable for this contract.
    */
   public get typeName(): string {
-    return this._typeName;
+    return this.#typeName;
   }
 
   /**
@@ -87,7 +87,7 @@ export class BasicContract<T> implements Contract<T> {
    * @return true if replaceable
    */
   public get replaceable(): boolean {
-    return this._replaceable;
+    return this.#replaceable;
   }
 
   /**
@@ -96,7 +96,7 @@ export class BasicContract<T> implements Contract<T> {
    * @returns a string representation of the contract
    */
   public toString(): string {
-    let text = `Contract(id=${this._id}`;
+    let text = `Contract(id=${this.#id}`;
     if (this.name.length > 0) {
       text += `, name=${this.name}`;
     }
@@ -113,11 +113,11 @@ export class BasicContract<T> implements Contract<T> {
    */
   public constructor(config?: Config<T> | null) {
     const candidateConfig: Config<T> = config ?? {};
-    this._replaceable = candidateConfig?.replaceable ?? false;
-    this._guarded = candidateConfig?.guarded ?? true;
-    this._name = candidateConfig?.name ?? "";
-    this._typeName = candidateConfig?.typeName ?? "";
-    this._tester = candidateConfig?.test ?? ((_instance: unknown): _instance is DeliveryType<T> => true);
+    this.#replaceable = candidateConfig?.replaceable ?? false;
+    this.#guarded = candidateConfig?.guarded ?? true;
+    this.#name = candidateConfig?.name ?? "";
+    this.#typeName = candidateConfig?.typeName ?? "";
+    this.#tester = candidateConfig?.test ?? ((unknown): unknown is DeliveryType<T> => true);
   }
 
   private throwCastException(): never {
@@ -127,12 +127,12 @@ export class BasicContract<T> implements Contract<T> {
 
   private static ID_GENERATOR: number = 1;
 
-  private readonly _id: number = BasicContract.ID_GENERATOR++;
-  private readonly _name: string;
-  private readonly _typeName: string;
-  private readonly _tester: TestType<T>;
-  private readonly _replaceable: boolean;
-  private readonly _guarded: boolean;
+  readonly #id: number = BasicContract.ID_GENERATOR++;
+  readonly #name: string;
+  readonly #typeName: string;
+  readonly #tester: TestType<T>;
+  readonly #replaceable: boolean;
+  readonly #guarded: boolean;
 }
 
 type DeliveryType<T> = OptionalType<T>;

@@ -32,19 +32,19 @@ class ContractsWrapper implements Contracts {
   }
 
   claim<T>(contract: Contract<T>): OptionalType<T> {
-    return this._contracts.claim(contract);
+    return this.#contracts.claim(contract);
   }
 
   enforce<T>(contract: Contract<T>): RequiredType<T> {
-    return this._contracts.enforce(contract);
+    return this.#contracts.enforce(contract);
   }
 
   isBound<T>(contract: Contract<T>): boolean {
-    return this._contracts.isBound(contract);
+    return this.#contracts.isBound(contract);
   }
 
   bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
-    return this._contracts.bind(contract, promisor, bindStrategy);
+    return this.#contracts.bind(contract, promisor, bindStrategy);
   }
 
   autoOpen(): AutoClose {
@@ -52,9 +52,9 @@ class ContractsWrapper implements Contracts {
   }
 
   open(): AutoClose {
-    const closeRepository: AutoClose = this._repository.open();
+    const closeRepository: AutoClose = this.#repository.open();
     try {
-      const closeConcurrency: AutoClose = this._contracts.open();
+      const closeConcurrency: AutoClose = this.#contracts.open();
       return inlineAutoClose(() => {
         try {
           closeConcurrency.close();
@@ -69,14 +69,14 @@ class ContractsWrapper implements Contracts {
   }
 
   toString(): string {
-    return this._contracts.toString();
+    return this.#contracts.toString();
   }
 
   private constructor(contracts: RequiredType<Contracts>, repository: RequiredType<Repository>) {
-    this._contracts = contracts;
-    this._repository = repository;
+    this.#contracts = contracts;
+    this.#repository = repository;
   }
 
-  private readonly _contracts: RequiredType<Contracts>;
-  private readonly _repository: RequiredType<Repository>;
+  readonly #contracts: RequiredType<Contracts>;
+  readonly #repository: RequiredType<Repository>;
 };

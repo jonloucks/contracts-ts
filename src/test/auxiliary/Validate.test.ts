@@ -6,6 +6,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('Validate contracts', () => {
   it('Working scenario', () => {
@@ -129,7 +130,9 @@ describe('Validate contracts', () => {
         }
       });
       jest.spyOn(contracts, 'isBound').mockReturnValueOnce(false);
-      jest.spyOn(contracts, 'bind').mockImplementation((_, type, __) => {
+      jest.spyOn(contracts, 'bind').mockImplementation((c, type, s) => {
+        used(c);
+        used(s);
         capturePromisor = typeToPromisor(type);
         return closeMock;
       });

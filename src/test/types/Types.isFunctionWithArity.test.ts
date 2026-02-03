@@ -1,11 +1,12 @@
 import { ok } from "node:assert";
 
 import { isFunctionWithArity } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe("isFunctionWithArity", () => {
   it("should return true for functions with the specified arity", () => {
-    const func1 = (_: number) : void => { };
-    const func2 = (_: number, __: string) : void => { };
+    const func1 = (a: number) : void => { used(a); };
+    const func2 = (a: number, b: string) : void => { used(a); used(b); };
     const func3 = () : void => { };
     ok(isFunctionWithArity(func1, 1), "func1 has arity 1");
     ok(isFunctionWithArity(func2, 2), "func2 has arity 2");
@@ -13,8 +14,8 @@ describe("isFunctionWithArity", () => {
   });
 
   it("should return false for functions with different arity", () => {
-    const func1 = (_: number) : void => { };
-    const func2 = (_: number, __: string) : void => { };
+    const func1 = (a: number) : void => { used(a); };
+    const func2 = (a: number, b: string) : void => { used(a); used(b); };
     const func3 = () : void => { };
     ok(!isFunctionWithArity(func1, 2), "func1 does not have arity 2");
     ok(!isFunctionWithArity(func2, 1), "func2 does not have arity 1");

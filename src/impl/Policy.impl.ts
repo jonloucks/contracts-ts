@@ -4,6 +4,7 @@ import { Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { Policy } from "./Policy";
+import { used } from "../auxiliary/Checks";
 
 export { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 export { Policy } from "./Policy";
@@ -25,7 +26,7 @@ export function create(config?: ContractsConfig): RequiredType<Policy> {
 function compileContractCheck<T>(config?: ContractsConfig): (contract: Contract<T>) => void {
   const ratified: boolean = config?.ratified ?? true;
   if (ratified === false) {
-    return (_: Contract<T>) => { /* no-op */ };
+    return (c: Contract<T>) => { used(c); };
   } else {
     return (contract: Contract<T>) => {
       if (isRatifiedContract(contract) === false) {
