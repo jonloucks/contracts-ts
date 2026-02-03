@@ -221,7 +221,7 @@ export class Tools {
    * @param <T> the type of deliverable
    */
   public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, valid: T): void {
-    used(valid); 
+    used(valid);
     Tools.assertNotNull(contract, "Contract must not be null.");
 
     Tools.assertAll(
