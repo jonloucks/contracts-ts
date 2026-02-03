@@ -4,8 +4,6 @@ import { guardFunctions, RequiredType } from "@jonloucks/contracts-ts/api/Types"
 /**
  * Opt-in interface to be called once after creation, although implementations should
  * handle this gracefully. For example, this is when threads or hooks could be added.
- * See also {@link AutoClose}
- * Features like {@link Promisors#createLifeCycle(Promisor)}
  * will automatically call this method once if the deliverable implements this method.
  */
 export interface AutoOpen { // Intentionally does not extend the Open interface

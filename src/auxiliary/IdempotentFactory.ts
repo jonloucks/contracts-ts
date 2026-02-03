@@ -9,10 +9,10 @@ import { Idempotent, Config } from "@jonloucks/contracts-ts/auxiliary/Idempotent
 export interface IdempotentFactory {
 
   /**
-   * Create a new {@link Idempotent} using the provided configuration.
+   * Create a new Idempotent using the provided configuration.
    *
    * @param config configuration for the idempotent; invalid or null/undefined values are not allowed
-   * @returns an {@link Idempotent} instance created from the given configuration
+   * @returns an Idempotent instance created from the given configuration
    * @throws Error if the configuration is invalid or the idempotent cannot be created
    */
   createIdempotent(config: Config): RequiredType<Idempotent>;

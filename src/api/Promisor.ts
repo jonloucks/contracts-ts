@@ -3,7 +3,7 @@ import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /**
  * Interface for providing a deliverable for a Contract
- * The main and required implementation is {@link #demand()}
+ * The main and required implementation is demand().
  * There are optional methods with appropriate defaults.
  * @param <T> The type of the deliverable
  */
@@ -17,8 +17,7 @@ export interface Promisor<T> {
 
   /**
    * Reference counting used for advanced resource management
-   * Incremented when bound or by other Promisors
-   * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
+   * Incremented when used
    * Every successful 'open' must be followed by a 'close' at the appropriate time
    * @return the usage count.  This might be a constant
    */
@@ -26,8 +25,7 @@ export interface Promisor<T> {
 
   /**
    * Reference counting used for advanced resource management
-   * Incremented by when bound or by other Promisors
-   * Decremented if caller invokes {@link AutoClose#close()} on the return value of bind
+   * Decremented when no longer used
    * Every successful 'open' must be followed by a 'close' at the appropriate time
    * @return the usage count.  This might be a constant
    */
