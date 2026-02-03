@@ -16,6 +16,7 @@ import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "../auxiliary/Checks";
 
 /** 
  * Tests for @jonloucks/contracts-ts/api index 
@@ -45,6 +46,7 @@ describe('contracts-ts/api Index exports', () => {
   });
 });
 
-function assertNothing(_value: OptionalType<unknown>): void {
+function assertNothing(value: OptionalType<unknown>): void {
+  used(value);
   ok(true, 'This function is only for compile-time type checking and should never be called at runtime');
 }

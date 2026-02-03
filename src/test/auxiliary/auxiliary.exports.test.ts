@@ -7,7 +7,7 @@ import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { AtomicIntegerFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { AtomicReferenceFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { presentCheck, used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
@@ -34,6 +34,7 @@ describe('auxiliary exports', () => {
   });
 });
 
-function assertNothing(_value: OptionalType<unknown>): void {
+function assertNothing(value: OptionalType<unknown>): void {
+  used(value);
   ok(true, 'This function is only for compile-time type checking and should never be called at runtime');
 }

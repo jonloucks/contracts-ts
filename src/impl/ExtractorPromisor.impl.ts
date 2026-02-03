@@ -28,11 +28,11 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
    * Promisor.demand override.
    */
   demand(): OptionalType<R> {
-    const referentValue = this.referent.demand();
+    const referentValue = this.#referent.demand();
     if (isNotPresent(referentValue)) {
       return referentValue;
     } else {
-      return this.transform.transform(referentValue);
+      return this.#transform.transform(referentValue);
     }
   }
 
@@ -40,14 +40,14 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
    * Promisor.incrementUsage override.
    */
   incrementUsage(): number {
-    return this.referent.incrementUsage();
+    return this.#referent.incrementUsage();
   }
 
   /**
    * Promisor.decrementUsage override.
    */
   decrementUsage(): number {
-    return this.referent.decrementUsage();
+    return this.#referent.decrementUsage();
   }
 
   static internalCreate<T, R>(referent: Promisor<T>, transform: Transform<T, R>): RequiredType<Promisor<R>> {
@@ -55,10 +55,10 @@ class ExtractorPromisorImpl<T, R> implements Promisor<R> {
   }
 
   private constructor(referent: Promisor<T>, transform: Transform<T, R>) {
-    this.referent = promisorCheck(referent);
-    this.transform = presentCheck(transform, "Transform must be present.");
+    this.#referent = promisorCheck(referent);
+    this.#transform = presentCheck(transform, "Transform must be present.");
   }
 
-  private readonly referent: Promisor<T>;
-  private readonly transform: Transform<T, R>;
+  readonly #referent: Promisor<T>;
+  readonly #transform: Transform<T, R>;
 }

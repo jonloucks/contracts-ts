@@ -50,7 +50,7 @@ class ContractsFactoryImpl implements ContractsFactory {
    * ContractsFactory.createContracts override
    */
   createContracts(config?: ContractsConfig): RequiredType<Contracts> {
-    const actualConfig: RequiredType<ContractsConfig> = config ?? this.defaultConfig;
+    const actualConfig: RequiredType<ContractsConfig> = config ?? this.#defaultConfig;
     const contracts: RequiredType<Contracts> = createContractsImpl(actualConfig);
     const repository: RequiredType<Repository> = this.createKernelRepository(contracts);
 
@@ -80,5 +80,5 @@ class ContractsFactoryImpl implements ContractsFactory {
     //  empty
   }
 
-  private defaultConfig: RequiredType<ContractsConfig> = {};
+  #defaultConfig: RequiredType<ContractsConfig> = {};
 }

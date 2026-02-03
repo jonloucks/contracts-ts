@@ -10,10 +10,10 @@ import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/Ille
  * @throws IllegalArgumentException when invalid
  */
 export const contractCheck: <T>(contract: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(contract: OptionalType<T>) => {
-        return presentCheck(contract, "Contract must be present.");
-    }
+  => RequiredType<T>
+  = <T>(contract: OptionalType<T>) => {
+    return presentCheck(contract, "Contract must be present.");
+  }
 
 /**
  * Check if given Contracts is not null or invalid
@@ -21,10 +21,10 @@ export const contractCheck: <T>(contract: OptionalType<T>)
  * @return a valid Contracts
  */
 export const contractsCheck: <T>(contracts: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(contracts: OptionalType<T>) => {
-        return presentCheck(contracts, "Contracts must be present.");
-    }
+  => RequiredType<T>
+  = <T>(contracts: OptionalType<T>) => {
+    return presentCheck(contracts, "Contracts must be present.");
+  }
 
 /**
  * Check if given Promisor is not null or invalid
@@ -35,10 +35,10 @@ export const contractsCheck: <T>(contracts: OptionalType<T>)
  * @throws IllegalArgumentException when invalid
  */
 export const promisorCheck: <T>(promisor: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(promisor: OptionalType<T>) => {
-        return presentCheck(promisor, "Promisor must be present.");
-    }
+  => RequiredType<T>
+  = <T>(promisor: OptionalType<T>) => {
+    return presentCheck(promisor, "Promisor must be present.");
+  }
 
 /**
  * Check if given config is not null or invalid
@@ -49,10 +49,10 @@ export const promisorCheck: <T>(promisor: OptionalType<T>)
  * @throws IllegalArgumentException when invalid
  */
 export const configCheck: <T>(config: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(config: OptionalType<T>) => {
-        return presentCheck(config, "Config must be present.");
-    }
+  => RequiredType<T>
+  = <T>(config: OptionalType<T>) => {
+    return presentCheck(config, "Config must be present.");
+  }
 
 /**
  * Check if given type is not null or invalid
@@ -61,10 +61,10 @@ export const configCheck: <T>(config: OptionalType<T>)
  * @returns a valid type
  */
 export const typeCheck: <T>(name: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(name: OptionalType<T>) => {
-        return presentCheck(name, "Type must be present.");
-    }
+  => RequiredType<T>
+  = <T>(name: OptionalType<T>) => {
+    return presentCheck(name, "Type must be present.");
+  }
 
 /**
  * Check if given name is not null or invalid
@@ -73,10 +73,10 @@ export const typeCheck: <T>(name: OptionalType<T>)
  * @returns a valid name
  */
 export const nameCheck: <T>(name: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(name: T) => {
-        return presentCheck(name, "Name must be present.");
-    }
+  => RequiredType<T>
+  = <T>(name: T) => {
+    return presentCheck(name, "Name must be present.");
+  }
 
 /**
  * Check if given message is not null or invalid
@@ -85,10 +85,10 @@ export const nameCheck: <T>(name: OptionalType<T>)
  * @returns a valid message
  */
 export const messageCheck: <T>(value: OptionalType<T>)
-    => RequiredType<T>
-    = <T>(value: OptionalType<T>) => {
-        return presentCheck(value, "Message must be present.");
-    }
+  => RequiredType<T>
+  = <T>(value: OptionalType<T>) => {
+    return presentCheck(value, "Message must be present.");
+  }
 
 /**
  * Check if given instance is not null
@@ -97,11 +97,11 @@ export const messageCheck: <T>(value: OptionalType<T>)
  * @param {*} message the message used if an exception is thrown
  * @returns the value passed
  */
-export const presentCheck: <T>(value: OptionalType<T>, message: string) 
-    => RequiredType<T>
-    = <T>(value: OptionalType<T>, message: string) => {
-        return illegalCheck(value, isNotPresent(value), message) as RequiredType<T>;
-    };
+export const presentCheck: <T>(value: OptionalType<T>, message: string)
+  => RequiredType<T>
+  = <T>(value: OptionalType<T>, message: string) => {
+    return illegalCheck(value, isNotPresent(value), message) as RequiredType<T>;
+  };
 
 /**
 * Check if given instance is not null
@@ -112,13 +112,17 @@ export const presentCheck: <T>(value: OptionalType<T>, message: string)
 * @returns the value passed in
 */
 export const illegalCheck: <T>(value: T, failed: boolean, message: string)
-    => T
-    = <T>(value: T, failed: boolean, message: string) => {
-        if (isNotPresent(message)) {
-            throw new IllegalArgumentException("Message for illegal check must be present.");
-        }
-        if (failed) {
-            throw new IllegalArgumentException(message);
-        }
-        return value;
-    };
+  => T
+  = <T>(value: T, failed: boolean, message: string) => {
+    if (isNotPresent(message)) {
+      throw new IllegalArgumentException("Message for illegal check must be present.");
+    }
+    if (failed) {
+      throw new IllegalArgumentException(message);
+    }
+    return value;
+  };
+
+export const used: (value : unknown) => boolean = (value: unknown) => { 
+   return value !== null;
+}

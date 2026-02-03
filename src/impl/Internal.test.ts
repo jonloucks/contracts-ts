@@ -2,6 +2,7 @@ import { deepStrictEqual, fail, ok, strictEqual, throws } from "node:assert";
 
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Internal } from "./Internal.impl";
+import { used } from "../auxiliary/Checks";
 
 /**
  * Internal tests for internal Helpers functionality.
@@ -10,7 +11,9 @@ describe("Internal mapForEachReversed", () => {
 
   it("with null map throws", () => {
     throws(() => {
-      Internal.mapForEachReversed(null as unknown as Map<unknown, unknown>, (_, __) => {
+      Internal.mapForEachReversed(null as unknown as Map<unknown, unknown>, (key, value) => {
+        used(key);
+        used(value);
       })
     }, {
       name: 'IllegalArgumentException',
@@ -21,7 +24,9 @@ describe("Internal mapForEachReversed", () => {
   it("with empty map does not call callback", () => {
     let callCount = 0;
     const testMap = new Map<string, number>();
-    Internal.mapForEachReversed(testMap, (_, __) => {
+    Internal.mapForEachReversed(testMap, (key, value) => {
+      used(key);
+      used(value);
       callCount++;
     });
     strictEqual(callCount, 0);

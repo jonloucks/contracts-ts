@@ -23,6 +23,7 @@ import { writeFile, readFile, mkdir } from "fs";
 import { join } from "path";
 import { VERSION } from "@jonloucks/contracts-ts";
 import { isPresent } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "../auxiliary/Checks";
 
 /**
  * Interface for badge generator.
@@ -63,7 +64,8 @@ async function createFolder(path: string): Promise<void> {
   });
 }
 
-createFolder(OUTPUT_FOLDER).catch((_: unknown) => {
+createFolder(OUTPUT_FOLDER).catch((thrown: unknown) => {
+  used(thrown);
   console.log("Unable to create output folder for badges");
 });
 
@@ -80,17 +82,20 @@ const generator: Generator = new class implements Generator {
 }();
 
 // generator NPM badge
-generateNpmBadge().catch((_: unknown) => {
+generateNpmBadge().catch((thrown: unknown) => {
+  used(thrown);
   console.log("Unable to generate npm badge");
 });
 
 // generator coverage summary badge
-generateCoverageSummaryBadge().catch((_: unknown) => {
+generateCoverageSummaryBadge().catch((thrown: unknown) => {
+  used(thrown);
   console.log("Unable to generate coverage summary badge");
 });
 
 // generator typedoc badge
-generateTypedocBadge().catch((_: unknown) => {
+generateTypedocBadge().catch((thrown: unknown) => {
+  used(thrown);
   console.log("Unable to generate typedoc badge");
 });
 
@@ -115,7 +120,8 @@ export async function generateNpmBadge(): Promise<void> {
  */
 export async function generateCoverageSummaryBadge(): Promise<void> {
   const inputPath: string = getCoverageSummaryFilePath();
-  await readFile(inputPath, async (_, data) => {
+  await readFile(inputPath, async (err, data) => {
+    used(err);
     if (isPresent(data)) {
       const percentage: number = readPercentageFromCoverageSummary(data);
       await generator.generate({

@@ -22,35 +22,35 @@ class AtomicIntegerImpl implements AtomicInteger {
    * AtomicInteger.incrementAndGet override
    */
   incrementAndGet(): number {
-    return Atomics.add(this.array, 0, 1) + 1;
+    return Atomics.add(this.#array, 0, 1) + 1;
   }
 
   /** 
    * AtomicInteger.decrementAndGet override
    */
   decrementAndGet(): number {
-    return Atomics.add(this.array, 0, -1) - 1;
+    return Atomics.add(this.#array, 0, -1) - 1;
   }
 
   /**
    * AtomicInteger.get override
    */
   get(): number {
-    return Atomics.load(this.array, 0);
+    return Atomics.load(this.#array, 0);
   }
 
   /** 
    * AtomicInteger.set override
    */
   set(value: number): void {
-    Atomics.store(this.array, 0, value);
+    Atomics.store(this.#array, 0, value);
   }
 
   /** 
    * AtomicInteger.compareAndSet override
    */
   compareAndSet(expectedValue: number, newValue: number): boolean {
-    const current = Atomics.compareExchange(this.array, 0, expectedValue, newValue);
+    const current = Atomics.compareExchange(this.#array, 0, expectedValue, newValue);
     return current === expectedValue;
   }
 
@@ -58,7 +58,7 @@ class AtomicIntegerImpl implements AtomicInteger {
    * AtomicInteger.getAndSet override
    */
   getAndSet(newValue: number): number {
-    return Atomics.exchange(this.array, 0, newValue);
+    return Atomics.exchange(this.#array, 0, newValue);
   }
 
   /** 
@@ -91,8 +91,8 @@ class AtomicIntegerImpl implements AtomicInteger {
     this.set(initialValue);
   }
 
-  private readonly buffer: SharedArrayBuffer = new SharedArrayBuffer(4);
-  private readonly array: Int32Array = new Int32Array(this.buffer);
+  readonly #buffer: SharedArrayBuffer = new SharedArrayBuffer(4);
+  readonly #array: Int32Array = new Int32Array(this.#buffer);
 }
 
 
