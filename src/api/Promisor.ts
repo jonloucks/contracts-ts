@@ -17,7 +17,7 @@ export interface Promisor<T> {
 
   /**
    * Reference counting used for advanced resource management
-   * Incremented when used
+   * Incremented when bound or by other Promisors
    * Every successful 'open' must be followed by a 'close' at the appropriate time
    * @return the usage count.  This might be a constant
    */
