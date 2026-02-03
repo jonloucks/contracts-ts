@@ -42,7 +42,7 @@ describe('Contracts with partners', () => {
   it('when bound only in primary, primary should reflect its own binding', () => {
     const contract: Contract<string> = Tools.createStringContract();
     Tools.withPartnerContracts((primary: Contracts, partner: Contracts) => {
-      used(partner)
+      used(partner);
       using closeBindPrimary: AutoClose = primary.bind(contract, () => "Primary");
       used(closeBindPrimary);
       Tools.assertTrue(primary.isBound(contract), "Primary should be bound");
