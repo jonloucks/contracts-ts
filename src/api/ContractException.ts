@@ -1,4 +1,4 @@
-import { messageCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { messageCheck, used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /**
  * Runtime exception thrown for Contract related problems.
@@ -12,9 +12,11 @@ export class ContractException extends Error {
    * @param message the message for this exception
    * @param thrown  the cause of this exception, null is allowed
    */
-  public constructor(message: string, _thrown: Error | null = null) {
+  public constructor(message: string, thrown: Error | null = null) {
     // super(messageCheck(message), thrown || undefined);
     super(messageCheck(message));
+
+    used(thrown);
 
     this.name = "ContractException";
     Object.setPrototypeOf(this, ContractException.prototype)

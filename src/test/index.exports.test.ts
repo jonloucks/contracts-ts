@@ -39,6 +39,7 @@ import {
   validateContracts,
   VERSION,
 } from "@jonloucks/contracts-ts";
+import { used } from "../auxiliary/Checks";
 
 /** 
  * Tests for @jonloucks/contracts-ts index and version exports
@@ -102,14 +103,16 @@ describe('CONTRACTS instance', () => {
 describe('createContracts function', () => {
   it('passes validation', () => {
     const contracts: Contracts = createContracts();
-    using _usingContracts: AutoClose = contracts.open();
+    using usingContracts: AutoClose = contracts.open();
+    used(usingContracts);
 
     validateContracts(contracts);
   });
 
   it('pre-bound contracts are bound', () => {
     const contracts: Contracts = createContracts();
-    using _usingContracts: AutoClose = contracts.open();
+    using usingContracts: AutoClose = contracts.open();
+    used(usingContracts);
 
     strictEqual(contracts.isBound(PROMISOR_FACTORY), true, 'PROMISOR_FACTORY should be bound in Contracts');
     strictEqual(contracts.isBound(REPOSITORY_FACTORY), true, 'REPOSITORY_FACTORY should be bound in Contracts');
@@ -118,7 +121,8 @@ describe('createContracts function', () => {
 
   it('pre-bound contracts are enforced', () => {
     const contracts: Contracts = createContracts();
-    using _usingContracts: AutoClose = contracts.open();
+    using usingContracts: AutoClose = contracts.open();
+    used(usingContracts);
 
     const promisorFactory: PromisorFactory = contracts.enforce(PROMISOR_FACTORY);
     const repositoryFactory: RepositoryFactory = contracts.enforce(REPOSITORY_FACTORY);
@@ -153,7 +157,8 @@ describe('ContractsFactory works', () => {
     const factory: ContractsFactory = createContractsFactory();
     const config: ContractsConfig = {};
     const contracts: Contracts = factory.createContracts(config);
-    using _usingContracts: AutoClose = contracts.open();
+    using usingContracts: AutoClose = contracts.open();
+    used(usingContracts);
 
     ok(contracts, 'Contracts instance should be created by ContractsFactory');
     validateContracts(contracts);
@@ -194,7 +199,8 @@ describe('AutoClose interface', () => {
 describe('AutoCloseFactory interface', () => {
   it('can implement the interface', () => {
     const instance: AutoCloseFactory = {
-      createAutoClose: function (_type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
+      createAutoClose: function (type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
+        used(type);
         return undefined as unknown as RequiredType<AutoClose>;
       },
       createAutoCloseMany: function (): RequiredType<AutoCloseMany> {
@@ -215,17 +221,22 @@ describe('Repository interface', () => {
       open(): AutoClose {
         return typeToAutoClose((): void => { });
       },
-      store<T>(_contract: Contract<T>, _promisor: Promisor<T>, _bindStrategy?: BindStrategy): AutoClose {
+      store<T>(contract: Contract<T>, promisor: Promisor<T>, bindStrategy?: BindStrategy): AutoClose {
+        used(contract);
+        used(promisor);
+        used(bindStrategy);
         return typeToAutoClose((): void => { });
       },
-      keep<T>(_contract: Contract<T>, _promisor: Promisor<T>, _bindStrategy?: BindStrategy): void {
-        // empty
+      keep<T>(contract: Contract<T>, promisor: Promisor<T>, bindStrategy?: BindStrategy): void {
+        used(contract);
+        used(promisor);
+        used(bindStrategy);
       },
       check(): void {
         // empty
       },
-      require<T>(_contract: Contract<T>): void {
-        // empty
+      require<T>(contract: Contract<T>): void {
+        used(contract);
       },
     };
 

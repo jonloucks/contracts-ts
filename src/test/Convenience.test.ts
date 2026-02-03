@@ -23,6 +23,7 @@ import {
   RequiredType
 } from "@jonloucks/contracts-ts/api/Convenience";
 import { ok } from "node:assert";
+import { used } from "../auxiliary/Checks";
 
 // Convenience tests, all exports are simple inlines to fully tested functionality.
 
@@ -96,7 +97,8 @@ describe('Convenience Functionality', () => {
     repository.keep(valueContract, valuePromisor);
     repository.keep(extractorContract, extractorPromisor);
 
-    using _usingRepository: AutoClose = repository.open();
+    using usingRepository: AutoClose = repository.open();
+    used(usingRepository);
 
     ok(isBound(singletonContract), 'singleton is bound');
     ok(isBound(lifecycleContract), 'lifecycle is bound');

@@ -7,6 +7,7 @@ import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { CONTRACT as PROMISOR_FACTORY_CONTRACT, PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { used } from "../auxiliary/Checks";
 
 generateValueSuite<string>({
   name: 'Value Promisor with primitive string values',
@@ -74,7 +75,8 @@ function generateValueSuite<T>(options: TestSuiteOptions<T>) : void {
           const contract: Contract<T> = createContract<T>();
           const promisor: Promisor<T> = promisorFactory.createValue<T>(testCase.value)
 
-          using _usingPromisor = contracts.bind(contract, promisor);
+          using usingPromisor = contracts.bind(contract, promisor);
+          used(usingPromisor);
 
           const delivered: OptionalType<T> = contracts.claim(contract);
           strictEqual(delivered, testCase.value, "promisor demand should match the value.");

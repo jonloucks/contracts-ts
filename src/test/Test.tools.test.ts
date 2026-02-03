@@ -5,7 +5,7 @@ import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { isConstructor, isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { configCheck, presentCheck, used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
 describe('all test files need one test, this is test utility class', () => {
@@ -157,10 +157,11 @@ export class Tools {
    * Assert the exception matches the exact specifications
    *
    * @param thrown the thrown exception
-   * @param _cause the cause of the thrown exception
+   * @param cause the cause of the thrown exception
    * @param reason the reason (message) of the exception
    */
-  public static assertExpectedError(thrown: Error, _cause: Error | null, reason: string): void {
+  public static assertExpectedError(thrown: Error, cause: Error | null, reason: string): void {
+    used(cause);
     Tools.assertObject(thrown);
 
     Tools.assertAll(
@@ -216,10 +217,11 @@ export class Tools {
    *
    * @param contract the contract to check
    * @param config the expected configuration
-   * @param _valid  a valid value
+   * @param valid  a valid value
    * @param <T> the type of deliverable
    */
-  public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, _valid: T): void {
+  public static assertContract<T>(contract: Contract<T>, config: ContractConfig<T>, valid: T): void {
+    used(valid);
     Tools.assertNotNull(contract, "Contract must not be null.");
 
     Tools.assertAll(
@@ -242,7 +244,8 @@ export class Tools {
         if (sanitizer) {
           try {
             sanitizer();
-          } catch (_) {
+          } catch (thrown) {
+            used(thrown);
           }
         }
       }
@@ -290,7 +293,8 @@ export class Tools {
     const validConfig: ContractsConfig = configCheck(config);
     const validConsumerBlock: (c: Contracts) => void = presentCheck(consumerBlock, "Block must be present.");
     const contracts: RequiredType<Contracts> = createContracts(validConfig);
-    using _usingContracts: AutoClose = contracts.open();
+    using usingContracts: AutoClose = contracts.open();
+    used(usingContracts);
 
     validConsumerBlock(contracts);
   }
@@ -333,9 +337,10 @@ export class Tools {
   /**
    * Used to avoid warnings about unused variables in tests. try-with-resource unused, which is NOT a good warning.
    *
-   * @param ignored not used
+   * @param ignored not used or is it?
    */
-  public static ignore(_ignored: unknown): void {
+  public static ignore(ignored: unknown): void {
+    used(ignored);
   }
 
   public static createStringContract(): Contract<string> {

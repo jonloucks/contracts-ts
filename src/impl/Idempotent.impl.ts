@@ -26,7 +26,7 @@ class IdempotentImpl implements Idempotent {
 
   // Idempotent.getState
   getState(): IdempotentState {
-    return this._idempotentState;
+    return this.#idempotentState;
   }
 
   // Idempotent.open
@@ -40,7 +40,7 @@ class IdempotentImpl implements Idempotent {
 
   // Idempotent.isOpen
   isOpen(): boolean {
-    return this._flag.get() === IS_OPEN;
+    return this.#flag.get() === IS_OPEN;
   }
 
   static internalCreate(config: Config): Idempotent {
@@ -48,48 +48,48 @@ class IdempotentImpl implements Idempotent {
   }
 
   private firstOpen(): AutoClose {
-    this._idempotentState = "OPENING";
+    this.#idempotentState = "OPENING";
     try {
-      this._closeDelegate = this.openDelegate();
-      this._idempotentState = "OPENED";
+      this.#closeDelegate = this.openDelegate();
+      this.#idempotentState = "OPENED";
     } catch (thrown) {
-      this._flag.set(IS_CLOSED);
-      this._idempotentState = "OPENABLE";
+      this.#flag.set(IS_CLOSED);
+      this.#idempotentState = "OPENABLE";
       throw thrown;
     }
-    return this._firstClose;
+    return this.#firstClose;
   }
 
   private openDelegate(): AutoClose {
-    return presentCheck(this._delegate.open(), "Close must be present.");
+    return presentCheck(this.#delegate.open(), "Close must be present.");
   }
 
   private transitionToOpen(): boolean {
-    return this._flag.compareAndSet(IS_CLOSED, IS_OPEN);
+    return this.#flag.compareAndSet(IS_CLOSED, IS_OPEN);
   }
 
   private transitionToClosed(): boolean {
-    return this._flag.compareAndSet(IS_OPEN, IS_CLOSED);
+    return this.#flag.compareAndSet(IS_OPEN, IS_CLOSED);
   }
 
   private constructor(config: Config) {
-    this._delegate = typeToOpen(config.open);
-    this._firstClose = inlineAutoClose(() => {
+    this.#delegate = typeToOpen(config.open);
+    this.#firstClose = inlineAutoClose(() => {
       if (this.transitionToClosed()) {
-        this._idempotentState = "CLOSING";
+        this.#idempotentState = "CLOSING";
         try {
-             this._closeDelegate?.close();
+             this.#closeDelegate?.close();
         } finally {
-          this._closeDelegate = undefined;
-          this._idempotentState = "CLOSED";
+          this.#closeDelegate = undefined;
+          this.#idempotentState = "CLOSED";
         }
       }
     });
   }
 
-  private readonly _delegate: Open;
-  private readonly _firstClose: AutoClose;
-  private readonly _flag: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
-  private _closeDelegate: AutoClose | undefined = undefined;
-  private _idempotentState: IdempotentState = "OPENABLE";
+  readonly #delegate: Open;
+  readonly #firstClose: AutoClose;
+  readonly #flag: AtomicBoolean = createAtomicBoolean(IS_CLOSED);
+  #closeDelegate: AutoClose | undefined = undefined;
+  #idempotentState: IdempotentState = "OPENABLE";
 }
