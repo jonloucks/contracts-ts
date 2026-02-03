@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.16% </span>
+                <span class="strong">98.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>107/109</span>
+                <span class='fraction'>109/111</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.11% </span>
+                <span class="strong">98.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>104/106</span>
+                <span class='fraction'>106/108</span>
             </div>
         
             
@@ -630,8 +630,8 @@
 <span class="cline-any cline-yes">165x</span>
 <span class="cline-any cline-yes">165x</span>
 <span class="cline-any cline-yes">165x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-yes">165x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -686,7 +686,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    * Open.open override.
    */
   open(): AutoClose {
-    return this.idempotent.open();
+    return this.#idempotent.open();
   }
 &nbsp;
   /**
@@ -694,7 +694,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   claim&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
     const validContract: Contract&lt;T&gt; = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
 &nbsp;
     if (isPresent(promisor)) {
@@ -720,7 +720,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   isBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
     const validContract: Contract&lt;T&gt; = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const promisor: OptionalType&lt;Promisor&lt;T&gt;&gt; = this.getFromPromisorMap(validContract);
     return isPresent(promisor) || this.isAnyPartnerBound(contract);
   }
@@ -730,7 +730,7 @@ class ContractsImpl implements Contracts, AutoOpen {
    */
   bind&lt;T&gt;(contract: Contract&lt;T&gt;, promisor: PromisorType&lt;T&gt;, bindStrategy?: BindStrategyType): AutoClose {
     const validContract: Contract&lt;T&gt; = contractCheck(contract);
-    this.policy.checkContract(validContract);
+    this.#policy.checkContract(validContract);
     const validPromisor: Promisor&lt;T&gt; = typeToPromisor&lt;T&gt;(promisor);
     const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 &nbsp;
@@ -749,7 +749,7 @@ class ContractsImpl implements Contracts, AutoOpen {
   }
 &nbsp;
   private firstOpen(): AutoCloseType {
-    this.closeMany.add(this.events.open());
+    this.#closeMany.add(this.#events.open());
     return () =&gt; this.closeFirstOpen();
   }
 &nbsp;
@@ -757,7 +757,7 @@ class ContractsImpl implements Contracts, AutoOpen {
     try {
       this.attemptToCloseBindings();
     } finally {
-      this.closeMany.close();
+      this.#closeMany.close();
     }
   }
 &nbsp;
@@ -870,12 +870,12 @@ class ContractsImpl implements Contracts, AutoOpen {
   }
 &nbsp;
   private hasPartners(): boolean {
-    return this.partners.length &gt; 0;
+    return this.#partners.length &gt; 0;
   }
 &nbsp;
   private claimFromPartners&lt;T&gt;(contract: Contract&lt;T&gt;): OptionalType&lt;T&gt; {
     if (this.hasPartners()) {
-      for (const partner of this.partners) {
+      for (const partner of this.#partners) {
         if (partner.isBound(contract)) {
           return partner.claim(contract);
         }
@@ -886,7 +886,7 @@ class ContractsImpl implements Contracts, AutoOpen {
 &nbsp;
   private isAnyPartnerBound&lt;T&gt;(contract: Contract&lt;T&gt;): boolean {
     if (this.hasPartners()) {
-      return this.partners.some(partner =&gt; partner.isBound(contract));
+      return this.#partners.some(partner =&gt; partner.isBound(contract));
     }
     return false;
   }
@@ -903,23 +903,23 @@ class ContractsImpl implements Contracts, AutoOpen {
     const validConfig = configCheck(config);
     const validPartners = presentCheck(validConfig?.partners ?? [], "Partners must be present.");
 &nbsp;
-    this.policy = createPolicy(validConfig);
-    this.events = createEvents({
+    this.#policy = createPolicy(validConfig);
+    this.#events = createEvents({
       names: validConfig?.shutdownEvents ?? [],
       callback: () =&gt; this.shutdown()
     });
 &nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (isPresent(validPartners)) {
-      this.partners.push(...validPartners);
+      this.#partners.push(...validPartners);
     }
   }
 &nbsp;
-  private readonly closeMany: AutoCloseMany = createAutoCloseMany();
-  private readonly idempotent: Idempotent = createIdempotent({ open: () =&gt; this.firstOpen() });
+  readonly #closeMany: AutoCloseMany = createAutoCloseMany();
+  readonly #idempotent: Idempotent = createIdempotent({ open: () =&gt; this.firstOpen() });
   readonly #promisorMap = new Map&lt;Contract&lt;unknown&gt;, Promisor&lt;unknown&gt;&gt;();
-  private readonly partners: Contracts[] = [];
-  private readonly policy: Policy;
-  private readonly events: Events;
+  readonly #partners: Contracts[] = [];
+  readonly #policy: Policy;
+  readonly #events: Events;
 }
 &nbsp;
 &nbsp;
@@ -934,7 +934,7 @@ class ContractsImpl implements Contracts, AutoOpen {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-02T15:34:25.200Z
+                at 2026-02-03T02:24:54.326Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
