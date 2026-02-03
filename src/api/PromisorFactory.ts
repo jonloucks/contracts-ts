@@ -4,7 +4,7 @@ import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedCo
 import { OptionalType, RequiredType, TransformType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 /**
- * Helper methods for creating and chaining Promisors used for {@link Contractss#bind(Contract, Promisor)}
+ * Helper methods for creating and chaining Promisors used for Contracts.bind().
  */
 export interface PromisorFactory {
 

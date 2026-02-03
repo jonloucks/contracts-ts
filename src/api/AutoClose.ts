@@ -19,7 +19,7 @@ export interface Close {
 
 /**
  * Opt-in interface for resources that need cleanup when their lifecycle ends. For example, this is when threads should be stopped or hooks removed.
- * See also {@link AutoOpen}
+
  * Features like life cycle promisors
  * will automatically call this method once if the deliverable implements this method.
  */
@@ -78,7 +78,7 @@ export const AUTO_CLOSE_NONE: AutoClose = {
 };
 
 /**
- * 
+ * Used to adapt from AutoCloseType to AutoClose with unwrapping capability.
  */
 export interface AutoCloseWrapper extends AutoClose {
 

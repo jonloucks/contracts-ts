@@ -5,9 +5,6 @@ import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
  * <p>
  * Used to dictate how or if binding should happen when the Contract is already bound.
  * </p>
- * @see Contracts#bind(Contract, Promisor, BindStrategy)
- * @see Repository#store(Contract, Promisor, BindStrategy)
- * @see Repository#keep(Contract, Promisor, BindStrategy)
  */
 export type BindStrategy =
     /**

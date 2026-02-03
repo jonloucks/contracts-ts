@@ -26,8 +26,7 @@ export function create(config?: Config): RequiredType<Repository> {
 // ---- Implementation details below ----
 
 /**
- * Implementation for {@link jonloucks.contracts.api.Repository}
- * @see jonloucks.contracts.api.Repository
+ * Implementation for Repository
  */
 class RepositoryImpl implements Repository, AutoOpen {
 

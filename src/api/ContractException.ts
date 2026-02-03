@@ -7,7 +7,7 @@ import { messageCheck, used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 export class ContractException extends Error {
 
   /**
-   * Passthrough for {@link Error(String, Throwable)}
+   * Create a new ContractException
    *
    * @param message the message for this exception
    * @param thrown  the cause of this exception, null is allowed
