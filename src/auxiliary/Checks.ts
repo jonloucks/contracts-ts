@@ -123,6 +123,13 @@ export const illegalCheck: <T>(value: T, failed: boolean, message: string)
     return value;
   };
 
-export const used: (value : unknown) => boolean = (value: unknown) => { 
-   return value !== null;
-}
+/**
+ * explicity mark a value as used to avoid compiler warnings
+ * useful for "using" variable which are used for disposal or other side-effects
+ * but not directly referenced in code.
+ * 
+ * @param value the value which you wish to declare as used
+ */
+export const used: (value: unknown) 
+  => void 
+  = (value: unknown) => { void value; }
