@@ -157,7 +157,7 @@ export class Tools {
    * Assert the exception matches the exact specifications
    *
    * @param thrown the thrown exception
-   * @paramcause the cause of the thrown exception
+   * @param cause the cause of the thrown exception
    * @param reason the reason (message) of the exception
    */
   public static assertExpectedError(thrown: Error, cause: Error | null, reason: string): void {
