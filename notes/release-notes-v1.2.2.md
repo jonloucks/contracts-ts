@@ -3,7 +3,7 @@
 npm install @jonloucks/contracts-ts@1.2.2
 ```
 
-Test only; Jest vulnerability patched
+Test only; Update dependencies
 
 ## Customer impact
 *  None
