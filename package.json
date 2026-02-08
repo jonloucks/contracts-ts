@@ -44,11 +44,12 @@
     "after:publish": "npm run clean",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx tsx ./src/never-publish/generate-badges.ts",
+    "badges": "npx badges-ts generate-badges",
+    "discover": "npx badges-ts discover",
     "clean": "rm -rf dist",
     "compile": "tsc",
     "postversion": "npm run applyversion",
-    "applyversion": "npx tsx ./src/never-publish/apply-version.ts",
+    "applyversion": "npx badges-ts apply-version",
     "pack-package": "npm run before:publish && cd dist && npm pack && npm run after:publish"
   },
   "keywords": [
@@ -77,5 +78,8 @@
     "ts-jest": "^29.4.6",
     "typedoc": "^0.28.15",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@jonloucks/badges-ts": "^0.1.0"
   }
 }
