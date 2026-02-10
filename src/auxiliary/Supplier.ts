@@ -77,5 +77,5 @@ export function toValue<T>(type: Type<T>): T {
  * @throws IllegalArgumentException if the supplier is not present
  */
 export function check<T>(supplier: Type<T>): Type<T> {
-  return presentCheck(supplier, "Supplier must be Present.");
+  return presentCheck(supplier, "Supplier must be present.");
 }
