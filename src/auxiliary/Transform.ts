@@ -58,13 +58,17 @@ export function guardMethod<I, O>(transform: unknown): transform is Method<I, O>
  * @returns the Transform
  */
 export function fromType<I, O>(transform: Type<I, O>): RequiredType<Transform<I, O>> {
-  const validTransformType = presentCheck(transform, "TransformType must be present.");
-  if (guard<I, O>(validTransformType)) {
-    return validTransformType;
-  } else if (guardMethod<I, O>(validTransformType)) {
-    return { transform: validTransformType };
+  if (guard<I, O>(transform)) {
+    return transform;
+  } else if (guardMethod<I, O>(transform)) {
+    return { transform };
   } else {
-    return { transform: (input: I) : O => { used(input); return validTransformType; } };
+    return {
+      transform: (input: I): O => {
+        used(input);
+        return transform as O;
+      },
+    };
   }
 }
 
