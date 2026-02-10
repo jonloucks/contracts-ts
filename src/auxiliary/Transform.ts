@@ -93,5 +93,5 @@ export function toValue<I,O>(type: Type<I,O>, input: I): O {
  * @throws IllegalArgumentException if the transform is not present
  */
 export function check<I,O>(transform: Type<I,O>): Type<I,O> {
-  return presentCheck(transform, "Transform must be Present.");
+  return presentCheck(transform, "Transform must be present.");
 }
