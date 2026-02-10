@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/auxiliary/IdempotentFactory.ts</title>
+    <title>Code coverage report for src/auxiliary/Functional.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/auxiliary</a> IdempotentFactory.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/auxiliary</a> Functional.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -86,92 +86,53 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { Contract } from "@jonloucks/contracts-ts/api/Contract";
-import { RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
-import { Idempotent, Config } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+export type { Consumer, Method as ConsumerFunction, Type as ConsumerType }
+  from "@jonloucks/contracts-ts/auxiliary/Consumer";
 &nbsp;
-/**
- * Idempotent Factory
- */
-export interface IdempotentFactory {
+export { guard as consumerGuard, fromType as consumerFromType, check as consumerCheck }
+  from "@jonloucks/contracts-ts/auxiliary/Consumer";
 &nbsp;
-  /**
-   * Create a new Idempotent using the provided configuration.
-   *
-   * @param config configuration for the idempotent; invalid or null/undefined values are not allowed
-   * @returns an Idempotent instance created from the given configuration
-   * @throws Error if the configuration is invalid or the idempotent cannot be created
-   */
-  createIdempotent(config: Config): RequiredType&lt;Idempotent&gt;;
-}
+export type { Predicate, Method as PredicateFunction, Type as PredicateType }
+  from "@jonloucks/contracts-ts/auxiliary/Predicate";
 &nbsp;
-/**
- * Determine if the given instance is a IdempotentFactory
- *
- * @param instance the instance to check
- * @return true if the instance is a IdempotentFactory
- */
-export function guard(instance: unknown): instance is RequiredType&lt;IdempotentFactory&gt; {
-  return guardFunctions(instance, 'createIdempotent');
-}
+export { guard as predicateGuard, fromType as predicateFromType, check as predicateCheck, <span class="fstat-no" title="function not covered" >toValue </span>as predicateToValue }
+  from "@jonloucks/contracts-ts/auxiliary/Predicate";
 &nbsp;
-/**
- * Contract for IdempotentFactory
- */
-export const CONTRACT: Contract&lt;IdempotentFactory&gt; = createContract({
-  name: "IdempotentFactory",
-  test: guard
-});</pre></td></tr></table></pre>
+export type { Supplier, Method as SupplierFunction, Type as SupplierType }
+  from "@jonloucks/contracts-ts/auxiliary/Supplier";
+&nbsp;
+export { guard as supplierGuard, fromType as supplierFromType, check as supplierCheck, toValue as supplierToValue }
+  from "@jonloucks/contracts-ts/auxiliary/Supplier";
+&nbsp;
+export type { Transform, Method as TransformFunction, Type as TransformType }
+  from "@jonloucks/contracts-ts/auxiliary/Transform";
+&nbsp;
+export { guard as transformGuard, fromType as transformFromType, check as transformCheck, toValue as transformToValue }
+  from "@jonloucks/contracts-ts/auxiliary/Transform";</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
