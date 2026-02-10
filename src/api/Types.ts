@@ -16,7 +16,7 @@ export type OptionalType<T> = T | null | undefined;
 export type RequiredType<T> = NonNullable<T>;
 
 /**
- * Type that can be null, undefined, or a value of type T
+ * Type that can be undefined or a value of type T
  */
 export type UndefinedType<T> = T | undefined;
 
