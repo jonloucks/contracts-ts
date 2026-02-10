@@ -8,7 +8,7 @@ export { guard as consumerGuard, fromType as consumerFromType, check as consumer
 export type { Predicate, Method as PredicateFunction, Type as PredicateType }
   from "@jonloucks/contracts-ts/auxiliary/Predicate";
 
-export { guard as predicateGuard, fromType as predicateFromType, check as predicateCheck }
+export { guard as predicateGuard, fromType as predicateFromType, check as predicateCheck, toValue as predicateToValue }
   from "@jonloucks/contracts-ts/auxiliary/Predicate";
 
 export type { Supplier, Method as SupplierFunction, Type as SupplierType }
