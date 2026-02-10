@@ -11,7 +11,7 @@ npm install @jonloucks/contracts-ts@1.2.3
 
 ## 🚀 New Features
 
-*  Support for getter and setter validation in `Checks.guardFunctions` (#15, #116)
+*  Support for getter and setter validation in `Checks.guardFunctions` (#115, #116)
 
 ## ✨ Improvements
 
@@ -20,7 +20,7 @@ npm install @jonloucks/contracts-ts@1.2.3
 *   Documentation: Integration of `@jonloucks/badges-ts` for improved documentation badges (#110)
 
 ## 🐛 Bug Fixes
-*  Fixes #15: `Checks.guardFunctions` getter and setter support (#116) 
+*  Fixes #115: `Checks.guardFunctions` getter and setter support (#116) 
 
 ## ⬇️ Download
 
