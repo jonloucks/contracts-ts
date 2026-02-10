@@ -149,22 +149,52 @@ export function isConstructor<T>(value: unknown): value is RequiredType<(new () 
  * @param propertyNames the property names to check
  * @returns true if property is defined
  */
-export function guardFunctions(value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType<UnknownFunction> {
+export function guardFunctions<T>(value: unknown, ...propertyNames: (string | symbol)[]): value is RequiredType<T & object> {
   if (isObject(value) === false) {
     return false;
   }
 
-  const record = value as Record<string | symbol, unknown>;
-  
   for (const propertyName of propertyNames) {
-    if (propertyName in value === false) {
-      return false;
-    }
-    if (isFunction(record[propertyName]) === false) {
+    if (hasFunction(value, propertyName) === false) {
       return false;
     }
   }
+
   return true;
+}
+
+/**
+ * Check if given value has a function defined for the given property name
+ * Note: if the value is present is required to have the function defined
+ * 
+ * @param value the value to check
+ * @param propertyName the property name to check
+ * @returns true if property is defined as a function or getter/setter, false otherwise
+ */
+export function hasFunction<T>(value: unknown, propertyName: string | symbol): value is RequiredType<T & object> {
+  const descriptor: PropertyDescriptor | undefined = getPropertyDescriptor(value, propertyName);
+  if (isNotPresent(descriptor)) {
+    return false;
+  }
+  if (isPresent(descriptor.get) || isPresent(descriptor.set)) {
+    return true; // getter/setter is ok
+  }
+  if (isFunction(descriptor.value)) {
+    return true; // function is ok
+  }
+  return false; // not a function or getter/setter
+}
+
+function getPropertyDescriptor(instance: unknown, name: string | symbol): PropertyDescriptor | undefined {
+  let focus: unknown = instance;
+  while (isObject(focus)) {
+    const descriptor: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(focus, name);
+    if (isPresent(descriptor)) {
+      return descriptor;
+    }
+    focus = Object.getPrototypeOf(focus);
+  }
+  return undefined;
 }
 
 function guardTransform<I, O>(transform: unknown): transform is Transform<I, O> {
