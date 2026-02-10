@@ -1,6 +1,6 @@
 {
   "name": "@jonloucks/contracts-ts",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
   "main": "index.js",
