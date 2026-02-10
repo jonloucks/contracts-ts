@@ -83,5 +83,5 @@ export function toValue<T>(type: Type<T>, value: T): boolean {
  * @throws IllegalArgumentException if the predicate is not present
  */
 export function check<T>(predicate: OptionalType<Predicate<T>>): RequiredType<Predicate<T>> {
-  return presentCheck(predicate, "Predicate must be Present.");
+  return presentCheck(predicate, "Predicate must be present.");
 }
