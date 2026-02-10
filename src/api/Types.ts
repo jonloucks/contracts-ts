@@ -16,6 +16,11 @@ export type OptionalType<T> = T | null | undefined;
 export type RequiredType<T> = NonNullable<T>;
 
 /**
+ * Type that can be undefined or a value of type T
+ */
+export type UndefinedType<T> = T | undefined;
+
+/**
  * A function of unknown signature
  */
 export type UnknownFunction = (...args: unknown[]) => unknown;
@@ -29,11 +34,13 @@ export interface Transform<I, O> {
 
 /**
  * A function that transforms type I to type O
+ * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
  */
 export type TransformFunction<I, O> = (input: I) => O;
 
 /**
  * A transformation type that can be a Transform or a function from type I to type O
+ * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
  */
 export type TransformType<I, O> = Transform<I, O> | TransformFunction<I, O>;
 
@@ -197,10 +204,16 @@ function getPropertyDescriptor(instance: unknown, name: string | symbol): Proper
   return undefined;
 }
 
+/**
+ * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
+ */
 function guardTransform<I, O>(transform: unknown): transform is Transform<I, O> {
   return guardFunctions(transform, 'transform');
 }
 
+/**
+ * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
+ */
 function guardTransformFunction<I, O>(transform: unknown): transform is TransformFunction<I, O> {
   return isFunctionWithArity(transform, 1);
 }
@@ -210,6 +223,7 @@ function guardTransformFunction<I, O>(transform: unknown): transform is Transfor
  * 
  * @param transform the TransformType to convert
  * @returns the Transform
+ * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
  */
 export function typeToTransform<I, O>(transform: TransformType<I, O>): RequiredType<Transform<I, O>> {
   const validTransformType = presentCheck(transform, "TransformType must be present.");
