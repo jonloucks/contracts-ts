@@ -10,7 +10,7 @@ import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
 export { 
-  type AtomicBoolean , 
+  type AtomicBoolean, 
   type AtomicReference, 
   type AtomicInteger, 
   type RequiredType, 
