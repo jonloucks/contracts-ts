@@ -7,7 +7,7 @@ export const STATES = ['OPENABLE', 'OPENING', 'OPENED', 'CLOSING', 'CLOSED', 'DE
 export type State = typeof STATES[number];
 
 /** The IdempotentState type */
-export { State as IdempotentState };
+export { type State as IdempotentState };
 
 /** The starting state for an Idempotent */
 export const START_STATE: State = 'OPENABLE';

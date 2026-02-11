@@ -1,5 +1,4 @@
 import { Open } from "../api/Open";
-export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 
 /**
  * Configuration for Events implementation
