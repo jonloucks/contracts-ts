@@ -1,12 +1,11 @@
 import { AutoClose, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
 import { create as createIdempotent } from "./Idempotent.impl";
-import { AutoOpen, Config, Events } from "./Events";
-
-export { Config, Events };
+import { Config, Events } from "./Events";
 
 /**
  *  Factory method to create Events instance.

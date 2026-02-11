@@ -1,4 +1,4 @@
-import { AUTO_CLOSE_NONE, AutoClose, AutoCloseType, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AUTO_CLOSE_NONE, AutoClose, AutoCloseMany, AutoCloseType, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
@@ -10,12 +10,14 @@ import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-t
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
-import { AutoCloseMany, create as createAutoCloseMany } from "./AutoCloseMany.impl";
+import { create as createAutoCloseMany } from "./AutoCloseMany.impl";
 import { create as createIdempotent } from "./Idempotent.impl";
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { Events, create as createEvents } from "./Events.impl";
+import { create as createEvents } from "./Events.impl";
 import { Internal } from "./Internal.impl";
-import { Policy, create as createPolicy } from "./Policy.impl";
+import { create as createPolicy } from "./Policy.impl";
+import { Policy } from "./Policy";
+import { Events } from "./Events";
 
 /**
  * Factory method to create Contracts instance.

@@ -30,9 +30,9 @@ export interface AutoCloseFactory {
     createAutoCloseOne(): RequiredType<AutoCloseOne>;
 }
 
-export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
-export { Contract } from "@jonloucks/contracts-ts/api/Contract";
-export { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+export { type AutoClose, type AutoCloseMany, type AutoCloseOne, type AutoCloseType } from "@jonloucks/contracts-ts/api/AutoClose";
+export { type Contract } from "@jonloucks/contracts-ts/api/Contract";
+export { type OptionalType, type RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 /**
  * Type guard for AutoCloseFactory interface.

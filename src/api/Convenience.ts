@@ -8,10 +8,10 @@ import { Repository, Config as RepositoryConfig } from "@jonloucks/contracts-ts/
 import { OptionalType, RequiredType, Transform, TransformType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
 
 export {
-  AutoClose,
-  BindStrategyType,
-  Contract,
-  ContractConfig,
+  type AutoClose,
+  type BindStrategyType,
+  type Contract,
+  type ContractConfig,
   CONTRACTS,
   createContract,
   guardFunctions,
@@ -21,14 +21,14 @@ export {
   isNumber,
   isObject,
   isString,
-  OptionalType,
-  Promisor,
-  PromisorType,
-  Repository,
-  RepositoryConfig,
-  RequiredType,
-  Transform,
-  TransformType,
+  type OptionalType,
+  type Promisor,
+  type PromisorType,
+  type Repository,
+  type RepositoryConfig,
+  type RequiredType,
+  type Transform,
+  type TransformType,
 };
 
 /**

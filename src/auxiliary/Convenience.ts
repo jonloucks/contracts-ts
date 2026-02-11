@@ -9,7 +9,14 @@ import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReferen
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
-export { AtomicBoolean , AtomicReference, AtomicInteger, RequiredType, Idempotent, IdempotentConfig };
+export { 
+  type AtomicBoolean, 
+  type AtomicReference, 
+  type AtomicInteger, 
+  type RequiredType, 
+  type Idempotent, 
+  type IdempotentConfig 
+};
 
 /**
  * @module Convenience

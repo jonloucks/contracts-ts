@@ -1,19 +1,19 @@
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
-export { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-export { CONTRACT as AUTO_CLOSE_FACTORY, AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
-export { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-export { BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
-export { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+export { type AutoClose, type AutoCloseMany, type AutoCloseOne, type AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+export { CONTRACT as AUTO_CLOSE_FACTORY, type AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
+export { type AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+export { type BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
+export { type Contract, type Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 export { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
-export { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
-export { ContractsFactory } from "@jonloucks/contracts-ts/api/ContractsFactory";
-export { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
-export { CONTRACT as PROMISOR_FACTORY, PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
-export { Repository } from "@jonloucks/contracts-ts/api/Repository";
-export { CONTRACT as REPOSITORY_FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
-export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isString, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+export { type Contracts, type Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+export { type ContractsFactory } from "@jonloucks/contracts-ts/api/ContractsFactory";
+export { type Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+export { CONTRACT as PROMISOR_FACTORY, type PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
+export { type Repository } from "@jonloucks/contracts-ts/api/Repository";
+export { CONTRACT as REPOSITORY_FACTORY, type RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
+export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isString, type OptionalType, type RequiredType } from "@jonloucks/contracts-ts/api/Types";
 export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 //  no qualified paths for things not exposed publicly

@@ -1,6 +1,7 @@
 import { throws } from "node:assert";
 
-import { create as createEvents, Events, Config as EventsConfig } from "./Events.impl";
+import { Events, Config as EventsConfig } from "./Events";
+import { create as createEvents } from "./Events.impl";
 
 describe("Events", () => {
 
