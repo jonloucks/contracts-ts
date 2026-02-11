@@ -4,7 +4,7 @@ import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Method, Predicate, Type, check, fromType, guard, toValue } from "@jonloucks/contracts-ts/auxiliary/Predicate";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 
-import { assertGuard, mockDuck } from "../helper.test";
+import { assertGuard, mockDuck } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'test'

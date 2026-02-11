@@ -4,9 +4,9 @@ import { createContract } from "@jonloucks/contracts-ts";
 import { Contract, guard } from "@jonloucks/contracts-ts/api/Contract";
 import { isString } from "@jonloucks/contracts-ts/api/Types";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
-import { generateContractSuite } from "@jonloucks/contracts-ts/test/Contract.tools.test";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "./helper.test";
+import { generateContractSuite } from "@jonloucks/contracts-ts/test/Contract.tools.test.js";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('Create string contract', () => {
   const contract: Contract<string> = createContract<string>({

@@ -2,7 +2,7 @@ import { mock, MockProxy } from "jest-mock-extended";
 import { ok } from "node:assert";
 
 import { AtomicBooleanFactory, guard, CONTRACT } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { assertContract, assertGuard, mockGuardFix } from "../helper.test";
+import { assertContract, assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('guard tests', () => {
   it('guard should return true for AtomicBooleanFactory', () => {

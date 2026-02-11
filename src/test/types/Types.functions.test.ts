@@ -1,7 +1,7 @@
 import { MockProxy } from "jest-mock-extended";
 
 import { guardFunctions, hasFunction } from "@jonloucks/contracts-ts/api/Types";
-import { mockDuck } from "../helper.test";
+import { mockDuck } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe("guardFunctions", () => {
   it("should return true when all functions are present", () => {

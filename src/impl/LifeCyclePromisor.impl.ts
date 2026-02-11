@@ -8,10 +8,10 @@ import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReferen
 import { promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
 
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
-import { create as createAutoCloseOne } from "./AutoCloseOne.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl.js";
+import { create as createAtomicInteger } from "./AtomicInteger.impl.js";
+import { create as createAtomicReference } from "./AtomicReference.impl.js";
+import { create as createAutoCloseOne } from "./AutoCloseOne.impl.js";
 
 /**
  * Factory to create an Life Cycle promisor implementation

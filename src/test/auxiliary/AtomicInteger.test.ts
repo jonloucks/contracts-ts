@@ -3,8 +3,8 @@ import { notStrictEqual, strictEqual } from "node:assert";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicInteger, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard } from "../helper.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('AtomicInteger', () => {
   it('AtomicInteger FACTORY works', () => {

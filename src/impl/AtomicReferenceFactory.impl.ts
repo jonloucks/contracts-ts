@@ -2,7 +2,7 @@ import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { AtomicReferenceFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 
-import { create as createAtomicReference } from "./AtomicReference.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl.js";
 
 /**
  * Factory method to create an AtomicReferenceFactory

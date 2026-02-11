@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
+  "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
@@ -33,7 +34,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "node --test",
     "test:watch": "jest --watch --watchAll",
     "test:coverage": "jest --coverage",
     "test:diagnostics": "jest --detectOpenHandles",

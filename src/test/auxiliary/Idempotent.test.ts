@@ -7,7 +7,7 @@ import { IdempotentState } from "@jonloucks/contracts-ts/auxiliary/IdempotenStat
 import { Idempotent, Config as IdempotentConfig, guard as isIdempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { CONTRACT as IDEMPOTENT_FACTORY, IdempotentFactory } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 
-import { assertGuard, mockDuck } from "../helper.test";
+import { assertGuard, mockDuck } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'getState',

@@ -17,9 +17,9 @@ export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isSt
 export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 //  no qualified paths for things not exposed publicly
-import { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl";
-export { createContract, create as createContractFactory } from "./impl/ContractFactory.impl";
-export { VERSION } from "./version";
+import { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl.js";
+export { createContract, create as createContractFactory } from "./impl/ContractFactory.impl.js";
+export { VERSION } from "./version.js";
 
 export { createContracts, createContractsFactory };
 

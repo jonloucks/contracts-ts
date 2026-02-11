@@ -3,7 +3,7 @@ import { ok } from "node:assert";
 
 import { AutoCloseFactory, guard, CONTRACT } 
   from "@jonloucks/contracts-ts/api/AutoCloseFactory";
-import { assertContract, assertGuard, mockGuardFix } from "./helper.test";
+import { assertContract, assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('guard tests', () => {
   it('guard should return true for AutoCloseFactory', () => {

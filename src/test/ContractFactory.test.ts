@@ -3,7 +3,7 @@ import { ok } from "node:assert";
 
 import { ContractFactory, guard } from "@jonloucks/contracts-ts/api/ContractFactory";
 
-import { assertGuard, mockGuardFix } from "./helper.test";
+import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('guard tests', () => {
   it('guard should return true for ContractFactory', () => {

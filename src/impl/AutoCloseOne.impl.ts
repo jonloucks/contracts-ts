@@ -1,7 +1,7 @@
 import { AutoClose, AutoCloseOne, AutoCloseType, typeToAutoClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { isPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
-import { create as createAtomicReference } from "./AtomicReference.impl";
+import { create as createAtomicReference } from "./AtomicReference.impl.js";
 
 /**
  * Create an AutoCloseOne instance.

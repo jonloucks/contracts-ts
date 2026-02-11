@@ -4,7 +4,7 @@ import { Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { Policy } from "./Policy";
+import { Policy } from "./Policy.js";
 
 /**
  * Factory method to create Policy instance.

@@ -1,8 +1,8 @@
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { strictEqual } from "node:assert";
-import { used } from "../auxiliary/Checks";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('Contracts with shutdown events', () => {
 

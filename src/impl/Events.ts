@@ -1,4 +1,4 @@
-import { Open } from "../api/Open";
+import { Open } from "@jonloucks/contracts-ts/api/Open";
 
 /**
  * Configuration for Events implementation

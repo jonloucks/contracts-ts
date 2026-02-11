@@ -3,9 +3,9 @@ import { doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
 import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoCloseFactory, CONTRACT as FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
-import { assertGuard } from "./helper.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test.js";
+import { assertGuard } from"@jonloucks/contracts-ts/test/helper.test.js";
 
 const VALID_CASES: PredicateCase[] = [
   {

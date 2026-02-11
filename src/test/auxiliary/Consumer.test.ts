@@ -2,7 +2,7 @@ import { ok } from "node:assert";
 
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Consumer, Method, Type, check, fromType, guard } from "@jonloucks/contracts-ts/auxiliary/Consumer";
-import { assertGuard, mockDuck } from "../helper.test";
+import { assertGuard, mockDuck } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'consume'

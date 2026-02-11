@@ -2,7 +2,7 @@ import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
 import { AtomicIntegerFactory } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
 
-import { create as createAtomicInteger } from "./AtomicInteger.impl";
+import { create as createAtomicInteger } from "./AtomicInteger.impl.js";
 
 /**
  * Factory method to create an AtomicIntegerFactory

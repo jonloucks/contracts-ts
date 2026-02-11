@@ -4,8 +4,8 @@ import { notStrictEqual, ok, strictEqual } from "node:assert";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard, mockGuardFix } from "../helper.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 describe('AtomicBoolean', () => {
 

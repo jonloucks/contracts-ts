@@ -6,9 +6,9 @@ import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { assertGuard, mockGuardFix } from "./helper.test";
-import { used } from "../auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {

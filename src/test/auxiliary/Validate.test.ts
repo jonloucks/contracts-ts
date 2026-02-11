@@ -5,7 +5,7 @@ import { ContractException } from "@jonloucks/contracts-ts/api/ContractException
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('Validate contracts', () => {

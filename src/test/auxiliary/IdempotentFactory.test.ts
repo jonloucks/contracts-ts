@@ -3,7 +3,7 @@ import { ok } from "node:assert";
 import { CONTRACT, IdempotentFactory, guard } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 import { AutoClose, Contracts, createContracts, isPresent } from "@jonloucks/contracts-ts";
 import { Idempotent, Config as IdempotenConfig, guard as idempotentGuard } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
-import { assertContract, assertGuard } from "../helper.test";
+import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { AUTO_CLOSE_NONE } from "@jonloucks/contracts-ts/api/AutoClose";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
