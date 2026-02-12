@@ -1,8 +1,8 @@
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
-import { OptionalType, RequiredType, TransformType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
-
+import { OptionalType, RequiredType, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";
 /**
  * Helper methods for creating and chaining Promisors used for Contracts.bind().
  */
