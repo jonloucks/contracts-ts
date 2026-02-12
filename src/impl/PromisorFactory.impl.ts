@@ -1,6 +1,7 @@
 import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { Type as TransformType, fromType as typeToTransform } from "@jonloucks/contracts-ts/auxiliary/Transform";
 import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { OptionalType, RequiredType, TransformType, typeToTransform } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { create as createExtractor } from "./ExtractorPromisor.impl.js";
 import { create as createLifeCycle } from "./LifeCyclePromisor.impl.js";
 import { create as createSingleton } from "./SingletonPromisor.impl.js";

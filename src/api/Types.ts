@@ -2,9 +2,6 @@
  * Types and type guards for API
  */
 
-import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
-
 /**
  * Type that can be null or undefined
  */
@@ -24,25 +21,6 @@ export type UndefinedType<T> = T | undefined;
  * A function of unknown signature
  */
 export type UnknownFunction = (...args: unknown[]) => unknown;
-
-/**
- * A transformation from type I to type O
- */
-export interface Transform<I, O> {
-  transform(input: I): O;
-}
-
-/**
- * A function that transforms type I to type O
- * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
- */
-export type TransformFunction<I, O> = (input: I) => O;
-
-/**
- * A transformation type that can be a Transform or a function from type I to type O
- * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
- */
-export type TransformType<I, O> = Transform<I, O> | TransformFunction<I, O>;
 
 /**
  * Check iif given value is not null or undefined
@@ -202,36 +180,4 @@ function getPropertyDescriptor(instance: unknown, name: string | symbol): Proper
     focus = Object.getPrototypeOf(focus);
   }
   return undefined;
-}
-
-/**
- * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
- */
-function guardTransform<I, O>(transform: unknown): transform is Transform<I, O> {
-  return guardFunctions(transform, 'transform');
-}
-
-/**
- * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
- */
-function guardTransformFunction<I, O>(transform: unknown): transform is TransformFunction<I, O> {
-  return isFunctionWithArity(transform, 1);
-}
-
-/**
- * Convert a TransformType to a Transform
- * 
- * @param transform the TransformType to convert
- * @returns the Transform
- * @deprecated use @jonloucks/contracts-ts/auxiliary/Functional instead
- */
-export function typeToTransform<I, O>(transform: TransformType<I, O>): RequiredType<Transform<I, O>> {
-  const validTransformType = presentCheck(transform, "TransformType must be present.");
-  if (guardTransform<I, O>(validTransformType)) {
-    return validTransformType;
-  } else if (guardTransformFunction<I, O>(validTransformType)) {
-    return { transform: validTransformType };
-  } else {
-    throw new IllegalArgumentException("TransformType must be a Transform or a function taking one argument.");
-  }
 }
