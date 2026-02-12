@@ -81,10 +81,10 @@ jobs:
         KIT_TYPEDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-typedoc.svg
         KIT_NPM_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-npm.svg
 
-    - name: Upload Jest Code Coverage report
+    - name: Upload Code Coverage report
       uses: actions/upload-artifact@v4
       with:
-        name: jest-coverage-report
+        name: coverage-report
         path: main-project/coverage/lcov-report/
 
     - name: Copy Code Coverage and Source Documentation

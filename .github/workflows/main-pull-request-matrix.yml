@@ -44,11 +44,5 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: list test source files for debugging
-      run: find src -name '*.test.*'
-
-    - name: list dist/test for debugging
-      run: find dist/test -name '*.test.*'
-
     - name: Test with coverage
       run: npm run test:coverage
