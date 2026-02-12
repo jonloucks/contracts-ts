@@ -54,7 +54,7 @@ jobs:
       working-directory: main-project
 
     - name: list files for debugging
-      run: find src/test . -name "*.test.ts"
+      run: find dist/test . -name '*.test.*'
       working-directory: main-project
 
     - name: Build
