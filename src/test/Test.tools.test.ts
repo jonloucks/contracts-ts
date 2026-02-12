@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { AssertionError, AssertPredicate, doesNotThrow, equal, notStrictEqual, ok, strictEqual, throws } from "node:assert";
 
 import { createContract, createContracts } from "@jonloucks/contracts-ts";

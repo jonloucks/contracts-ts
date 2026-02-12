@@ -1,13 +1,17 @@
-import { mock, MockProxy } from "jest-mock-extended";
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 
 import { AutoOpen, guard } from "@jonloucks/contracts-ts/api/AutoOpen";
-import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose.js";
 
 describe('guard tests', () => {
   it('guard should return true for AutoOpen', () => {
-    const instance: MockProxy<AutoOpen> = mock<AutoOpen>();
-    mockGuardFix(instance, "autoOpen");
+    const instance:AutoOpen = {
+      autoOpen: function (): AutoClose {
+        throw new Error("Function not implemented.");
+      }
+    };
     ok(guard(instance), 'AutoOpen should return true');
   });
 });

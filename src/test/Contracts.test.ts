@@ -1,19 +1,45 @@
+import { describe, test, it } from "node:test";
 import { ok } from "assert/strict";
-import { mock, MockProxy } from "jest-mock-extended";
+import assert, { throws } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {
-    const instance: MockProxy<Contracts> = mock<Contracts>();
-    mockGuardFix(instance, 'claim', 'enforce', 'isBound', 'bind', 'open');
+    const instance: Contracts = {
+      claim: function <T>(contract: Contract<T>): OptionalType<T> {
+        used(contract);
+        throw new Error("Function not implemented.");
+      },
+      enforce: function <T>(contract: Contract<T>): RequiredType<T> {
+        used(contract);
+        throw new Error("Function not implemented.");
+      },
+      isBound: function <T>(contract: Contract<T>): boolean {
+                used(contract);
+        throw new Error("Function not implemented.");
+      },
+      bind: function <T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
+        used(contract);
+        used(promisor);
+        used(bindStrategy);
+        throw new Error("Function not implemented.");
+      },
+      open: function (): AutoClose {
+        throw new Error("Function not implemented.");
+      }
+    };
     ok(guard(instance), 'Contracts should return true');
   });
 });
@@ -29,8 +55,8 @@ describe("Contracts Idempotent", () => {
 describe("Contracts toString", () => {
   test("is not null or undefined", () => {
     Tools.withContracts((contracts) => {
-      expect(String(contracts)).not.toBeNull();
-      expect(String(contracts)).not.toBeUndefined();
+      assert(String(contracts) !== null);
+      assert(String(contracts) !== undefined);
     })
   });
 });
@@ -56,7 +82,7 @@ describe("Bind same promisor", () => {
       using closeBind2: AutoClose = contracts.bind(contract, promisor);
       used(closeBind2);
 
-      expect(contracts.enforce(contract)).toEqual("test");
+      assert.deepStrictEqual(contracts.enforce(contract), "test");
     })
   });
 });
@@ -71,7 +97,7 @@ describe("Bind with existing promisor", () => {
       used(closeBind1);
       using closeBind2: AutoClose = contracts.bind(contract, () => "new value");
       used(closeBind2);
-      expect(contracts.enforce(contract)).toEqual("new value");
+      assert.deepStrictEqual(contracts.enforce(contract), "new value");
     })
   });
   test("contract is not replaceable", () => {
@@ -83,7 +109,7 @@ describe("Bind with existing promisor", () => {
       used(closeBind1);
       using closeBind2: AutoClose = contracts.bind(contract, () => "new value");
       used(closeBind2);
-      expect(contracts.enforce(contract)).toEqual("original value");
+      assert.deepStrictEqual(contracts.enforce(contract), "original value");
     })
   });
   test("contract is not replaceable and strategy ALWAYS", () => {
@@ -94,9 +120,9 @@ describe("Bind with existing promisor", () => {
       using closeBind1: AutoClose = contracts.bind(contract, () => "original value");
       used(closeBind1);
 
-      expect(() => {
+      assert.throws(() => {
         contracts.bind(contract, () => "new value", "ALWAYS");
-      }).toThrow(ContractException);
+      }, ContractException);
     })
   });
   test("contract is replaceable and strategy ALWAYS", () => {
@@ -108,10 +134,10 @@ describe("Bind with existing promisor", () => {
       used(closeBind1);
       using closeBind2: AutoClose = contracts.bind(contract, () => "new value", "ALWAYS");
       used(closeBind2);
-      expect(contracts.enforce(contract)).toEqual("new value");
+      assert.deepStrictEqual(contracts.enforce(contract), "new value");
     })
   });
-    test("contract is replaceable and strategy IF_NOT_BOUND", () => {
+  test("contract is replaceable and strategy IF_NOT_BOUND", () => {
     Tools.withContracts((contracts) => {
       const contract = createContract<string>({
         replaceable: true
@@ -120,7 +146,7 @@ describe("Bind with existing promisor", () => {
       used(closeBind1);
       using closeBind2: AutoClose = contracts.bind(contract, () => "new value", "IF_NOT_BOUND");
       used(closeBind2);
-      expect(contracts.enforce(contract)).toEqual("original value");
+      assert.deepStrictEqual(contracts.enforce(contract), "original value");
     })
   });
 });
@@ -132,8 +158,7 @@ describe("Contracts enforce", () => {
       using closeBind: AutoClose = contracts.bind(contract, () => null);
       used(closeBind);
 
-      expect(() => contracts.enforce(contract))
-        .toThrow(ContractException);
+      throws(() => contracts.enforce(contract), ContractException);
     })
   });
 
@@ -143,8 +168,7 @@ describe("Contracts enforce", () => {
       using closeBind: AutoClose = contracts.bind(contract, () => undefined);
       used(closeBind);
 
-      expect(() => contracts.enforce(contract))
-        .toThrow(ContractException);
+      throws(() => contracts.enforce(contract), ContractException);
     })
   });
 });

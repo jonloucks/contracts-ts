@@ -77,6 +77,7 @@ jobs:
       working-directory: main-project
       env:
         KIT_COVERAGE_SUMMARY_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
+        KIT_COVERAGE_LCOV_REPORT_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-coverage.svg
         KIT_TYPEDOC_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-typedoc.svg
         KIT_NPM_BADGE_PATH: ${{ github.workspace }}/badges/${{ env.SIMPLE_BRANCH_NAME }}-npm.svg
 

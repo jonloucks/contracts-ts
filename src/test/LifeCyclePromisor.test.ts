@@ -1,3 +1,5 @@
+import { describe, it, mock } from "node:test";
+import { strictEqual, throws } from "node:assert";
 import { createContract, Promisor, typeToPromisor } from "@jonloucks/contracts-ts";
 import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen, guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
@@ -5,8 +7,8 @@ import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { used } from "../auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('LifeCyclePromisor tests', () => {
   it("demand without incrementUsage throws", () => {
@@ -14,22 +16,28 @@ describe('LifeCyclePromisor tests', () => {
       const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
       const promisor: Promisor<number> = promisorFactory.createLifeCycle(typeToPromisor(34));
 
-      expect(() => {
+      throws(() => { 
         promisor.demand();
-      }).toThrow(IllegalStateException);
+       }, IllegalStateException);
     });
   });
   it("open is called during demand", () => {
     Tools.withContracts((contracts: Contracts) => {
-      const openMock: AutoOpen = jest.mocked<AutoOpen>({
-        autoOpen: jest.fn(),
-      });
+      const openMock: AutoOpen = {
+        autoOpen: function (): AutoClose {
+          throw new Error("Function not implemented.");
+        }
+      };
+
+      const mockAutoOpenFn = mock.fn(() : AutoClose => AUTO_CLOSE_NONE);
+      openMock.autoOpen = mockAutoOpenFn;
+
       const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
       const sourcePromisor: Promisor<unknown> = promisorFactory.createValue(openMock);
       const promisor: Promisor<unknown> = promisorFactory.createLifeCycle(sourcePromisor);
       promisor.incrementUsage();
       promisor.demand();
-      expect(openMock.autoOpen).toHaveBeenCalledTimes(1);
+      strictEqual(mockAutoOpenFn.mock.calls.length, 1, "autoOpen should be called once");
     });
   });
   it("when open throws is rethrown", () => {
@@ -39,9 +47,9 @@ describe('LifeCyclePromisor tests', () => {
       const sourcePromisor: Promisor<ThrowsOnOpen> = promisorFactory.createValue(new ThrowsOnOpen(expectedError));
       const promisor: Promisor<ThrowsOnOpen> = promisorFactory.createLifeCycle(sourcePromisor);
       promisor.incrementUsage();
-      expect(() => {
+      throws(() => { 
         promisor.demand();
-      }).toThrow(expectedError);
+       }, expectedError);
     });
   });
   it('Reentrancy failure: Issue #69', () => {

@@ -1,11 +1,12 @@
-import { mock, MockProxy } from "jest-mock-extended";
+import { describe, it } from "node:test";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { assertGuard, mockGuardFix } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('AtomicBoolean', () => {
 
@@ -98,8 +99,28 @@ generateGetAndSet({
 
 describe('guard tests', () => {
   it('guard should return true for AtomicBoolean', () => {
-    const atomicBoolean: MockProxy<AtomicBoolean> = mock<AtomicBoolean>();
-    mockGuardFix(atomicBoolean, "compareAndSet", "get", "set", "getAndSet");
+    const atomicBoolean: AtomicBoolean = {
+      get: function (): boolean {
+        throw new Error("Function not implemented.");
+      },
+      set: function (newValue: boolean): void {
+        used(newValue);
+        throw new Error("Function not implemented.");
+      },
+      compareAndSet: function (expectedValue: boolean, newValue: boolean): boolean {
+        used(expectedValue);
+        used(newValue);
+        throw new Error("Function not implemented.");
+      },
+      getAndSet: function (newValue: boolean): boolean {
+        used(newValue);
+        throw new Error("Function not implemented.");
+      },
+      [Symbol.toPrimitive]: function (hint: string): string | boolean | number {
+        used(hint);
+        throw new Error("Function not implemented.");
+      }
+    };
     ok(guard(atomicBoolean), 'AtomicBoolean should return true');
   });
 });

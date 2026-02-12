@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { notStrictEqual, strictEqual } from "node:assert";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";

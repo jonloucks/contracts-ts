@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 import { createAtomicBoolean, createAtomicInteger, createAtomicReference, createIdempotent } from "@jonloucks/contracts-ts/auxiliary/Convenience";
 import { AutoCloseType } from "@jonloucks/contracts-ts";

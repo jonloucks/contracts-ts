@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { deepStrictEqual, fail, ok, strictEqual, throws } from "node:assert";
 
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";

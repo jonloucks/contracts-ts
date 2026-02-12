@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok, strictEqual } from "node:assert";
 
 import { IdempotentState, START_STATE, STATES } from "@jonloucks/contracts-ts/auxiliary/IdempotenState";

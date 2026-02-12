@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok, strictEqual } from "node:assert";
 
 import {
@@ -39,7 +40,7 @@ import {
   validateContracts,
   VERSION,
 } from "@jonloucks/contracts-ts";
-import { used } from "../auxiliary/Checks";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /** 
  * Tests for @jonloucks/contracts-ts index and version exports

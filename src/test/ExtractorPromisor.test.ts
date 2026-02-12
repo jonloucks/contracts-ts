@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
@@ -8,6 +9,7 @@ import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/cont
 import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose.js";
 
 describe('Extract Promisor tests', () => {
 
@@ -30,7 +32,7 @@ describe('Extract Promisor tests', () => {
       const contract: Contract<string> = createContract<string>();
       const promisor: Promisor<string> = promisorFactory.createExtractor<Date, string>(referent, transform);
 
-      using usingPromisor = contracts.bind(contract, promisor);
+      using usingPromisor: AutoClose = contracts.bind(contract, promisor);
       used(usingPromisor);
 
       const firstClaim: OptionalType<string> = contracts.claim(contract);
@@ -63,7 +65,7 @@ describe('Extractor with referent demand returning null', () => {
       const contract: Contract<string | null> = createContract<string | null>({ guarded: false });
       const promisor: Promisor<string | null> = promisorFactory.createExtractor<Date | null, string | null>(referent, transform);
 
-      using usingPromisor = contracts.bind(contract, promisor);
+      using usingPromisor: AutoClose = contracts.bind(contract, promisor);
       used(usingPromisor);
 
       const claimedValue: OptionalType<string | null> = contracts.claim(contract);

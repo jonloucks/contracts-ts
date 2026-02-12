@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { strictEqual } from "node:assert";
 
 import { OptionalType, RequiredType, isNotPresent } from "@jonloucks/contracts-ts/api/Types";

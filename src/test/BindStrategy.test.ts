@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { fail, notStrictEqual, strictEqual } from "node:assert";
 
 import { BindStrategy, DEFAULT_BIND_STRATEGY, guard, resolveBindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
