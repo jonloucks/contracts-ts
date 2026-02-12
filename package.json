@@ -34,9 +34,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "npx tsx --test \"dist/test/**/*.test.js\"",
-    "test:watch": "npx tsx --test --watch \"dist/test/**/*.test.js\"",
-    "test:coverage": "npx c8 --check-coverage --lines 95 --functions 95 --branches 95 --statements 95 --reporter=lcov npx tsx --test \"dist/test/**/*.test.js\"",
+    "test": "npx tsx --test dist/test/**/*.test.js",
+    "test:watch": "npx tsx --test --watch dist/test/**/*.test.js",
+    "test:coverage": "npx c8 --check-coverage --lines 95 --functions 95 --branches 95 --statements 95 --reporter=lcov npx tsx --test dist/test/**/*.test.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prepublishOnly": "npm run build",
