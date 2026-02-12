@@ -9,7 +9,7 @@ import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/cont
 import { OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
 import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose.js";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 
 describe('Extract Promisor tests', () => {
 

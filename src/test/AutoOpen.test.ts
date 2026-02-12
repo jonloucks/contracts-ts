@@ -3,7 +3,7 @@ import { ok } from "node:assert";
 
 import { AutoOpen, guard } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
-import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose.js";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 
 describe('guard tests', () => {
   it('guard should return true for AutoOpen', () => {

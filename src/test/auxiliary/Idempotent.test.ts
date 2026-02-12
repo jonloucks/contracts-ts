@@ -7,7 +7,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Open } from "@jonloucks/contracts-ts/api/Open";
 import { CONTRACT as IDEMPOTENT_FACTORY, IdempotentFactory } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
-import { createContracts } from "impl/ContractsFactory.impl.js";
+import { createContracts } from "@jonloucks/contracts-ts";
 import { State } from "@jonloucks/contracts-ts/auxiliary/IdempotenState";
 import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";

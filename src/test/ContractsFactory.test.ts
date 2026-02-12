@@ -3,9 +3,9 @@ import { ok } from "node:assert";
 
 import { ContractsFactory, guard } from "@jonloucks/contracts-ts/api/ContractsFactory";
 import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
-import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts.js";
-import { RequiredType } from "@jonloucks/contracts-ts/api/Types.js";
-import { used } from "@jonloucks/contracts-ts/auxiliary/Checks.js";
+import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('guard tests', () => {
   it('guard should return true for ContractsFactory', () => {

@@ -1,4 +1,4 @@
-import { describe, it } from "node:test";
+import { describe, it, mock } from "node:test";
 import { deepStrictEqual, doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
 
 import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
@@ -274,23 +274,33 @@ describe('AutoCloseMany tests', () => {
       });
     });
   });
-//   it('AutoCloseMany.add one item closes item', () => {
-// //     const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //       close: jest.fn(),
-// //       [Symbol.dispose]: jest.fn()
-//     });
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-//       {
-//         using autoCloseMany = autoCloseFactory.createAutoCloseMany();
-//         autoCloseMany.add(closeMock);
-// //         expect(closeMock.close).toHaveBeenCalledTimes(0);
-//       }
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-// 
-//     });
-//   });
-// 
+  it('AutoCloseMany.add one item closes item', () => {
+    const closeMock: AutoClose = {
+      [Symbol.dispose]: function (): void {
+        this.close();
+      },
+      close: function (): void {
+      }
+    };
+
+    const mockCloseFn = mock.fn(closeMock.close);
+    const mockDisposeFn = mock.fn(closeMock[Symbol.dispose]);
+    closeMock.close = mockCloseFn;
+    closeMock[Symbol.dispose] = mockDisposeFn;
+
+    Tools.withContracts((contracts: Contracts) => {
+      const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+      {
+        using autoCloseMany = autoCloseFactory.createAutoCloseMany();
+        autoCloseMany.add(closeMock);
+        strictEqual(mockCloseFn.mock.calls.length, 0, "close should be not be called yet");
+        strictEqual(mockDisposeFn.mock.calls.length, 0, "dispose should be not be called");
+      }
+      strictEqual(mockCloseFn.mock.calls.length, 1, "close should be called once");
+      strictEqual(mockDisposeFn.mock.calls.length, 0, "dispose should be not be called");
+    });
+  });
+
   it('AutoCloseMany closes in reverse order', () => {
     const callOrder: number[] = [];
     const closeList: AutoClose[] = [];
