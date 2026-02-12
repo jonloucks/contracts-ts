@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { strictEqual, throws } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
@@ -6,8 +7,8 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
-import { used } from "../auxiliary/Checks";
+import { Tools } from "./Test.tools.test.js";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 generateSingletonSuite<Date>({
   name: 'Singleton Promisor with current Date',

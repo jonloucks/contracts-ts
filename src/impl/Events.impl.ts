@@ -4,8 +4,8 @@ import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { configCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
-import { create as createIdempotent } from "./Idempotent.impl";
-import { Config, Events } from "./Events";
+import { create as createIdempotent } from "./Idempotent.impl.js";
+import { Config, Events } from "./Events.js";
 
 /**
  *  Factory method to create Events instance.

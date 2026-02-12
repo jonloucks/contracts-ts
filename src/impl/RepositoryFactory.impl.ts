@@ -2,7 +2,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Config, Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { create as createRepository } from "./Repository.impl";
+import { create as createRepository } from "./Repository.impl.js";
 
 /**
  * Factory method to create a RepositoryFactory

@@ -1,7 +1,7 @@
-import { MockProxy } from "jest-mock-extended";
+import { describe, it } from "node:test";
+import assert from "node:assert";
 
 import { guardFunctions, hasFunction } from "@jonloucks/contracts-ts/api/Types";
-import { mockDuck } from "../helper.test";
 
 describe("guardFunctions", () => {
   it("should return true when all functions are present", () => {
@@ -10,7 +10,7 @@ describe("guardFunctions", () => {
       func2: async (): Promise<void> => { },
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(true);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), true);
   });
 
   it("should return true for getter", () => {
@@ -19,7 +19,7 @@ describe("guardFunctions", () => {
       get func2(): string { return "func2" },
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(true);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), true);
   });
 
   it("should return false when any function is missing", () => {
@@ -27,7 +27,7 @@ describe("guardFunctions", () => {
       func1: (): void => { },
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), false);
   });
 
   it("should return false when any function is not a function", () => {
@@ -36,7 +36,7 @@ describe("guardFunctions", () => {
       func2: "not a function",
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), false);
   });
 
   it("should return true when all functions are present", () => {
@@ -45,7 +45,7 @@ describe("guardFunctions", () => {
       func2: async (): Promise<void> => { },
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(true);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), true);
   });
 
   it("should return false when any function is missing", () => {
@@ -53,7 +53,7 @@ describe("guardFunctions", () => {
       func1: (): void => { },
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), false);
   });
 
   it("should return false when any function is not a function", () => {
@@ -62,14 +62,18 @@ describe("guardFunctions", () => {
       func2: "not a function",
     };
 
-    expect(guardFunctions(obj, "func1", "func2")).toBe(false);
+    assert.strictEqual(guardFunctions(obj, "func1", "func2"), false);
   });
 
   it("mock example should not return true for missing functions", () => {
-    const mocked: MockProxy<{ func1: () => void }> = mockDuck<{ func1: () => void }>("func1");
+    const partial:{ func1: () => void } = {
+      func1: function (): void {
+        throw new Error("Function not implemented.");
+      }
+    };
 
-    expect(guardFunctions(mocked, "func1")).toBe(true);
-    expect(guardFunctions(mocked, "func1", "func2")).toBe(false);
+    assert.strictEqual(guardFunctions(partial, "func1"), true);
+    assert.strictEqual(guardFunctions(partial, "func1", "func2"), false);
   });
 });
 
@@ -79,7 +83,7 @@ describe("hasFunction", () => {
       func: (): void => { },
     };
 
-    expect(hasFunction(obj, "func")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "func"), true);
   });
 
   it("should return true when property is an async function", (): void => {
@@ -87,7 +91,7 @@ describe("hasFunction", () => {
       asyncFunc: async (): Promise<void> => { },
     };
 
-    expect(hasFunction(obj, "asyncFunc")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "asyncFunc"), true);
   });
 
   it("should return false when property is not a function", (): void => {
@@ -95,7 +99,7 @@ describe("hasFunction", () => {
       notFunc: "string",
     };
 
-    expect(hasFunction(obj, "notFunc")).toBe(false);
+    assert.strictEqual(hasFunction(obj, "notFunc"), false);
   });
 
   it("should return false when property does not exist", (): void => {
@@ -103,7 +107,7 @@ describe("hasFunction", () => {
       func: (): void => { },
     };
 
-    expect(hasFunction(obj, "nonExistent")).toBe(false);
+    assert.strictEqual(hasFunction(obj, "nonExistent"), false);
   });
 
   it("should return true when property is a getter", (): void => {
@@ -113,7 +117,7 @@ describe("hasFunction", () => {
       },
     };
 
-    expect(hasFunction(obj, "myProp")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "myProp"), true);
   });
 
   it("should return true when property is a setter", (): void => {
@@ -127,7 +131,7 @@ describe("hasFunction", () => {
       },
     };
 
-    expect(hasFunction(obj, "myProp")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "myProp"), true);
   });
 
   it("should return true when property is both getter and setter", (): void => {
@@ -141,7 +145,7 @@ describe("hasFunction", () => {
       },
     };
 
-    expect(hasFunction(obj, "myProp")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "myProp"), true);
   });
 
   it("should check inherited properties from prototype", (): void => {
@@ -150,14 +154,14 @@ describe("hasFunction", () => {
     }
     const obj = new Base();
 
-    expect(hasFunction(obj, "baseFunc")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "baseFunc"), true);
   });
 
   it("should return false when value is not an object", (): void => {
-    expect(hasFunction("string", "prop")).toBe(false);
-    expect(hasFunction(123, "prop")).toBe(false);
-    expect(hasFunction(null, "prop")).toBe(false);
-    expect(hasFunction(undefined, "prop")).toBe(false);
+    assert.strictEqual(hasFunction("string", "prop"), false);
+    assert.strictEqual(hasFunction(123, "prop"), false);
+    assert.strictEqual(hasFunction(null, "prop"), false);
+    assert.strictEqual(hasFunction(undefined, "prop"), false);
   });
 
   it("should handle symbol properties", (): void => {
@@ -166,7 +170,7 @@ describe("hasFunction", () => {
       [sym]: (): void => { },
     };
 
-    expect(hasFunction(obj, sym)).toBe(true);
+    assert.strictEqual(hasFunction(obj, sym), true);
   });
 
   it("should return false when symbol property does not exist", (): void => {
@@ -176,7 +180,7 @@ describe("hasFunction", () => {
       [sym1]: (): void => { },
     };
 
-    expect(hasFunction(obj, sym2)).toBe(false);
+    assert.strictEqual(hasFunction(obj, sym2), false);
   });
 
   it("should handle multiple levels of inheritance", (): void => {
@@ -191,9 +195,9 @@ describe("hasFunction", () => {
     }
     const obj = new Child();
 
-    expect(hasFunction(obj, "childFunc")).toBe(true);
-    expect(hasFunction(obj, "parentFunc")).toBe(true);
-    expect(hasFunction(obj, "grandParentFunc")).toBe(true);
+    assert.strictEqual(hasFunction(obj, "childFunc"), true);
+    assert.strictEqual(hasFunction(obj, "parentFunc"), true);
+    assert.strictEqual(hasFunction(obj, "grandParentFunc"), true);
   });
 
   it("should return false for non-function properties in the chain", (): void => {
@@ -202,6 +206,6 @@ describe("hasFunction", () => {
     }
     const obj = new Base();
 
-    expect(hasFunction(obj, "prop")).toBe(false);
+    assert.strictEqual(hasFunction(obj, "prop"), false);
   });
 });

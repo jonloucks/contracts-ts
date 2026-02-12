@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
@@ -16,7 +17,7 @@ import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { used } from "../auxiliary/Checks";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 /** 
  * Tests for @jonloucks/contracts-ts/api index 

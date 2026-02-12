@@ -1,8 +1,9 @@
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Method, Supplier, Type, check, fromType, guard, toValue } from "@jonloucks/contracts-ts/auxiliary/Supplier";
-import { assertGuard, mockDuck } from "../helper.test";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'supply'
@@ -10,7 +11,11 @@ const FUNCTION_NAMES: (string | symbol)[] = [
 
 describe('Supplier Tests', () => {
   it('isSupplier should return true for Supplier', () => {
-    const supplier: Supplier<string> = mockDuck<Supplier<string>>(...FUNCTION_NAMES);
+    const supplier: Supplier<string> = {
+      supply: function (): string {
+        return "hello";
+      }
+    };
     ok(guard(supplier), 'Supplier should return true');
   });
 });
@@ -23,7 +28,11 @@ describe('fromType Tests', () => {
   });
 
   it('fromType should return Supplier as is', () => {
-    const originalSupplier: Supplier<number> = mockDuck<Supplier<number>>(...FUNCTION_NAMES);
+    const originalSupplier: Supplier<number> = {
+      supply: function (): number {
+        return 42;
+      }
+    };
     const supplier: Supplier<number> = fromType<number>(originalSupplier);
     ok(supplier === originalSupplier, 'fromType should return the original Supplier');
   });
@@ -37,7 +46,11 @@ describe('fromType Tests', () => {
 
 describe('check Tests', () => {
   it('check should return the Supplier if present', () => {
-    const supplier: Supplier<string> = mockDuck<Supplier<string>>();
+    const supplier: Supplier<string> = {
+      supply: function (): string {
+        return "hello";
+      }
+    };
     const checkedSupplier: Type<string> = check<string>(supplier);
     ok(checkedSupplier === supplier, 'check should return the original Supplier');
   });

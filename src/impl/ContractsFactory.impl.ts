@@ -10,15 +10,15 @@ import { CONTRACT as ATOMIC_INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxi
 import { CONTRACT as ATOMIC_REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 
-import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl";
-import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory.impl";
-import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl";
-import { create as createAutoCloseFactoryImpl } from "./AutoCloseFactory.impl";
-import { create as createContractsImpl } from "./Contracts.impl";
-import { wrap as wrapContracts } from "./ContractsWrapper.impl";
-import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl";
-import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl";
-import { create as createIdempotentFactoryImpl } from "./IdempotentFactory.impl";
+import { create as createAtomicBooleanFactoryImpl } from "./AtomicBooleanFactory.impl.js";
+import { create as createAtomicIntegerFactoryImpl } from "./AtomicIntegerFactory.impl.js";
+import { create as createAtomicReferenceFactoryImpl } from "./AtomicReferenceFactory.impl.js";
+import { create as createAutoCloseFactoryImpl } from "./AutoCloseFactory.impl.js";
+import { create as createContractsImpl } from "./Contracts.impl.js";
+import { wrap as wrapContracts } from "./ContractsWrapper.impl.js";
+import { create as createPromisorFactoryImpl } from "./PromisorFactory.impl.js";
+import { create as createRepositoryFactoryImpl } from "./RepositoryFactory.impl.js";
+import { create as createIdempotentFactoryImpl } from "./IdempotentFactory.impl.js";
 
 /**
  * Factory method to create a ContractsFactory

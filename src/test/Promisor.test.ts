@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
 
 import { Promisor, typeToPromisor, unwrapPromisorType } from "@jonloucks/contracts-ts/api/Promisor";

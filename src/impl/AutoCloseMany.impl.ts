@@ -1,6 +1,6 @@
 import { AutoClose, AutoCloseMany, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { Internal } from "./Internal.impl";
+import { Internal } from "./Internal.impl.js";
 
 /**
  * Create an AutoCloseMany instance.

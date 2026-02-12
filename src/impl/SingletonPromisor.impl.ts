@@ -4,8 +4,8 @@ import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createAtomicReference } from "./AtomicReference.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl.js";
+import { create as createAtomicReference } from "./AtomicReference.impl.js";
 
 /**
  * Factory method to create an Singleton promisor implementation

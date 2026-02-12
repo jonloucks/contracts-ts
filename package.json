@@ -3,6 +3,7 @@
   "version": "1.4.0",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
+  "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
@@ -33,10 +34,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "test:watch": "jest --watch --watchAll",
-    "test:coverage": "jest --coverage",
-    "test:diagnostics": "jest --detectOpenHandles",
+    "test": "tsx --test $(find src -name '*.test.ts')",
+    "test:watch": "tsx --test --watch $(find src -name '*.test.ts')",
+    "test:coverage": "npx c8 --check-coverage --lines 95 --functions 95 --branches 95 --statements 95 --reporter=lcov npx tsx --test $(find src -name '*.test.ts')",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prepublishOnly": "npm run build",
@@ -69,14 +69,12 @@
   },
   "devDependencies": {
     "@jonloucks/badges-ts": "^0.1.1",
-    "@types/jest": "^30.0.0",
     "@types/node": "^25.2.3",
     "@typescript-eslint/eslint-plugin": "^8.55.0",
     "@typescript-eslint/parser": "^8.53.1",
+    "c8": "^10.1.3",
     "eslint": "^9.39.2",
-    "jest": "^30.2.0",
-    "jest-mock-extended": "^4.0.0",
-    "ts-jest": "^29.4.6",
+    "tsx": "^4.21.0",
     "typedoc": "^0.28.15",
     "typescript": "^5.9.3"
   }

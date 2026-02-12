@@ -1,5 +1,5 @@
 import { isBoolean } from "@jonloucks/contracts-ts/api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test.js";
 
 const VALID_CASES: PredicateCase[] = [
   { value: true, help: "a boolean value" },

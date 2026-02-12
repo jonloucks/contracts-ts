@@ -1,10 +1,11 @@
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Method, Predicate, Type, check, fromType, guard, toValue } from "@jonloucks/contracts-ts/auxiliary/Predicate";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 
-import { assertGuard, mockDuck } from "../helper.test";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'test'
@@ -12,15 +13,20 @@ const FUNCTION_NAMES: (string | symbol)[] = [
 
 describe('Predicate Tests', () => {
   it('isPredicate should return true for Predicate', () => {
-    const predicate: Predicate<string> = mockDuck<Predicate<string>>(...FUNCTION_NAMES);
+    const predicate: Predicate<string> = {
+      test: function (value: string): boolean {
+        used(value);
+        return true;
+      }
+    };
     ok(guard(predicate), 'Predicate should return true');
   });
 });
 
 describe('fromType Tests', () => {
   it('fromType should convert Method to Predicate', () => {
-    const method: Method<number> = (_value: number) => {
-      used(_value);
+    const method: Method<number> = (value: number) => {
+      used(value);
       return true;
     };
     const predicate: Predicate<number> = fromType<number>(method);
@@ -28,7 +34,12 @@ describe('fromType Tests', () => {
   });
 
   it('fromType should return Predicate as is', () => {
-    const originalPredicate: Predicate<number> = mockDuck<Predicate<number>>(...FUNCTION_NAMES);
+    const originalPredicate: Predicate<number> = {
+      test: function (value: number): boolean {
+        used(value);
+        return true;
+      }
+    };
     const predicate: Predicate<number> = fromType<number>(originalPredicate);
     ok(predicate === originalPredicate, 'fromType should return the original Predicate');
   });
@@ -73,7 +84,12 @@ describe('toValue Tests', () => {
 
 describe('check Tests', () => {
   it('check should return the Predicate if present', () => {
-    const predicate: Predicate<string> = mockDuck<Predicate<string>>(...FUNCTION_NAMES);
+    const predicate: Predicate<string> = {
+      test: function (value: string): boolean {
+        used(value);
+        return true;
+      }
+    };
     const checkedPredicate: Type<string> = check<string>(predicate);
     ok(checkedPredicate === predicate, 'check should return the original Predicate');
   });
@@ -82,8 +98,8 @@ describe('check Tests', () => {
     let errorCaught = false;
     try {
       check<string>(null as unknown as OptionalType<Predicate<string>>);
-    } catch (_) {
-      used(_);
+    } catch (thrown) {
+      used(thrown);
       errorCaught = true;
     }
     ok(errorCaught, 'check should throw an error for null Predicate');

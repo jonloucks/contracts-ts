@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { throws } from "node:assert";
 
 import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";

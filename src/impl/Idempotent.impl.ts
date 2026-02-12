@@ -5,7 +5,7 @@ import { Open, typeToOpen } from "@jonloucks/contracts-ts/api/Open";
 import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl.js";
 
 /** 
  * Create a new Idempotent

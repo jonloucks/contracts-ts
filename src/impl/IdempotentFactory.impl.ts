@@ -2,9 +2,9 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { IdempotentFactory } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
 import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
-import { create as createIdempotentImpl } from "./Idempotent.impl";
-import { used } from "../auxiliary/Checks";
+import { create as createIdempotentImpl } from "./Idempotent.impl.js";
 
 export interface Config {
   contracts?: Contracts;

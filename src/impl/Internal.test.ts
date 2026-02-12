@@ -1,8 +1,9 @@
+import { describe, it } from "node:test";
 import { deepStrictEqual, fail, ok, strictEqual, throws } from "node:assert";
 
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { Internal } from "./Internal.impl";
+import { Internal } from "./Internal.impl.js";
 
 /**
  * Internal tests for internal Helpers functionality.

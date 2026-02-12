@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import {
   AutoClose,
   bind,
@@ -23,7 +24,7 @@ import {
   RequiredType
 } from "@jonloucks/contracts-ts/api/Convenience";
 import { ok } from "node:assert";
-import { used } from "../auxiliary/Checks";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 // Convenience tests, all exports are simple inlines to fully tested functionality.
 

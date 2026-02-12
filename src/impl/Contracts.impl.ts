@@ -10,14 +10,14 @@ import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-t
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
-import { create as createAutoCloseMany } from "./AutoCloseMany.impl";
-import { create as createIdempotent } from "./Idempotent.impl";
-import { create as createAtomicBoolean } from "./AtomicBoolean.impl";
-import { create as createEvents } from "./Events.impl";
-import { Internal } from "./Internal.impl";
-import { create as createPolicy } from "./Policy.impl";
-import { Policy } from "./Policy";
-import { Events } from "./Events";
+import { create as createAutoCloseMany } from "./AutoCloseMany.impl.js";
+import { create as createIdempotent } from "./Idempotent.impl.js";
+import { create as createAtomicBoolean } from "./AtomicBoolean.impl.js";
+import { create as createEvents } from "./Events.impl.js";
+import { Internal } from "./Internal.impl.js";
+import { create as createPolicy } from "./Policy.impl.js";
+import { Policy } from "./Policy.js";
+import { Events } from "./Events.js";
 
 /**
  * Factory method to create Contracts instance.

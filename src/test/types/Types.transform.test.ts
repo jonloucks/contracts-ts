@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok, strictEqual } from "node:assert";
 
 import { typeToTransform, Transform, TransformFunction } from "@jonloucks/contracts-ts/api/Types";

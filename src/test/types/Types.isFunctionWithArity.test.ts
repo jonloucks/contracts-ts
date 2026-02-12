@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { ok } from "node:assert";
 
 import { isFunctionWithArity } from "@jonloucks/contracts-ts/api/Types";
