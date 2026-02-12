@@ -53,8 +53,16 @@ jobs:
       run: npm run lint
       working-directory: main-project
 
+    - name: list files for debugging
+      run: ls -R 
+      working-directory: main-project
+
     - name: Build
       run: npm run build
+      working-directory: main-project
+
+    - name: Test 
+      run: npm run test
       working-directory: main-project
 
     - name: Test with coverage
