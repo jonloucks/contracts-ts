@@ -1,7 +1,7 @@
 import { presentCheck, promisorCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { isNotPresent, OptionalType, RequiredType, Transform } from "@jonloucks/contracts-ts/api/Types";
-
+import { isNotPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { Transform } from "@jonloucks/contracts-ts/auxiliary/Transform";
 /**
  * Factory method to create an ExtractPromisorImpl which is extraction promisor
  * 

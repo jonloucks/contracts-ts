@@ -5,8 +5,8 @@ import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { CONTRACT as PROMISOR_FACTORY } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { CONTRACT as REPOSITORY_FACTORY } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { Repository, Config as RepositoryConfig } from "@jonloucks/contracts-ts/api/Repository";
-import { OptionalType, RequiredType, Transform, TransformType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
-
+import { OptionalType, RequiredType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { Transform, Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";
 export {
   type AutoClose,
   type BindStrategyType,
