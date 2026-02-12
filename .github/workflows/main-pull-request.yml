@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
 
@@ -54,7 +54,7 @@ jobs:
       working-directory: main-project
 
     - name: list files for debugging
-      run: ls -R 
+      run: find src/test . -name "*.test.ts"
       working-directory: main-project
 
     - name: Build

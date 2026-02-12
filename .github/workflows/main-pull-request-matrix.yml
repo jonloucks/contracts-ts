@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        node-version: [20.x, 22.x, 24.x]
 
     steps:
     - name: Assigning SIMPLE_REPOSITORY_NAME
@@ -43,6 +43,10 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: list files for debugging
+      run: find src/test . -name "*.test.ts"
+      working-directory: main-project
 
     - name: Test with coverage
       run: npm run test:coverage
