@@ -44,9 +44,13 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: list files for debugging
+    - name: list test source files for debugging
+      run: find src . -name '*.test.*'
+      working-directory: main-project 
+
+    - name: list dist/test for debugging
       run: find dist/test . -name '*.test.*'
-      working-directory: main-project
+      working-directory: main-project 
 
     - name: Test with coverage
       run: npm run test:coverage
