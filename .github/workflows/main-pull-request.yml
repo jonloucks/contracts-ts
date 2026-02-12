@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [18.x]
 
     steps:
 
@@ -56,14 +56,6 @@ jobs:
     - name: Build
       run: npm run build
       working-directory: main-project
-
-    - name: list test source files for debugging
-      run: find src -name '*.test.*'
-      working-directory: main-project 
-
-    - name: list dist/test for debugging
-      run: find dist/test -name '*.test.*'
-      working-directory: main-project 
 
     - name: Test 
       run: npm run test
