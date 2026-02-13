@@ -117,7 +117,7 @@ export function inlineAutoClose(action: () => void): RequiredType<AutoCloseWrapp
  * @param autoClose the AutoClose to unwrap
  * @returns the original AutoCloseType
  */
-export function unwrapAutoClose(autoClose: OptionalType<AutoClose>): OptionalType<AutoCloseType> {
+export function unwrap(autoClose: OptionalType<AutoClose>): OptionalType<AutoCloseType> {
   if (isNotPresent(autoClose)) {
     return autoClose;
   }
@@ -152,7 +152,7 @@ export function isClose(instance: unknown): instance is RequiredType<AutoClose> 
  * @param type the type to convert
  * @returns the AutoClose
  */
-export function typeToAutoClose(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
+export function fromType(type: RequiredType<AutoCloseType>): RequiredType<AutoClose> {
   const presentType = presentCheck(type, "AutoClose type must be present.");
   if (guard(presentType)) {
     return presentType;

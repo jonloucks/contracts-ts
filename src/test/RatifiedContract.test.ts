@@ -1,9 +1,11 @@
 import { describe, it } from "node:test";
 import { strictEqual, throws } from "node:assert";
 
-import { createContract, isNotPresent, OptionalType } from "@jonloucks/contracts-ts";
+import { OptionalType, isNotPresent } from "@jonloucks/contracts-ts/api/Types";
+import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { Contract, Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
 import { isRatifiedContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 
 describe('api/RatifiedContract.ts tests', () => {
 
@@ -93,6 +95,7 @@ describe('api/RatifiedContract.ts tests', () => {
         return value as OptionalType<T>;
       }
       test(value: OptionalType<unknown>): value is T {
+        used(value);
         return true;
       }
       get name(): string {

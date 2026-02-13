@@ -1,12 +1,12 @@
-import { describe, it, mock } from "node:test";
 import { deepStrictEqual, doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
+import { describe, it, mock } from "node:test";
 
-import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrap as unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoCloseFactory, CONTRACT as FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test.js";
-import { assertGuard } from"@jonloucks/contracts-ts/test/helper.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   {
@@ -18,7 +18,7 @@ const VALID_CASES: PredicateCase[] = [
 ];
 
 const INVALID_CASES: PredicateCase[] = [
-  { value: () : void => { }, help: "a simple function" },
+  { value: (): void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
   { value: async (): Promise<void> => { }, help: "an async function" },
   { value: 42, help: "a number value" },
@@ -30,7 +30,7 @@ generatePredicateSuite({
   name: 'isAutoClose',
   function: guard,
   validCases: [...VALID_CASES],
-  invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES ]
+  invalidCases: [...INVALID_CASES, ...OPTIONAL_CASES]
 });
 
 assertGuard(guard, "close", Symbol.dispose);
@@ -115,46 +115,46 @@ describe('createAutoClose', () => {
       strictEqual(autoClose, originalClose, "with valid AutoClose returns same instance");
     });
   });
-//   it('with close-only instance returns AutoClose wrapping close', () => {
-// //     const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //       close: jest.fn(),
-// //       [Symbol.dispose]: jest.fn()
-//     });
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-//       const autoClose: AutoClose = autoCloseFactory.createAutoClose({
-//         close: () : void => closeMock.close()
-//       });
-//       notStrictEqual(autoClose, null, "with close-only instance returns AutoClose wrapping close");
-//       notStrictEqual(autoClose, closeMock, "with close-only instance returns AutoClose wrapping close");
-// 
-//       autoClose.close();
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-// 
-//       autoClose[Symbol.dispose]();
-// //       expect(closeMock.close).toHaveBeenCalledTimes(2);
-//     });
-//   });
-//   it('with function returns AutoClose wrapping function', () => {
-// //     const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //       close: jest.fn(),
-// //       [Symbol.dispose]: jest.fn()
-//     });
-//     const closeFunction = () : void => closeMock.close();
-// 
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-//       const autoClose: AutoClose = autoCloseFactory.createAutoClose(closeFunction);
-//       notStrictEqual(autoClose, null, "with function returns AutoClose wrapping function");
-//       notStrictEqual(autoClose, closeMock, "with function returns AutoClose wrapping function");
-// 
-//       autoClose.close();
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-// 
-//       autoClose[Symbol.dispose]();
-// //       expect(closeMock.close).toHaveBeenCalledTimes(2);
-//     });
-//   });
+  //   it('with close-only instance returns AutoClose wrapping close', () => {
+  // //     const closeMock: AutoClose = jest.mocked<AutoClose>({
+  // //       close: jest.fn(),
+  // //       [Symbol.dispose]: jest.fn()
+  //     });
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  //       const autoClose: AutoClose = autoCloseFactory.createAutoClose({
+  //         close: () : void => closeMock.close()
+  //       });
+  //       notStrictEqual(autoClose, null, "with close-only instance returns AutoClose wrapping close");
+  //       notStrictEqual(autoClose, closeMock, "with close-only instance returns AutoClose wrapping close");
+  // 
+  //       autoClose.close();
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(1);
+  // 
+  //       autoClose[Symbol.dispose]();
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(2);
+  //     });
+  //   });
+  //   it('with function returns AutoClose wrapping function', () => {
+  // //     const closeMock: AutoClose = jest.mocked<AutoClose>({
+  // //       close: jest.fn(),
+  // //       [Symbol.dispose]: jest.fn()
+  //     });
+  //     const closeFunction = () : void => closeMock.close();
+  // 
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  //       const autoClose: AutoClose = autoCloseFactory.createAutoClose(closeFunction);
+  //       notStrictEqual(autoClose, null, "with function returns AutoClose wrapping function");
+  //       notStrictEqual(autoClose, closeMock, "with function returns AutoClose wrapping function");
+  // 
+  //       autoClose.close();
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(1);
+  // 
+  //       autoClose[Symbol.dispose]();
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(2);
+  //     });
+  //   });
   it('with non-closeable throws', () => {
     Tools.withContracts((contracts: Contracts) => {
       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
@@ -179,85 +179,85 @@ describe('AutoCloseOne tests', () => {
       });
     });
   });
-// 
-//   it('AutoCloseOne closes current value once', () => {
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-// //       const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //         close: jest.fn(),
-// //         [Symbol.dispose]: jest.fn()
-//       });
-// 
-//       strictEqual(isClose(closeMock), true, "isClose should be true");
-//       strictEqual(guard(closeMock), true, "guard should be true");
-// 
-//       {
-//         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
-//         autoCloseOne.set(closeMock);
-//       }
-// 
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-// //       expect(closeMock[Symbol.dispose]).toHaveBeenCalledTimes(0);
-//     });
-//   });
-// 
-//   it('AutoCloseOne set to same value does not close immediately', () => {
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-// //       const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //         close: jest.fn(),
-// //         [Symbol.dispose]: jest.fn()
-//       });
-//       {
-//         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
-//         autoCloseOne.set(closeMock);
-//         autoCloseOne.set(closeMock);
-// //         expect(closeMock.close).toHaveBeenCalledTimes(0);
-//       }
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-//     });
-//   });
-// 
-//   it('AutoCloseOne idempotent', () => {
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-// //       const closeMock: AutoClose = jest.mocked<AutoClose>({
-// //         close: jest.fn(),
-// //         [Symbol.dispose]: jest.fn()
-//       });
-//       {
-//         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
-//         autoCloseOne.set(closeMock);
-//         Tools.assertIdempotent(autoCloseOne);
-//       }
-// //       expect(closeMock.close).toHaveBeenCalledTimes(1);
-//     });
-//   });
-// 
-//   it('AutoCloseOne set to new value closes old value immediately', () => {
-//     Tools.withContracts((contracts: Contracts) => {
-//       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
-// //       const oldCloseMock: AutoClose = jest.mocked<AutoClose>({
-// //         close: jest.fn(),
-// //         [Symbol.dispose]: jest.fn()
-//       });
-// 
-// //       const newCloseMock: AutoClose = jest.mocked<AutoClose>({
-// //         close: jest.fn(),
-// //         [Symbol.dispose]: jest.fn()
-//       });
-// 
-//       {
-//         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
-//         autoCloseOne.set(oldCloseMock);
-//         autoCloseOne.set(newCloseMock);
-// //         expect(newCloseMock.close).toHaveBeenCalledTimes(0);
-// //         expect(oldCloseMock.close).toHaveBeenCalledTimes(1);
-//       }
-// //       expect(newCloseMock.close).toHaveBeenCalledTimes(1);
-// //       expect(oldCloseMock.close).toHaveBeenCalledTimes(1);
-//     });
-//   });
+  // 
+  //   it('AutoCloseOne closes current value once', () => {
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  // //       const closeMock: AutoClose = jest.mocked<AutoClose>({
+  // //         close: jest.fn(),
+  // //         [Symbol.dispose]: jest.fn()
+  //       });
+  // 
+  //       strictEqual(isClose(closeMock), true, "isClose should be true");
+  //       strictEqual(guard(closeMock), true, "guard should be true");
+  // 
+  //       {
+  //         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
+  //         autoCloseOne.set(closeMock);
+  //       }
+  // 
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(1);
+  // //       expect(closeMock[Symbol.dispose]).toHaveBeenCalledTimes(0);
+  //     });
+  //   });
+  // 
+  //   it('AutoCloseOne set to same value does not close immediately', () => {
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  // //       const closeMock: AutoClose = jest.mocked<AutoClose>({
+  // //         close: jest.fn(),
+  // //         [Symbol.dispose]: jest.fn()
+  //       });
+  //       {
+  //         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
+  //         autoCloseOne.set(closeMock);
+  //         autoCloseOne.set(closeMock);
+  // //         expect(closeMock.close).toHaveBeenCalledTimes(0);
+  //       }
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(1);
+  //     });
+  //   });
+  // 
+  //   it('AutoCloseOne idempotent', () => {
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  // //       const closeMock: AutoClose = jest.mocked<AutoClose>({
+  // //         close: jest.fn(),
+  // //         [Symbol.dispose]: jest.fn()
+  //       });
+  //       {
+  //         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
+  //         autoCloseOne.set(closeMock);
+  //         Tools.assertIdempotent(autoCloseOne);
+  //       }
+  // //       expect(closeMock.close).toHaveBeenCalledTimes(1);
+  //     });
+  //   });
+  // 
+  //   it('AutoCloseOne set to new value closes old value immediately', () => {
+  //     Tools.withContracts((contracts: Contracts) => {
+  //       const autoCloseFactory: AutoCloseFactory = contracts.enforce(FACTORY);
+  // //       const oldCloseMock: AutoClose = jest.mocked<AutoClose>({
+  // //         close: jest.fn(),
+  // //         [Symbol.dispose]: jest.fn()
+  //       });
+  // 
+  // //       const newCloseMock: AutoClose = jest.mocked<AutoClose>({
+  // //         close: jest.fn(),
+  // //         [Symbol.dispose]: jest.fn()
+  //       });
+  // 
+  //       {
+  //         using autoCloseOne = autoCloseFactory.createAutoCloseOne();
+  //         autoCloseOne.set(oldCloseMock);
+  //         autoCloseOne.set(newCloseMock);
+  // //         expect(newCloseMock.close).toHaveBeenCalledTimes(0);
+  // //         expect(oldCloseMock.close).toHaveBeenCalledTimes(1);
+  //       }
+  // //       expect(newCloseMock.close).toHaveBeenCalledTimes(1);
+  // //       expect(oldCloseMock.close).toHaveBeenCalledTimes(1);
+  //     });
+  //   });
 });
 
 describe('AutoCloseMany tests', () => {
@@ -306,7 +306,7 @@ describe('AutoCloseMany tests', () => {
     const closeList: AutoClose[] = [];
 
     for (let i = 0; i < 5; i++) {
-       closeList.push({
+      closeList.push({
         close: () => { callOrder.push(i); },
         [Symbol.dispose]: () => { }
       });
@@ -330,12 +330,12 @@ describe('AutoCloseMany tests', () => {
 
     for (let i = 0; i < 5; i++) {
       if (i === 2) {
-         closeList.push({
+        closeList.push({
           close: () => { throw new Error("Close error"); },
           [Symbol.dispose]: () => { }
         });
       } else {
-          closeList.push({
+        closeList.push({
           close: () => { callOrder.push(i); },
           [Symbol.dispose]: () => { }
         });

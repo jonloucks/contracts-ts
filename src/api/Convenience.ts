@@ -1,35 +1,17 @@
-import { Contract, ContractConfig, CONTRACTS, createContract } from "@jonloucks/contracts-ts";
-import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
-import { AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { VERSION, type Contract, type ContractConfig, CONTRACTS, createContract } from "@jonloucks/contracts-ts";
+
+import { AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { type Contracts, type Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+import { type Promisor, type Type as PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { type AutoClose, type AutoCloseType, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { type BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { CONTRACT as PROMISOR_FACTORY } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { CONTRACT as REPOSITORY_FACTORY } from "@jonloucks/contracts-ts/api/RepositoryFactory";
-import { Repository, Config as RepositoryConfig } from "@jonloucks/contracts-ts/api/Repository";
-import { OptionalType, RequiredType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
-import { Transform, Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";
-export {
-  type AutoClose,
-  type BindStrategyType,
-  type Contract,
-  type ContractConfig,
-  CONTRACTS,
-  createContract,
-  guardFunctions,
-  inlineAutoClose,
-  isBoolean,
-  isFunction,
-  isNumber,
-  isObject,
-  isString,
-  type OptionalType,
-  type Promisor,
-  type PromisorType,
-  type Repository,
-  type RepositoryConfig,
-  type RequiredType,
-  type Transform,
-  type TransformType,
-};
+import { type Repository, type Config as RepositoryConfig } from "@jonloucks/contracts-ts/api/Repository";
+import { type OptionalType, type RequiredType, type UndefinedType, isNumber, isFunction, isString, isBoolean, isObject, guardFunctions } from "@jonloucks/contracts-ts/api/Types";
+import { type Transform, type Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";
+import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
 
 /**
  * @module Convenience
@@ -51,7 +33,7 @@ export {
  * @param contract the Contract to claim from
  * @returns the deliverable
  */
-export function claim<T>(contract: RequiredType<Contract<T>>): OptionalType<T> {
+function claim<T>(contract: RequiredType<Contract<T>>): OptionalType<T> {
   return CONTRACTS.claim(contract);
 }
 
@@ -61,7 +43,7 @@ export function claim<T>(contract: RequiredType<Contract<T>>): OptionalType<T> {
  * @param contract the Contract to enforce from
  * @returns the deliverable
  */
-export function enforce<T>(contract: RequiredType<Contract<T>>): RequiredType<T> {
+function enforce<T>(contract: RequiredType<Contract<T>>): RequiredType<T> {
   return CONTRACTS.enforce(contract);
 }
 
@@ -73,7 +55,7 @@ export function enforce<T>(contract: RequiredType<Contract<T>>): RequiredType<T>
  * @param bindStrategy optional BindStrategyType
  * @returns an AutoClose to manage the binding lifecycle
  */
-export function bind<T>(contract: RequiredType<Contract<T>>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): RequiredType<AutoClose> {
+function bind<T>(contract: RequiredType<Contract<T>>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): RequiredType<AutoClose> {
   return CONTRACTS.bind(contract, promisor, bindStrategy);
 }
 
@@ -83,7 +65,7 @@ export function bind<T>(contract: RequiredType<Contract<T>>, promisor: PromisorT
  * @param contract the Contract to check
  * @returns true if the Contract is bound, false otherwise
  */
-export function isBound<T>(contract: RequiredType<Contract<T>>): boolean {
+function isBound<T>(contract: RequiredType<Contract<T>>): boolean {
   return CONTRACTS.isBound(contract);
 }
 
@@ -94,7 +76,7 @@ export function isBound<T>(contract: RequiredType<Contract<T>>): boolean {
  * @return The new Promisor
  * @param <T> the type of deliverable
  */
-export function createValue<T>(deliverable: OptionalType<T>): RequiredType<Promisor<T>> {
+function createValue<T>(deliverable: OptionalType<T>): RequiredType<Promisor<T>> {
   return enforce(PROMISOR_FACTORY).createValue(deliverable);
 }
 
@@ -107,7 +89,7 @@ export function createValue<T>(deliverable: OptionalType<T>): RequiredType<Promi
  * @return The new Promisor
  * @param <T> the type of deliverable
  */
-export function createSingleton<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
+function createSingleton<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
   return enforce(PROMISOR_FACTORY).createSingleton(promisor);
 }
 
@@ -119,7 +101,7 @@ export function createSingleton<T>(promisor: PromisorType<T>): RequiredType<Prom
  * @return the new Promisor
  * @param <T> the type of deliverable
  */
-export function createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
+function createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Promisor<T>> {
   return enforce(PROMISOR_FACTORY).createLifeCycle(promisor);
 }
 
@@ -133,7 +115,7 @@ export function createLifeCycle<T>(promisor: PromisorType<T>): RequiredType<Prom
  * @param <T> the type of deliverable
  * @param <R> the new Promisor deliverable type
  */
-export function createExtractor<T, R>(promisor: PromisorType<T>, extractor: TransformType<T, R>): RequiredType<Promisor<R>> {
+function createExtractor<T, R>(promisor: PromisorType<T>, extractor: TransformType<T, R>): RequiredType<Promisor<R>> {
   return enforce(PROMISOR_FACTORY).createExtractor(promisor, extractor);
 }
 
@@ -143,7 +125,48 @@ export function createExtractor<T, R>(promisor: PromisorType<T>, extractor: Tran
  * @param config optional configuration for the Repository
  * @returns the Repository implementation
  */
-export function createRepository(config?: RepositoryConfig): RequiredType<Repository> {
+function createRepository(config?: RepositoryConfig): RequiredType<Repository> {
   return enforce(REPOSITORY_FACTORY).createRepository(config);
 }
+
+export {
+  type AutoClose,
+  type AutoCloseType,
+  type AutoOpen,
+  bind,
+  type BindStrategyType,
+  claim,
+  createExtractor,
+  createLifeCycle,
+  createRepository,
+  createSingleton,
+  createValue,
+  type Contract,
+  type ContractConfig,
+  ContractException,
+  type Contracts,
+  type ContractsConfig,
+  CONTRACTS,
+  createContract,
+  enforce,
+  guardFunctions,
+  inlineAutoClose,
+  isBound,
+  isBoolean,
+  isFunction,
+  isNumber,
+  isObject,
+  isString,
+  type OptionalType,
+  type Promisor,
+  type PromisorType,
+  type Repository,
+  type RepositoryConfig,
+  type RequiredType,
+  type Transform,
+  type TransformType,
+  type UndefinedType,
+  validateContracts,
+  VERSION
+};
 

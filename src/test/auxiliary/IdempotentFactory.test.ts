@@ -1,11 +1,12 @@
 import { ok } from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
 
-import { AutoClose, Contracts, createContracts, isPresent } from "@jonloucks/contracts-ts";
-import { AUTO_CLOSE_NONE } from "@jonloucks/contracts-ts/api/AutoClose";
+import { Contracts, createContracts } from "@jonloucks/contracts-ts";
+import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { isPresent } from "@jonloucks/contracts-ts/api/Types";
 import { Config as IdempotenConfig, Idempotent, guard as idempotentGuard } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 import { CONTRACT, IdempotentFactory, guard } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
-import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'createIdempotent'

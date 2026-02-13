@@ -4,20 +4,20 @@ import { BindStrategy, BindStrategyType, resolveBindStrategy } from "@jonloucks/
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Config, Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { Promisor, Type as PromisorType, fromType } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType, isPresent } from "@jonloucks/contracts-ts/api/Types";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { configCheck, contractCheck, presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
-import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 
-import { create as createAutoCloseMany } from "./AutoCloseMany.impl.js";
-import { create as createIdempotent } from "./Idempotent.impl.js";
 import { create as createAtomicBoolean } from "./AtomicBoolean.impl.js";
+import { create as createAutoCloseMany } from "./AutoCloseMany.impl.js";
 import { create as createEvents } from "./Events.impl.js";
+import { Events } from "./Events.js";
+import { create as createIdempotent } from "./Idempotent.impl.js";
 import { Internal } from "./Internal.impl.js";
 import { create as createPolicy } from "./Policy.impl.js";
 import { Policy } from "./Policy.js";
-import { Events } from "./Events.js";
 
 /**
  * Factory method to create Contracts instance.
@@ -92,7 +92,7 @@ class ContractsImpl implements Contracts, AutoOpen {
   bind<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {
     const validContract: Contract<T> = contractCheck(contract);
     this.#policy.checkContract(validContract);
-    const validPromisor: Promisor<T> = typeToPromisor<T>(promisor);
+    const validPromisor: Promisor<T> = fromType<T>(promisor);
     const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 
     return this.maybeBind(validContract, validPromisor, validBindStrategy);

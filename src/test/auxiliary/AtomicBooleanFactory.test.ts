@@ -1,11 +1,11 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
-import { AtomicBooleanFactory, guard, CONTRACT } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicBooleanFactory, CONTRACT, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for AtomicBooleanFactory', () => {

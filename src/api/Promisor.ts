@@ -42,27 +42,32 @@ export function guard<T>(instance: unknown): instance is RequiredType<Promisor<T
 }
 
 /**
- * A type that can be converted to a Promisor
+ * A Function that can be converted to a Promisor
  */
-export type PromisorType<T> = (new () => T) | Promisor<T> | (() => OptionalType<T>) | (() => () => T) | T | null | undefined;
+export type Method<T> = (() => OptionalType<T>);
 
 /**
- * Convert a PromisorType to a Promisor
+ * A type that can be converted to a Promisor
+ */
+export type Type<T> = (new () => T) | Promisor<T> | Method<T> | T | null | undefined;
+
+/**
+ * Convert a Type to a Promisor
  * 
  * @param type the type to convert
  * @returns the Promisor
  */
-export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<T>> {
+export function fromType<T>(type: Type<T>): RequiredType<Promisor<T>> {
   if (isNotPresent(type)) {
-    return wrapPromisor<T>(type, () => type); // supplier of null or undefined
+    return wrap<T>(type, () => type); // supplier of null or undefined
   } else if (isConstructor<T>(type)) {
-    return wrapPromisor<T>(type, () => new type()); // supplier of new instance
+    return wrap<T>(type, () => new type()); // supplier of new instance
   } else if (guard(type)) {
     return type; // already a Promisor
   } else if (typeof type === 'function') {
-    return wrapPromisor<T>(type, type as () => T); 
+    return wrap<T>(type, type as Method<T>); // supplier function
   } else {
-    return wrapPromisor<T>(type, () => type); // instance of T, runtime type-guard happens in demand
+    return wrap<T>(type, () => type); // instance of T, runtime type-guard happens in demand
   }
 }
 
@@ -71,26 +76,26 @@ export function typeToPromisor<T>(type: PromisorType<T>): RequiredType<Promisor<
  */
 interface PromisorWrapper<T> extends Promisor<T> {
 
-    /**
-     * Unwrap to get the original Promisor.
-     */
-    unwrapPromisorType(): PromisorType<T>;
+  /**
+   * Unwrap to get the original Promisor.
+   */
+  unwrapPromisorType(): Type<T>;
 }
 
 /**
  * Create a simple inline Promisor from a demand function
  * 
- * @param type the PromisorType
+ * @param type the promisor type
  * @param demand the demand function
  * @returns the Promisor
  */
-function wrapPromisor<T>(type: PromisorType<T>, demand: () => OptionalType<T>): RequiredType<PromisorWrapper<T>> {
+function wrap<T>(type: Type<T>, demand: () => OptionalType<T>): RequiredType<PromisorWrapper<T>> {
   const validDemand = presentCheck(demand, "Promisor demand function must be present.");
-  let usageCount: number = 0; 
+  let usageCount: number = 0;
   return {
     demand: validDemand,
-    incrementUsage: () => ++usageCount, 
-    decrementUsage: () => --usageCount, 
+    incrementUsage: () => ++usageCount,
+    decrementUsage: () => --usageCount,
     unwrapPromisorType: () => type
   };
 }
@@ -99,15 +104,15 @@ function wrapPromisor<T>(type: PromisorType<T>, demand: () => OptionalType<T>): 
  * Unwrap a Promisor to get the original type.
  * 
  * @param promisor the Promisor to unwrap
- * @returns the original PromisorType
+ * @returns the original Promisor Type
  */
-export function unwrapPromisorType<T>(promisor: OptionalType<Promisor<T>>): OptionalType<PromisorType<T>> {
-    if (isNotPresent(promisor)) {
-        return promisor;
-    }
-    if ('unwrapPromisorType' in promisor && typeof promisor.unwrapPromisorType === 'function') {
-        return promisor.unwrapPromisorType();
-    }
-    return promisor
+export function unwrap<T>(promisor: OptionalType<Promisor<T>>): OptionalType<Type<T>> {
+  if (isNotPresent(promisor)) {
+    return promisor;
+  }
+  if ('unwrapPromisorType' in promisor && typeof promisor.unwrapPromisorType === 'function') {
+    return promisor.unwrapPromisorType();
+  }
+  return promisor
 }
 

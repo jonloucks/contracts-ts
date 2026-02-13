@@ -1,19 +1,18 @@
-import { describe, test, it } from "node:test";
 import { ok } from "assert/strict";
 import assert, { throws } from "node:assert";
+import { describe, it, test } from "node:test";
 
 import { createContract } from "@jonloucks/contracts-ts";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
-import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
-import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
-import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { Contracts, guard } from "@jonloucks/contracts-ts/api/Contracts";
+import { Promisor, Type as PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for Contracts', () => {
@@ -27,7 +26,7 @@ describe('guard tests', () => {
         throw new Error("Function not implemented.");
       },
       isBound: function <T>(contract: Contract<T>): boolean {
-                used(contract);
+        used(contract);
         throw new Error("Function not implemented.");
       },
       bind: function <T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategyType): AutoClose {

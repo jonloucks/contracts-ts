@@ -1,8 +1,8 @@
 import { isObject } from "@jonloucks/contracts-ts/api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test.js";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
-  { value: {}, help: "an object value" }, 
+  { value: {}, help: "an object value" },
   { value: new Number(34.5), help: "a number object" }
 ];
 
@@ -13,8 +13,8 @@ const INVALID_CASES: PredicateCase[] = [
   { value: Number.POSITIVE_INFINITY, help: "a positive infinity value" },
   { value: Number.NEGATIVE_INFINITY, help: "a negative infinity value" },
   { value: BigInt(42), help: "a bigint value" },
-  { value: () : void => { }, help: "a simple function" },
-  { value: async () : Promise<void> => { }, help: "an async function" },
+  { value: (): void => { }, help: "a simple function" },
+  { value: async (): Promise<void> => { }, help: "an async function" },
   { value: "abc", help: "a string value" },
   { value: Symbol("test"), help: "a symbol value" },
 ]

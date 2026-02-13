@@ -1,12 +1,12 @@
-import { describe, it } from "node:test";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
+import { describe, it } from "node:test";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { AtomicBoolean, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('AtomicBoolean', () => {
 
@@ -137,7 +137,7 @@ interface GetAndSetSuiteOptions {
   validCases?: GetAndSetCase[];
 }
 
-export function generateGetAndSet(options: GetAndSetSuiteOptions) : void {
+export function generateGetAndSet(options: GetAndSetSuiteOptions): void {
   const { validCases } = options;
 
   describe(`GetAndSet Suite for AtomicBoolean`, () => {
@@ -169,7 +169,7 @@ interface CompareAndSetSuiteOptions {
   validCases?: CompareAndSetCase[];
 }
 
-export function generateCompareAndSet(options: CompareAndSetSuiteOptions) : void {
+export function generateCompareAndSet(options: CompareAndSetSuiteOptions): void {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicBoolean`, () => {

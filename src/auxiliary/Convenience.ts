@@ -1,23 +1,3 @@
-import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { CONTRACTS } from "@jonloucks/contracts-ts";
-import { CONTRACT as BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { CONTRACT as REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { CONTRACT as INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
-import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
-import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
-import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
-import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
-import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
-
-export { 
-  type AtomicBoolean, 
-  type AtomicReference, 
-  type AtomicInteger, 
-  type RequiredType, 
-  type Idempotent, 
-  type IdempotentConfig 
-};
-
 /**
  * @module Convenience
  * @description
@@ -31,6 +11,37 @@ export {
  * import from this module. Instead, they should import directly from the
  * source modules of the auxiliary types. 
  */
+
+import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { CONTRACTS } from "@jonloucks/contracts-ts";
+import { CONTRACT as BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
+import { CONTRACT as REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
+import { CONTRACT as INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+
+export {
+  type Consumer, type Method as ConsumerFunction, type Type as ConsumerType,
+  guard as consumerGuard, fromType as consumerFromType, check as consumerCheck
+} from "@jonloucks/contracts-ts/auxiliary/Consumer";
+
+export {
+  type Predicate, type Method as PredicateFunction, type Type as PredicateType,
+  guard as predicateGuard, fromType as predicateFromType, check as predicateCheck, toValue as predicateToValue
+} from "@jonloucks/contracts-ts/auxiliary/Predicate";
+
+export {
+  type Supplier, type Method as SupplierFunction, type Type as SupplierType,
+  guard as supplierGuard, fromType as supplierFromType, check as supplierCheck, toValue as supplierToValue
+} from "@jonloucks/contracts-ts/auxiliary/Supplier";
+
+export { 
+  type Transform, type Method as TransformFunction, type Type as TransformType,
+    guard as transformGuard, fromType as transformFromType, check as transformCheck, toValue as transformToValue 
+} from "@jonloucks/contracts-ts/auxiliary/Transform";
 
 /**
  * Create an AtomicBoolean via the shared global CONTRACTS instance.
@@ -71,3 +82,12 @@ export function createAtomicInteger(initialValue?: number): RequiredType<AtomicI
 export function createIdempotent(config: IdempotentConfig): RequiredType<Idempotent> {
   return CONTRACTS.enforce(IDEMPOTENT_FACTORY).createIdempotent(config);
 }
+
+export {
+  type AtomicBoolean,
+  type AtomicReference,
+  type AtomicInteger,
+  type RequiredType,
+  type Idempotent,
+  type IdempotentConfig
+};

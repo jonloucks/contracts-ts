@@ -1,10 +1,9 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
-import { AutoCloseFactory, guard, CONTRACT, AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, RequiredType }
-  from "@jonloucks/contracts-ts/api/AutoCloseFactory";
-import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { AutoClose, AutoCloseFactory, AutoCloseMany, AutoCloseOne, AutoCloseType, CONTRACT, guard, RequiredType } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for AutoCloseFactory', () => {

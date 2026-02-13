@@ -1,12 +1,12 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
 import { ContractFactory, guard } from "@jonloucks/contracts-ts/api/ContractFactory";
 
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { Config, Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for ContractFactory', () => {

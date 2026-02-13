@@ -1,5 +1,5 @@
 import { isNumber } from "@jonloucks/contracts-ts/api/Types";
-import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test.js";
+import { generatePredicateSuite, OPTIONAL_CASES, PredicateCase } from "@jonloucks/contracts-ts/test/types/Types.tools.test";
 
 const VALID_CASES: PredicateCase[] = [
   { value: 42, help: "a number value" },
@@ -12,9 +12,9 @@ const VALID_CASES: PredicateCase[] = [
 const INVALID_CASES: PredicateCase[] = [
   { value: BigInt(42), help: "a bigint value" },
   { value: new Number(34.5), help: "a number object" },
-  { value: () : void => { }, help: "a simple function" },
+  { value: (): void => { }, help: "a simple function" },
   { value: Symbol("test"), help: "a symbol value" },
-  { value: async () : Promise<void> => { }, help: "an async function" },
+  { value: async (): Promise<void> => { }, help: "an async function" },
   { value: "abc", help: "a string value" },
   { value: {}, help: "an object value" }
 ]

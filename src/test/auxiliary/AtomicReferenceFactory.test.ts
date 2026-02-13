@@ -1,11 +1,11 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
-import { AtomicReferenceFactory, guard, CONTRACT } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { AtomicReferenceFactory, CONTRACT, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { assertContract, assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('guard tests', () => {
   it('guard should return true for AtomicReferenceFactory', () => {

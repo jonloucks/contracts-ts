@@ -2,7 +2,7 @@ import { AutoClose, inlineAutoClose } from "@jonloucks/contracts-ts/api/AutoClos
 import { BindStrategyType } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { Type as PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { Repository } from "@jonloucks/contracts-ts/api/Repository";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 
