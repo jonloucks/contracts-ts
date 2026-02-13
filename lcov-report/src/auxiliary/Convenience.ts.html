@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>73/73</span>
+                <span class='fraction'>93/93</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/73</span>
+                <span class='fraction'>93/93</span>
             </div>
         
             
@@ -135,7 +135,27 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -207,27 +227,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { CONTRACTS } from "@jonloucks/contracts-ts";
-import { CONTRACT as BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
-import { CONTRACT as REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { CONTRACT as INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
-import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
-import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
-import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
-import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
-import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
-&nbsp;
-export { 
-  type AtomicBoolean, 
-  type AtomicReference, 
-  type AtomicInteger, 
-  type RequiredType, 
-  type Idempotent, 
-  type IdempotentConfig 
-};
-&nbsp;
-/**
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * @module Convenience
  * @description
  * 
@@ -240,6 +260,37 @@ export {
  * import from this module. Instead, they should import directly from the
  * source modules of the auxiliary types. 
  */
+&nbsp;
+import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { CONTRACTS } from "@jonloucks/contracts-ts";
+import { CONTRACT as BOOLEAN_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicBooleanFactory";
+import { CONTRACT as REFERENCE_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
+import { CONTRACT as INTEGER_FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicIntegerFactory";
+import { CONTRACT as IDEMPOTENT_FACTORY } from "@jonloucks/contracts-ts/auxiliary/IdempotentFactory";
+import { AtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/AtomicBoolean";
+import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
+import { AtomicInteger } from "@jonloucks/contracts-ts/auxiliary/AtomicInteger";
+import { Idempotent, Config as IdempotentConfig } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
+&nbsp;
+export {
+  type Consumer, type Method as ConsumerFunction, type Type as ConsumerType,
+  guard as consumerGuard, fromType as consumerFromType, check as consumerCheck
+} from "@jonloucks/contracts-ts/auxiliary/Consumer";
+&nbsp;
+export {
+  type Predicate, type Method as PredicateFunction, type Type as PredicateType,
+  guard as predicateGuard, fromType as predicateFromType, check as predicateCheck, toValue as predicateToValue
+} from "@jonloucks/contracts-ts/auxiliary/Predicate";
+&nbsp;
+export {
+  type Supplier, type Method as SupplierFunction, type Type as SupplierType,
+  guard as supplierGuard, fromType as supplierFromType, check as supplierCheck, toValue as supplierToValue
+} from "@jonloucks/contracts-ts/auxiliary/Supplier";
+&nbsp;
+export { 
+  type Transform, type Method as TransformFunction, type Type as TransformType,
+    guard as transformGuard, fromType as transformFromType, check as transformCheck, toValue as transformToValue 
+} from "@jonloucks/contracts-ts/auxiliary/Transform";
 &nbsp;
 /**
  * Create an AtomicBoolean via the shared global CONTRACTS instance.
@@ -279,14 +330,23 @@ export function createAtomicInteger(initialValue?: number): RequiredType&lt;Atom
  */
 export function createIdempotent(config: IdempotentConfig): RequiredType&lt;Idempotent&gt; {
   return CONTRACTS.enforce(IDEMPOTENT_FACTORY).createIdempotent(config);
-}</pre></td></tr></table></pre>
+}
+&nbsp;
+export {
+  type AtomicBoolean,
+  type AtomicReference,
+  type AtomicInteger,
+  type RequiredType,
+  type Idempotent,
+  type IdempotentConfig
+};</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-12T17:48:16.728Z
+                at 2026-02-13T01:14:21.478Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

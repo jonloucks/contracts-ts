@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/45</span>
+                <span class='fraction'>40/40</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/45</span>
+                <span class='fraction'>40/40</span>
             </div>
         
             
@@ -106,11 +106,7 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -128,6 +124,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -141,47 +145,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { type Contracts, type Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
 import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
-&nbsp;
-export { type AutoClose, type AutoCloseMany, type AutoCloseOne, type AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-export { CONTRACT as AUTO_CLOSE_FACTORY, type AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
-export { type AutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
-export { type BindStrategy, DEFAULT_BIND_STRATEGY } from "@jonloucks/contracts-ts/api/BindStrategy";
-export { type Contract, type Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
-export { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
-export { type Contracts, type Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
-export { type ContractsFactory } from "@jonloucks/contracts-ts/api/ContractsFactory";
-export { type Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
-export { CONTRACT as PROMISOR_FACTORY, type PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
-export { type Repository } from "@jonloucks/contracts-ts/api/Repository";
-export { CONTRACT as REPOSITORY_FACTORY, type RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
-export { guardFunctions as hasFunctions, isNotPresent, isNumber, isPresent, isString, type OptionalType, type RequiredType } from "@jonloucks/contracts-ts/api/Types";
-export { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
-&nbsp;
-//  no qualified paths for things not exposed publicly
-import { createContracts, create as createContractsFactory } from "./impl/ContractsFactory.impl.js";
-export { createContract, create as createContractFactory } from "./impl/ContractFactory.impl.js";
-export { VERSION } from "./version.js";
-&nbsp;
-export { createContracts, createContractsFactory };
-&nbsp;
+import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
+import { type Contract, type Config as ContractConfig } from "@jonloucks/contracts-ts/api/Contract";
+import { createContracts } from "./impl/ContractsFactory.impl.js";
+import { createContract } from "./impl/ContractFactory.impl.js";
+import { VERSION } from "./version.js";
 &nbsp;
 /**
  * A shared global Contracts instance.
@@ -192,16 +166,30 @@ export { createContracts, createContractsFactory };
  * 
  * Note: accepts only ratified contracts and closes on process exit.
  */
-export const CONTRACTS : Contracts = (() : Contracts =&gt; {
-    const globalConfig : ContractsConfig = { 
-      ratified: true,
-      shutdownEvents: ['exit']
-    };
-    const contracts = createContracts(globalConfig);
-    contracts.open(); // closed on exit
-    validateContracts(contracts);
-    return contracts;
+const CONTRACTS: Contracts = ((): Contracts =&gt; {
+  const globalConfig: ContractsConfig = {
+    ratified: true,
+    shutdownEvents: ['exit']
+  };
+  const contracts = createContracts(globalConfig);
+  contracts.open(); // closed on exit
+  validateContracts(contracts);
+  return contracts;
 })();
+&nbsp;
+// decide on what to export from this module. For now, only the essential functions and the shared global instance are exported.
+export {
+  VERSION,
+  CONTRACTS,
+  Contract,
+  ContractConfig,
+  ContractException,
+  Contracts,
+  ContractsConfig,
+  createContract,
+  createContracts
+};
+&nbsp;
 &nbsp;
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -211,7 +199,7 @@ export const CONTRACTS : Contracts = (() : Contracts =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-12T17:48:16.728Z
+                at 2026-02-13T01:14:21.478Z
             </div>
         <script src="../prettify.js"></script>
         <script>

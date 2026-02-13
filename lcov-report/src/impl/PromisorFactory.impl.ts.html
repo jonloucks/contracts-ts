@@ -123,30 +123,30 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -177,16 +177,16 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
-import { Type as TransformType, fromType as typeToTransform } from "@jonloucks/contracts-ts/auxiliary/Transform";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Promisor, Type as PromisorType, fromType } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
+import { Type as TransformType, fromType as typeToTransform } from "@jonloucks/contracts-ts/auxiliary/Transform";
 import { create as createExtractor } from "./ExtractorPromisor.impl.js";
 import { create as createLifeCycle } from "./LifeCyclePromisor.impl.js";
 import { create as createSingleton } from "./SingletonPromisor.impl.js";
@@ -219,21 +219,21 @@ class PromisorsImpl implements PromisorFactory {
    * PromisorFactory.createSingleton override.
    */
   createSingleton&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-    return createSingleton&lt;T&gt;(typeToPromisor(promisor));
+    return createSingleton&lt;T&gt;(fromType(promisor));
   }
 &nbsp;
   /**
    * PromisorFactory.createLifeCycle override.
    */
   createLifeCycle&lt;T&gt;(promisor: PromisorType&lt;T&gt;): RequiredType&lt;Promisor&lt;T&gt;&gt; {
-    return createLifeCycle(typeToPromisor(promisor));
+    return createLifeCycle(fromType(promisor));
   }
 &nbsp;
   /**
    * PromisorFactory.createExtractor override.
    */
   createExtractor&lt;T, R&gt;(promisor: PromisorType&lt;T&gt;, extractor: TransformType&lt;T, R&gt;): RequiredType&lt;Promisor&lt;R&gt;&gt; {
-    return createExtractor&lt;T, R&gt;(typeToPromisor(promisor), typeToTransform(extractor));
+    return createExtractor&lt;T, R&gt;(fromType(promisor), typeToTransform(extractor));
   }
 &nbsp;
   static internalCreate(): RequiredType&lt;PromisorFactory&gt; {
@@ -250,7 +250,7 @@ class PromisorsImpl implements PromisorFactory {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-02-12T17:48:16.728Z
+                at 2026-02-13T01:14:21.478Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
