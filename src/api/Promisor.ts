@@ -52,7 +52,7 @@ export type Method<T> = (() => OptionalType<T>);
 export type Type<T> = (new () => T) | Promisor<T> | Method<T> | T | null | undefined;
 
 /**
- * Convert a PromisorType to a Promisor
+ * Convert a Type to a Promisor
  * 
  * @param type the type to convert
  * @returns the Promisor
@@ -85,7 +85,7 @@ interface PromisorWrapper<T> extends Promisor<T> {
 /**
  * Create a simple inline Promisor from a demand function
  * 
- * @param type the PromisorType
+ * @param type the promisor type
  * @param demand the demand function
  * @returns the Promisor
  */
@@ -104,7 +104,7 @@ function wrap<T>(type: Type<T>, demand: () => OptionalType<T>): RequiredType<Pro
  * Unwrap a Promisor to get the original type.
  * 
  * @param promisor the Promisor to unwrap
- * @returns the original PromisorType
+ * @returns the original Promisor Type
  */
 export function unwrap<T>(promisor: OptionalType<Promisor<T>>): OptionalType<Type<T>> {
   if (isNotPresent(promisor)) {
