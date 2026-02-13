@@ -1,4 +1,4 @@
-import { AutoClose, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseType, fromType as typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen, guard as guardAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { guardFunctions, isFunction } from "@jonloucks/contracts-ts/api/Types";
 import { RequiredType } from "@jonloucks/contracts-ts/api/AutoCloseFactory";

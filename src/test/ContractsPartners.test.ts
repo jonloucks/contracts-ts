@@ -1,10 +1,10 @@
-import { describe, it } from "node:test";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { describe, it } from "node:test";
 
 describe('Contracts with partners', () => {
 

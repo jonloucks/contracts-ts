@@ -1,11 +1,11 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
+import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Method, Predicate, Type, check, fromType, guard, toValue } from "@jonloucks/contracts-ts/auxiliary/Predicate";
-import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'test'

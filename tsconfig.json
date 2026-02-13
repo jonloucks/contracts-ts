@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "nodenext",
+    "module": "node16",
     "lib": ["ES2020"],
     "declaration": true,
     "declarationMap": true,
@@ -13,16 +13,17 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node16",
     "isolatedModules": true,
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "paths": {
-      "@jonloucks/contracts-ts": ["index.ts"],
-      "@jonloucks/contracts-ts/version": ["version.ts"],
-      "@jonloucks/contracts-ts/auxiliary/*": ["auxiliary/*"],
-      "@jonloucks/contracts-ts/api/*": ["api/*"],
-      "@jonloucks/contracts-ts/test/*": ["test/*"]
+      "@jonloucks/contracts-ts": ["index.js"],
+      "@jonloucks/contracts-ts/version": ["version.js"],
+      "@jonloucks/contracts-ts/auxiliary/*": ["auxiliary/*.js"],
+      "@jonloucks/contracts-ts/api/*": ["api/*.js"],
+      "@jonloucks/contracts-ts/test/*": ["test/*.js"],
+      "@jonloucks/contracts-ts/impl/*": ["impl/*.js"]
     },
   },
   "include": ["src/**/*"],

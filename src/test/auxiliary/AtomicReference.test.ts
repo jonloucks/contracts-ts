@@ -1,12 +1,12 @@
-import { describe, it } from "node:test";
 import { notStrictEqual, strictEqual } from "node:assert";
+import { describe, it } from "node:test";
 
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference, guard } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { CONTRACT as FACTORY } from "@jonloucks/contracts-ts/auxiliary/AtomicReferenceFactory";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 describe('AtomicReference', () => {
   it('AtomicReference FACTORY works', () => {
@@ -107,7 +107,7 @@ interface CompareAndSetSuiteOptions<T> {
   validCases?: CompareAndSetCase<T>[];
 }
 
-export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>) : void {
+export function generateCompareAndSet<T>(options: CompareAndSetSuiteOptions<T>): void {
   const { validCases } = options;
 
   describe(`CompareAndSet Suite for AtomicReference`, () => {
@@ -135,7 +135,7 @@ interface GetAndSetSuiteOptions<T> {
   validCases?: GetAndSetCase<T>[];
 }
 
-export function generateGetAndSet<T>(options: GetAndSetSuiteOptions<T>) : void {
+export function generateGetAndSet<T>(options: GetAndSetSuiteOptions<T>): void {
   const { validCases } = options;
 
   describe(`GetAndSet Suite for AtomicReference`, () => {
@@ -146,7 +146,7 @@ export function generateGetAndSet<T>(options: GetAndSetSuiteOptions<T>) : void {
 
           const previousValue = atomic.getAndSet(testCase.requested);
           strictEqual(previousValue, testCase.current, `Expected previous value to be ${testCase.current}`);
-          strictEqual(atomic.get(), testCase.requested, `Expected final value to be ${testCase.requested  }`);
+          strictEqual(atomic.get(), testCase.requested, `Expected final value to be ${testCase.requested}`);
         });
       });
     });

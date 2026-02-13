@@ -8,7 +8,7 @@ import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { Repository, guard } from "@jonloucks/contracts-ts/api/Repository";
 import { CONTRACT as FACTORY, RepositoryFactory } from "@jonloucks/contracts-ts/api/RepositoryFactory";
 import { OptionalType } from "@jonloucks/contracts-ts/api/Types";
-import { Tools } from "./Test.tools.test.js";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 import { assertGuard } from "./helper.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 

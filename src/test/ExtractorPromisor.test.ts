@@ -1,22 +1,22 @@
-import { describe, it } from "node:test";
 import { notStrictEqual, ok, strictEqual } from "node:assert";
+import { describe, it } from "node:test";
 
 import { createContract } from "@jonloucks/contracts-ts";
+import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Promisor, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { fromType, Promisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
-import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { Transform } from "@jonloucks/contracts-ts/auxiliary/Transform";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Extract Promisor tests', () => {
 
   it("Primary use case", () => {
     const referent: CurrentDatePromisor = new CurrentDatePromisor();
-    const converted: RequiredType<Promisor<Date>> = typeToPromisor<Date>(referent);
+    const converted: RequiredType<Promisor<Date>> = fromType<Date>(referent);
     strictEqual(converted, referent, "Converted promisor should be the same as the original referent.");
 
     const transform: Transform<Date, string> = {
@@ -54,7 +54,7 @@ describe('Extract Promisor tests', () => {
 describe('Extractor with referent demand returning null', () => {
 
   it("Referent returns null", () => {
-    const referent: Promisor<Date | null> = typeToPromisor<Date | null>(null);
+    const referent: Promisor<Date | null> = fromType<Date | null>(null);
     const transform: Transform<Date | null, string | null> = {
       transform: (date: Date | null): string | null => {
         return date === null ? null : date.toString();

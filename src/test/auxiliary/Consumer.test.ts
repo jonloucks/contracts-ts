@@ -1,9 +1,9 @@
-import { describe, it } from "node:test";
 import { ok } from "node:assert";
+import { describe, it } from "node:test";
 
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Consumer, Method, Type, check, fromType, guard } from "@jonloucks/contracts-ts/auxiliary/Consumer";
-import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test.js";
+import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
 
 const FUNCTION_NAMES: (string | symbol)[] = [
   'consume'

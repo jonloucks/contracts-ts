@@ -1,4 +1,4 @@
-import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseMany, AutoCloseOne, AutoCloseType, fromType as typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoCloseFactory } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { create as createAutoCloseMany } from "./AutoCloseMany.impl.js";

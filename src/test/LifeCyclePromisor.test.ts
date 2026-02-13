@@ -1,14 +1,15 @@
-import { describe, it, mock } from "node:test";
-import { strictEqual, throws } from "node:assert";
-import { createContract, Promisor, typeToPromisor } from "@jonloucks/contracts-ts";
 import { AUTO_CLOSE_NONE, AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoOpen, guard as isAutoOpen } from "@jonloucks/contracts-ts/api/AutoOpen";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Promisor, fromType as typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
 import { PromisorFactory, CONTRACT as PROMISORS_CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
-import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
+import { create as createContract } from "@jonloucks/contracts-ts/api/RatifiedContract";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { IllegalStateException } from "@jonloucks/contracts-ts/auxiliary/IllegalStateException";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
+import { strictEqual, throws } from "node:assert";
+import { describe, it, mock } from "node:test";
 
 describe('LifeCyclePromisor tests', () => {
   it("demand without incrementUsage throws", () => {
@@ -16,9 +17,9 @@ describe('LifeCyclePromisor tests', () => {
       const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
       const promisor: Promisor<number> = promisorFactory.createLifeCycle(typeToPromisor(34));
 
-      throws(() => { 
+      throws(() => {
         promisor.demand();
-       }, IllegalStateException);
+      }, IllegalStateException);
     });
   });
   it("open is called during demand", () => {
@@ -29,7 +30,7 @@ describe('LifeCyclePromisor tests', () => {
         }
       };
 
-      const mockAutoOpenFn = mock.fn(() : AutoClose => AUTO_CLOSE_NONE);
+      const mockAutoOpenFn = mock.fn((): AutoClose => AUTO_CLOSE_NONE);
       openMock.autoOpen = mockAutoOpenFn;
 
       const promisorFactory: PromisorFactory = contracts.enforce(PROMISORS_CONTRACT);
@@ -47,9 +48,9 @@ describe('LifeCyclePromisor tests', () => {
       const sourcePromisor: Promisor<ThrowsOnOpen> = promisorFactory.createValue(new ThrowsOnOpen(expectedError));
       const promisor: Promisor<ThrowsOnOpen> = promisorFactory.createLifeCycle(sourcePromisor);
       promisor.incrementUsage();
-      throws(() => { 
+      throws(() => {
         promisor.demand();
-       }, expectedError);
+      }, expectedError);
     });
   });
   it('Reentrancy failure: Issue #69', () => {

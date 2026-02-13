@@ -1,13 +1,14 @@
-import { describe, it, mock } from "node:test";
 import { throws } from "node:assert";
+import { describe, it, mock } from "node:test";
 
-import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
-import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test.js";
-import { Contract } from "@jonloucks/contracts-ts/api/Contract";
-import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { AutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
-import { BindStrategy, Promisor } from "@jonloucks/contracts-ts";
+import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
+import { Contract } from "@jonloucks/contracts-ts/api/Contract";
+import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
+import { Promisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
+import { validateContracts } from "@jonloucks/contracts-ts/auxiliary/Validate";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Validate contracts', () => {
   it('Working scenario', () => {

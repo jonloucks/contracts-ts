@@ -3,8 +3,8 @@ import { throws } from "node:assert";
 
 import { createContract } from "@jonloucks/contracts-ts";
 import { Contracts, Config as ContractsConfig } from "@jonloucks/contracts-ts/api/Contracts";
-import { PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
-import { Tools } from "./Test.tools.test.js";
+import { Type as PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { Tools } from "@jonloucks/contracts-ts/test/Test.tools.test";
 
 describe('Contracts with ratified', () => {
 

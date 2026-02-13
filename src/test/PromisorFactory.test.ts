@@ -3,7 +3,7 @@ import { ok } from "node:assert";
 
 import { PromisorFactory, guard, CONTRACT } from "@jonloucks/contracts-ts/api/PromisorFactory";
 import { assertContract, assertGuard } from "./helper.test.js";
-import { Promisor, PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
+import { Promisor, Type as PromisorType } from "@jonloucks/contracts-ts/api/Promisor";
 import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { used } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";

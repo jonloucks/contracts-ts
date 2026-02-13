@@ -4,9 +4,9 @@ import { BindStrategy, resolveBindStrategy } from "@jonloucks/contracts-ts/api/B
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { ContractException } from "@jonloucks/contracts-ts/api/ContractException";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
-import { Promisor, PromisorType, typeToPromisor } from "@jonloucks/contracts-ts/api/Promisor";
+import { Promisor, Type as PromisorType, fromType } from "@jonloucks/contracts-ts/api/Promisor";
 import { Config, Repository } from "@jonloucks/contracts-ts/api/Repository";
-import { RequiredType, OptionalType } from "@jonloucks/contracts-ts/api/Types";
+import { OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { contractCheck, contractsCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { Idempotent } from "@jonloucks/contracts-ts/auxiliary/Idempotent";
 
@@ -49,7 +49,7 @@ class RepositoryImpl implements Repository, AutoOpen {
    */
   store<T>(contract: Contract<T>, promisor: PromisorType<T>, bindStrategy?: BindStrategy | undefined | null): AutoClose {
     const validContract: Contract<T> = contractCheck(contract);
-    const validPromisor: Promisor<T> = typeToPromisor(promisor);
+    const validPromisor: Promisor<T> = fromType(promisor);
     const validBindStrategy: BindStrategy = resolveBindStrategy(bindStrategy);
 
     if (this.#storedContracts.has(validContract) && this.idempotent.isOpen()) {
