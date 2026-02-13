@@ -242,6 +242,7 @@ contracts-ts
 ├── CODE_OF_CONDUCT.md
 ├── CODING_STANDARDS.md
 ├── CONTRIBUTING.md
+├── DOCUMENTATION.md
 ├── .editorconfig
 ├── eslint.config.mjs
 ├── LICENSE
