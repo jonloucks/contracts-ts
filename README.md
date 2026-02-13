@@ -10,7 +10,8 @@
 Typescript Dependency Contracts for dependency inversion
 
 ## Documentation
-* [License](LICENSE.md)
+* [Project documentation](DOCUMENTATION.md)
+* [License](LICENSE)
 * [Contributing](CONTRIBUTING.md)
 * [Code of conduct](CODE_OF_CONDUCT.md)
 * [Coding standards](CODING_STANDARDS.md)
@@ -24,6 +25,65 @@ Typescript Dependency Contracts for dependency inversion
 ```bash
 npm install @jonloucks/contracts-ts
 ```
+
+## v2.0.0 Migration Notes
+
+v2.0.0 introduces a smaller root export surface, removes deprecated APIs, and finalizes ESM packaging.
+
+<details markdown="1"><summary>Root package imports are intentionally minimal</summary>
+
+Use root imports only for core exports:
+
+```typescript
+import {
+    CONTRACTS,
+    Contract,
+    ContractConfig,
+    ContractException,
+    Contracts,
+    ContractsConfig,
+    createContract,
+    createContracts,
+    VERSION
+} from "@jonloucks/contracts-ts";
+```
+
+For broader helper APIs, use convenience or explicit subpath imports:
+
+```typescript
+import { bind, enforce, createSingleton } from "@jonloucks/contracts-ts/api/Convenience";
+import { createAtomicBoolean } from "@jonloucks/contracts-ts/auxiliary/Convenience";
+```
+
+</details>
+
+<details markdown="1"><summary>Transform types moved out of api/Types</summary>
+
+```typescript
+// v1.x (removed)
+// import { TransformType, typeToTransform } from "@jonloucks/contracts-ts/api/Types";
+
+// v2.0.0
+import { type Type as TransformType } from "@jonloucks/contracts-ts/auxiliary/Transform";
+```
+
+</details>
+
+<details markdown="1"><summary>Functional barrel removed</summary>
+
+```typescript
+// v1.x (removed)
+// import { TransformType } from "@jonloucks/contracts-ts/auxiliary/Functional";
+
+// v2.0.0
+import {
+    type TransformType,
+    transformFromType,
+    transformGuard
+} from "@jonloucks/contracts-ts/auxiliary/Convenience";
+```
+
+</details>
 
 ## Usage - code fragments from Example.test.ts
 
@@ -39,10 +99,10 @@ import { CONTRACTS, createContract } from '@jonloucks/contracts-ts';
 
 ```typescript
 import {
-  AutoClose,
+    type AutoClose,
   bind,
   claim,
-  Contract,
+    type Contract,
   createExtractor,
   createLifeCycle,
   createRepository,
@@ -182,40 +242,28 @@ contracts-ts
 ├── CODE_OF_CONDUCT.md
 ├── CODING_STANDARDS.md
 ├── CONTRIBUTING.md
-├── editorconfig
+├── DOCUMENTATION.md
+├── .editorconfig
 ├── eslint.config.mjs
-├── jest.config.js
 ├── LICENSE
 ├── package-lock.json
 ├── package.json
 ├── PULL_REQUEST_TEMPLATE.md
 ├── README.md
-├── scripts
-│   ├── badge-template.svg.dat
-│   └── tsconfig.json
 ├── SECURITY.md
 ├── src
 │   ├── index.ts
 │   ├── version.ts
 │   ├── api
-│   │   ├── *.ts
-│   │   ├── *.api.ts
+│   │   └── *.ts
 │   ├── auxiliary
-│   │   ├── *.ts
-│   │   ├── *.impl.ts
-│   │   ├── *.test.ts    // internal implementation specific
-│   │   └── *.api.ts
+│   │   └── *.ts
 │   ├── impl
 │   │   ├── *.ts
-│   │   ├── *.impl.ts
-│   │   ├── *.test.ts    // internal implementation specific
-│   │   └── *.api.ts
+│   │   └── *.test.ts    // internal implementation specific
 │   ├── test
 │   │   └── *.test.ts
-│   └── never-publish             // non shippable development scripts
-│       ├── *.ts
-│       ├── *.*.                  // data files etc
-│       └── *.test.ts
+│   └── never-publish             // non shippable development scripts (if present)
 ├── tsconfig.json
 └── typedoc.json
 ```
