@@ -1,6 +1,6 @@
 {
   "name": "@jonloucks/contracts-ts",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
   "type": "module",
@@ -66,6 +66,9 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   },
   "devDependencies": {
     "@jonloucks/badges-ts": "^1.0.3",
