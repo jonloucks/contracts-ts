@@ -1,6 +1,6 @@
 {
   "name": "@jonloucks/contracts-ts",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Typescript Dependency Contracts for dependency inversion",
   "private": true,
   "type": "module",
@@ -44,7 +44,7 @@
     "after:publish": "npm run clean",
     "prepare": "npm run build",
     "docs": "typedoc --options typedoc.json",
-    "badges": "npx badges-ts generate-badges",
+    "badges": "npx badges-ts generate",
     "discover": "npx badges-ts discover",
     "clean": "rm -rf dist",
     "compile": "tsc",
@@ -68,7 +68,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@jonloucks/badges-ts": "^0.1.1",
+    "@jonloucks/badges-ts": "^1.0.3",
     "@types/node": "^25.2.3",
     "@typescript-eslint/eslint-plugin": "^8.55.0",
     "@typescript-eslint/parser": "^8.53.1",

@@ -1,7 +1,7 @@
 import { deepStrictEqual, doesNotThrow, notStrictEqual, strictEqual, throws } from "node:assert";
 import { describe, it, mock } from "node:test";
 
-import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, unwrap as unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AUTO_CLOSE_NONE, AutoClose, guard, inlineAutoClose, isClose, resolveDisposeSymbol, unwrap as unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { AutoCloseFactory, CONTRACT as FACTORY } from "@jonloucks/contracts-ts/api/AutoCloseFactory";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
 import { assertGuard } from "@jonloucks/contracts-ts/test/helper.test";
@@ -34,6 +34,30 @@ generatePredicateSuite({
 });
 
 assertGuard(guard, "close", Symbol.dispose);
+
+describe('resolveDisposeSymbol tests', () => {
+  it('falls back to Symbol.for("Symbol.dispose") when dispose is missing', () => {
+    const expected = Symbol("fallback-dispose");
+    const fallbackSymbol = resolveDisposeSymbol({
+      for: (key: string) => {
+        strictEqual(key, "Symbol.dispose", "Fallback key should match Symbol.dispose registry key");
+        return expected;
+      }
+    });
+
+    strictEqual(fallbackSymbol, expected, "resolveDisposeSymbol should use fallback symbol when dispose is not present");
+  });
+
+  it('prefers dispose when available', () => {
+    const nativeDispose = Symbol("native-dispose");
+    const resolved = resolveDisposeSymbol({
+      dispose: nativeDispose,
+      for: () => Symbol("not-used")
+    });
+
+    strictEqual(resolved, nativeDispose, "resolveDisposeSymbol should prefer native dispose symbol");
+  });
+});
 
 describe('AutoClose tests', () => {
   it('isClose should return true for valid AutoClose', () => {

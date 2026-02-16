@@ -1,0 +1,27 @@
+{
+  "name": "@jonloucks/contracts-ts-smoke",
+  "version": "999.888.777",
+  "description": "contracts-ts smoke test package",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx --test $(find src -name '*.test.ts')",
+    "clean": "rm -rf dist && rm -rf coverage && npm install",
+    "compile": "tsc"
+  },
+  "author": "Jon Loucks",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+  }
+}

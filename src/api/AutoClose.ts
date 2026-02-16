@@ -2,6 +2,12 @@ import { OptionalType, RequiredType, guardFunctions, isNotPresent } from "@jonlo
 import { presentCheck } from "@jonloucks/contracts-ts/auxiliary/Checks";
 import { IllegalArgumentException } from "@jonloucks/contracts-ts/auxiliary/IllegalArgumentException";
 
+export function resolveDisposeSymbol(symbolType: { dispose?: symbol, for(key: string): symbol }): symbol {
+  return symbolType.dispose ?? symbolType.for("Symbol.dispose");
+}
+
+export const DISPOSE_SYMBOL: symbol = resolveDisposeSymbol(Symbol);
+
 /**
  * Type alias for AutoClose or a simple close function.
  */
@@ -74,6 +80,10 @@ export const AUTO_CLOSE_NONE: AutoClose = {
    */
   [Symbol.dispose]: () => {
     // no-op
+  },
+
+  [DISPOSE_SYMBOL]: () => {
+    // no-op
   }
 };
 
@@ -107,6 +117,7 @@ export function inlineAutoClose(action: () => void): RequiredType<AutoCloseWrapp
   return {
     close: action,
     [Symbol.dispose]: action,
+    [DISPOSE_SYMBOL]: action,
     unwrapAutoCloseType: () => action
   };
 }
@@ -134,7 +145,8 @@ export function unwrap(autoClose: OptionalType<AutoClose>): OptionalType<AutoClo
  * @returns true if the instance implements AutoClose, false otherwise
  */
 export function guard(instance: unknown): instance is RequiredType<AutoClose> {
-  return guardFunctions(instance, 'close', Symbol.dispose);
+  return guardFunctions(instance, 'close', Symbol.dispose)
+    || guardFunctions(instance, 'close', DISPOSE_SYMBOL);
 }
 
 /**

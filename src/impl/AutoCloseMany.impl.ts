@@ -1,4 +1,4 @@
-import { AutoClose, AutoCloseMany, AutoCloseType, fromType as typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseMany, AutoCloseType, DISPOSE_SYMBOL, fromType as typeToAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { Internal } from "./Internal.impl.js";
 
@@ -34,6 +34,10 @@ class AutoCloseManyImpl implements AutoCloseMany {
     if (errorList.length > 0) {
       Internal.throwAggregateError("Multiple while closing.", ...errorList);
     }
+  }
+
+  [DISPOSE_SYMBOL](): void {
+    this.close();
   }
 
   [Symbol.dispose](): void {
