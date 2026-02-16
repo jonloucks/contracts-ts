@@ -129,7 +129,7 @@
 <details markdown="1"><summary>CI Workflow</summary>
 <p>The CI workflow runs on every push and pull request to <code>main</code> branch. It:</p>
 <ul>
-<li>Tests against Node.js versions 18.x, 20.x, 22.x, and 24.x</li>
+<li>Tests against supported Node.js versions <code>&gt;20.11.0 &lt;21.0</code>, <code>22.x</code>, and <code>24.x</code></li>
 <li>Runs linting</li>
 <li>Builds the project</li>
 <li>Runs tests with coverage</li>
@@ -137,7 +137,7 @@
 </ul>
 <p>Compatibility note:</p>
 <ul>
-<li>Production <code>AutoClose</code> implementations intentionally support both <code>Symbol.dispose</code> and <code>Symbol.for(&quot;Symbol.dispose&quot;)</code> keys, so <code>using</code>-based disposal remains stable when running in environments that do not provide <code>Symbol.dispose</code> (for example, Node 16).</li>
+<li>Production <code>AutoClose</code> implementations intentionally support both <code>Symbol.dispose</code> and <code>Symbol.for(&quot;Symbol.dispose&quot;)</code> keys, so disposal remains stable in environments that do not provide <code>Symbol.dispose</code>.</li>
 </ul>
 </details>
 <details markdown="1"><summary>Publish Workflow</summary>

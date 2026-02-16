@@ -274,14 +274,14 @@ contracts-ts
 <details markdown="1"><summary>CI Workflow</summary>
 
 The CI workflow runs on every push and pull request to `main` branch. It:
-- Tests against Node.js versions 18.x, 20.x, 22.x, and 24.x
+- Tests against supported Node.js versions `>20.11.0 <21.0`, `22.x`, and `24.x`
 - Runs linting
 - Builds the project
 - Runs tests with coverage
 - Uploads coverage to Codecov (optional)
 
 Compatibility note:
-- Production `AutoClose` implementations intentionally support both `Symbol.dispose` and `Symbol.for("Symbol.dispose")` keys, so `using`-based disposal remains stable when running in environments that do not provide `Symbol.dispose` (for example, Node 16).
+- Production `AutoClose` implementations intentionally support both `Symbol.dispose` and `Symbol.for("Symbol.dispose")` keys, so disposal remains stable in environments that do not provide `Symbol.dispose`.
 
 </details>
 
