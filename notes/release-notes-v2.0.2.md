@@ -4,7 +4,7 @@ npm install @jonloucks/contracts-ts@2.0.2
 ```
 
 ## Customer impact
-*  None
+*  Customers running Node.js versions outside the newly supported ranges may see npm engine mismatch warnings or installation failures in `engine-strict` environments due to the updated Node.js engines declaration.
 
 ## Forked Repositories Impact
 *  None
