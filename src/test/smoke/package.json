@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "test": "tsx --test $(find src -name '*.test.ts')",
+    "test": "sh -c 'files=$(find src -name \"*.test.ts\"); if [ -z \"$files\" ]; then echo \"No tests found\"; else tsx --test $files; fi'",
     "clean": "rm -rf dist && rm -rf coverage && npm install",
     "compile": "tsc"
   },
