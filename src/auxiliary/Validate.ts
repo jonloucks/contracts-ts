@@ -22,17 +22,21 @@ export function validateContracts(contracts: Contracts): void {
       throw new ContractException("Contract should not be bound.");
     }
     {
-      using bindReturn: AutoClose = validContracts.bind(contract, () => deliverableValue);
+      const bindReturn: AutoClose = validContracts.bind(contract, () => deliverableValue);
 
       if (null === bindReturn || bindReturn === undefined) {
         throw new ContractException("Contract bind returned null.");
       }
 
-      if (!validContracts.isBound(contract)) {
-        throw new ContractException("Contract should have been bound.");
-      }
-      if (deliverableValue !== validContracts.claim(contract)) {
-        throw new ContractException("Contract claiming not working.");
+      try {
+        if (!validContracts.isBound(contract)) {
+          throw new ContractException("Contract should have been bound.");
+        }
+        if (deliverableValue !== validContracts.claim(contract)) {
+          throw new ContractException("Contract claiming not working.");
+        }
+      } finally {
+        bindReturn.close();
       }
     }
 
