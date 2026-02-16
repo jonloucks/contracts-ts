@@ -135,6 +135,10 @@
 <li>Runs tests with coverage</li>
 <li>Uploads coverage to Codecov (optional)</li>
 </ul>
+<p>Compatibility note:</p>
+<ul>
+<li>Production <code>AutoClose</code> implementations intentionally support both <code>Symbol.dispose</code> and <code>Symbol.for(&quot;Symbol.dispose&quot;)</code> keys, so <code>using</code>-based disposal remains stable when running in environments that do not provide <code>Symbol.dispose</code> (for example, Node 16).</li>
+</ul>
 </details>
 <details markdown="1"><summary>Publish Workflow</summary>
 <p>The GitHub publishings workflows are run to make an official release.</p>
