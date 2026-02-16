@@ -1,4 +1,4 @@
-import { AutoClose, AutoCloseOne } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseOne, DISPOSE_SYMBOL } from "@jonloucks/contracts-ts/api/AutoClose";
 import { BindStrategy } from "@jonloucks/contracts-ts/api/BindStrategy";
 import { Contract } from "@jonloucks/contracts-ts/api/Contract";
 import { Contracts } from "@jonloucks/contracts-ts/api/Contracts";
@@ -9,12 +9,16 @@ import { create as createAutoCloseOne } from "./AutoCloseOne.impl.js";
 // ---- Implementation details below ----
 
 export class StorageImpl<T> implements AutoClose {
-  
+
   constructor(contracts: Contracts, contract: Contract<T>, promisor: Promisor<T | null>, bindStrategy: BindStrategy) {
     this.contracts = contracts;
     this.contract = contract;
     this.promisor = promisor;
     this.bindStrategy = bindStrategy;
+  }
+
+  [DISPOSE_SYMBOL](): void {
+    this.close();
   }
 
   [Symbol.dispose](): void {

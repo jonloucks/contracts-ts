@@ -280,6 +280,9 @@ The CI workflow runs on every push and pull request to `main` branch. It:
 - Runs tests with coverage
 - Uploads coverage to Codecov (optional)
 
+Compatibility note:
+- Production `AutoClose` implementations intentionally support both `Symbol.dispose` and `Symbol.for("Symbol.dispose")` keys, so `using`-based disposal remains stable when running in environments that do not provide `Symbol.dispose` (for example, Node 16).
+
 </details>
 
 <details markdown="1"><summary>Publish Workflow</summary>

@@ -3,10 +3,12 @@ dist/
 *.log
 .env
 .DS_Store
-coverage/
+/coverage/
 .nyc_output/
-*.tgz
-docs/jsdoc/
-docs/typedoc/
+/*.tgz
+/docs/jsdoc/
+/docs/typedoc/
 .tmp/
-packs/
+/*.svg
+/packs/
+/smoke/

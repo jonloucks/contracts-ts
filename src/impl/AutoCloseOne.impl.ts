@@ -1,4 +1,4 @@
-import { AutoClose, AutoCloseOne, AutoCloseType, fromType as typeToAutoClose, unwrap as unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
+import { AutoClose, AutoCloseOne, AutoCloseType, DISPOSE_SYMBOL, fromType as typeToAutoClose, unwrap as unwrapAutoClose } from "@jonloucks/contracts-ts/api/AutoClose";
 import { isPresent, OptionalType, RequiredType } from "@jonloucks/contracts-ts/api/Types";
 import { AtomicReference } from "@jonloucks/contracts-ts/auxiliary/AtomicReference";
 import { create as createAtomicReference } from "./AtomicReference.impl.js";
@@ -22,6 +22,10 @@ class AutoCloseOneImpl implements AutoCloseOne {
     if (isPresent(autoClose) && this.#reference.compareAndSet(autoClose, null)) {
       autoClose.close();
     }
+  }
+
+  [DISPOSE_SYMBOL](): void {
+    this.close();
   }
 
   [Symbol.dispose](): void {
