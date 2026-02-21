@@ -17,6 +17,13 @@ Key goals:
 npm install @jonloucks/contracts-ts
 ```
 
+## Node.js Support
+
+Supported Node.js versions for development and CI are:
+- `20.x`
+- `22.x`
+- `24.x`
+
 ## Quick Start
 
 ### 1) Import core APIs

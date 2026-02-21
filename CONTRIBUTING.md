@@ -36,16 +36,17 @@ To get started with local development:
     ```sh
     git clone https://github.com/jonloucks/contracts-ts.git
     ```
-3.  **Install dependencies**:
+3.  **Use a supported Node.js version** (`20.x`, `22.x`, or `24.x`).
+4.  **Install dependencies**:
     ```sh
     npm install
     ```
-4.  **Run tests** to ensure everything is working correctly:
+5.  **Run tests** to ensure everything is working correctly:
     ```sh
     npm run test
     npm run lint
     ```
-5. **Code Coverage Verification** to ensure coverage:
+6. **Code Coverage Verification** to ensure coverage:
     ```sh
     npm run test:coverage
     ```
