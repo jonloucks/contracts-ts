@@ -274,7 +274,7 @@ contracts-ts
 <details markdown="1"><summary>CI Workflow</summary>
 
 The CI workflow runs on every push and pull request to `main` branch. It:
-- Tests against supported Node.js versions `>20.11.0 <21.0`, `22.x`, and `24.x`
+- Tests against supported Node.js versions `20.19.0+`, `22.13.0+`, and `24.x`
 - Runs linting
 - Builds the project
 - Runs tests with coverage
