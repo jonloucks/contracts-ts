@@ -9,19 +9,16 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "require": "./index.js",
       "import": "./index.js",
       "default": "./index.js"
     },
     "./api/*": {
       "types": "./api/*.d.ts",
-      "require": "./api/*.js",
       "import": "./api/*.js",
       "default": "./api/*.js"
     },
     "./auxiliary/*": {
       "types": "./auxiliary/*.d.ts",
-      "require": "./auxiliary/*.js",
       "import": "./auxiliary/*.js",
       "default": "./auxiliary/*.js"
     }
@@ -36,7 +33,9 @@
     "build": "tsc",
     "test": "tsx --test $(find src -name '*.test.ts')",
     "test:watch": "tsx --test --watch $(find src -name '*.test.ts')",
-    "test:coverage": "npx c8 --check-coverage --lines 95 --functions 95 --branches 95 --statements 95 --reporter=lcov npx tsx --test $(find src -name '*.test.ts')",
+    "test:coverage": "mkdir -p coverage && tsx --test --experimental-test-coverage --experimental-specifier-resolution=node --test-reporter=lcov $(find src -name '*.test.ts') > coverage/lcov.info",
+    "test:coverage-report": "npx badges-ts coverage-report",
+    "test:coverage-gate": "npx badges-ts coverage-gate",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "npm run build",
@@ -70,8 +69,11 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "overrides": {
+    "minimatch": "10.2.1"
+  },
   "devDependencies": {
-    "@jonloucks/badges-ts": "^1.1.0",
+    "@jonloucks/badges-ts": "^1.4.0",
     "@types/node": "^25.3.0",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
     "@typescript-eslint/parser": "^8.56.0",
