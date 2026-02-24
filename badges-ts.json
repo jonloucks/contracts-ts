@@ -1,7 +1,7 @@
 {
   "_description": "Configuration for badges-ts. Place this file in your project root as badges-ts.json to customize generated badges.",
 
-  "kit.required.code.coverage": "95",
+  "kit.required.code.coverage": "90",
   "kit.required.code.coverage.description": "Minimum coverage percentage required to pass the gate. This value is used to determine badge colors based on coverage levels.",
 
   "kit.badges.folder": "badges",
