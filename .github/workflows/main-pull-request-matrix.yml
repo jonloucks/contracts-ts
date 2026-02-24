@@ -47,4 +47,6 @@ jobs:
         run: npm run test:coverage
 
       - name: Test with coverage gate
-        run: npm run test:coverage-gate --required-coverage=90
+        run: npm run test:coverage-gate
+        env:
+          KIT_REQUIRED_CODE_COVERAGE: 90
