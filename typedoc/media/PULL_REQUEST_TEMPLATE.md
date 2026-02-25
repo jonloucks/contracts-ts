@@ -12,6 +12,7 @@
 - [ ] Refactor (code improvement or restructuring without changing external behavior)
 - [ ] Documentation update
 - [ ] Chore (e.g., dependency updates, build tooling changes)
+- [ ] Project Version Change
 
 ## Checklist:
 
