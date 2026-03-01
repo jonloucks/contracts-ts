@@ -10,477 +10,2692 @@
     th, td { border: 1px solid #ddd; padding: 0.5em; text-align: left; }
     th { background: #f4f4f4; }
     .pct { font-weight: bold; }
+    .tooltip-cell {
+      position: relative; /* Needed for absolute positioning of the tooltip content */
+      cursor: help; /* Changes cursor to indicate interactivity */
+    }
+    .tooltip-content {
+      display: none; /* Hide the content by default */
+      position: absolute; /* Position relative to the parent cell */
+      color: blue;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 10; /* Ensure it appears above other elements */
+      right: 0;
+    /*  left: 100%; *//* Position to the right of the cell */
+     /* top: 0; */
+      white-space: nowrap; /* Prevents text from wrapping (optional) */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .tooltip-cell:hover .tooltip-content {
+      display: block; /* Show the content on hover */
+    }
+    .th-sort-asc::after { content: " ▲"; }
+    .th-sort-desc::after { content: " ▼"; }
   </style>
 </head>
 <body>
   <h1>Coverage Report</h1>
-  <h2>Totals</h2>
-  <ul>
-    <li>Lines: <span class="pct">99.7%</span></li>
-    <li>Functions: <span class="pct">97.3%</span></li>
-    <li>Branches: <span class="pct">98.5%</span></li>
-  </ul>
-  <h2>Per File</h2>
-  <table>
+  <h2>Summary</h2>
+  <table id="summaryTable" width="400px">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th style="width: 120px;">Average</th>
+        <th style="width: 120px;">Lines</th>
+        <th style="width: 120px;">Functions</th>
+        <th style="width: 120px;">Branches</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      All Files
+      <span class="tooltip-content">98.5%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.5%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.7%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.3%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.5%
+      
+    </td>
+  
+  </tr>
+        
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      src/api
+      <span class="tooltip-content">99.1%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.1%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.9%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.0%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.3%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      src/auxiliary
+      <span class="tooltip-content">99.7%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.7%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.2%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      src/impl
+      <span class="tooltip-content">97.9%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.9%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.3%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      96.6%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.9%
+      
+    </td>
+  
+  </tr>
+    </tbody>
+  </table>
+  <h2>Coverage Per File</h2>
+  <table id="perFileTable">
     <thead>
       <tr>
         <th>File</th>
-        <th>Lines %</th>
-        <th>Functions %</th>
-        <th>Branches %</th>
+        <th>Folder</th>
+        <th style="width: 120px;">Average</th>
+        <th style="width: 120px;">Lines</th>
+        <th style="width: 120px;">Functions</th>
+        <th style="width: 120px;">Branches</th>
       </tr>
     </thead>
     <tbody>
       
-        <tr>
-          <td>src/api/AutoClose.ts</td>
-          <td>98.9%</td>
-          <td>84.6%</td>
-          <td>96.0%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/AutoCloseFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/AutoOpen.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/BasicContract.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/BindStrategy.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Contract.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/ContractException.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/ContractFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Contracts.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/ContractsFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Convenience.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Open.ts</td>
-          <td>100%</td>
-          <td>80.0%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Promisor.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/PromisorFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/RatifiedContract.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>94.7%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Repository.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/RepositoryFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/api/Types.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicBoolean.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicBooleanFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicInteger.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicIntegerFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicReference.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/AtomicReferenceFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Checks.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Consumer.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Convenience.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/IdempotenState.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Idempotent.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/IdempotentFactory.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/IllegalArgumentException.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/IllegalStateException.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Predicate.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Supplier.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Transform.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/auxiliary/Validate.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>94.1%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicBoolean.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicBooleanFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicInteger.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicIntegerFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicReference.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AtomicReferenceFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AutoCloseFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AutoCloseMany.impl.ts</td>
-          <td>96.4%</td>
-          <td>90.0%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/AutoCloseOne.impl.ts</td>
-          <td>96.7%</td>
-          <td>90.0%</td>
-          <td>93.3%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/ContractFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Contracts.impl.ts</td>
-          <td>100%</td>
-          <td>97.2%</td>
-          <td>98.4%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/ContractsFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/ContractsWrapper.impl.ts</td>
-          <td>100%</td>
-          <td>92.9%</td>
-          <td>93.3%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Events.impl.ts</td>
-          <td>100%</td>
-          <td>92.9%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/ExtractorPromisor.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Idempotent.impl.ts</td>
-          <td>96.8%</td>
-          <td>100%</td>
-          <td>94.7%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/IdempotentFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Internal.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/LifeCyclePromisor.impl.ts</td>
-          <td>99.3%</td>
-          <td>100%</td>
-          <td>92.0%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Policy.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/PromisorFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Repository.impl.ts</td>
-          <td>97.4%</td>
-          <td>90.0%</td>
-          <td>93.5%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/RepositoryFactory.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/SingletonPromisor.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/Storage.impl.ts</td>
-          <td>97.6%</td>
-          <td>71.4%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/impl/ValuePromisor.impl.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/index.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
-        <tr>
-          <td>src/version.ts</td>
-          <td>100%</td>
-          <td>100%</td>
-          <td>100%</td>
-        </tr>
-      
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      AutoClose.ts
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.2%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.9%
+      <span class="tooltip-content">57-58</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      84.6%
+      <span class="tooltip-content">AUTO_CLOSE_NONE @ 14<br />anonymous_12 @ 56<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      96.0%
+      <span class="tooltip-content">line 56, block 24<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AutoCloseFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AutoOpen.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      BasicContract.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      BindStrategy.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Contract.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ContractException.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ContractFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Contracts.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ContractsFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Convenience.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      Open.ts
+      <span class="tooltip-content">93.3%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.3%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      80.0%
+      <span class="tooltip-content">anonymous_3 @ 12<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Promisor.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      PromisorFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      RatifiedContract.ts
+      <span class="tooltip-content">98.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.2%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      94.7%
+      <span class="tooltip-content">line 24, block 13<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Repository.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      RepositoryFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Types.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      src/api
+      <span class="tooltip-content">93.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicBoolean.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicBooleanFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicInteger.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicIntegerFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicReference.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicReferenceFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Checks.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Consumer.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Convenience.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      IdempotenState.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Idempotent.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      IdempotentFactory.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      IllegalArgumentException.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      IllegalStateException.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Predicate.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Supplier.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Transform.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      Validate.ts
+      <span class="tooltip-content">98.0%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/auxiliary
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.0%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      94.1%
+      <span class="tooltip-content">line 27, block 14<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicBoolean.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicBooleanFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicInteger.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicIntegerFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicReference.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AtomicReferenceFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      AutoCloseFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      AutoCloseMany.impl.ts
+      <span class="tooltip-content">95.5%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      95.5%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      96.4%
+      <span class="tooltip-content">23-24</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      90.0%
+      <span class="tooltip-content">anonymous_5 @ 22<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      AutoCloseOne.impl.ts
+      <span class="tooltip-content">93.4%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.4%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      96.7%
+      <span class="tooltip-content">15-16</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      90.0%
+      <span class="tooltip-content">anonymous_4 @ 14<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.3%
+      <span class="tooltip-content">line 23, block 11<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ContractFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      Contracts.impl.ts
+      <span class="tooltip-content">98.5%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.5%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.2%
+      <span class="tooltip-content">autoOpen @ 13<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      98.4%
+      <span class="tooltip-content">line 71, block 21<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ContractsFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      ContractsWrapper.impl.ts
+      <span class="tooltip-content">95.4%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      95.4%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      92.9%
+      <span class="tooltip-content">autoOpen @ 13<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.3%
+      <span class="tooltip-content">line 18, block 10<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      Events.impl.ts
+      <span class="tooltip-content">97.6%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.6%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      92.9%
+      <span class="tooltip-content">autoOpen @ 7<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ExtractorPromisor.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      Idempotent.impl.ts
+      <span class="tooltip-content">97.2%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.2%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      96.8%
+      <span class="tooltip-content">26-28</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      94.7%
+      <span class="tooltip-content">line 25, block 11<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      IdempotentFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Internal.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      LifeCyclePromisor.impl.ts
+      <span class="tooltip-content">97.1%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.1%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      99.3%
+      <span class="tooltip-content">54</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      92.0%
+      <span class="tooltip-content">line 50, block 18<br />line 53, block 20<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      Policy.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      PromisorFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      Repository.impl.ts
+      <span class="tooltip-content">93.7%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.7%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.4%
+      <span class="tooltip-content">15-18</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      90.0%
+      <span class="tooltip-content">anonymous_4 @ 17<br />autoOpen @ 19<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      93.5%
+      <span class="tooltip-content">line 13, block 4<br />line 14, block 5<br /></span>
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      RepositoryFactory.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      SingletonPromisor.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      Storage.impl.ts
+      <span class="tooltip-content">89.7%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      89.7%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #377526">
+      97.6%
+      <span class="tooltip-content">12</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #ff0000">
+      71.4%
+      <span class="tooltip-content">anonymous_3 @ 11<br />anonymous_4 @ 11<br /></span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      ValuePromisor.impl.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src/impl
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      index.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
+  <tr>
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      version.ts
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      src
+      <span class="tooltip-content">100%</span>
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+    
+    <td class="tooltip-cell" style="color: white; background-color: #4bc124">
+      100%
+      
+    </td>
+  
+  </tr>
     </tbody>
   </table>
 </body>
+<script>
+document.querySelectorAll('#perFileTable th').forEach((headerCell, index) => {
+    headerCell.addEventListener('click', () => {
+        const tableElement = headerCell.parentElement.parentElement.parentElement;
+        const headerRow = headerCell.parentElement;
+        const tableBody = tableElement.querySelector('tbody');
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+        // Toggle sort direction
+        const isAscending = headerCell.classList.contains('th-sort-asc');
+        
+        // Remove existing sort classes from all headers
+        headerRow.querySelectorAll('th').forEach(th => th.classList.remove('th-sort-asc', 'th-sort-desc'));
+
+        // Sort the rows
+        const sortedRows = rows.sort((a, b) => {
+            const aText = a.cells[index].textContent.trim();
+            const bText = b.cells[index].textContent.trim();
+            
+            // numeric: true handles both "10" > "2" and alphabetical sorting
+            return aText.localeCompare(bText, undefined, { numeric: true }) * (isAscending ? -1 : 1);
+        });
+
+        // Re-add rows to the body in new order
+        tableBody.append(...sortedRows);
+
+        // Update classes for visual indicators
+        headerCell.classList.toggle('th-sort-asc', !isAscending);
+        headerCell.classList.toggle('th-sort-desc', isAscending);
+    });
+});
+window.addEventListener('DOMContentLoaded', () => {
+    // Target the 1st header (index 0) and click it automatically
+    document.querySelectorAll('#perFileTable th')[0].click();
+});
+</script>
 </html>
