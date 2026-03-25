@@ -15,10 +15,15 @@ npm install @jonloucks/contracts-ts@2.0.4
 
 ## ✨ Improvements
 
-*   Dependency updates for improved compatibility and security:
-  * Updated various dependencies including eslint, @typescript-eslint/eslint-plugin, @types/node, flatted, typedoc, and @jonloucks/badges-ts.
-  * See commit log for full details.
-*   Internal: Added override to ignore TypeScript >=6.0.0 for compatibility.
+* Performance
+  * None.
+* Compatibility
+  * Dependency updates for improved compatibility and security:
+    * Updated various dependencies including eslint, @typescript-eslint/eslint-plugin, @types/node, flatted, typedoc, and @jonloucks/badges-ts.
+    * See commit log for full details.
+  * Internal: Added override to ignore TypeScript >=6.0.0 for compatibility.
+* Documentation
+  * None.
 
 ## 🐛 Bug Fixes
 *  No user-facing bug fixes in this patch.
