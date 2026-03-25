@@ -1,3 +1,3 @@
 // generated file - do not edit
 export const NAME: string = "@jonloucks/contracts-ts";
-export const VERSION: string = "2.0.3";
+export const VERSION: string = "2.0.4";
