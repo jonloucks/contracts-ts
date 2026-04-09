@@ -117,7 +117,10 @@ export class BasicContract<T> implements Contract<T> {
     this.#guarded = candidateConfig?.guarded ?? true;
     this.#name = candidateConfig?.name ?? "";
     this.#typeName = candidateConfig?.typeName ?? "";
-    this.#tester = candidateConfig?.test ?? ((x: unknown): x is DeliveryType<T> => true);
+    this.#tester = candidateConfig?.test ?? ((x: unknown): x is DeliveryType<T> => {
+      void x;
+      return true;
+    });
   }
 
   private throwCastException(): never {
