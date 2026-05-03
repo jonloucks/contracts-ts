@@ -75,7 +75,7 @@
   "devDependencies": {
     "@jonloucks/badges-ts": "^1.4.3",
     "@types/node": "^25.6.0",
-    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
     "eslint": "^10.3.0",
     "tsx": "^4.21.0",
