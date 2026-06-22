@@ -11,4 +11,4 @@ updates:
         versions:
           - ">=6.0.0" # This ignores all versions 6.0.0 and above
       - dependency-name: "@types/node"
-        versions: [">=26.0.0"]
+        versions: [">=27.0.0"]

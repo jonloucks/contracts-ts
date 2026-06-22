@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node16",
+    "types": ["node"],
     "isolatedModules": true,
     "resolveJsonModule": true,
     "baseUrl": "./src",
